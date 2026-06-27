@@ -10,7 +10,7 @@ Source:
 ```text
 content/articles/*.md
 site/assets/*
-scripts/*.mjs
+app-scripts/*.mjs
 pipeline/*.yml
 ```
 
@@ -57,7 +57,7 @@ crawler-visible HTML page under `/tutorials/*`.
 
 ## Generator Responsibilities
 
-`scripts/build-site.mjs`:
+`app-scripts/build-site.mjs`:
 
 - parses article front matter.
 - converts Markdown blocks to safe HTML.
@@ -72,8 +72,8 @@ The generator intentionally has no external package dependencies.
 
 - Edit article source in `content/articles`, not `dist/content`.
 - Edit UI behavior in `site/assets`, not `dist/app/assets`.
-- Edit generation behavior in `scripts/build-site.mjs`.
-- Edit validation in `scripts/check-site.mjs`.
+- Edit generation behavior in `app-scripts/build-site.mjs`.
+- Edit validation in `app-scripts/check-site.mjs`.
 - Edit cloud resource definitions in `../infrastructure/blog-ai-frontend`.
 
 Do not add a backend unless the product requirement cannot be met with static

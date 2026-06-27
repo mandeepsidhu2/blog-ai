@@ -35,6 +35,6 @@ single file into a catch-all manual.
 
 - OpenAI harness engineering article:
   https://openai.com/index/harness-engineering/
-- App generator: `scripts/build-site.mjs`
-- Generated-site checks: `scripts/check-site.mjs`
+- App generator: `app-scripts/build-site.mjs`
+- Generated-site checks: `app-scripts/check-site.mjs`
 - App-specific infrastructure: `../infrastructure/blog-ai-frontend`

@@ -147,12 +147,12 @@ async function main() {
   try {
     restorePlan = await stageGeneratedContent(sourceDir);
 
-    run(process.execPath, ["scripts/build-site.mjs"], {
+    run(process.execPath, ["app-scripts/build-site.mjs"], {
       env: { SITE_URL: args.siteUrl },
     });
 
     if (!args.skipCheck) {
-      run(process.execPath, ["scripts/check-site.mjs"]);
+      run(process.execPath, ["app-scripts/check-site.mjs"]);
     }
 
     const syncFlags = args.delete ? ["--delete"] : [];

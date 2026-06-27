@@ -45,7 +45,7 @@ CSS lives in `site/assets/styles.css`.
 When editing layout or interaction, preview locally:
 
 ```sh
-node scripts/serve-dist.mjs
+node app-scripts/serve-dist.mjs
 ```
 
 Inspect at least:

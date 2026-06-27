@@ -1,4 +1,4 @@
-# Personal Scripts
+# Operator Scripts
 
 This folder is for operator-only helpers. The app build, runtime, and pipeline do
 not call anything here.
@@ -20,11 +20,10 @@ Expected external source shape:
 Example:
 
 ```sh
-AWS_PROFILE=macbook-terraform node script/publish-generated-content.mjs \
+AWS_PROFILE=macbook-terraform node operator-scripts/publish-generated-content.mjs \
   --source-dir /tmp/generated-ai-content \
   --site-url https://learn.toolsite.com \
   --app-bucket blog-ai-static-349188916794 \
   --content-bucket blog-ai-content-349188916794 \
   --distribution-id E17JFCAQXSGYZW
 ```
-

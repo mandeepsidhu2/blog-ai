@@ -7,26 +7,26 @@ Quality is enforced through generated-site checks and targeted visual review.
 Build:
 
 ```sh
-SITE_URL=https://learn.toolsite.com node scripts/build-site.mjs
+SITE_URL=https://learn.toolsite.com node app-scripts/build-site.mjs
 ```
 
 Check:
 
 ```sh
-node scripts/check-site.mjs
+node app-scripts/check-site.mjs
 ```
 
 Preview:
 
 ```sh
-node scripts/serve-dist.mjs
+node app-scripts/serve-dist.mjs
 ```
 
 Use the bundled Codex Node runtime if local `node` is unavailable.
 
 ## Mechanical Checks
 
-`scripts/check-site.mjs` currently verifies:
+`app-scripts/check-site.mjs` currently verifies:
 
 - exactly five tutorial articles.
 - search index count matches manifest count.

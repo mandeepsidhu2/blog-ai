@@ -35,10 +35,10 @@ Reference:
 
 - `content/articles/`: Markdown tutorial source of truth.
 - `site/assets/`: browser JS, CSS, and project-owned visual assets.
-- `scripts/build-site.mjs`: static generator for app shell, SEO pages, content
+- `app-scripts/build-site.mjs`: static generator for app shell, SEO pages, content
   JSON, manifest, sitemap, and pipeline artifact.
-- `scripts/check-site.mjs`: mechanical generated-site checks.
-- `scripts/serve-dist.mjs`: local preview server for app and content outputs.
+- `app-scripts/check-site.mjs`: mechanical generated-site checks.
+- `app-scripts/serve-dist.mjs`: local preview server for app and content outputs.
 - `pipeline/`: CodeBuild buildspecs consumed by the app-specific Terraform
   stack in `../infrastructure/blog-ai-frontend`.
 
@@ -47,14 +47,14 @@ Reference:
 Use the bundled Node runtime if local `node` is unavailable:
 
 ```sh
-SITE_URL=https://learn.toolsite.com node scripts/build-site.mjs
-node scripts/check-site.mjs
+SITE_URL=https://learn.toolsite.com node app-scripts/build-site.mjs
+node app-scripts/check-site.mjs
 ```
 
 For visual review:
 
 ```sh
-node scripts/serve-dist.mjs
+node app-scripts/serve-dist.mjs
 ```
 
 Then inspect:
