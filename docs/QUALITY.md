@@ -22,6 +22,15 @@ Preview:
 node app-scripts/serve-dist.mjs
 ```
 
+Operator-generated article batches can be validated without uploading:
+
+```sh
+node operator/scripts/publish-generated-content.mjs \
+  --source-dir /tmp/generated-ai-content \
+  --content-bucket blog-ai-content-349188916794 \
+  --dry-run
+```
+
 Use the bundled Codex Node runtime if local `node` is unavailable.
 
 ## Mechanical Checks

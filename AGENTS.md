@@ -15,11 +15,15 @@ Reference:
 ## Execution Rules
 
 - Do not run `aws`, `terraform`, `tofu`, or any command that creates or alters
-  cloud resources.
+  cloud resources unless the user explicitly asks for publishing, deployment,
+  import, apply, or other cloud work in the current task.
 - Torch experiments are not part of this app. If a future task introduces
   torch, use MPS only and stop if MPS is unavailable.
 - Generated build output under `dist/` is disposable. Edit source files instead.
 - Keep documentation updates in the same change as source behavior changes.
+- Local model catalog, when available: `curl -s http://localhost:1234/api/v1/models`.
+  If it is unavailable, record that in operator project outputs instead of
+  blocking unrelated publishing work.
 
 ## Start Here
 
@@ -39,6 +43,11 @@ Reference:
   JSON, manifest, sitemap, and pipeline artifact.
 - `app-scripts/check-site.mjs`: mechanical generated-site checks.
 - `app-scripts/serve-dist.mjs`: local preview server for app and content outputs.
+- `operator/scripts/`: operator-only helpers used by us, not by the app runtime
+  or pipeline.
+- `operator/diy-project-blogs/`: small project workspaces for generating article
+  findings, charts, screenshots, local model catalog snapshots, and fun AI
+  tutorial ideas before publishing generated content to S3.
 - `pipeline/`: CodeBuild buildspecs consumed by the app-specific Terraform
   stack in `../infrastructure/blog-ai-frontend`.
 

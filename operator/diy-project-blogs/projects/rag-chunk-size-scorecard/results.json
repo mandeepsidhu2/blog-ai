@@ -1,0 +1,57 @@
+{
+  "modelCatalog": {
+    "url": "http://localhost:1234/api/v1/models",
+    "status": "unavailable",
+    "error": "fetch failed",
+    "modelCount": 0,
+    "models": []
+  },
+  "rows": [
+    {
+      "chunkSize": 220,
+      "coverage": 69.6,
+      "noise": 8,
+      "latency": 172.4,
+      "score": 56.2
+    },
+    {
+      "chunkSize": 360,
+      "coverage": 80.8,
+      "noise": 12.6,
+      "latency": 231.2,
+      "score": 61
+    },
+    {
+      "chunkSize": 520,
+      "coverage": 93.6,
+      "noise": 18.2,
+      "latency": 298.4,
+      "score": 66.1
+    },
+    {
+      "chunkSize": 800,
+      "coverage": 96,
+      "noise": 28,
+      "latency": 416,
+      "score": 55
+    }
+  ],
+  "metrics": [
+    {
+      "label": "220",
+      "value": 56.2
+    },
+    {
+      "label": "360",
+      "value": 61
+    },
+    {
+      "label": "520",
+      "value": 66.1
+    },
+    {
+      "label": "800",
+      "value": 55
+    }
+  ]
+}

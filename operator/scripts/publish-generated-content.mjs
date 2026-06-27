@@ -5,7 +5,7 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootDir = path.resolve(__dirname, "..");
+const rootDir = path.resolve(__dirname, "..", "..");
 const articleDir = path.join(rootDir, "content", "articles");
 const assetDir = path.join(rootDir, "content", "assets");
 const distDir = path.join(rootDir, "dist");

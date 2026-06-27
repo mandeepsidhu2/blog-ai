@@ -1,0 +1,5 @@
+requests: 1000
+stable_prefix_tokens: 1800
+dynamic_tokens: 220
+cache_hit_rate: 0.74
+relative_cost_saved: 58%

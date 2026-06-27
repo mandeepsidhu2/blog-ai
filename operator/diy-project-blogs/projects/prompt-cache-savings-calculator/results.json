@@ -1,0 +1,27 @@
+{
+  "modelCatalog": {
+    "url": "http://localhost:1234/api/v1/models",
+    "status": "unavailable",
+    "error": "fetch failed",
+    "modelCount": 0,
+    "models": []
+  },
+  "metrics": [
+    {
+      "label": "uncached",
+      "value": 100
+    },
+    {
+      "label": "cached",
+      "value": 42
+    },
+    {
+      "label": "saved",
+      "value": 58
+    },
+    {
+      "label": "hit rate",
+      "value": 74
+    }
+  ]
+}

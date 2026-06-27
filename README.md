@@ -15,6 +15,15 @@ For agent navigation and project rules, start with `AGENTS.md`, then use
 
 The content source of truth is Markdown in `content/articles`. Build output is generated and should be deployed, not edited by hand.
 
+## Operator Workspace
+
+- `app-scripts/` is app-owned build, validation, and preview tooling.
+- `operator/scripts/` is operator-only tooling used by us for manual publishing workflows.
+- `operator/diy-project-blogs/` is a workspace for small AI project experiments that can produce
+  findings, charts, screenshots, and generated article batches for S3 publishing. It may use the
+  local model catalog endpoint at `curl -s http://localhost:1234/api/v1/models` when that endpoint
+  is running.
+
 ## Commands
 
 ```sh

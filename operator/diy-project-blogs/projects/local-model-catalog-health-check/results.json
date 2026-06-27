@@ -1,0 +1,23 @@
+{
+  "modelCatalog": {
+    "url": "http://localhost:1234/api/v1/models",
+    "status": "unavailable",
+    "error": "fetch failed",
+    "modelCount": 0,
+    "models": []
+  },
+  "metrics": [
+    {
+      "label": "Endpoint",
+      "value": 0
+    },
+    {
+      "label": "Models",
+      "value": 0
+    },
+    {
+      "label": "Fallback",
+      "value": 100
+    }
+  ]
+}

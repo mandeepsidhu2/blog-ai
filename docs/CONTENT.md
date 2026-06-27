@@ -49,6 +49,9 @@ Optional SEO/asset fields:
   help readers understand the implementation. Generated content assets should
   live under `content/assets` only as temporary build input unless the article is
   intentionally committed to the repo.
+- Use `operator/diy-project-blogs` for small experiments that produce article
+  findings, charts, screenshots, or local model catalog notes before content is
+  staged and published to S3.
 
 Example:
 

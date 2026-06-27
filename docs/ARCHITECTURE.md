@@ -11,6 +11,8 @@ Source:
 content/articles/*.md
 site/assets/*
 app-scripts/*.mjs
+operator/scripts/*.mjs
+operator/diy-project-blogs/
 pipeline/*.yml
 ```
 
@@ -74,6 +76,9 @@ The generator intentionally has no external package dependencies.
 - Edit UI behavior in `site/assets`, not `dist/app/assets`.
 - Edit generation behavior in `app-scripts/build-site.mjs`.
 - Edit validation in `app-scripts/check-site.mjs`.
+- Put operator-only publishing tools in `operator/scripts`.
+- Put small article-producing experiments, charts, screenshots, and local model
+  catalog probes in `operator/diy-project-blogs`.
 - Edit cloud resource definitions in `../infrastructure/blog-ai-frontend`.
 
 Do not add a backend unless the product requirement cannot be met with static

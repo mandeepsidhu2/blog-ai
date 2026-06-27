@@ -1,0 +1,5 @@
+thresholds_tested: 0.45, 0.55, 0.65, 0.75, 0.85
+best_threshold: 0.45
+precision: 0.81
+recall: 0.86
+f1: 0.83

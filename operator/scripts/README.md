@@ -20,7 +20,7 @@ Expected external source shape:
 Example:
 
 ```sh
-AWS_PROFILE=macbook-terraform node operator-scripts/publish-generated-content.mjs \
+AWS_PROFILE=macbook-terraform node operator/scripts/publish-generated-content.mjs \
   --source-dir /tmp/generated-ai-content \
   --site-url https://learn.toolsite.com \
   --app-bucket blog-ai-static-349188916794 \

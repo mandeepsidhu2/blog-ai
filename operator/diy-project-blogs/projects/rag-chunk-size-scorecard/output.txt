@@ -1,0 +1,6 @@
+candidate_sizes: 220, 360, 520, 800
+best_chunk_size: 520
+best_score: 66.1
+coverage: 93.6
+noise_penalty: 18.2
+latency_ms: 298.4
