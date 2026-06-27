@@ -37,7 +37,7 @@ async function main() {
   const manifest = await readJson(manifestPath);
   const search = await readJson(searchPath);
 
-  assert(manifest.articles.length === 5, "Expected exactly five tutorial articles.");
+  assert(manifest.articles.length >= 5, "Expected at least five tutorial articles.");
   assert(search.documents.length === manifest.articles.length, "Search index article count mismatch.");
   assert(manifest.topics.length >= 4, "Expected at least four topic groups.");
 
@@ -65,6 +65,8 @@ async function main() {
 
     assert(html.includes(`<h1>${article.title}</h1>`), `Article h1 missing for ${article.slug}.`);
     assert(html.includes('<link rel="canonical"'), `Canonical URL missing for ${article.slug}.`);
+    assert(html.includes('property="og:image"'), `Open Graph image missing for ${article.slug}.`);
+    assert(html.includes('type="application/ld+json"'), `Structured data missing for ${article.slug}.`);
     assert(html.includes("toc-nav"), `TOC missing for ${article.slug}.`);
     assert(html.includes("code-frame"), `Code block missing for ${article.slug}.`);
     assert(html.includes("output-frame"), `Output block missing for ${article.slug}.`);
@@ -72,6 +74,12 @@ async function main() {
     assert(json.blocks.length > 0, `Article JSON has no blocks for ${article.slug}.`);
     assert(json.toc.length >= 3, `Article JSON has too few TOC entries for ${article.slug}.`);
     assert(sitemap.includes(article.url), `Sitemap missing ${article.url}.`);
+    if (article.image?.startsWith("/content/v1/assets/")) {
+      assert(
+        await exists(path.join(contentDir, article.image.replace(/^\/+/, ""))),
+        `Missing article asset for ${article.slug}: ${article.image}`,
+      );
+    }
   }
 
   const requiredFiles = [

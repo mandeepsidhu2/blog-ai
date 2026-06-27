@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
 const contentDir = path.join(rootDir, "content", "articles");
+const contentAssetsDir = path.join(rootDir, "content", "assets");
 const siteAssetsDir = path.join(rootDir, "site", "assets");
 const distDir = path.join(rootDir, "dist");
 const appDir = path.join(distDir, "app");
@@ -31,6 +32,16 @@ function escapeHtml(value = "") {
 
 function escapeAttribute(value = "") {
   return escapeHtml(value).replaceAll("\n", " ");
+}
+
+function safeJsonScript(value) {
+  return JSON.stringify(value).replaceAll("<", "\\u003c");
+}
+
+function assetUrl(value) {
+  if (!value) return "";
+  if (/^https?:\/\//.test(value)) return value;
+  return `${siteUrl}${value.startsWith("/") ? value : `/${value}`}`;
 }
 
 function slugify(value) {
@@ -69,6 +80,8 @@ function parseFrontMatter(raw, filePath) {
   metadata.readingTime = Number(metadata.readingTime);
   metadata.tags = metadata.tags.split(",").map((tag) => tag.trim()).filter(Boolean);
   metadata.topicSlug = slugify(metadata.topic);
+  metadata.image = metadata.image || "";
+  metadata.imageAlt = metadata.imageAlt || `${metadata.title} tutorial diagram`;
 
   return { metadata, markdown: match[2].trim() };
 }
@@ -319,16 +332,43 @@ async function readArticles() {
   });
 }
 
-function renderHead({ title, description, pathName, image = "/assets/hero-ai-workspace.png", type = "website" }) {
+function renderHead({
+  title,
+  description,
+  pathName,
+  image = "/assets/hero-ai-workspace.png",
+  imageAlt = "Layered AI engineering workspace with code panels and model diagrams",
+  keywords = [],
+  publishedTime = "",
+  type = "website",
+  structuredData = [],
+}) {
   const canonical = `${siteUrl}${pathName}`;
   const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
-  const imageUrl = `${siteUrl}${image}`;
+  const imageUrl = assetUrl(image);
+  const keywordMeta = keywords.length
+    ? `<meta name="keywords" content="${escapeAttribute(keywords.join(", "))}">`
+    : "";
+  const articleMeta = publishedTime
+    ? `<meta property="article:published_time" content="${escapeAttribute(publishedTime)}">
+    <meta property="article:modified_time" content="${escapeAttribute(publishedTime)}">`
+    : "";
+  const structuredDataScripts = structuredData
+    .map(
+      (schema) =>
+        `<script type="application/ld+json">${safeJsonScript({
+          "@context": "https://schema.org",
+          ...schema,
+        })}</script>`,
+    )
+    .join("\n    ");
 
   return `
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${escapeHtml(fullTitle)}</title>
     <meta name="description" content="${escapeAttribute(description)}">
+    ${keywordMeta}
     <link rel="canonical" href="${escapeAttribute(canonical)}">
     <meta property="og:site_name" content="${escapeAttribute(siteName)}">
     <meta property="og:type" content="${escapeAttribute(type)}">
@@ -336,15 +376,19 @@ function renderHead({ title, description, pathName, image = "/assets/hero-ai-wor
     <meta property="og:description" content="${escapeAttribute(description)}">
     <meta property="og:url" content="${escapeAttribute(canonical)}">
     <meta property="og:image" content="${escapeAttribute(imageUrl)}">
+    <meta property="og:image:alt" content="${escapeAttribute(imageAlt)}">
+    ${articleMeta}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${escapeAttribute(fullTitle)}">
     <meta name="twitter:description" content="${escapeAttribute(description)}">
     <meta name="twitter:image" content="${escapeAttribute(imageUrl)}">
+    <meta name="twitter:image:alt" content="${escapeAttribute(imageAlt)}">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="manifest" href="/manifest.webmanifest">
     <link rel="preload" as="image" href="/assets/hero-ai-workspace.png">
     <link rel="stylesheet" href="/assets/styles.css">
     <script type="module" src="/assets/app.js"></script>
+    ${structuredDataScripts}
   `;
 }
 
@@ -529,6 +573,51 @@ function renderRelated(article, articles) {
 function renderArticlePage(article, articles) {
   const tags = article.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
   const related = renderRelated(article, articles);
+  const articleImage = article.image || "/assets/hero-ai-workspace.png";
+  const articleImageAlt = article.imageAlt || `${article.title} tutorial diagram`;
+  const articleSchema = {
+    "@type": "TechArticle",
+    headline: article.title,
+    description: article.description,
+    image: [assetUrl(articleImage)],
+    datePublished: article.date,
+    dateModified: article.date,
+    author: {
+      "@type": "Organization",
+      name: siteName,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteName,
+    },
+    mainEntityOfPage: article.canonicalUrl,
+    keywords: article.tags.join(", "),
+    articleSection: article.topic,
+    proficiencyLevel: article.level,
+  };
+  const breadcrumbSchema = {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Tutorials",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: article.topic,
+        item: `${siteUrl}/topics/${article.topicSlug}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: article.title,
+        item: article.canonicalUrl,
+      },
+    ],
+  };
 
   return `<!doctype html>
 <html lang="en">
@@ -536,7 +625,12 @@ function renderArticlePage(article, articles) {
     title: article.title,
     description: article.description,
     pathName: article.url,
+    image: articleImage,
+    imageAlt: articleImageAlt,
+    keywords: article.tags,
+    publishedTime: article.date,
     type: "article",
+    structuredData: [articleSchema, breadcrumbSchema],
   })}</head>
 <body data-page="article" data-article-slug="${escapeAttribute(article.slug)}">
   ${renderHeader("tutorials")}
@@ -557,6 +651,9 @@ function renderArticlePage(article, articles) {
         </div>
         <div class="tag-row">${tags}</div>
       </header>
+      <figure class="article-hero-image">
+        <img src="${escapeAttribute(articleImage)}" alt="${escapeAttribute(articleImageAlt)}" width="1600" height="900">
+      </figure>
       <div class="article-content">
         ${article.html}
       </div>
@@ -603,6 +700,8 @@ function buildManifest(articles, topics) {
       date: article.date,
       readingTime: article.readingTime,
       tags: article.tags,
+      image: article.image,
+      imageAlt: article.imageAlt,
       url: article.url,
       contentUrl: `/content/v1/articles/${article.slug}/index.json`,
     })),
@@ -637,6 +736,8 @@ function buildArticleJson(article) {
     date: article.date,
     readingTime: article.readingTime,
     tags: article.tags,
+    image: article.image,
+    imageAlt: article.imageAlt,
     canonicalUrl: article.canonicalUrl,
     sourcePath: article.sourcePath,
     toc: article.toc,
@@ -653,6 +754,7 @@ function renderSitemap(articles, topics) {
     })),
     ...articles.map((article) => ({
       loc: article.canonicalUrl,
+      lastmod: article.date,
       priority: "0.9",
     })),
   ];
@@ -663,6 +765,7 @@ ${urls
   .map(
     (url) => `  <url>
     <loc>${escapeHtml(url.loc)}</loc>
+    ${url.lastmod ? `<lastmod>${escapeHtml(url.lastmod)}</lastmod>` : ""}
     <priority>${url.priority}</priority>
   </url>`,
   )
@@ -686,6 +789,18 @@ async function copyAssets() {
   await fs.cp(siteAssetsDir, path.join(appDir, "assets"), { recursive: true });
 }
 
+async function copyContentAssets() {
+  try {
+    await fs.access(contentAssetsDir);
+  } catch {
+    return;
+  }
+
+  await fs.cp(contentAssetsDir, path.join(contentOutDir, "content", "v1", "assets"), {
+    recursive: true,
+  });
+}
+
 async function copyPipelineArtifact() {
   await fs.rm(pipelineDir, { recursive: true, force: true });
   await fs.mkdir(pipelineDir, { recursive: true });
@@ -704,6 +819,7 @@ async function main() {
   const searchIndex = buildSearchIndex(articles);
 
   await copyAssets();
+  await copyContentAssets();
 
   await writeText(path.join(appDir, "index.html"), renderHomePage(articles, topics));
   await writeText(

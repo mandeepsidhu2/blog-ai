@@ -476,6 +476,22 @@ input {
   line-height: 1.65;
 }
 
+.article-hero-image {
+  overflow: hidden;
+  margin: 0 0 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #eef2ec;
+}
+
+.article-hero-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 .article-content {
   color: #26332d;
   font-size: 1.02rem;
