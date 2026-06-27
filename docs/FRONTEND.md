@@ -2,6 +2,10 @@
 
 The frontend is a static, editorial tutorial interface.
 
+The LangGraph agent console is a separate static tool at `/agent-console/`.
+Its CSS and JavaScript live under `site/agent-console/` and must not depend on
+the tutorial app bundle in `site/assets/app.js`.
+
 ## Design Goals
 
 - fast first load.
@@ -40,6 +44,11 @@ Browser behavior lives in `site/assets/app.js`:
 
 CSS lives in `site/assets/styles.css`.
 
+Agent-console behavior lives in `site/agent-console/console.js`, with styling
+in `site/agent-console/console.css`. Keep its graph state, code generation,
+dragging, tool list, and download behavior isolated from tutorial search and
+article interactions.
+
 ## Visual Review
 
 When editing layout or interaction, preview locally:
@@ -52,6 +61,8 @@ Inspect at least:
 
 - desktop home.
 - mobile home.
+- desktop `/agent-console/`.
+- mobile `/agent-console/`.
 - one article page.
 - search dialog.
 - code and output blocks.

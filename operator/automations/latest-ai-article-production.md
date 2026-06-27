@@ -107,6 +107,27 @@ When an experiment uses LM Studio or another local model service:
 Torch experiments, if introduced, must use MPS only. Stop if MPS is unavailable.
 Do not run CUDA or CPU torch experiments.
 
+## Sandbox And Local Tooling Boundary
+
+This automation is allowed to request and use outside-sandbox execution when
+the default sandbox blocks work that is required for the scheduled run. Allowed
+uses include:
+
+- current public web research and source verification.
+- canonical Node-based public-content gates, site builds, and generated-site
+  checks.
+- local runtime discovery, such as finding the Codex app Node binary when
+  `node` is not on `PATH`.
+- local evidence scripts and local model service probes that follow the model
+  hygiene rules above.
+- AWS CLI publishing steps allowed by the deployment boundary below, after all
+  mandatory gates have passed.
+
+Outside-sandbox execution is not a blanket bypass. Record why escalation was
+needed in the run report, use the narrowest command that proves the step, and
+do not use escalation to skip content gates, fabricate evidence, weaken model
+hygiene, or run unrelated system commands.
+
 ## Candidate Output
 
 Use a temporary batch directory outside committed article source by default:
@@ -120,7 +141,8 @@ Use a temporary batch directory outside committed article source by default:
 
 Only copy a candidate into `content/articles` and `content/assets` when the run
 intentionally promotes it as a committed seed article. Routine generated
-articles should stay in the temporary batch and be validated with:
+articles should stay in the temporary batch, be validated, and then be
+published through the generated-content publishing helper when they pass.
 
 ```sh
 node operator/scripts/check-public-content.mjs \
@@ -131,28 +153,54 @@ node operator/scripts/check-public-content.mjs \
 
 ## Quality Gates
 
-Before any candidate is considered ready:
+Before any candidate is published:
 
 1. Run `node operator/scripts/check-public-content.mjs` against the candidate
    batch.
-2. If candidates are promoted into committed site content, run:
+2. Stage the generated batch and run the site build/check through
+   `operator/scripts/publish-generated-content.mjs`. This helper must not be
+   called with `--skip-check`.
+3. If candidates are promoted into committed site content instead of routine
+   generated publishing, run:
 
 ```sh
 SITE_URL=https://learn.toolsite.com node app-scripts/build-site.mjs
 node app-scripts/check-site.mjs
 ```
 
-3. Scan generated output for blocked internal labels and local diagnostics.
-4. Spot-check article HTML and JSON. Use browser review when layout or visual
+4. Scan generated output for blocked internal labels and local diagnostics.
+5. Spot-check article HTML and JSON. Use browser review when layout or visual
    changes are involved.
 
 If a gate fails, do not weaken the gate. Fix, exclude, or report the candidate.
 
 ## Deployment Boundary
 
-This automation must not run AWS, Terraform, OpenTofu, or any cloud-mutating
-command. It must not publish to S3, invalidate CloudFront, commit, or push
-unless the user explicitly updates this prompt to authorize that behavior.
+This automation is authorized to publish passing generated article batches to
+the production S3-backed website. After the mandatory public-content gate,
+site build, and generated-site check pass, publish with:
+
+```sh
+node operator/scripts/publish-generated-content.mjs \
+  --source-dir /tmp/blog-ai-article-run-<timestamp> \
+  --site-url https://learn.toolsite.com \
+  --content-bucket blog-ai-content-349188916794 \
+  --app-bucket blog-ai-static-349188916794 \
+  --distribution-id E17JFCAQXSGYZW
+```
+
+The helper stages generated articles/assets, rebuilds the site, runs
+`app-scripts/check-site.mjs`, syncs `dist/content` to the content bucket, syncs
+`dist/app` to the app bucket, invalidates the CloudFront distribution so the
+website observes the uploaded S3 objects, and restores staged source files. Do
+not use `--skip-check`.
+
+AWS CLI commands are allowed only for this publishing workflow and read-only
+verification of uploaded objects. This includes the S3 syncs and the CloudFront
+invalidation performed by the publishing helper. Do not run Terraform,
+OpenTofu, unrelated AWS resource mutation, git commit, or git push unless this
+prompt is updated again to authorize that behavior. Do not publish if any gate
+fails.
 
 The normal output is a concise run report with:
 
@@ -161,4 +209,5 @@ The normal output is a concise run report with:
 - which candidates passed or failed.
 - experiment artifacts created.
 - checks run.
+- S3 publishing result and any uploaded-object verification.
 - any intervention needed.

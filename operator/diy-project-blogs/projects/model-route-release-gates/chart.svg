@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" role="img" aria-labelledby="title desc">
+  <title id="title">Model route release gate comparison</title>
+  <desc id="desc">Bar chart comparing pass rate and quality across model routing policies.</desc>
+  <rect width="760" height="360" fill="#f8fafc"/>
+  <text x="48" y="44" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#111827">Model routing release gates</text>
+  <text x="48" y="72" font-family="Arial, sans-serif" font-size="14" fill="#475569">Green is release pass rate; purple is mean quality.</text>
+  <line x1="82" y1="250" x2="690" y2="250" stroke="#334155" stroke-width="1"/>
+  <line x1="82" y1="70" x2="82" y2="250" stroke="#334155" stroke-width="1"/>
+  
+  <g>
+    <rect x="115" y="250" width="54" height="0" fill="#059669"/>
+    <rect x="177" y="140" width="54" height="110" fill="#7c3aed"/>
+    <text x="173" y="282" text-anchor="middle" font-size="13">cheapest-first</text>
+    <text x="142" y="238" text-anchor="middle" font-size="12">0</text>
+    <text x="204" y="128" text-anchor="middle" font-size="12">0.611</text>
+  </g>
+  <g>
+    <rect x="295" y="70" width="54" height="180" fill="#059669"/>
+    <rect x="357" y="76" width="54" height="174" fill="#7c3aed"/>
+    <text x="353" y="282" text-anchor="middle" font-size="13">frontier-only</text>
+    <text x="322" y="58" text-anchor="middle" font-size="12">1</text>
+    <text x="384" y="64" text-anchor="middle" font-size="12">0.968</text>
+  </g>
+  <g>
+    <rect x="475" y="85" width="54" height="165" fill="#059669"/>
+    <rect x="537" y="87" width="54" height="163" fill="#7c3aed"/>
+    <text x="533" y="282" text-anchor="middle" font-size="13">risk-aware-router</text>
+    <text x="502" y="73" text-anchor="middle" font-size="12">0.917</text>
+    <text x="564" y="75" text-anchor="middle" font-size="12">0.906</text>
+  </g>
+  <rect x="510" y="38" width="14" height="14" fill="#059669"/><text x="532" y="50" font-family="Arial, sans-serif" font-size="13" fill="#334155">pass rate</text>
+  <rect x="510" y="60" width="14" height="14" fill="#7c3aed"/><text x="532" y="72" font-family="Arial, sans-serif" font-size="13" fill="#334155">mean quality</text>
+</svg>

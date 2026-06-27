@@ -10,6 +10,7 @@ Source:
 ```text
 content/articles/*.md
 site/assets/*
+site/agent-console/*
 app-scripts/*.mjs
 operator/scripts/*.mjs
 operator/diy-project-blogs/
@@ -28,6 +29,7 @@ dist/pipeline-artifact/
 
 - home page.
 - topic pages.
+- isolated LangGraph agent console under `/agent-console/`.
 - CSS and browser JavaScript.
 - hero/OG visual asset.
 - favicon, manifest, robots, sitemap.
@@ -49,6 +51,8 @@ objects when needed:
 ```text
 /assets/app.js
 /assets/styles.css
+/agent-console/console.js
+/agent-console/console.css
 /content/v1/manifest.json
 /content/v1/search-index.json
 /content/v1/articles/<slug>/index.json
@@ -67,6 +71,7 @@ crawler-visible HTML page under `/tutorials/*`.
 - emits SEO article pages.
 - emits content JSON payloads.
 - emits topic pages, sitemap, robots, manifest, and pipeline artifact.
+- emits the isolated `/agent-console/` app route and copies its separate assets.
 
 The generator intentionally has no external package dependencies.
 
@@ -74,6 +79,9 @@ The generator intentionally has no external package dependencies.
 
 - Edit article source in `content/articles`, not `dist/content`.
 - Edit UI behavior in `site/assets`, not `dist/app/assets`.
+- Edit the LangGraph agent console in `site/agent-console`, not `dist/app`.
+  Its browser logic must stay separate from tutorial search, article rendering,
+  and content payload logic.
 - Edit generation behavior in `app-scripts/build-site.mjs`.
 - Edit validation in `app-scripts/check-site.mjs`.
 - Put operator-only publishing tools in `operator/scripts`.

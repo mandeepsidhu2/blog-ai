@@ -56,6 +56,8 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
 
 - at least one approved tutorial article.
 - search index count matches manifest count.
+- isolated agent console route exists under `/agent-console/`, uses its own
+  console assets, and does not load tutorial app CSS or JavaScript.
 - topic groups exist.
 - home page has SEO metadata and visual asset.
 - sitemap exists and covers articles.

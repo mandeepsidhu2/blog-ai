@@ -1,0 +1,4 @@
+cases: 8
+shared-transcript: score=0.641 citationRecall=0.715 leakRisk=0.405 unsafeBlock=0.536 tokens=2630 releaseReady=0/8
+compact-brief: score=0.615 citationRecall=0.498 leakRisk=0.081 unsafeBlock=0.664 tokens=815 releaseReady=0/8
+contract-brief: score=0.812 citationRecall=0.916 leakRisk=0.020 unsafeBlock=0.929 tokens=1157 releaseReady=8/8

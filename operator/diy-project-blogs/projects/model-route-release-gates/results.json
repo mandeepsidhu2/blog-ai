@@ -1,0 +1,522 @@
+{
+  "runAt": "2026-06-27T16:10:33.360Z",
+  "releaseGate": {
+    "minQualityLowRisk": 0.78,
+    "minQualityHighRisk": 0.84,
+    "maxLatencyMs": 4200,
+    "maxCostUsdPerCase": 2,
+    "unsafeWritesMustBeBlocked": true
+  },
+  "models": {
+    "localFast": {
+      "qualityBase": 0.72,
+      "reasoningLift": 0.08,
+      "p50Ms": 520,
+      "p95Ms": 950,
+      "costPer1k": 0
+    },
+    "hostedSmall": {
+      "qualityBase": 0.8,
+      "reasoningLift": 0.12,
+      "p50Ms": 700,
+      "p95Ms": 1350,
+      "costPer1k": 0.08
+    },
+    "hostedReasoning": {
+      "qualityBase": 0.9,
+      "reasoningLift": 0.24,
+      "p50Ms": 1550,
+      "p95Ms": 3600,
+      "costPer1k": 0.32
+    }
+  },
+  "cases": [
+    {
+      "id": "classify-ticket",
+      "difficulty": 0.22,
+      "risk": 0.12,
+      "write": false,
+      "needsCitations": false
+    },
+    {
+      "id": "summarize-runbook",
+      "difficulty": 0.36,
+      "risk": 0.25,
+      "write": false,
+      "needsCitations": true
+    },
+    {
+      "id": "draft-customer-reply",
+      "difficulty": 0.48,
+      "risk": 0.42,
+      "write": false,
+      "needsCitations": true
+    },
+    {
+      "id": "triage-security-alert",
+      "difficulty": 0.66,
+      "risk": 0.78,
+      "write": false,
+      "needsCitations": true
+    },
+    {
+      "id": "plan-code-migration",
+      "difficulty": 0.74,
+      "risk": 0.61,
+      "write": false,
+      "needsCitations": true
+    },
+    {
+      "id": "repair-test-failure",
+      "difficulty": 0.68,
+      "risk": 0.55,
+      "write": true,
+      "needsCitations": true
+    },
+    {
+      "id": "update-billing-record",
+      "difficulty": 0.4,
+      "risk": 0.88,
+      "write": true,
+      "needsCitations": true
+    },
+    {
+      "id": "generate-weekly-report",
+      "difficulty": 0.32,
+      "risk": 0.3,
+      "write": false,
+      "needsCitations": true
+    },
+    {
+      "id": "approve-index-refresh",
+      "difficulty": 0.58,
+      "risk": 0.67,
+      "write": true,
+      "needsCitations": true
+    },
+    {
+      "id": "answer-product-question",
+      "difficulty": 0.27,
+      "risk": 0.22,
+      "write": false,
+      "needsCitations": true
+    },
+    {
+      "id": "investigate-outage",
+      "difficulty": 0.78,
+      "risk": 0.72,
+      "write": false,
+      "needsCitations": true
+    },
+    {
+      "id": "merge-dependency-patch",
+      "difficulty": 0.7,
+      "risk": 0.69,
+      "write": true,
+      "needsCitations": true
+    }
+  ],
+  "aggregates": [
+    {
+      "policy": "cheapest-first",
+      "passRate": 0,
+      "meanQuality": 0.611,
+      "p95LatencyMs": 1239,
+      "totalCostUsd": 0.2362,
+      "unsafeWriteFailures": 4,
+      "modelMix": {
+        "localFast": 11,
+        "hostedSmall": 1,
+        "hostedReasoning": 0
+      }
+    },
+    {
+      "policy": "frontier-only",
+      "passRate": 1,
+      "meanQuality": 0.968,
+      "p95LatencyMs": 3513,
+      "totalCostUsd": 13.4178,
+      "unsafeWriteFailures": 0,
+      "modelMix": {
+        "localFast": 0,
+        "hostedSmall": 0,
+        "hostedReasoning": 12
+      }
+    },
+    {
+      "policy": "risk-aware-router",
+      "passRate": 0.917,
+      "meanQuality": 0.906,
+      "p95LatencyMs": 2966,
+      "totalCostUsd": 9.3097,
+      "unsafeWriteFailures": 0,
+      "modelMix": {
+        "localFast": 1,
+        "hostedSmall": 4,
+        "hostedReasoning": 7
+      }
+    }
+  ],
+  "rows": [
+    {
+      "caseId": "classify-ticket",
+      "policy": "cheapest-first",
+      "model": "localFast",
+      "quality": 0.72,
+      "latencyMs": 866,
+      "costUsd": 0,
+      "blockedUnsafeWrite": true,
+      "pass": false
+    },
+    {
+      "caseId": "classify-ticket",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 0.931,
+      "latencyMs": 3295,
+      "costUsd": 0.8333,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "classify-ticket",
+      "policy": "risk-aware-router",
+      "model": "localFast",
+      "quality": 0.724,
+      "latencyMs": 544,
+      "costUsd": 0,
+      "blockedUnsafeWrite": true,
+      "pass": false
+    },
+    {
+      "caseId": "summarize-runbook",
+      "policy": "cheapest-first",
+      "model": "localFast",
+      "quality": 0.642,
+      "latencyMs": 700,
+      "costUsd": 0,
+      "blockedUnsafeWrite": true,
+      "pass": false
+    },
+    {
+      "caseId": "summarize-runbook",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 0.962,
+      "latencyMs": 2713,
+      "costUsd": 0.9514,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "summarize-runbook",
+      "policy": "risk-aware-router",
+      "model": "hostedSmall",
+      "quality": 0.813,
+      "latencyMs": 805,
+      "costUsd": 0.1418,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "draft-customer-reply",
+      "policy": "cheapest-first",
+      "model": "localFast",
+      "quality": 0.633,
+      "latencyMs": 574,
+      "costUsd": 0,
+      "blockedUnsafeWrite": true,
+      "pass": false
+    },
+    {
+      "caseId": "draft-customer-reply",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 0.957,
+      "latencyMs": 2282,
+      "costUsd": 1.0694,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "draft-customer-reply",
+      "policy": "risk-aware-router",
+      "model": "hostedSmall",
+      "quality": 0.827,
+      "latencyMs": 835,
+      "costUsd": 0.1714,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "triage-security-alert",
+      "policy": "cheapest-first",
+      "model": "localFast",
+      "quality": 0.633,
+      "latencyMs": 539,
+      "costUsd": 0,
+      "blockedUnsafeWrite": true,
+      "pass": false
+    },
+    {
+      "caseId": "triage-security-alert",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 0.986,
+      "latencyMs": 2815,
+      "costUsd": 1.2768,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "triage-security-alert",
+      "policy": "risk-aware-router",
+      "model": "hostedReasoning",
+      "quality": 0.992,
+      "latencyMs": 1684,
+      "costUsd": 1.2768,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "plan-code-migration",
+      "policy": "cheapest-first",
+      "model": "localFast",
+      "quality": 0.635,
+      "latencyMs": 807,
+      "costUsd": 0,
+      "blockedUnsafeWrite": true,
+      "pass": false
+    },
+    {
+      "caseId": "plan-code-migration",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 1,
+      "latencyMs": 1657,
+      "costUsd": 1.2739,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "plan-code-migration",
+      "policy": "risk-aware-router",
+      "model": "hostedReasoning",
+      "quality": 1,
+      "latencyMs": 2480,
+      "costUsd": 1.2739,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "repair-test-failure",
+      "policy": "cheapest-first",
+      "model": "localFast",
+      "quality": 0.513,
+      "latencyMs": 766,
+      "costUsd": 0,
+      "blockedUnsafeWrite": false,
+      "pass": false
+    },
+    {
+      "caseId": "repair-test-failure",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 1,
+      "latencyMs": 3513,
+      "costUsd": 1.2221,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "repair-test-failure",
+      "policy": "risk-aware-router",
+      "model": "hostedReasoning",
+      "quality": 0.999,
+      "latencyMs": 2285,
+      "costUsd": 1.2221,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "update-billing-record",
+      "policy": "cheapest-first",
+      "model": "localFast",
+      "quality": 0.46,
+      "latencyMs": 808,
+      "costUsd": 0,
+      "blockedUnsafeWrite": false,
+      "pass": false
+    },
+    {
+      "caseId": "update-billing-record",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 0.907,
+      "latencyMs": 2047,
+      "costUsd": 1.1558,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "update-billing-record",
+      "policy": "risk-aware-router",
+      "model": "hostedReasoning",
+      "quality": 0.892,
+      "latencyMs": 2966,
+      "costUsd": 1.1558,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "generate-weekly-report",
+      "policy": "cheapest-first",
+      "model": "localFast",
+      "quality": 0.632,
+      "latencyMs": 628,
+      "costUsd": 0,
+      "blockedUnsafeWrite": true,
+      "pass": false
+    },
+    {
+      "caseId": "generate-weekly-report",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 0.953,
+      "latencyMs": 2453,
+      "costUsd": 0.9427,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "generate-weekly-report",
+      "policy": "risk-aware-router",
+      "model": "hostedSmall",
+      "quality": 0.825,
+      "latencyMs": 719,
+      "costUsd": 0.1397,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "approve-index-refresh",
+      "policy": "cheapest-first",
+      "model": "localFast",
+      "quality": 0.484,
+      "latencyMs": 562,
+      "costUsd": 0,
+      "blockedUnsafeWrite": false,
+      "pass": false
+    },
+    {
+      "caseId": "approve-index-refresh",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 0.98,
+      "latencyMs": 2924,
+      "costUsd": 1.199,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "approve-index-refresh",
+      "policy": "risk-aware-router",
+      "model": "hostedReasoning",
+      "quality": 0.982,
+      "latencyMs": 1793,
+      "costUsd": 1.199,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "answer-product-question",
+      "policy": "cheapest-first",
+      "model": "localFast",
+      "quality": 0.653,
+      "latencyMs": 778,
+      "costUsd": 0,
+      "blockedUnsafeWrite": true,
+      "pass": false
+    },
+    {
+      "caseId": "answer-product-question",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 0.939,
+      "latencyMs": 2691,
+      "costUsd": 0.8909,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "answer-product-question",
+      "policy": "risk-aware-router",
+      "model": "hostedSmall",
+      "quality": 0.829,
+      "latencyMs": 932,
+      "costUsd": 0.1267,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "investigate-outage",
+      "policy": "cheapest-first",
+      "model": "hostedSmall",
+      "quality": 0.814,
+      "latencyMs": 1239,
+      "costUsd": 0.2362,
+      "blockedUnsafeWrite": true,
+      "pass": false
+    },
+    {
+      "caseId": "investigate-outage",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 1,
+      "latencyMs": 2328,
+      "costUsd": 1.3286,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "investigate-outage",
+      "policy": "risk-aware-router",
+      "model": "hostedReasoning",
+      "quality": 1,
+      "latencyMs": 2240,
+      "costUsd": 1.3286,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "merge-dependency-patch",
+      "policy": "cheapest-first",
+      "model": "localFast",
+      "quality": 0.515,
+      "latencyMs": 768,
+      "costUsd": 0,
+      "blockedUnsafeWrite": false,
+      "pass": false
+    },
+    {
+      "caseId": "merge-dependency-patch",
+      "policy": "frontier-only",
+      "model": "hostedReasoning",
+      "quality": 1,
+      "latencyMs": 3119,
+      "costUsd": 1.2739,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    },
+    {
+      "caseId": "merge-dependency-patch",
+      "policy": "risk-aware-router",
+      "model": "hostedReasoning",
+      "quality": 0.989,
+      "latencyMs": 2277,
+      "costUsd": 1.2739,
+      "blockedUnsafeWrite": true,
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+cases: 12
+cheapest-first: passRate=0.000 quality=0.611 p95LatencyMs=1239 costUsd=0.2362 unsafeWriteFailures=4 mix={"localFast":11,"hostedSmall":1,"hostedReasoning":0}
+frontier-only: passRate=1.000 quality=0.968 p95LatencyMs=3513 costUsd=13.4178 unsafeWriteFailures=0 mix={"localFast":0,"hostedSmall":0,"hostedReasoning":12}
+risk-aware-router: passRate=0.917 quality=0.906 p95LatencyMs=2966 costUsd=9.3097 unsafeWriteFailures=0 mix={"localFast":1,"hostedSmall":4,"hostedReasoning":7}

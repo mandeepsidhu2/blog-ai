@@ -18,10 +18,16 @@ static generator, or the CodeBuild pipeline.
   prompt before running.
 - Treat `evidenceMode` as internal only. Topic and tags remain customer-facing
   domain metadata and may overlap across evidence modes.
+- Automations may request outside-sandbox execution only when their prompt
+  explicitly allows it and the step is required for the run. Record the reason
+  in the run report.
 - Do not publish weak, incomplete, failing, local-diagnostic, or hype-driven
   content. A run that publishes nothing is acceptable if the evidence is not
   strong enough.
-- Do not run `aws`, `terraform`, `tofu`, or cloud-mutating commands unless the
-  user explicitly changes the automation prompt to allow deployment.
+- Do not run `terraform`, `tofu`, or unrelated cloud-mutating commands unless
+  the user explicitly changes the automation prompt to allow that work.
+- AWS CLI commands are allowed only for automations whose prompt explicitly
+  authorizes them, and only for the exact publishing or verification workflow
+  described by that prompt.
 - Do not commit or push automatically unless the automation prompt is updated to
   require that behavior.

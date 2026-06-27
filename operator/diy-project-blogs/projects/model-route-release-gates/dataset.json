@@ -1,0 +1,86 @@
+[
+  {
+    "id": "classify-ticket",
+    "difficulty": 0.22,
+    "risk": 0.12,
+    "write": false,
+    "needsCitations": false
+  },
+  {
+    "id": "summarize-runbook",
+    "difficulty": 0.36,
+    "risk": 0.25,
+    "write": false,
+    "needsCitations": true
+  },
+  {
+    "id": "draft-customer-reply",
+    "difficulty": 0.48,
+    "risk": 0.42,
+    "write": false,
+    "needsCitations": true
+  },
+  {
+    "id": "triage-security-alert",
+    "difficulty": 0.66,
+    "risk": 0.78,
+    "write": false,
+    "needsCitations": true
+  },
+  {
+    "id": "plan-code-migration",
+    "difficulty": 0.74,
+    "risk": 0.61,
+    "write": false,
+    "needsCitations": true
+  },
+  {
+    "id": "repair-test-failure",
+    "difficulty": 0.68,
+    "risk": 0.55,
+    "write": true,
+    "needsCitations": true
+  },
+  {
+    "id": "update-billing-record",
+    "difficulty": 0.4,
+    "risk": 0.88,
+    "write": true,
+    "needsCitations": true
+  },
+  {
+    "id": "generate-weekly-report",
+    "difficulty": 0.32,
+    "risk": 0.3,
+    "write": false,
+    "needsCitations": true
+  },
+  {
+    "id": "approve-index-refresh",
+    "difficulty": 0.58,
+    "risk": 0.67,
+    "write": true,
+    "needsCitations": true
+  },
+  {
+    "id": "answer-product-question",
+    "difficulty": 0.27,
+    "risk": 0.22,
+    "write": false,
+    "needsCitations": true
+  },
+  {
+    "id": "investigate-outage",
+    "difficulty": 0.78,
+    "risk": 0.72,
+    "write": false,
+    "needsCitations": true
+  },
+  {
+    "id": "merge-dependency-patch",
+    "difficulty": 0.7,
+    "risk": 0.69,
+    "write": true,
+    "needsCitations": true
+  }
+]

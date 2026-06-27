@@ -66,8 +66,18 @@ async function main() {
   assert(home.includes("/assets/hero-ai-workspace.png"), "Home page visual asset is missing.");
   assert(!home.includes("undefined"), "Home page contains undefined output.");
 
+  const agentConsole = await readText(path.join(appDir, "agent-console", "index.html"));
+  assert(agentConsole.includes("LangGraph Agent Console"), "Agent console page title is missing.");
+  assert(agentConsole.includes("/agent-console/console.css"), "Agent console CSS is missing.");
+  assert(agentConsole.includes("/agent-console/console.js"), "Agent console JS is missing.");
+  assert(!agentConsole.includes("/assets/app.js"), "Agent console must not load the tutorial app bundle.");
+  assert(!agentConsole.includes("/assets/styles.css"), "Agent console must not load the tutorial stylesheet.");
+  assert(!JSON.stringify(manifest).includes("agent-console"), "Agent console must stay out of content manifest.");
+  assert(!JSON.stringify(search).includes("agent-console"), "Agent console must stay out of search index.");
+
   const sitemap = await readText(path.join(appDir, "sitemap.xml"));
   assert(sitemap.includes("<urlset"), "Sitemap is not valid XML sitemap output.");
+  assert(sitemap.includes("/agent-console/"), "Sitemap missing agent console route.");
 
   for (const article of manifest.articles) {
     const articleHtmlPath = path.join(contentDir, article.url, "index.html");
@@ -119,8 +129,11 @@ async function main() {
     path.join(appDir, "assets", "styles.css"),
     path.join(appDir, "assets", "app.js"),
     path.join(appDir, "assets", "hero-ai-workspace.png"),
+    path.join(appDir, "agent-console", "console.css"),
+    path.join(appDir, "agent-console", "console.js"),
     path.join(appDir, "robots.txt"),
     path.join(distDir, "pipeline-artifact", "app", "index.html"),
+    path.join(distDir, "pipeline-artifact", "app", "agent-console", "index.html"),
     path.join(distDir, "pipeline-artifact", "content", "content", "v1", "manifest.json"),
   ];
 
