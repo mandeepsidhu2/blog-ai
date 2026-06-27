@@ -12,6 +12,19 @@ and failed probes. Public articles are not. If a project documents our local
 environment or a failed local dependency, keep it internal with `publish: false`
 and create a customer-safe tutorial from the broader lesson.
 
+Before any generated article batch is published, run the mandatory public
+content gate:
+
+```sh
+node operator/scripts/check-public-content.mjs \
+  --articles-dir /tmp/generated-ai-content/articles \
+  --assets-dir /tmp/generated-ai-content/assets \
+  --source-label generated-ai-content
+```
+
+If it fails, do not publish the batch. Report the failing articles and fix or
+exclude them.
+
 Local model catalog endpoint, when running:
 
 ```sh

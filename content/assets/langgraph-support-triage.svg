@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LangGraph support triage workflow</title>
+  <desc id="desc">Diagram showing typed support ticket state moving through classify, prioritize, route, human review, and draft reply nodes.</desc>
+  <rect width="1600" height="900" fill="#f7f2e8"/>
+  <rect x="90" y="78" width="1420" height="748" rx="26" fill="#13251f"/>
+  <text x="150" y="156" fill="#f5d46c" font-family="Arial, sans-serif" font-size="54" font-weight="800">LangGraph Support Triage</text>
+  <g fill="#fbf8ed" stroke="#86c6aa" stroke-width="5" font-family="Arial, sans-serif">
+    <rect x="150" y="300" width="220" height="130" rx="14"/>
+    <rect x="470" y="300" width="220" height="130" rx="14"/>
+    <rect x="790" y="300" width="220" height="130" rx="14"/>
+    <rect x="1110" y="240" width="250" height="120" rx="14"/>
+    <rect x="1110" y="460" width="250" height="120" rx="14"/>
+  </g>
+  <g fill="#10241f" font-family="Arial, sans-serif" font-size="28" font-weight="800" text-anchor="middle">
+    <text x="260" y="378">Classify</text>
+    <text x="580" y="378">Prioritize</text>
+    <text x="900" y="378">Route</text>
+    <text x="1235" y="313">Human review</text>
+    <text x="1235" y="533">Draft reply</text>
+  </g>
+  <g stroke="#f5d46c" stroke-width="8" stroke-linecap="round" fill="none">
+    <path d="M375 365h85"/>
+    <path d="M695 365h85"/>
+    <path d="M1015 350l85-42"/>
+    <path d="M1015 388l85 84"/>
+  </g>
+  <text x="150" y="690" fill="#d7e7dc" font-family="Arial, sans-serif" font-size="28">Production gate: audit every state transition and track escalation precision, correction rate, and rollback path.</text>
+</svg>

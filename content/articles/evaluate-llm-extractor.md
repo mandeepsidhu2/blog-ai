@@ -6,6 +6,8 @@ level: Intermediate
 date: 2026-06-27
 readingTime: 22
 tags: evaluation, json, llm, testing
+image: /content/v1/assets/evaluate-llm-extractor.svg
+imageAlt: LLM JSON extractor evaluation diagram showing test cases, schema checks, and quality metrics
 ---
 
 Structured extraction looks easy in demos and fails quietly in production. A good extractor evaluation separates three questions: did the model return valid JSON, did it follow the schema, and did it extract the correct values?
@@ -126,7 +128,7 @@ print(summary)
 {'valid_json_rate': 1.0, 'schema_valid_rate': 1.0, 'field_accuracy': 1.0, 'exact_match_rate': 1.0}
 ```
 
-## Add Regression Coverage
+## Production Evaluation Checklist
 
 Useful extractor benchmarks include:
 
@@ -138,3 +140,5 @@ Useful extractor benchmarks include:
 - inputs that mention JSON-like text.
 
 For publishable or production-grade work, report confidence intervals across multiple seeds or repeated calls when the model is nondeterministic.
+
+Treat the benchmark as a deployment gate. Keep a frozen test set, add a shadow set from recent production traffic after removing sensitive data, and compare every prompt or model change against the previous release. If schema validity, field accuracy, or exact match drops below the threshold, block the release and inspect the failing examples before changing prompts.

@@ -1,0 +1,210 @@
+#!/usr/bin/env node
+import { promises as fs } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const rootDir = path.resolve(__dirname, "..", "..");
+
+const requiredFrontMatter = ["title", "description", "topic", "level", "date", "readingTime", "tags", "image", "imageAlt"];
+const prohibitedPatterns = [
+  { label: "local model catalog health-check article", pattern: /local[- ]model[- ]catalog[- ]health[- ]check/i },
+  { label: "local model catalog endpoint", pattern: /http:\/\/localhost:1234\/api\/v1\/models/i },
+  { label: "local model catalog run status", pattern: /model catalog status|catalog status unavailable|unavailable catalog/i },
+  { label: "operator filesystem path", pattern: /\/Users\/|\/private\/tmp\//i },
+  { label: "operator AWS profile", pattern: /AWS_PROFILE=macbook-terraform|macbook-terraform/i },
+  { label: "draft placeholder", pattern: /\b(TODO|TBD|FIXME|coming soon|placeholder|lorem ipsum|dummy article|sample article|draft only|not implemented)\b/i },
+  { label: "local fetch failure", pattern: /\bfetch failed\b|status:\s*unavailable/i },
+];
+
+function parseArgs(argv) {
+  const args = {
+    articlesDir: path.join(rootDir, "content", "articles"),
+    assetsDir: path.join(rootDir, "content", "assets"),
+    sourceLabel: "public content",
+  };
+
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
+    if (!arg.startsWith("--")) {
+      throw new Error(`Unexpected argument: ${arg}`);
+    }
+    const key = arg.slice(2).replace(/-([a-z])/g, (_, char) => char.toUpperCase());
+    const value = argv[index + 1];
+    if (!value || value.startsWith("--")) {
+      throw new Error(`Missing value for ${arg}`);
+    }
+    args[key] = value;
+    index += 1;
+  }
+
+  return {
+    articlesDir: path.resolve(args.articlesDir),
+    assetsDir: path.resolve(args.assetsDir),
+    sourceLabel: args.sourceLabel,
+  };
+}
+
+async function exists(filePath) {
+  try {
+    await fs.access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function listMarkdownFiles(dirPath) {
+  const entries = await fs.readdir(dirPath, { withFileTypes: true });
+  return entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
+    .map((entry) => path.join(dirPath, entry.name))
+    .sort();
+}
+
+function parseFrontMatter(raw, filePath) {
+  const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+  if (!match) {
+    return { metadata: {}, markdown: raw, issue: `Missing front matter in ${filePath}` };
+  }
+
+  const metadata = {};
+  for (const line of match[1].split("\n")) {
+    if (!line.trim()) continue;
+    const separator = line.indexOf(":");
+    if (separator === -1) {
+      return { metadata, markdown: match[2], issue: `Invalid front matter line: ${line}` };
+    }
+    metadata[line.slice(0, separator).trim()] = line.slice(separator + 1).trim();
+  }
+
+  return { metadata, markdown: match[2].trim(), issue: "" };
+}
+
+function wordCount(value) {
+  return (value.match(/[A-Za-z0-9][A-Za-z0-9'-]*/g) || []).length;
+}
+
+function countMatches(value, pattern) {
+  return (value.match(pattern) || []).length;
+}
+
+function headingTitles(markdown) {
+  return [...markdown.matchAll(/^#{2,3}\s+(.+)$/gm)].map((match) => match[1].trim());
+}
+
+function metadataTags(value = "") {
+  return value.split(",").map((tag) => tag.trim()).filter(Boolean);
+}
+
+function assetPathFor(image, assetsDir) {
+  const prefix = "/content/v1/assets/";
+  if (!image.startsWith(prefix)) return "";
+  return path.join(assetsDir, image.slice(prefix.length));
+}
+
+async function validateArticle(filePath, assetsDir) {
+  const raw = await fs.readFile(filePath, "utf8");
+  const { metadata, markdown, issue } = parseFrontMatter(raw, filePath);
+  const issues = [];
+  const fileName = path.basename(filePath);
+
+  if (issue) issues.push(issue);
+  for (const field of requiredFrontMatter) {
+    if (!metadata[field]) issues.push(`Missing front matter field "${field}".`);
+  }
+
+  if (metadata.title && (metadata.title.length < 24 || metadata.title.length > 90)) {
+    issues.push("Title should be 24-90 characters and match a concrete search intent.");
+  }
+  if (metadata.description && (metadata.description.length < 80 || metadata.description.length > 180)) {
+    issues.push("Description should be 80-180 characters and explain the tutorial outcome.");
+  }
+  if (metadata.date && !/^\d{4}-\d{2}-\d{2}$/.test(metadata.date)) {
+    issues.push("Date must use YYYY-MM-DD format.");
+  }
+
+  const readingTime = Number(metadata.readingTime);
+  if (!Number.isFinite(readingTime) || readingTime < 8 || readingTime > 60) {
+    issues.push("readingTime must be a realistic 8-60 minute value.");
+  }
+
+  if (metadataTags(metadata.tags).length < 3) {
+    issues.push("At least three specific tags are required.");
+  }
+
+  if (metadata.image) {
+    if (!metadata.image.startsWith("/content/v1/assets/")) {
+      issues.push("Article image must be an article-specific /content/v1/assets/* asset.");
+    } else if (!(await exists(assetPathFor(metadata.image, assetsDir)))) {
+      issues.push(`Missing article image asset: ${metadata.image}`);
+    }
+  }
+  if (metadata.imageAlt && metadata.imageAlt.length < 30) {
+    issues.push("imageAlt must be descriptive and at least 30 characters.");
+  }
+
+  const headings = headingTitles(markdown);
+  const bodyWords = wordCount(markdown);
+  const proseWords = wordCount(markdown.replace(/```[\s\S]*?```/g, " "));
+  const codeBlocks = countMatches(markdown, /^```(?!output\b)[A-Za-z0-9_-]*/gm);
+  const outputBlocks = countMatches(markdown, /^```output\b/gm);
+
+  if (bodyWords < 400) issues.push("Article is too thin for customer publishing; expected at least 400 total words including code.");
+  if (proseWords < 170) issues.push("Article needs more explanatory prose; expected at least 170 non-code words.");
+  if (headings.filter((heading) => !heading.startsWith("#")).length < 5) {
+    issues.push("Article needs at least five h2/h3 sections for scanability and TOC quality.");
+  }
+  if (codeBlocks < 1) issues.push("Article must include at least one implementation code block.");
+  if (outputBlocks < 1) issues.push("Article must include at least one output block.");
+  if (!headings.some((heading) => /production/i.test(heading))) {
+    issues.push("Article must include a production-readiness section.");
+  }
+  if (!/\b(evaluation|metric|measure|benchmark|threshold|score|test|baseline|recall|precision|latency|cost|guardrail|trace)\b/i.test(markdown)) {
+    issues.push("Article must include an empirical evaluation, metric, test, threshold, or operational signal.");
+  }
+  if (!/\b(failures?|limitations?|risks?|guardrails?|rollback|extensions?|debugging?|regressions?)\b/i.test(markdown)) {
+    issues.push("Article must explain failure modes, limitations, guardrails, or production extensions.");
+  }
+
+  for (const rule of prohibitedPatterns) {
+    if (rule.pattern.test(raw)) {
+      issues.push(`Contains ${rule.label}.`);
+    }
+  }
+
+  return { fileName, issues };
+}
+
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+  const articleFiles = await listMarkdownFiles(args.articlesDir);
+  if (!articleFiles.length) {
+    throw new Error(`No Markdown articles found in ${args.articlesDir}`);
+  }
+
+  const results = [];
+  for (const articleFile of articleFiles) {
+    results.push(await validateArticle(articleFile, args.assetsDir));
+  }
+
+  const failures = results.filter((result) => result.issues.length);
+  if (failures.length) {
+    console.error(`Public content gate failed for ${args.sourceLabel}. Nothing should be published.`);
+    for (const failure of failures) {
+      console.error(`\n${failure.fileName}`);
+      for (const issue of failure.issues) {
+        console.error(`- ${issue}`);
+      }
+    }
+    process.exitCode = 1;
+    return;
+  }
+
+  console.log(`Public content gate passed for ${articleFiles.length} articles in ${args.sourceLabel}.`);
+}
+
+main().catch((error) => {
+  console.error(error.message);
+  process.exitCode = 1;
+});

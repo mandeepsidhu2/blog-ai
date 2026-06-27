@@ -74,12 +74,15 @@ async function main() {
     assert(json.blocks.length > 0, `Article JSON has no blocks for ${article.slug}.`);
     assert(json.toc.length >= 3, `Article JSON has too few TOC entries for ${article.slug}.`);
     assert(sitemap.includes(article.url), `Sitemap missing ${article.url}.`);
-    if (article.image?.startsWith("/content/v1/assets/")) {
-      assert(
-        await exists(path.join(contentDir, article.image.replace(/^\/+/, ""))),
-        `Missing article asset for ${article.slug}: ${article.image}`,
-      );
-    }
+    assert(
+      article.image?.startsWith("/content/v1/assets/"),
+      `Article ${article.slug} must use an article-specific content asset.`,
+    );
+    assert(article.imageAlt?.length >= 30, `Article ${article.slug} imageAlt is too weak.`);
+    assert(
+      await exists(path.join(contentDir, article.image.replace(/^\/+/, ""))),
+      `Missing article asset for ${article.slug}: ${article.image}`,
+    );
   }
 
   const requiredFiles = [

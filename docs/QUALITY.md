@@ -13,6 +13,7 @@ SITE_URL=https://learn.toolsite.com node app-scripts/build-site.mjs
 Check:
 
 ```sh
+node operator/scripts/check-public-content.mjs
 node app-scripts/check-site.mjs
 ```
 
@@ -25,6 +26,11 @@ node app-scripts/serve-dist.mjs
 Operator-generated article batches can be validated without uploading:
 
 ```sh
+node operator/scripts/check-public-content.mjs \
+  --articles-dir /tmp/generated-ai-content/articles \
+  --assets-dir /tmp/generated-ai-content/assets \
+  --source-label generated-ai-content
+
 node operator/scripts/publish-generated-content.mjs \
   --source-dir /tmp/generated-ai-content \
   --content-bucket blog-ai-content-349188916794 \
@@ -43,16 +49,28 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
 - home page has SEO metadata and visual asset.
 - sitemap exists and covers articles.
 - each article has canonical URL, `h1`, TOC, code blocks, output blocks,
-  generated JSON, and sitemap coverage.
+  article-specific visual asset, generated JSON, and sitemap coverage.
 - pipeline artifact contains app and content outputs.
+
+`operator/scripts/check-public-content.mjs` currently verifies:
+
+- required SEO metadata, including `image` and `imageAlt`.
+- article-specific assets exist under `/content/v1/assets/*`.
+- title and description are strong enough for customer-facing SEO pages.
+- article depth, TOC section count, code blocks, and output blocks.
+- production-readiness section, empirical or operational signals, and failure
+  mode or guardrail coverage.
+- absence of placeholders, local failures, private paths, AWS profiles, and
+  operator-only diagnostics.
 
 ## Review Loop
 
 For content changes:
 
 1. Build.
-2. Check.
-3. Spot-check the generated article HTML and JSON.
+2. Run the public content gate.
+3. Run the generated-site check.
+4. Spot-check the generated article HTML and JSON.
 
 For visual or interaction changes:
 

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Tiny RAG pipeline architecture</title>
+  <desc id="desc">Diagram showing documents becoming chunks, chunks entering a vector index, retrieval feeding a grounded prompt, and an answer with citations.</desc>
+  <rect width="1600" height="900" fill="#f7f3ea"/>
+  <rect x="80" y="74" width="1440" height="752" rx="28" fill="#10241f"/>
+  <text x="140" y="160" fill="#f5d46c" font-family="Arial, sans-serif" font-size="58" font-weight="800">Tiny RAG Pipeline</text>
+  <text x="140" y="220" fill="#d7e7dc" font-family="Arial, sans-serif" font-size="30">Chunk, retrieve, assemble, and cite with visible evaluation points.</text>
+  <g fill="#fdfaf0" stroke="#86c6aa" stroke-width="5">
+    <rect x="140" y="320" width="250" height="170" rx="14"/>
+    <rect x="480" y="320" width="250" height="170" rx="14"/>
+    <rect x="820" y="320" width="250" height="170" rx="14"/>
+    <rect x="1160" y="320" width="250" height="170" rx="14"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="31" fill="#10241f" font-weight="800">
+    <text x="184" y="390">Documents</text>
+    <text x="532" y="390">Chunks</text>
+    <text x="866" y="390">Retriever</text>
+    <text x="1218" y="390">Answer</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="23" fill="#41504a">
+    <text x="184" y="432">source records</text>
+    <text x="532" y="432">stable ids</text>
+    <text x="866" y="432">top-k scores</text>
+    <text x="1218" y="432">citations</text>
+  </g>
+  <g stroke="#f5d46c" stroke-width="8" stroke-linecap="round">
+    <path d="M400 405h70"/>
+    <path d="M740 405h70"/>
+    <path d="M1080 405h70"/>
+  </g>
+  <g fill="#dff5ea" font-family="Arial, sans-serif" font-size="24">
+    <text x="180" y="610">Evaluation gates</text>
+    <text x="180" y="654">context precision</text>
+    <text x="520" y="654">citation support</text>
+    <text x="860" y="654">refusal threshold</text>
+    <text x="1200" y="654">answer quality</text>
+  </g>
+</svg>

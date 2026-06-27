@@ -156,6 +156,21 @@ ${project.output.trim()}
 
 ${project.findings.map((item) => `- ${item}`).join("\n")}
 
+## Customer-facing interpretation
+
+Use the result to explain what changed, why the threshold matters, and what the next action should be. Customers do not need to see local diagnostics or exploratory notes; they need a clear pattern they can adapt to their own RAG, agent, or evaluation workflow. If the project cannot support that explanation, keep it internal and do not publish it.
+
+## Production readiness criteria
+
+Treat this project as a release gate, not a dashboard decoration. Before using it with real users, replace the deterministic fixture with representative production traces, define a baseline metric, record the dataset or corpus version, and decide who owns the review when the threshold fails. A result should be publishable only when the input fixture, metric, threshold, and rollback action are all explicit.
+
+## Failure modes to watch
+
+- The fixture is too small or too clean, so the result looks better than real traffic.
+- The threshold is copied from a demo instead of calibrated against historical incidents.
+- The output is not attached to a release decision, so regressions are observed but still shipped.
+- The chart omits version metadata, making it impossible to explain when behavior changed.
+
 ## Production extension
 
 ${project.production}

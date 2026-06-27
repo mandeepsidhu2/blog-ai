@@ -6,6 +6,8 @@ level: Intermediate
 date: 2026-06-27
 readingTime: 23
 tags: langgraph, workflow, agents, state-machines
+image: /content/v1/assets/langgraph-support-triage.svg
+imageAlt: LangGraph-style support triage workflow diagram with typed state, routing, human review, and replies
 ---
 
 Graph-shaped agent workflows are useful when a task has distinct phases: classify, retrieve, decide, act, and review. This tutorial models a support triage workflow using LangGraph-style concepts while keeping the code dependency-free.
@@ -133,3 +135,7 @@ Once the workflow grows, a graph framework helps with:
 - composing subgraphs for repeated workflows.
 
 The research discipline is to compare graph workflows against simpler baselines. Measure resolution accuracy, escalation precision, average steps, and human correction rate.
+
+## Production Graph Guardrails
+
+Before this workflow touches customers, define an escalation policy for high-priority tickets, preserve every state transition as an audit event, and keep a rollback path to manual triage. Test the graph with adversarial tickets that mix billing and outage language, then review false escalations and missed escalations separately. A graph is only production-ready when the routing metrics and the human override path are both visible.

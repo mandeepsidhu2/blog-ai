@@ -54,6 +54,8 @@ level: Intermediate
 date: 2026-06-27
 readingTime: 22
 tags: rag, retrieval, embeddings
+image: /content/v1/assets/tiny-rag-pipeline.svg
+imageAlt: RAG pipeline architecture diagram with retrieval and generation stages
 ---
 ```
 
@@ -62,6 +64,16 @@ Code fences become formatted code blocks with copy buttons. Fences with `output`
 Every tutorial should be practical, customer-facing, and SEO-readable. The site
 is meant to make readers feel why staying ahead in AI matters now, then give
 them enough code and evidence to act on that urgency.
+
+Publishing requires the public content gate:
+
+```sh
+npm run check:content
+```
+
+Do not publish a generated batch if the gate reports incomplete content,
+operator-only diagnostics, missing assets, weak metadata, or missing production
+readiness guidance.
 
 ## Documentation
 

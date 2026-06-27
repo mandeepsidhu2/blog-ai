@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Scaled dot-product attention</title>
+  <desc id="desc">Diagram showing query, key, and value tensors flowing into scaled scores, causal masking, softmax weights, and the output vector.</desc>
+  <rect width="1600" height="900" fill="#f8f2e7"/>
+  <rect x="92" y="78" width="1416" height="746" rx="26" fill="#10241f"/>
+  <text x="150" y="156" fill="#f5d46c" font-family="Arial, sans-serif" font-size="54" font-weight="800">Scaled Dot-Product Attention</text>
+  <g fill="#fbf8ed" stroke="#86c6aa" stroke-width="5">
+    <rect x="150" y="292" width="220" height="150" rx="14"/>
+    <rect x="460" y="292" width="220" height="150" rx="14"/>
+    <rect x="770" y="292" width="220" height="150" rx="14"/>
+    <rect x="1080" y="292" width="270" height="150" rx="14"/>
+  </g>
+  <g fill="#10241f" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="260" y="350" font-size="34" font-weight="800">Q x K</text>
+    <text x="260" y="392" font-size="23">scaled scores</text>
+    <text x="570" y="350" font-size="34" font-weight="800">Mask</text>
+    <text x="570" y="392" font-size="23">causal gate</text>
+    <text x="880" y="350" font-size="34" font-weight="800">Softmax</text>
+    <text x="880" y="392" font-size="23">weights</text>
+    <text x="1215" y="350" font-size="34" font-weight="800">Weights x V</text>
+    <text x="1215" y="392" font-size="23">mixed output</text>
+  </g>
+  <g stroke="#f5d46c" stroke-width="8" stroke-linecap="round">
+    <path d="M380 367h70"/>
+    <path d="M690 367h70"/>
+    <path d="M1000 367h70"/>
+  </g>
+  <text x="150" y="650" fill="#d7e7dc" font-family="Arial, sans-serif" font-size="28">Production gate: deterministic tensor fixtures must preserve shapes, masks, scaling, and attention-weight sums.</text>
+</svg>

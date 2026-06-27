@@ -28,6 +28,10 @@ Reference:
   health, private filesystem paths, AWS profiles, Terraform state details, or
   other internal run diagnostics. Keep those details in `operator/` outputs and
   set generated projects to `publish: false` when they are only useful to us.
+- Never publish incomplete, failing, placeholder, or merely exploratory content.
+  Public tutorials must be production-grade, customer-facing, current for the
+  topic, and supported by code, output, an article-specific visual asset,
+  empirical/operational signals, and production-readiness guidance.
 
 ## Start Here
 
@@ -61,6 +65,7 @@ Use the bundled Node runtime if local `node` is unavailable:
 
 ```sh
 SITE_URL=https://learn.toolsite.com node app-scripts/build-site.mjs
+node operator/scripts/check-public-content.mjs
 node app-scripts/check-site.mjs
 ```
 
@@ -94,3 +99,6 @@ Then inspect:
 - Public content is for customers learning AI systems. It should teach a useful
   technique and help readers stay ahead in AI, not describe our local publishing
   failures or workstation state.
+- Publishing is allowed only after `operator/scripts/check-public-content.mjs`,
+  `app-scripts/build-site.mjs`, and `app-scripts/check-site.mjs` pass. If any
+  article fails, do not publish the batch; report the failing article and reason.

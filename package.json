@@ -10,7 +10,8 @@
   },
   "scripts": {
     "build": "node app-scripts/build-site.mjs",
-    "check": "node app-scripts/check-site.mjs",
+    "check": "node operator/scripts/check-public-content.mjs && node app-scripts/check-site.mjs",
+    "check:content": "node operator/scripts/check-public-content.mjs",
     "preview": "node app-scripts/serve-dist.mjs"
   },
   "engines": {

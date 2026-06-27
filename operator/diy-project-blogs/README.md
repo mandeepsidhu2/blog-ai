@@ -31,6 +31,12 @@ AWS profiles, Terraform state details, or other operator diagnostics. Mark
 internal-only projects with `publish: false`; the generator can still save their
 project outputs under `projects/` while excluding them from the publish source.
 
+Publishable project articles must pass
+`operator/scripts/check-public-content.mjs`. Treat a failure as a stop signal:
+do not upload the batch, and report the failing article and reason. A publishable
+article needs a real asset, code, output, enough explanation, an empirical or
+operational signal, production-readiness criteria, and failure-mode coverage.
+
 Local model catalog endpoint, when available:
 
 ```sh

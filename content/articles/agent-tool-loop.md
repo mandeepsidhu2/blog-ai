@@ -6,6 +6,8 @@ level: Intermediate
 date: 2026-06-27
 readingTime: 20
 tags: agents, tools, orchestration, python
+image: /content/v1/assets/agent-tool-loop.svg
+imageAlt: Agent tool loop diagram showing model decisions, tool execution, tracing, and stop conditions
 ---
 
 An agent is a loop around a model, tools, state, and stopping conditions. The difficult part is not the loop itself. The difficult part is making each step observable, bounded, and testable.

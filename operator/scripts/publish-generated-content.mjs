@@ -9,6 +9,7 @@ const rootDir = path.resolve(__dirname, "..", "..");
 const articleDir = path.join(rootDir, "content", "articles");
 const assetDir = path.join(rootDir, "content", "assets");
 const distDir = path.join(rootDir, "dist");
+const contentQualityScript = path.join(rootDir, "operator", "scripts", "check-public-content.mjs");
 const publicArticleBlocklist = [
   {
     label: "local model catalog article",
@@ -63,6 +64,9 @@ function parseArgs(argv) {
 
   if (!args.sourceDir) throw new Error("Missing --source-dir");
   if (!args.contentBucket) throw new Error("Missing --content-bucket");
+  if (args.skipCheck) {
+    throw new Error("--skip-check is not allowed for publishing. Public content quality gates are mandatory.");
+  }
   return args;
 }
 
@@ -187,18 +191,28 @@ function runAws(args, dryRun) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const sourceDir = path.resolve(args.sourceDir);
+  const sourceArticleDir = path.join(sourceDir, "articles");
+  const sourceAssetDir = path.join(sourceDir, "assets");
   let restorePlan = [];
 
   try {
+    run(process.execPath, [
+      contentQualityScript,
+      "--articles-dir",
+      sourceArticleDir,
+      "--assets-dir",
+      sourceAssetDir,
+      "--source-label",
+      "generated publish batch",
+    ]);
+
     restorePlan = await stageGeneratedContent(sourceDir);
 
     run(process.execPath, ["app-scripts/build-site.mjs"], {
       env: { SITE_URL: args.siteUrl },
     });
 
-    if (!args.skipCheck) {
-      run(process.execPath, ["app-scripts/check-site.mjs"]);
-    }
+    run(process.execPath, ["app-scripts/check-site.mjs"]);
 
     const syncFlags = args.delete ? ["--delete"] : [];
     runAws(["s3", "sync", path.join(distDir, "content"), `s3://${args.contentBucket}`, ...syncFlags], args.dryRun);

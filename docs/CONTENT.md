@@ -29,12 +29,14 @@ Required fields:
 - `date`
 - `readingTime`
 - `tags`
+- `image`
+- `imageAlt`
 
-Optional SEO/asset fields:
+Asset fields:
 
 - `image`: article-specific Open Graph and in-page hero image. Use an absolute
-  site path such as `/content/v1/assets/example.svg` for generated content
-  assets, or omit it to use the shared site hero image.
+  site path such as `/content/v1/assets/example.svg`. Customer-facing content
+  must not rely on the shared site hero image.
 - `imageAlt`: descriptive alt text for the article image. Keep it literal and
   specific to the diagram or screenshot.
 
@@ -58,6 +60,17 @@ Optional SEO/asset fields:
 Public articles are for customers. They should teach an AI technique, show code
 and outputs that readers can reuse, and reinforce that staying ahead in AI
 requires hands-on practice now.
+
+Do not publish anything that is failing, incomplete, placeholder-like, or only
+useful as an internal note. A public article must have:
+
+- article-specific image and alt text.
+- at least one runnable code block and one output block.
+- enough explanatory prose to stand alone.
+- empirical or operational signal such as a metric, benchmark, threshold, trace,
+  test, or release gate.
+- production-readiness guidance, including failure modes, limitations,
+  guardrails, rollback criteria, or extensions.
 
 Do not publish:
 
@@ -91,6 +104,7 @@ Every tutorial should be:
 - honest about toy code versus production extensions.
 - readable without requiring hidden context.
 - useful as an SEO page and as a structured content payload.
+- production-grade enough to represent the product to customers.
 
 For AI engineering content, prefer controlled examples, evaluation criteria,
 and reproducibility notes over trend-only commentary.
@@ -106,5 +120,6 @@ and reproducibility notes over trend-only commentary.
 - Are limitations and production extensions clear?
 - Is the article free of operator-only diagnostics and local environment
   failures?
+- Does `operator/scripts/check-public-content.mjs` pass before publishing?
 - Does the generated article page include a table of contents?
 - Does the article JSON include blocks and metadata?

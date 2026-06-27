@@ -70,7 +70,7 @@ function parseFrontMatter(raw, filePath) {
     metadata[key] = value;
   }
 
-  const required = ["title", "description", "topic", "level", "date", "readingTime", "tags"];
+  const required = ["title", "description", "topic", "level", "date", "readingTime", "tags", "image", "imageAlt"];
   for (const key of required) {
     if (!metadata[key]) {
       throw new Error(`Missing front matter field "${key}" in ${filePath}`);

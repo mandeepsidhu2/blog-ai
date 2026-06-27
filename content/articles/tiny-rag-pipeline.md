@@ -6,6 +6,8 @@ level: Intermediate
 date: 2026-06-27
 readingTime: 24
 tags: rag, retrieval, embeddings, python
+image: /content/v1/assets/tiny-rag-pipeline.svg
+imageAlt: RAG pipeline diagram showing chunking, vector retrieval, prompt assembly, and cited answers
 ---
 
 Retrieval-augmented generation is useful when the model should answer from a controlled knowledge source instead of relying only on its parameters. This tutorial builds the smallest useful RAG pipeline: split documents, index chunks, retrieve candidates, assemble a prompt, and preserve source references.

@@ -6,6 +6,8 @@ level: Intermediate
 date: 2026-06-27
 readingTime: 21
 tags: transformers, attention, tensors, python
+image: /content/v1/assets/attention-from-scratch.svg
+imageAlt: Scaled dot-product attention diagram showing query key value tensors, scores, mask, and weighted output
 ---
 
 Transformers are built around attention. The mechanism is compact, but mistakes in tensor shapes, masking, and scaling can silently break training. This tutorial implements scaled dot-product attention from first principles.
@@ -150,6 +152,10 @@ scaled_score = dot(query, key) / math.sqrt(hidden_width)
 ## Where Multi-Head Attention Fits
 
 Multi-head attention repeats this process with different learned projections. Each head can focus on different relations, then the outputs are concatenated and projected back to the model width.
+
+## Production Debugging Checklist
+
+Production transformer bugs usually show up as silent quality regressions, unstable loss curves, or generation that leaks future-token information during evaluation. Keep deterministic attention fixtures in your test suite, compare masked and unmasked scores, and save small tensor examples that can be inspected by hand. If a model change alters these fixtures, block the release until the shape, mask, and scaling differences are explained.
 
 When debugging a transformer implementation, verify these invariants first:
 
