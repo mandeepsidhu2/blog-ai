@@ -1,0 +1,19 @@
+{
+  "name": "blog-ai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Static AI tutorial website with SEO article snapshots and S3-backed content objects.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mandeepsidhu2/blog-ai.git"
+  },
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "check": "node scripts/check-site.mjs",
+    "preview": "node scripts/serve-dist.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

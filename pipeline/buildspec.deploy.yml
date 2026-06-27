@@ -1,0 +1,11 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - test -n "$FRONTEND_BUCKET"
+      - aws s3 sync "$CODEBUILD_SRC_DIR/app" "s3://$FRONTEND_BUCKET" --delete
+      - |
+        if [ -n "$CONTENT_BUCKET" ] && [ -d "$CODEBUILD_SRC_DIR/content" ]; then
+          aws s3 sync "$CODEBUILD_SRC_DIR/content" "s3://$CONTENT_BUCKET" --delete
+        fi
