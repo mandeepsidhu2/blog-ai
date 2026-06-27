@@ -8,6 +8,7 @@ readingTime: 34
 tags: llm-evaluation, rag, local-models, grounding, embeddings, lm-studio
 image: /content/v1/assets/llm-context-boundary-evaluation.svg
 imageAlt: LLM context boundary evaluation chart showing decision accuracy, abstention accuracy, citation recall, score, and hallucination rate
+evidenceMode: experiment
 ---
 
 Local models are useful only if we measure the boundary between what the context supports and what the model is willing to invent. This tutorial builds a small but serious evaluation harness for that boundary. The goal is not to produce a leaderboard number. The goal is to create a regression suite that engineers can run before changing a retriever, prompt, model, chunking strategy, or agent policy.
@@ -166,7 +167,7 @@ abstentionAccuracy: 1.000
 meanCitationRecall: 0.813
 hallucinationRateOnUnsupported: 0.000
 meanScore: 0.872
-meanLatencyMs: 986.813
+meanLatencyMs: 1017.775
 meanReasoningTokens: 0
 ```
 

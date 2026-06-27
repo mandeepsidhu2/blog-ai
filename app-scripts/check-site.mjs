@@ -7,6 +7,7 @@ const rootDir = path.resolve(__dirname, "..");
 const distDir = path.join(rootDir, "dist");
 const appDir = path.join(distDir, "app");
 const contentDir = path.join(distDir, "content");
+const articleSourceDir = path.join(rootDir, "content", "articles");
 
 async function readText(filePath) {
   return fs.readFile(filePath, "utf8");
@@ -20,6 +21,22 @@ function assert(condition, message) {
   if (!condition) {
     throw new Error(message);
   }
+}
+
+async function readArticleEvidenceMode(slug) {
+  const source = await readText(path.join(articleSourceDir, `${slug}.md`));
+  const match = source.match(/^---\n([\s\S]*?)\n---/);
+  assert(match, `Missing source front matter for ${slug}.`);
+
+  for (const line of match[1].split("\n")) {
+    const separator = line.indexOf(":");
+    if (separator === -1) continue;
+    if (line.slice(0, separator).trim() === "evidenceMode") {
+      return line.slice(separator + 1).trim();
+    }
+  }
+
+  throw new Error(`Missing evidenceMode in source front matter for ${slug}.`);
 }
 
 async function exists(filePath) {
@@ -62,15 +79,22 @@ async function main() {
     );
     const html = await readText(articleHtmlPath);
     const json = await readJson(articleJsonPath);
+    const evidenceMode = await readArticleEvidenceMode(article.slug);
+    const hasCodeBlocks = html.includes("code-frame");
+    const hasOutputBlocks = html.includes("output-frame");
 
     assert(html.includes(`<h1>${article.title}</h1>`), `Article h1 missing for ${article.slug}.`);
     assert(html.includes('<link rel="canonical"'), `Canonical URL missing for ${article.slug}.`);
     assert(html.includes('property="og:image"'), `Open Graph image missing for ${article.slug}.`);
     assert(html.includes('type="application/ld+json"'), `Structured data missing for ${article.slug}.`);
     assert(html.includes("toc-nav"), `TOC missing for ${article.slug}.`);
-    assert(html.includes("code-frame"), `Code block missing for ${article.slug}.`);
-    assert(html.includes("output-frame"), `Output block missing for ${article.slug}.`);
+    if (evidenceMode === "experiment") {
+      assert(hasCodeBlocks, `Experiment article code block missing for ${article.slug}.`);
+      assert(hasOutputBlocks, `Experiment article output block missing for ${article.slug}.`);
+    }
     assert(!html.includes("undefined"), `Article ${article.slug} contains undefined output.`);
+    assert(!html.includes("evidenceMode"), `Article ${article.slug} exposes internal evidence metadata.`);
+    assert(!JSON.stringify(json).includes("evidenceMode"), `Article JSON ${article.slug} exposes internal evidence metadata.`);
     assert(json.blocks.length > 0, `Article JSON has no blocks for ${article.slug}.`);
     assert(json.toc.length >= 8, `Article JSON has too few TOC entries for ${article.slug}.`);
     assert(sitemap.includes(article.url), `Sitemap missing ${article.url}.`);

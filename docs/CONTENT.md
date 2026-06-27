@@ -17,6 +17,7 @@ readingTime: 22
 tags: rag, retrieval, embeddings
 image: /content/v1/assets/tiny-rag-pipeline.svg
 imageAlt: RAG pipeline architecture diagram with retrieval and generation stages
+evidenceMode: experiment
 ---
 ```
 
@@ -31,6 +32,7 @@ Required fields:
 - `tags`
 - `image`
 - `imageAlt`
+- `evidenceMode`
 
 Asset fields:
 
@@ -47,8 +49,10 @@ There are two internal ways an article can be produced:
 - Strategy or trend articles: explain AI practices, adoption patterns, model
   trends, code organization, harness engineering, or operating models. These may
   cite external sources and should still be concrete, current, and actionable.
+  Use `evidenceMode: strategy`.
 - Evidence-supported technical articles: include code snippets, outputs, and
-  results from an internal project under `operator/diy-project-blogs`.
+  results from an internal project under `operator/diy-project-blogs`. Use
+  `evidenceMode: experiment`.
 
 This distinction is for us only. The website must present both as ordinary
 articles. Do not write public copy that says "DIY project", "operator project",
@@ -81,12 +85,16 @@ Do not publish anything that is failing, incomplete, placeholder-like, or only
 useful as an internal note. A public article must have:
 
 - article-specific image and alt text.
-- at least three runnable code blocks and one output block.
+- for experiment articles, at least three runnable code blocks and one output
+  block.
+- for strategy articles, at least five current primary or high-signal sources
+  and a clear source/signal/research section.
 - enough explanatory prose to stand alone as a deep technical reference.
 - empirical or operational signal such as a metric, benchmark, threshold, trace,
   test, or release gate.
 - production-readiness guidance, including failure modes, limitations,
-  guardrails, rollback criteria, and reproducibility notes.
+  guardrails, rollback criteria, and reproducibility notes when the article
+  depends on a measured run.
 
 Avoid lightweight sections titled `Production extension`. That language is a
 smell that the article is a short demo. Use explicit sections such as
@@ -123,7 +131,7 @@ Every tutorial should be:
 
 - practical enough to build from.
 - explicit about assumptions.
-- honest about toy code versus production extensions.
+- honest about limitations, rollout boundaries, and production-readiness gaps.
 - readable without requiring hidden context.
 - useful as an SEO page and as a structured content payload.
 - production-grade enough to represent the product to customers.
@@ -139,7 +147,7 @@ and reproducibility notes over trend-only commentary.
 - Are outputs visually separated from code?
 - Does the article have a useful image and alt text when the topic benefits from
   a diagram?
-- Are limitations and production extensions clear?
+- Are limitations, guardrails, and rollout boundaries clear?
 - Is the article free of operator-only diagnostics and local environment
   failures?
 - Does `operator/scripts/check-public-content.mjs` pass before publishing?

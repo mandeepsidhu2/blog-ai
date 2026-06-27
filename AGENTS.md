@@ -30,8 +30,9 @@ Reference:
   set generated projects to `publish: false` when they are only useful to us.
 - Never publish incomplete, failing, placeholder, or merely exploratory content.
   Public tutorials must be production-grade, customer-facing, current for the
-  topic, and supported by code, output, an article-specific visual asset,
-  empirical/operational signals, and production-readiness guidance.
+  topic, and supported by an article-specific visual asset, empirical or
+  operational signals, and production-readiness guidance. Measured
+  implementation articles must also include runnable code and outputs.
 - Internally, articles can be strategy/trend pieces or experiment-supported
   technical pieces. Publicly, the distinction is invisible: customers see one
   article library. Do not label public content as DIY, operator-generated,

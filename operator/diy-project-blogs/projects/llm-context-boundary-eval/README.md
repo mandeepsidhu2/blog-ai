@@ -16,21 +16,21 @@ This project evaluates whether a locally served LLM can hold a strict context bo
 - Abstention accuracy: 1
 - Mean citation recall: 0.813
 - Unsupported hallucination rate: 0
-- Mean latency: 986.813 ms
+- Mean latency: 1017.775 ms
 - Mean reasoning tokens: 0
 
 ## Case Results
 
 | Case | Expected | Actual | Correct | Citation recall | Unsupported hallucination | Latency ms |
 | --- | --- | --- | --- | --- | --- | --- |
-| rag-supported-citation | answer | answer | yes | 1 | 0 | 1097.1 |
-| unsupported-policy | abstain | abstain | yes | 1 | 0 | 749.7 |
-| conflict-needs-review | abstain | abstain | yes | 1 | 0 | 982.3 |
-| tool-risk-supported | answer | answer | yes | 0 | 0 | 1082.6 |
-| recency-trap | answer | answer | yes | 1 | 0 | 957.5 |
-| numeric-extraction | answer | answer | yes | 1 | 0 | 1077.2 |
-| unsupported-benchmark-claim | abstain | abstain | yes | 1 | 0 | 849.6 |
-| multi-hop-supported | answer | answer | yes | 0.5 | 0 | 1098.5 |
+| rag-supported-citation | answer | answer | yes | 1 | 0 | 1267.9 |
+| unsupported-policy | abstain | abstain | yes | 1 | 0 | 750.4 |
+| conflict-needs-review | abstain | abstain | yes | 1 | 0 | 989.2 |
+| tool-risk-supported | answer | answer | yes | 0 | 0 | 1097.8 |
+| recency-trap | answer | answer | yes | 1 | 0 | 978.7 |
+| numeric-extraction | answer | answer | yes | 1 | 0 | 1095.6 |
+| unsupported-benchmark-claim | abstain | abstain | yes | 1 | 0 | 852.5 |
+| multi-hop-supported | answer | answer | yes | 0.5 | 0 | 1110.1 |
 
 ## Interpretation
 

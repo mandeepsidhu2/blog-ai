@@ -6,6 +6,6 @@
   "meanCitationRecall": 0.813,
   "hallucinationRateOnUnsupported": 0,
   "meanScore": 0.872,
-  "meanLatencyMs": 986.813,
+  "meanLatencyMs": 1017.775,
   "meanReasoningTokens": 0
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T14:48:21.208Z",
+  "generatedAt": "2026-06-27T15:41:47.301Z",
   "models": {
     "baseUrl": "http://127.0.0.1:1234",
     "chatModel": "qwen/qwen3.6-35b-a3b",
@@ -14,7 +14,7 @@
     "meanCitationRecall": 0.813,
     "hallucinationRateOnUnsupported": 0,
     "meanScore": 0.872,
-    "meanLatencyMs": 986.813,
+    "meanLatencyMs": 1017.775,
     "meanReasoningTokens": 0
   },
   "scoredCases": [
@@ -35,7 +35,7 @@
       "semanticMargin": 0.236,
       "maxSupportSimilarity": 0.686,
       "maxDistractorSimilarity": 0.45,
-      "latencyMs": 1097.1,
+      "latencyMs": 1267.9,
       "totalTokens": 319,
       "reasoningTokens": 0,
       "finishReason": "stop",
@@ -57,7 +57,7 @@
       "semanticMargin": null,
       "maxSupportSimilarity": null,
       "maxDistractorSimilarity": 0.511,
-      "latencyMs": 749.7,
+      "latencyMs": 750.4,
       "totalTokens": 267,
       "reasoningTokens": 0,
       "finishReason": "stop",
@@ -82,7 +82,7 @@
       "semanticMargin": null,
       "maxSupportSimilarity": 0.739,
       "maxDistractorSimilarity": null,
-      "latencyMs": 982.3,
+      "latencyMs": 989.2,
       "totalTokens": 301,
       "reasoningTokens": 0,
       "finishReason": "stop",
@@ -106,7 +106,7 @@
       "semanticMargin": null,
       "maxSupportSimilarity": 0.777,
       "maxDistractorSimilarity": null,
-      "latencyMs": 1082.6,
+      "latencyMs": 1097.8,
       "totalTokens": 332,
       "reasoningTokens": 0,
       "finishReason": "stop",
@@ -130,7 +130,7 @@
       "semanticMargin": 0.061,
       "maxSupportSimilarity": 0.738,
       "maxDistractorSimilarity": 0.677,
-      "latencyMs": 957.5,
+      "latencyMs": 978.7,
       "totalTokens": 316,
       "reasoningTokens": 0,
       "finishReason": "stop",
@@ -154,7 +154,7 @@
       "semanticMargin": 0.276,
       "maxSupportSimilarity": 0.774,
       "maxDistractorSimilarity": 0.499,
-      "latencyMs": 1077.2,
+      "latencyMs": 1095.6,
       "totalTokens": 347,
       "reasoningTokens": 0,
       "finishReason": "stop",
@@ -176,7 +176,7 @@
       "semanticMargin": null,
       "maxSupportSimilarity": null,
       "maxDistractorSimilarity": 0.6,
-      "latencyMs": 849.6,
+      "latencyMs": 852.5,
       "totalTokens": 289,
       "reasoningTokens": 0,
       "finishReason": "stop",
@@ -200,7 +200,7 @@
       "semanticMargin": null,
       "maxSupportSimilarity": 0.691,
       "maxDistractorSimilarity": null,
-      "latencyMs": 1098.5,
+      "latencyMs": 1110.1,
       "totalTokens": 320,
       "reasoningTokens": 0,
       "finishReason": "stop",
@@ -239,19 +239,19 @@
         ]
       },
       "semantic": {
-        "queryEmbeddingLatencyMs": 47,
+        "queryEmbeddingLatencyMs": 23.3,
         "contextRows": [
           {
             "id": "rag-a",
             "role": "support",
             "similarity": 0.686,
-            "embeddingLatencyMs": 66.6
+            "embeddingLatencyMs": 19
           },
           {
             "id": "rag-b",
             "role": "distractor",
             "similarity": 0.45,
-            "embeddingLatencyMs": 16
+            "embeddingLatencyMs": 15.6
           }
         ],
         "maxSupportSimilarity": 0.686,
@@ -262,7 +262,7 @@
         "rawContent": "{\n\"case_id\": \"rag-supported-citation\",\n\"decision\": \"answer\",\n\"answer\": \"A production RAG service should track answer correctness, citation support, context precision, refusal behavior, and latency.\",\n\"citations\": [\n\"rag-a\"\n],\n\"confidence\": 1.0,\n\"support_notes\": \"The context explicitly lists these five signals as part of the RAG release checklist for production services.\"\n}",
         "reasoningTokens": 0,
         "totalTokens": 319,
-        "latencyMs": 1097.120291000001,
+        "latencyMs": 1267.8814579999998,
         "finishReason": "stop",
         "parsed": {
           "case_id": "rag-supported-citation",
@@ -292,7 +292,7 @@
         "semanticMargin": 0.236,
         "maxSupportSimilarity": 0.686,
         "maxDistractorSimilarity": 0.45,
-        "latencyMs": 1097.1,
+        "latencyMs": 1267.9,
         "totalTokens": 319,
         "reasoningTokens": 0,
         "finishReason": "stop",
@@ -328,19 +328,19 @@
         ]
       },
       "semantic": {
-        "queryEmbeddingLatencyMs": 14.5,
+        "queryEmbeddingLatencyMs": 14.1,
         "contextRows": [
           {
             "id": "billing-a",
             "role": "distractor",
             "similarity": 0.494,
-            "embeddingLatencyMs": 14.2
+            "embeddingLatencyMs": 14.7
           },
           {
             "id": "billing-b",
             "role": "distractor",
             "similarity": 0.511,
-            "embeddingLatencyMs": 13.7
+            "embeddingLatencyMs": 14.1
           }
         ],
         "maxSupportSimilarity": null,
@@ -351,7 +351,7 @@
         "rawContent": "{\n\"case_id\": \"unsupported-policy\",\n\"decision\": \"abstain\",\n\"answer\": \"\",\n\"citations\": [],\n\"confidence\": 1.0,\n\"support_notes\": \"The provided context explicitly states that the billing document does not define refund windows and offers no information regarding annual enterprise contract terms.\"\n}",
         "reasoningTokens": 0,
         "totalTokens": 267,
-        "latencyMs": 749.6869999999999,
+        "latencyMs": 750.4109160000007,
         "finishReason": "stop",
         "parsed": {
           "case_id": "unsupported-policy",
@@ -377,7 +377,7 @@
         "semanticMargin": null,
         "maxSupportSimilarity": null,
         "maxDistractorSimilarity": 0.511,
-        "latencyMs": 749.7,
+        "latencyMs": 750.4,
         "totalTokens": 267,
         "reasoningTokens": 0,
         "finishReason": "stop",
@@ -416,19 +416,19 @@
         ]
       },
       "semantic": {
-        "queryEmbeddingLatencyMs": 13.4,
+        "queryEmbeddingLatencyMs": 14.5,
         "contextRows": [
           {
             "id": "sec-a",
             "role": "support",
             "similarity": 0.739,
-            "embeddingLatencyMs": 14.1
+            "embeddingLatencyMs": 14.3
           },
           {
             "id": "sec-b",
             "role": "support",
             "similarity": 0.685,
-            "embeddingLatencyMs": 13.3
+            "embeddingLatencyMs": 14.7
           }
         ],
         "maxSupportSimilarity": 0.739,
@@ -439,7 +439,7 @@
         "rawContent": "{\n  \"case_id\": \"conflict-needs-review\",\n  \"decision\": \"abstain\",\n  \"answer\": \"\",\n  \"citations\": [\n    \"sec-a\",\n    \"sec-b\"\n  ],\n  \"confidence\": 0.5,\n  \"support_notes\": \"The provided context contains a direct contradiction between the legacy runbook and the current security policy regarding whether support agents can automatically rotate production API keys.\"\n}",
         "reasoningTokens": 0,
         "totalTokens": 301,
-        "latencyMs": 982.2638329999991,
+        "latencyMs": 989.2454579999994,
         "finishReason": "stop",
         "parsed": {
           "case_id": "conflict-needs-review",
@@ -471,7 +471,7 @@
         "semanticMargin": null,
         "maxSupportSimilarity": 0.739,
         "maxDistractorSimilarity": null,
-        "latencyMs": 982.3,
+        "latencyMs": 989.2,
         "totalTokens": 301,
         "reasoningTokens": 0,
         "finishReason": "stop",
@@ -510,19 +510,19 @@
         ]
       },
       "semantic": {
-        "queryEmbeddingLatencyMs": 14.2,
+        "queryEmbeddingLatencyMs": 13.9,
         "contextRows": [
           {
             "id": "tool-a",
             "role": "support",
             "similarity": 0.777,
-            "embeddingLatencyMs": 15.3
+            "embeddingLatencyMs": 15
           },
           {
             "id": "tool-b",
             "role": "support",
             "similarity": 0.587,
-            "embeddingLatencyMs": 15
+            "embeddingLatencyMs": 15.4
           }
         ],
         "maxSupportSimilarity": 0.777,
@@ -533,7 +533,7 @@
         "rawContent": "{\n  \"case_id\": \"tool-risk-supported\",\n  \"decision\": \"answer\",\n  \"answer\": \"Write-capable tools require tool allowlists, schema validation, dry-run mode where possible, idempotency keys, and approval boundaries for irreversible operations.\",\n  \"citations\": [\n    \"[tool-a]\"\n  ],\n  \"confidence\": 1.0,\n  \"support_notes\": \"The context explicitly lists the required controls for write-capable tools in the agent tool policy section.\"\n}",
         "reasoningTokens": 0,
         "totalTokens": 332,
-        "latencyMs": 1082.5937919999997,
+        "latencyMs": 1097.7880839999998,
         "finishReason": "stop",
         "parsed": {
           "case_id": "tool-risk-supported",
@@ -563,7 +563,7 @@
         "semanticMargin": null,
         "maxSupportSimilarity": 0.777,
         "maxDistractorSimilarity": null,
-        "latencyMs": 1082.6,
+        "latencyMs": 1097.8,
         "totalTokens": 332,
         "reasoningTokens": 0,
         "finishReason": "stop",
@@ -601,19 +601,19 @@
         ]
       },
       "semantic": {
-        "queryEmbeddingLatencyMs": 13.1,
+        "queryEmbeddingLatencyMs": 13.3,
         "contextRows": [
           {
             "id": "deploy-a",
             "role": "distractor",
             "similarity": 0.677,
-            "embeddingLatencyMs": 14.6
+            "embeddingLatencyMs": 14.3
           },
           {
             "id": "deploy-b",
             "role": "support",
             "similarity": 0.738,
-            "embeddingLatencyMs": 17.3
+            "embeddingLatencyMs": 15.9
           }
         ],
         "maxSupportSimilarity": 0.738,
@@ -624,7 +624,7 @@
         "rawContent": "{\n\"case_id\": \"recency-trap\",\n\"decision\": \"answer\",\n\"answer\": \"automated canary gate\",\n\"citations\": [\n\"deploy-b\"\n],\n\"confidence\": 1.0,\n\"support_notes\": \"The 2026 release note explicitly states that manual approval was replaced by an automated canary gate, overriding the 2024 context where manual approval was still in use.\"\n}",
         "reasoningTokens": 0,
         "totalTokens": 316,
-        "latencyMs": 957.5269580000022,
+        "latencyMs": 978.7283329999991,
         "finishReason": "stop",
         "parsed": {
           "case_id": "recency-trap",
@@ -654,7 +654,7 @@
         "semanticMargin": 0.061,
         "maxSupportSimilarity": 0.738,
         "maxDistractorSimilarity": 0.677,
-        "latencyMs": 957.5,
+        "latencyMs": 978.7,
         "totalTokens": 316,
         "reasoningTokens": 0,
         "finishReason": "stop",
@@ -692,19 +692,19 @@
         ]
       },
       "semantic": {
-        "queryEmbeddingLatencyMs": 13.8,
+        "queryEmbeddingLatencyMs": 13.2,
         "contextRows": [
           {
             "id": "eval-a",
             "role": "support",
             "similarity": 0.774,
-            "embeddingLatencyMs": 14.7
+            "embeddingLatencyMs": 15.9
           },
           {
             "id": "eval-b",
             "role": "distractor",
             "similarity": 0.499,
-            "embeddingLatencyMs": 15.4
+            "embeddingLatencyMs": 15.9
           }
         ],
         "maxSupportSimilarity": 0.774,
@@ -715,7 +715,7 @@
         "rawContent": "{\n\"case_id\": \"numeric-extraction\",\n\"decision\": \"answer\",\n\"answer\": \"The recall@5 threshold is 0.82, and last week's value was 0.76.\",\n\"citations\": [\n\"eval-a\"\n],\n\"confidence\": 1.0,\n\"support_notes\": \"The context explicitly states that the release gate blocks deployment when recall@5 is below 0.82 and reports last week's offline score as 0.76.\"\n}",
         "reasoningTokens": 0,
         "totalTokens": 347,
-        "latencyMs": 1077.154166999997,
+        "latencyMs": 1095.574208,
         "finishReason": "stop",
         "parsed": {
           "case_id": "numeric-extraction",
@@ -745,7 +745,7 @@
         "semanticMargin": 0.276,
         "maxSupportSimilarity": 0.774,
         "maxDistractorSimilarity": 0.499,
-        "latencyMs": 1077.2,
+        "latencyMs": 1095.6,
         "totalTokens": 347,
         "reasoningTokens": 0,
         "finishReason": "stop",
@@ -781,19 +781,19 @@
         ]
       },
       "semantic": {
-        "queryEmbeddingLatencyMs": 13.3,
+        "queryEmbeddingLatencyMs": 13.8,
         "contextRows": [
           {
             "id": "rank-a",
             "role": "distractor",
             "similarity": 0.6,
-            "embeddingLatencyMs": 70.7
+            "embeddingLatencyMs": 13.6
           },
           {
             "id": "rank-b",
             "role": "distractor",
             "similarity": 0.574,
-            "embeddingLatencyMs": 13.3
+            "embeddingLatencyMs": 13.5
           }
         ],
         "maxSupportSimilarity": null,
@@ -804,7 +804,7 @@
         "rawContent": "{\n\"case_id\": \"unsupported-benchmark-claim\",\n\"decision\": \"abstain\",\n\"answer\": \"\",\n\"citations\": [],\n\"confidence\": 1.0,\n\"support_notes\": \"The provided context only discusses internal evaluation results and explicitly states that the internal set is not comparable to public leaderboards, offering no information about performance on the BEIR leaderboard.\"\n}",
         "reasoningTokens": 0,
         "totalTokens": 289,
-        "latencyMs": 849.5815419999999,
+        "latencyMs": 852.5094169999993,
         "finishReason": "stop",
         "parsed": {
           "case_id": "unsupported-benchmark-claim",
@@ -830,7 +830,7 @@
         "semanticMargin": null,
         "maxSupportSimilarity": null,
         "maxDistractorSimilarity": 0.6,
-        "latencyMs": 849.6,
+        "latencyMs": 852.5,
         "totalTokens": 289,
         "reasoningTokens": 0,
         "finishReason": "stop",
@@ -869,19 +869,19 @@
         ]
       },
       "semantic": {
-        "queryEmbeddingLatencyMs": 13.7,
+        "queryEmbeddingLatencyMs": 13.4,
         "contextRows": [
           {
             "id": "obs-a",
             "role": "support",
             "similarity": 0.691,
-            "embeddingLatencyMs": 13.1
+            "embeddingLatencyMs": 13.5
           },
           {
             "id": "obs-b",
             "role": "support",
             "similarity": 0.621,
-            "embeddingLatencyMs": 14.1
+            "embeddingLatencyMs": 13.8
           }
         ],
         "maxSupportSimilarity": 0.691,
@@ -892,7 +892,7 @@
         "rawContent": "{\n\"case_id\": \"multi-hop-supported\",\n\"decision\": \"answer\",\n\"answer\": \"Agent traces should connect latency debugging with answer-quality review by attaching evaluator scores for groundedness, citation support, and policy compliance to the response span, allowing both latency and quality to be reviewed together.\",\n\"citations\": [\n\"obs-b\"\n],\n\"confidence\": 0.95,\n\"support_notes\": \"The context explicitly states that attaching evaluator scores to the response span enables the joint review of latency and quality.\"\n}",
         "reasoningTokens": 0,
         "totalTokens": 320,
-        "latencyMs": 1098.508041000001,
+        "latencyMs": 1110.1252910000003,
         "finishReason": "stop",
         "parsed": {
           "case_id": "multi-hop-supported",
@@ -922,7 +922,7 @@
         "semanticMargin": null,
         "maxSupportSimilarity": 0.691,
         "maxDistractorSimilarity": null,
-        "latencyMs": 1098.5,
+        "latencyMs": 1110.1,
         "totalTokens": 320,
         "reasoningTokens": 0,
         "finishReason": "stop",

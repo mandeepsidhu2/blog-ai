@@ -6,7 +6,19 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..", "..");
 
-const requiredFrontMatter = ["title", "description", "topic", "level", "date", "readingTime", "tags", "image", "imageAlt"];
+const requiredFrontMatter = [
+  "title",
+  "description",
+  "topic",
+  "level",
+  "date",
+  "readingTime",
+  "tags",
+  "image",
+  "imageAlt",
+  "evidenceMode",
+];
+const evidenceModes = new Set(["strategy", "experiment"]);
 const prohibitedPatterns = [
   { label: "local model catalog health-check article", pattern: /local[- ]model[- ]catalog[- ]health[- ]check/i },
   { label: "local model catalog endpoint", pattern: /http:\/\/localhost:1234\/api\/v1\/models/i },
@@ -96,6 +108,10 @@ function headingTitles(markdown) {
   return [...markdown.matchAll(/^#{2,3}\s+(.+)$/gm)].map((match) => match[1].trim());
 }
 
+function markdownLinkCount(markdown) {
+  return [...markdown.matchAll(/\[[^\]]+\]\(https?:\/\/[^)]+\)/g)].length;
+}
+
 function metadataTags(value = "") {
   return value.split(",").map((tag) => tag.trim()).filter(Boolean);
 }
@@ -135,6 +151,9 @@ async function validateArticle(filePath, assetsDir) {
   if (metadataTags(metadata.tags).length < 3) {
     issues.push("At least three specific tags are required.");
   }
+  if (metadata.evidenceMode && !evidenceModes.has(metadata.evidenceMode)) {
+    issues.push('evidenceMode must be either "strategy" or "experiment".');
+  }
 
   if (metadata.image) {
     if (!metadata.image.startsWith("/content/v1/assets/")) {
@@ -152,28 +171,35 @@ async function validateArticle(filePath, assetsDir) {
   const proseWords = wordCount(markdown.replace(/```[\s\S]*?```/g, " "));
   const codeBlocks = countMatches(markdown, /^```(?!output\b)[A-Za-z0-9_-]*/gm);
   const outputBlocks = countMatches(markdown, /^```output\b/gm);
+  const evidenceMode = metadata.evidenceMode || "";
 
   if (bodyWords < 1800) issues.push("Article is too thin for customer publishing; expected at least 1800 total words including code.");
   if (proseWords < 1300) issues.push("Article needs more explanatory prose; expected at least 1300 non-code words.");
   if (headings.filter((heading) => !heading.startsWith("#")).length < 8) {
     issues.push("Article needs at least eight h2/h3 sections for scanability and TOC quality.");
   }
-  if (codeBlocks < 3) issues.push("Article must include at least three implementation code blocks.");
-  if (outputBlocks < 1) issues.push("Article must include at least one output block.");
-  if (!headings.some((heading) => /production readiness/i.test(heading))) {
-    issues.push("Article must include a section named for production readiness.");
+  if (evidenceMode === "experiment" && codeBlocks < 3) issues.push("Experiment articles must include at least three implementation code blocks.");
+  if (evidenceMode === "experiment" && outputBlocks < 1) issues.push("Experiment articles must include at least one output block.");
+  if (evidenceMode === "experiment" && !headings.some((heading) => /reproduc/i.test(heading))) {
+    issues.push("Experiment articles must include a reproducibility section.");
+  }
+  if (evidenceMode === "strategy" && markdownLinkCount(markdown) < 5) {
+    issues.push("Strategy articles must cite at least five current primary or high-signal sources.");
+  }
+  if (evidenceMode === "strategy" && !headings.some((heading) => /source|signal|research/i.test(heading))) {
+    issues.push("Strategy articles must include a source/signal/research section.");
+  }
+  if (!headings.some((heading) => /production readiness|operating model|implementation plan/i.test(heading))) {
+    issues.push("Article must include production readiness, operating model, or implementation plan guidance.");
   }
   if (!headings.some((heading) => /failure|limitation|error analysis/i.test(heading))) {
     issues.push("Article must include a failure-analysis or limitation section.");
   }
-  if (!headings.some((heading) => /reproduc/i.test(heading))) {
-    issues.push("Article must include a reproducibility section.");
-  }
   if (!/\b(evaluation|metric|measure|benchmark|threshold|score|test|baseline|recall|precision|latency|cost|guardrail|trace)\b/i.test(markdown)) {
     issues.push("Article must include an empirical evaluation, metric, test, threshold, or operational signal.");
   }
-  if (!/\b(failures?|limitations?|risks?|guardrails?|rollback|extensions?|debugging?|regressions?)\b/i.test(markdown)) {
-    issues.push("Article must explain failure modes, limitations, guardrails, or production extensions.");
+  if (!/\b(failures?|limitations?|risks?|guardrails?|rollback|debugging?|regressions?)\b/i.test(markdown)) {
+    issues.push("Article must explain failure modes, limitations, guardrails, rollback criteria, or debugging paths.");
   }
 
   for (const rule of prohibitedPatterns) {

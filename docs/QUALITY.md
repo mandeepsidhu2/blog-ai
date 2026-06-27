@@ -37,19 +37,32 @@ node operator/scripts/publish-generated-content.mjs \
   --dry-run
 ```
 
+Committed content can be published only through the same mandatory gates:
+
+```sh
+node operator/scripts/publish-current-site.mjs \
+  --site-url https://learn.toolsite.com \
+  --app-bucket blog-ai-static-349188916794 \
+  --content-bucket blog-ai-content-349188916794 \
+  --distribution-id E17JFCAQXSGYZW \
+  --delete
+```
+
 Use the bundled Codex Node runtime if local `node` is unavailable.
 
 ## Mechanical Checks
 
 `app-scripts/check-site.mjs` currently verifies:
 
-- exactly five tutorial articles.
+- at least one approved tutorial article.
 - search index count matches manifest count.
 - topic groups exist.
 - home page has SEO metadata and visual asset.
 - sitemap exists and covers articles.
-- each article has canonical URL, `h1`, TOC, code blocks, output blocks,
-  article-specific visual asset, generated JSON, and sitemap coverage.
+- each article has canonical URL, `h1`, TOC, article-specific visual asset,
+  generated JSON, and sitemap coverage.
+- experiment-mode source articles render code blocks and output blocks.
+- internal evidence metadata does not appear in generated public HTML or JSON.
 - pipeline artifact contains app and content outputs.
 
 `operator/scripts/check-public-content.mjs` currently verifies:
@@ -58,7 +71,9 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
 - article-specific assets exist under `/content/v1/assets/*`.
 - title and description are strong enough for customer-facing SEO pages.
 - article depth, TOC section count, at least three code blocks, and output
-  blocks.
+  blocks for `evidenceMode: experiment`.
+- at least five current sources and a source/signal/research section for
+  `evidenceMode: strategy`.
 - production-readiness section, empirical or operational signals, and failure
   mode or guardrail coverage.
 - absence of placeholders, local failures, private paths, AWS profiles, and

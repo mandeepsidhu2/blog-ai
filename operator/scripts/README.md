@@ -7,12 +7,16 @@ Use `publish-generated-content.mjs` when generated article Markdown and assets
 live outside the repo but need to be rendered through the same static generator
 and uploaded to S3.
 
+Use `publish-current-site.mjs` when committed `content/articles` and
+`content/assets` should be built and uploaded as the current site.
+
 The publish helper runs mandatory customer-content gates before staging files.
 It rejects generated Markdown that is incomplete, missing article-specific
-assets, missing production-readiness guidance, missing code/output examples, or
-contains operator-only details such as the local model catalog health-check
-article, `localhost:1234` model endpoint output, private filesystem paths, or
-the local AWS profile name.
+assets, missing production-readiness guidance, missing required code/output
+examples for measured implementation articles, missing current sources for
+strategy articles, or containing operator-only details such as the local model
+catalog health-check article, `localhost:1234` model endpoint output, private
+filesystem paths, or the local AWS profile name.
 
 Validate without uploading:
 
@@ -25,6 +29,7 @@ node operator/scripts/check-public-content.mjs \
 
 `publish-generated-content.mjs` does not allow `--skip-check`; if a gate fails,
 nothing should be uploaded and the failing article names must be reported.
+`publish-current-site.mjs` follows the same rule for committed content.
 
 The gate is intentionally strict. It is acceptable for a generated article batch
 to fail and remain unpublished. Do not lower the gate to save weak content.
@@ -48,4 +53,15 @@ AWS_PROFILE=macbook-terraform node operator/scripts/publish-generated-content.mj
   --app-bucket blog-ai-static-349188916794 \
   --content-bucket blog-ai-content-349188916794 \
   --distribution-id E17JFCAQXSGYZW
+```
+
+Committed site example:
+
+```sh
+AWS_PROFILE=macbook-terraform node operator/scripts/publish-current-site.mjs \
+  --site-url https://learn.toolsite.com \
+  --app-bucket blog-ai-static-349188916794 \
+  --content-bucket blog-ai-content-349188916794 \
+  --distribution-id E17JFCAQXSGYZW \
+  --delete
 ```

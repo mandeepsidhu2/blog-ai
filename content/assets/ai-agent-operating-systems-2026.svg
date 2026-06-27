@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Agent operating system architecture diagram</title>
+  <desc id="desc">Layered diagram showing models, harnesses, tools, context contracts, evaluations, permissions, memory, observability, and release gates for production AI agents.</desc>
+  <rect width="1600" height="900" fill="#f7f3ea"/>
+  <rect x="86" y="76" width="1428" height="748" rx="34" fill="#16251f"/>
+  <rect x="126" y="122" width="1348" height="656" rx="24" fill="#21362d"/>
+  <text x="160" y="190" fill="#f5d46c" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">AI Agent Operating System</text>
+  <text x="160" y="232" fill="#dce8df" font-family="Arial, Helvetica, sans-serif" font-size="24">The durable advantage is the harness around the model.</text>
+
+  <g fill="#f7f3ea" stroke="#80a89a" stroke-width="3">
+    <rect x="160" y="292" width="258" height="138" rx="18"/>
+    <rect x="476" y="292" width="258" height="138" rx="18"/>
+    <rect x="792" y="292" width="258" height="138" rx="18"/>
+    <rect x="1108" y="292" width="258" height="138" rx="18"/>
+  </g>
+  <g fill="#16251f" font-family="Arial, Helvetica, sans-serif">
+    <text x="190" y="350" font-size="29" font-weight="700">Context Contracts</text>
+    <text x="190" y="386" font-size="19">schemas, retrieval, memory</text>
+    <text x="506" y="350" font-size="29" font-weight="700">Tool Surfaces</text>
+    <text x="506" y="386" font-size="19">MCP, A2A, typed APIs</text>
+    <text x="822" y="350" font-size="29" font-weight="700">Eval Harness</text>
+    <text x="822" y="386" font-size="19">tasks, traces, thresholds</text>
+    <text x="1138" y="350" font-size="29" font-weight="700">Permissions</text>
+    <text x="1138" y="386" font-size="19">approvals, scopes, rollback</text>
+  </g>
+
+  <g stroke="#f5d46c" stroke-width="5" fill="none" stroke-linecap="round">
+    <path d="M418 361h58"/>
+    <path d="M734 361h58"/>
+    <path d="M1050 361h58"/>
+  </g>
+  <g fill="#f5d46c">
+    <path d="M468 348l19 13-19 13z"/>
+    <path d="M784 348l19 13-19 13z"/>
+    <path d="M1100 348l19 13-19 13z"/>
+  </g>
+
+  <rect x="220" y="506" width="1160" height="146" rx="22" fill="#f5d46c"/>
+  <text x="270" y="572" fill="#16251f" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Model Routing Layer</text>
+  <text x="270" y="612" fill="#16251f" font-family="Arial, Helvetica, sans-serif" font-size="22">small fast models, reasoning models, local models, hosted models, fallback policies</text>
+  <circle cx="1216" cy="579" r="44" fill="#16251f"/>
+  <text x="1190" y="592" fill="#f7f3ea" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">LLM</text>
+
+  <g fill="none" stroke="#80a89a" stroke-width="3">
+    <path d="M286 506v-58"/>
+    <path d="M606 506v-58"/>
+    <path d="M922 506v-58"/>
+    <path d="M1238 506v-58"/>
+  </g>
+  <g fill="#dce8df" font-family="Arial, Helvetica, sans-serif" font-size="20">
+    <text x="210" y="716">Release gate: zero unsafe tool calls, bounded cost, trace coverage, freshness checks, citation recall.</text>
+    <text x="210" y="746">Operator loop: inspect failures, tighten docs, promote rules into tests, rerun before publishing.</text>
+  </g>
+</svg>
