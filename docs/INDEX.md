@@ -38,5 +38,5 @@ single file into a catch-all manual.
 - App generator: `app-scripts/build-site.mjs`
 - Generated-site checks: `app-scripts/check-site.mjs`
 - Operator publishing helpers: `operator/scripts/`
-- DIY article project workspace: `operator/diy-project-blogs/`
+- Internal article evidence workspace: `operator/diy-project-blogs/`
 - App-specific infrastructure: `../infrastructure/blog-ai-frontend`

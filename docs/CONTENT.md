@@ -40,6 +40,22 @@ Asset fields:
 - `imageAlt`: descriptive alt text for the article image. Keep it literal and
   specific to the diagram or screenshot.
 
+## Internal Source Modes
+
+There are two internal ways an article can be produced:
+
+- Strategy or trend articles: explain AI practices, adoption patterns, model
+  trends, code organization, harness engineering, or operating models. These may
+  cite external sources and should still be concrete, current, and actionable.
+- Evidence-supported technical articles: include code snippets, outputs, and
+  results from an internal project under `operator/diy-project-blogs`.
+
+This distinction is for us only. The website must present both as ordinary
+articles. Do not write public copy that says "DIY project", "operator project",
+"experiment-backed article", or "trend article". If an article uses supporting
+evidence, integrate it naturally as measurements, results, figures, or
+reproducibility notes.
+
 ## Structure
 
 - Use `h2` for main sections.
@@ -51,9 +67,9 @@ Asset fields:
   help readers understand the implementation. Generated content assets should
   live under `content/assets` only as temporary build input unless the article is
   intentionally committed to the repo.
-- Use `operator/diy-project-blogs` for small experiments that produce article
-  findings, charts, screenshots, or local model catalog notes before content is
-  staged and published to S3.
+- Use `operator/diy-project-blogs` internally for experiments that produce
+  article findings, charts, screenshots, or local model catalog notes before
+  content is staged and published to S3.
 
 ## Public Content Boundary
 
@@ -82,6 +98,8 @@ Do not publish:
 - private filesystem paths.
 - AWS profiles, Terraform state details, bucket internals, or deployment logs.
 - operator diagnostics whose main value is explaining our environment.
+- internal labels such as DIY project, operator project, trend article, or
+  experiment-backed article.
 
 Keep those details in `operator/` project outputs. If a generated project is
 only useful as an internal diagnostic, set `publish: false` and publish a

@@ -32,6 +32,10 @@ Reference:
   Public tutorials must be production-grade, customer-facing, current for the
   topic, and supported by code, output, an article-specific visual asset,
   empirical/operational signals, and production-readiness guidance.
+- Internally, articles can be strategy/trend pieces or experiment-supported
+  technical pieces. Publicly, the distinction is invisible: customers see one
+  article library. Do not label public content as DIY, operator-generated,
+  experiment-backed, or trend content.
 - Quality beats quantity. Publish at most one or two articles per day, and only
   when they are deep enough for real engineers and research-minded readers to
   lean on. Lightweight demos, deterministic-fixture writeups, and articles with
@@ -57,9 +61,10 @@ Reference:
 - `app-scripts/serve-dist.mjs`: local preview server for app and content outputs.
 - `operator/scripts/`: operator-only helpers used by us, not by the app runtime
   or pipeline.
-- `operator/diy-project-blogs/`: small project workspaces for generating article
-  findings, charts, screenshots, local model catalog snapshots, and fun AI
-  tutorial ideas before publishing generated content to S3.
+- `operator/diy-project-blogs/`: internal evidence workspaces for article
+  experiments, findings, charts, screenshots, local model catalog snapshots, and
+  reproducible code runs. Customers should never see this folder name or the DIY
+  framing in article copy.
 - `pipeline/`: CodeBuild buildspecs consumed by the app-specific Terraform
   stack in `../infrastructure/blog-ai-frontend`.
 
@@ -82,7 +87,7 @@ node app-scripts/serve-dist.mjs
 Then inspect:
 
 - Home: `http://127.0.0.1:4173/`
-- Article: `http://127.0.0.1:4173/tutorials/tiny-rag-pipeline/`
+- Article: `http://127.0.0.1:4173/tutorials/llm-context-boundary-evaluation/`
 - Content JSON: `http://127.0.0.1:4173/content/v1/manifest.json`
 
 ## Agent Operating Loop
@@ -103,6 +108,8 @@ Then inspect:
 - Public content is for customers learning AI systems. It should teach a useful
   technique and help readers stay ahead in AI, not describe our local publishing
   failures or workstation state.
+- Public article pages must not expose our internal source distinction. Strategy
+  articles and evidence-backed coding articles both render as normal tutorials.
 - Publishing is allowed only after `operator/scripts/check-public-content.mjs`,
   `app-scripts/build-site.mjs`, and `app-scripts/check-site.mjs` pass. If any
   article fails, do not publish the batch; report the failing article and reason.

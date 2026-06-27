@@ -4,8 +4,9 @@ This folder is for work done by us around the app. The app runtime and the
 CodeBuild pipeline do not import files from here.
 
 - `scripts/`: manual operator helpers, including generated-content publishing.
-- `diy-project-blogs/`: small project workspaces used to create article findings,
-  charts, screenshots, and publishable AI tutorial ideas.
+- `diy-project-blogs/`: internal article evidence workspaces used to create
+  findings, charts, screenshots, and measured support for polished public
+  articles. The public website must not expose the DIY/operator distinction.
 
 Operator outputs are allowed to include local endpoint status, fallback notes,
 and failed probes. Public articles are not. If a project documents our local

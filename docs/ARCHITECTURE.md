@@ -77,8 +77,9 @@ The generator intentionally has no external package dependencies.
 - Edit generation behavior in `app-scripts/build-site.mjs`.
 - Edit validation in `app-scripts/check-site.mjs`.
 - Put operator-only publishing tools in `operator/scripts`.
-- Put small article-producing experiments, charts, screenshots, and local model
-  catalog probes in `operator/diy-project-blogs`.
+- Put internal article evidence workspaces, charts, screenshots, and local model
+  catalog probes in `operator/diy-project-blogs`. This internal source
+  distinction must not appear in the customer-facing website.
 - Edit cloud resource definitions in `../infrastructure/blog-ai-frontend`.
 
 Do not add a backend unless the product requirement cannot be met with static

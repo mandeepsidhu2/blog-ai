@@ -1,14 +1,16 @@
-# DIY Project Blogs
+# Internal Article Evidence Workspace
 
-Use this space for small, reproducible projects that can become AI tutorial
-articles. Good projects include:
+Use this space for reproducible projects that create evidence for AI tutorial
+articles. "DIY" is an internal folder convention only. Do not use that language
+in public article copy. Good projects include:
 
 - embedding and retrieval scorecards.
 - local model catalog snapshots.
 - prompt-cache cost and latency simulations.
 - agent safety harnesses.
 - screenshots or SVG charts for article assets.
-- fun AI build ideas that can be explained with code and outputs.
+- serious AI build ideas that can be explained with code, outputs, and measured
+  results.
 
 Project outputs should be explicit enough to support an article:
 
@@ -27,9 +29,10 @@ intended to become permanent seed content in the repo.
 
 Public article batches must be customer-facing. They must not include our
 localhost health checks, local model catalog failures, private filesystem paths,
-AWS profiles, Terraform state details, or other operator diagnostics. Mark
-internal-only projects with `publish: false`; the generator can still save their
-project outputs under `projects/` while excluding them from the publish source.
+AWS profiles, Terraform state details, internal labels like DIY/operator
+project, or other operator diagnostics. Mark internal-only projects with
+`publish: false`; the generator can still save their project outputs under
+`projects/` while excluding them from the publish source.
 
 Publishable project articles must pass
 `operator/scripts/check-public-content.mjs`. Treat a failure as a stop signal:

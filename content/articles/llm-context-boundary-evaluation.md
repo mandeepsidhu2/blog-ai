@@ -208,7 +208,7 @@ The model loading discipline should stay in the harness. A local server with lim
 
 ## Reproducibility
 
-The experiment artifacts are saved under `operator/diy-project-blogs/projects/llm-context-boundary-eval`:
+The experiment produces a compact artifact set:
 
 - `dataset.json` contains every case and expected behavior.
 - `results.json` contains raw run details, semantic margins, parsed model outputs, and scores.

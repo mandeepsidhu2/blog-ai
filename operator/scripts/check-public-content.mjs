@@ -17,6 +17,7 @@ const prohibitedPatterns = [
   { label: "local fetch failure", pattern: /\bfetch failed\b|status:\s*unavailable/i },
   { label: "lightweight production-extension section", pattern: /^##\s+Production extensions?\s*$/im },
   { label: "deterministic fixture article language", pattern: /deterministic fixture|fixture formulas/i },
+  { label: "internal DIY/operator article framing", pattern: /\bDIY project\b|\boperator project\b|\bexperiment-backed article\b|\btrend article\b|operator\/diy-project-blogs/i },
 ];
 
 function parseArgs(argv) {

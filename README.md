@@ -19,10 +19,12 @@ The content source of truth is Markdown in `content/articles`. Build output is g
 
 - `app-scripts/` is app-owned build, validation, and preview tooling.
 - `operator/scripts/` is operator-only tooling used by us for manual publishing workflows.
-- `operator/diy-project-blogs/` is a workspace for small AI project experiments that can produce
-  findings, charts, screenshots, and generated article batches for S3 publishing. It may use the
-  local model catalog endpoint at `curl -s http://localhost:1234/api/v1/models` when that endpoint
-  is running.
+- `operator/diy-project-blogs/` is an internal workspace for article evidence:
+  experiments, findings, charts, screenshots, and generated article batches for
+  S3 publishing. It may use the local model catalog endpoint at
+  `curl -s http://localhost:1234/api/v1/models` when that endpoint is running.
+  Customers should only see polished articles, not our internal distinction
+  between strategy pieces and evidence-producing projects.
 - Operator diagnostics are not customer content. Do not publish localhost health,
   private paths, local run failures, AWS profiles, Terraform state details, or
   workstation-specific output as articles.
