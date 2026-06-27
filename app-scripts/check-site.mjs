@@ -8,6 +8,8 @@ const distDir = path.join(rootDir, "dist");
 const appDir = path.join(distDir, "app");
 const contentDir = path.join(distDir, "content");
 const articleSourceDir = path.join(rootDir, "content", "articles");
+const internalEvidenceFramingPattern =
+  /\bDIY project\b|\boperator project\b|\bresearch-backed article\b|\bevidence-backed article\b|\bexperiment-backed article\b|\bstrategy article\b|\bexperiment article\b|\btrend article\b|\bevidenceMode\b|\bevidence mode\b|operator\/diy-project-blogs/i;
 
 async function readText(filePath) {
   return fs.readFile(filePath, "utf8");
@@ -95,6 +97,10 @@ async function main() {
     assert(!html.includes("undefined"), `Article ${article.slug} contains undefined output.`);
     assert(!html.includes("evidenceMode"), `Article ${article.slug} exposes internal evidence metadata.`);
     assert(!JSON.stringify(json).includes("evidenceMode"), `Article JSON ${article.slug} exposes internal evidence metadata.`);
+    assert(
+      !internalEvidenceFramingPattern.test(`${html}\n${JSON.stringify(json)}`),
+      `Article ${article.slug} exposes internal evidence-mode framing.`,
+    );
     assert(json.blocks.length > 0, `Article JSON has no blocks for ${article.slug}.`);
     assert(json.toc.length >= 8, `Article JSON has too few TOC entries for ${article.slug}.`);
     assert(sitemap.includes(article.url), `Sitemap missing ${article.url}.`);

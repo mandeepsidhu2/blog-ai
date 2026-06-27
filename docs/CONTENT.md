@@ -44,21 +44,35 @@ Asset fields:
 
 ## Internal Source Modes
 
-There are two internal ways an article can be produced:
+`evidenceMode` describes how we produced and validated the article. It is an
+operator-only evidence contract, not a customer-facing category, topic, tag, SEO
+cluster, navigation label, or URL strategy.
 
-- Strategy or trend articles: explain AI practices, adoption patterns, model
+There are two internal evidence modes:
+
+- `strategy`: explain AI practices, adoption patterns, model
   trends, code organization, harness engineering, or operating models. These may
   cite external sources and should still be concrete, current, and actionable.
-  Use `evidenceMode: strategy`.
-- Evidence-supported technical articles: include code snippets, outputs, and
-  results from an internal project under `operator/diy-project-blogs`. Use
-  `evidenceMode: experiment`.
+- `experiment`: include code snippets, outputs, and results from an internal
+  project under `operator/diy-project-blogs`.
 
 This distinction is for us only. The website must present both as ordinary
 articles. Do not write public copy that says "DIY project", "operator project",
-"experiment-backed article", or "trend article". If an article uses supporting
+"research-backed article", "experiment-backed article", "strategy article",
+"experiment article", or "trend article". If an article uses supporting
 evidence, integrate it naturally as measurements, results, figures, or
 reproducibility notes.
+
+Evidence mode is orthogonal to domain. For example, an embedding-model market
+analysis and an embedding-model benchmark can both use topic `Embeddings` and
+similar tags such as `embeddings`, `retrieval`, and `model-evaluation`; only the
+internal `evidenceMode` differs.
+
+Do not use `strategy`, `experiment`, `trend`, `research-backed`, or
+`experiment-backed` as the article topic or as exact tags. Those are internal
+production labels, not customer-facing domain labels. Domain tags that contain a
+more specific meaning, such as `ai-strategy`, are acceptable when they describe
+reader intent.
 
 ## Structure
 
@@ -85,10 +99,10 @@ Do not publish anything that is failing, incomplete, placeholder-like, or only
 useful as an internal note. A public article must have:
 
 - article-specific image and alt text.
-- for experiment articles, at least three runnable code blocks and one output
-  block.
-- for strategy articles, at least five current primary or high-signal sources
-  and a clear source/signal/research section.
+- for `evidenceMode: experiment`, at least three runnable code blocks, one
+  output block, and a reproducibility section.
+- for `evidenceMode: strategy`, at least five current primary or high-signal
+  sources and a clear source/signal/research section.
 - enough explanatory prose to stand alone as a deep technical reference.
 - empirical or operational signal such as a metric, benchmark, threshold, trace,
   test, or release gate.
@@ -106,8 +120,11 @@ Do not publish:
 - private filesystem paths.
 - AWS profiles, Terraform state details, bucket internals, or deployment logs.
 - operator diagnostics whose main value is explaining our environment.
-- internal labels such as DIY project, operator project, trend article, or
+- internal labels such as DIY project, operator project, strategy article,
+  experiment article, trend article, research-backed article, or
   experiment-backed article.
+- hype filler such as "game-changing", "unlock the power", or generic claims
+  that are not tied to a concrete mechanism, metric, source, or trade-off.
 
 Keep those details in `operator/` project outputs. If a generated project is
 only useful as an internal diagnostic, set `publish: false` and publish a
@@ -132,6 +149,7 @@ Every tutorial should be:
 - practical enough to build from.
 - explicit about assumptions.
 - honest about limitations, rollout boundaries, and production-readiness gaps.
+- direct and evidence-dense; no filler paragraphs or unsupported hype.
 - readable without requiring hidden context.
 - useful as an SEO page and as a structured content payload.
 - production-grade enough to represent the product to customers.

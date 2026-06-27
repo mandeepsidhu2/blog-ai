@@ -36,11 +36,14 @@ Reference:
 - Internally, articles can be strategy/trend pieces or experiment-supported
   technical pieces. Publicly, the distinction is invisible: customers see one
   article library. Do not label public content as DIY, operator-generated,
-  experiment-backed, or trend content.
+  research-backed, experiment-backed, strategy, experiment, or trend content.
+  Topic, domain, tags, and SEO intent are independent of `evidenceMode`; an
+  embedding-model trend article and an embedding-model measured tutorial should
+  share the same customer-facing domain language when appropriate.
 - Quality beats quantity. Publish at most one or two articles per day, and only
   when they are deep enough for real engineers and research-minded readers to
-  lean on. Lightweight demos, deterministic-fixture writeups, and articles with
-  a generic `Production extension` section must not be published.
+  lean on. Lightweight demos, filler prose, deterministic-fixture writeups, and
+  articles with a generic `Production extension` section must not be published.
 
 ## Start Here
 

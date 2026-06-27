@@ -19,6 +19,9 @@ const requiredFrontMatter = [
   "evidenceMode",
 ];
 const evidenceModes = new Set(["strategy", "experiment"]);
+const reservedEvidenceLabels = new Set(["strategy", "experiment", "trend", "research-backed", "evidence-backed", "experiment-backed"]);
+const internalEvidenceFramingPattern =
+  /\bDIY project\b|\boperator project\b|\bresearch-backed article\b|\bevidence-backed article\b|\bexperiment-backed article\b|\bstrategy article\b|\bexperiment article\b|\btrend article\b|\bevidenceMode\b|\bevidence mode\b|operator\/diy-project-blogs/i;
 const prohibitedPatterns = [
   { label: "local model catalog health-check article", pattern: /local[- ]model[- ]catalog[- ]health[- ]check/i },
   { label: "local model catalog endpoint", pattern: /http:\/\/localhost:1234\/api\/v1\/models/i },
@@ -29,7 +32,11 @@ const prohibitedPatterns = [
   { label: "local fetch failure", pattern: /\bfetch failed\b|status:\s*unavailable/i },
   { label: "lightweight production-extension section", pattern: /^##\s+Production extensions?\s*$/im },
   { label: "deterministic fixture article language", pattern: /deterministic fixture|fixture formulas/i },
-  { label: "internal DIY/operator article framing", pattern: /\bDIY project\b|\boperator project\b|\bexperiment-backed article\b|\btrend article\b|operator\/diy-project-blogs/i },
+  { label: "internal evidence-mode article framing", pattern: internalEvidenceFramingPattern, markdownOnly: true },
+  {
+    label: "generic hype or filler phrasing",
+    pattern: /\b(game[- ]changing|unlock the power|rapidly evolving landscape|in today's fast[- ]paced|cutting[- ]edge solution|revolutionary)\b/i,
+  },
 ];
 
 function parseArgs(argv) {
@@ -148,8 +155,15 @@ async function validateArticle(filePath, assetsDir) {
     issues.push("readingTime must be a realistic 8-60 minute value.");
   }
 
-  if (metadataTags(metadata.tags).length < 3) {
+  const tags = metadataTags(metadata.tags);
+  if (tags.length < 3) {
     issues.push("At least three specific tags are required.");
+  }
+  if (metadata.topic && reservedEvidenceLabels.has(metadata.topic.toLowerCase())) {
+    issues.push("topic must describe the customer-facing domain, not the internal evidence mode.");
+  }
+  if (tags.some((tag) => reservedEvidenceLabels.has(tag.toLowerCase()))) {
+    issues.push("tags must describe customer-facing domains or techniques, not the internal evidence mode.");
   }
   if (metadata.evidenceMode && !evidenceModes.has(metadata.evidenceMode)) {
     issues.push('evidenceMode must be either "strategy" or "experiment".');
@@ -178,16 +192,16 @@ async function validateArticle(filePath, assetsDir) {
   if (headings.filter((heading) => !heading.startsWith("#")).length < 8) {
     issues.push("Article needs at least eight h2/h3 sections for scanability and TOC quality.");
   }
-  if (evidenceMode === "experiment" && codeBlocks < 3) issues.push("Experiment articles must include at least three implementation code blocks.");
-  if (evidenceMode === "experiment" && outputBlocks < 1) issues.push("Experiment articles must include at least one output block.");
+  if (evidenceMode === "experiment" && codeBlocks < 3) issues.push("evidenceMode=experiment requires at least three implementation code blocks.");
+  if (evidenceMode === "experiment" && outputBlocks < 1) issues.push("evidenceMode=experiment requires at least one output block.");
   if (evidenceMode === "experiment" && !headings.some((heading) => /reproduc/i.test(heading))) {
-    issues.push("Experiment articles must include a reproducibility section.");
+    issues.push("evidenceMode=experiment requires a reproducibility section.");
   }
   if (evidenceMode === "strategy" && markdownLinkCount(markdown) < 5) {
-    issues.push("Strategy articles must cite at least five current primary or high-signal sources.");
+    issues.push("evidenceMode=strategy requires at least five current primary or high-signal sources.");
   }
   if (evidenceMode === "strategy" && !headings.some((heading) => /source|signal|research/i.test(heading))) {
-    issues.push("Strategy articles must include a source/signal/research section.");
+    issues.push("evidenceMode=strategy requires a source/signal/research section.");
   }
   if (!headings.some((heading) => /production readiness|operating model|implementation plan/i.test(heading))) {
     issues.push("Article must include production readiness, operating model, or implementation plan guidance.");
@@ -203,7 +217,8 @@ async function validateArticle(filePath, assetsDir) {
   }
 
   for (const rule of prohibitedPatterns) {
-    if (rule.pattern.test(raw)) {
+    const target = rule.markdownOnly ? markdown : raw;
+    if (rule.pattern.test(target)) {
       issues.push(`Contains ${rule.label}.`);
     }
   }

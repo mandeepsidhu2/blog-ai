@@ -74,11 +74,17 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
   blocks for `evidenceMode: experiment`.
 - at least five current sources and a source/signal/research section for
   `evidenceMode: strategy`.
+- `topic` and `tags` remain customer-facing domain metadata; `evidenceMode` is
+  checked only as an internal production contract and is not emitted publicly.
+  Exact topic/tag values such as `strategy`, `experiment`, `trend`,
+  `research-backed`, and `experiment-backed` are blocked.
 - production-readiness section, empirical or operational signals, and failure
   mode or guardrail coverage.
 - absence of placeholders, local failures, private paths, AWS profiles, and
-  operator-only diagnostics. Lightweight `Production extension` sections and
-  deterministic-fixture articles are blocked.
+  operator-only diagnostics. Public copy that exposes evidence-mode labels such
+  as strategy article, experiment article, research-backed article, or trend
+  article is blocked. Lightweight `Production extension` sections,
+  deterministic-fixture articles, and generic hype filler are blocked.
 
 ## Review Loop
 

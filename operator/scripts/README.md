@@ -14,9 +14,14 @@ The publish helper runs mandatory customer-content gates before staging files.
 It rejects generated Markdown that is incomplete, missing article-specific
 assets, missing production-readiness guidance, missing required code/output
 examples for measured implementation articles, missing current sources for
-strategy articles, or containing operator-only details such as the local model
+strategy-mode articles, or containing operator-only details such as the local model
 catalog health-check article, `localhost:1234` model endpoint output, private
 filesystem paths, or the local AWS profile name.
+
+`evidenceMode` is an internal evidence contract only. It must not become a
+public article label, topic, tag, heading, or taxonomy. Articles in different
+evidence modes can and should share the same customer-facing domain metadata
+when they cover the same subject, such as embeddings or agent evaluation.
 
 Validate without uploading:
 
