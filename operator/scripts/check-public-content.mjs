@@ -15,6 +15,8 @@ const prohibitedPatterns = [
   { label: "operator AWS profile", pattern: /AWS_PROFILE=macbook-terraform|macbook-terraform/i },
   { label: "draft placeholder", pattern: /\b(TODO|TBD|FIXME|coming soon|placeholder|lorem ipsum|dummy article|sample article|draft only|not implemented)\b/i },
   { label: "local fetch failure", pattern: /\bfetch failed\b|status:\s*unavailable/i },
+  { label: "lightweight production-extension section", pattern: /^##\s+Production extensions?\s*$/im },
+  { label: "deterministic fixture article language", pattern: /deterministic fixture|fixture formulas/i },
 ];
 
 function parseArgs(argv) {
@@ -150,15 +152,21 @@ async function validateArticle(filePath, assetsDir) {
   const codeBlocks = countMatches(markdown, /^```(?!output\b)[A-Za-z0-9_-]*/gm);
   const outputBlocks = countMatches(markdown, /^```output\b/gm);
 
-  if (bodyWords < 400) issues.push("Article is too thin for customer publishing; expected at least 400 total words including code.");
-  if (proseWords < 170) issues.push("Article needs more explanatory prose; expected at least 170 non-code words.");
-  if (headings.filter((heading) => !heading.startsWith("#")).length < 5) {
-    issues.push("Article needs at least five h2/h3 sections for scanability and TOC quality.");
+  if (bodyWords < 1800) issues.push("Article is too thin for customer publishing; expected at least 1800 total words including code.");
+  if (proseWords < 1300) issues.push("Article needs more explanatory prose; expected at least 1300 non-code words.");
+  if (headings.filter((heading) => !heading.startsWith("#")).length < 8) {
+    issues.push("Article needs at least eight h2/h3 sections for scanability and TOC quality.");
   }
-  if (codeBlocks < 1) issues.push("Article must include at least one implementation code block.");
+  if (codeBlocks < 3) issues.push("Article must include at least three implementation code blocks.");
   if (outputBlocks < 1) issues.push("Article must include at least one output block.");
-  if (!headings.some((heading) => /production/i.test(heading))) {
-    issues.push("Article must include a production-readiness section.");
+  if (!headings.some((heading) => /production readiness/i.test(heading))) {
+    issues.push("Article must include a section named for production readiness.");
+  }
+  if (!headings.some((heading) => /failure|limitation|error analysis/i.test(heading))) {
+    issues.push("Article must include a failure-analysis or limitation section.");
+  }
+  if (!headings.some((heading) => /reproduc/i.test(heading))) {
+    issues.push("Article must include a reproducibility section.");
   }
   if (!/\b(evaluation|metric|measure|benchmark|threshold|score|test|baseline|recall|precision|latency|cost|guardrail|trace)\b/i.test(markdown)) {
     issues.push("Article must include an empirical evaluation, metric, test, threshold, or operational signal.");

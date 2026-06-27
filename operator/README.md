@@ -25,6 +25,18 @@ node operator/scripts/check-public-content.mjs \
 If it fails, do not publish the batch. Report the failing articles and fix or
 exclude them.
 
+For LM Studio projects on local hardware, manage model memory explicitly:
+
+- unload all models before the run.
+- load only the embedding model during embedding phases.
+- unload embeddings before loading the chat model.
+- load only the chat model during generation or evaluation phases.
+- unload all models at cleanup unless the user explicitly asks to keep one
+  loaded.
+
+If loading, unloading, embeddings, or chat inference fails, stop and ask for
+intervention. Do not fabricate results.
+
 Local model catalog endpoint, when running:
 
 ```sh

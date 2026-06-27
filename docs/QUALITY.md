@@ -57,11 +57,13 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
 - required SEO metadata, including `image` and `imageAlt`.
 - article-specific assets exist under `/content/v1/assets/*`.
 - title and description are strong enough for customer-facing SEO pages.
-- article depth, TOC section count, code blocks, and output blocks.
+- article depth, TOC section count, at least three code blocks, and output
+  blocks.
 - production-readiness section, empirical or operational signals, and failure
   mode or guardrail coverage.
 - absence of placeholders, local failures, private paths, AWS profiles, and
-  operator-only diagnostics.
+  operator-only diagnostics. Lightweight `Production extension` sections and
+  deterministic-fixture articles are blocked.
 
 ## Review Loop
 

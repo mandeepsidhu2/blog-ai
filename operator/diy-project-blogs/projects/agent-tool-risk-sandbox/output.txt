@@ -1,6 +1,0 @@
-fixture_calls: 23
-validated: 18
-blocked: 5
-retried: 3
-executed: 15
-approval_required_actions: refund, delete, email

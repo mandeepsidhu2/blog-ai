@@ -34,8 +34,10 @@ project outputs under `projects/` while excluding them from the publish source.
 Publishable project articles must pass
 `operator/scripts/check-public-content.mjs`. Treat a failure as a stop signal:
 do not upload the batch, and report the failing article and reason. A publishable
-article needs a real asset, code, output, enough explanation, an empirical or
-operational signal, production-readiness criteria, and failure-mode coverage.
+article needs a real asset, multiple code excerpts, output, enough explanation
+to serve as a technical reference, an empirical or operational signal,
+production-readiness criteria, reproducibility notes, and failure-mode coverage.
+Assume one serious project can take an hour or more; do not optimize for count.
 
 Local model catalog endpoint, when available:
 

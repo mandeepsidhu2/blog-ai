@@ -1,0 +1,11 @@
+{
+  "caseCount": 8,
+  "decisionAccuracy": 1,
+  "answerableAccuracy": 1,
+  "abstentionAccuracy": 1,
+  "meanCitationRecall": 0.813,
+  "hallucinationRateOnUnsupported": 0,
+  "meanScore": 0.872,
+  "meanLatencyMs": 986.813,
+  "meanReasoningTokens": 0
+}

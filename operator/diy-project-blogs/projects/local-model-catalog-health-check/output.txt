@@ -1,4 +1,0 @@
-endpoint: http://localhost:1234/api/v1/models
-status: unavailable
-model_count: 0
-error: fetch failed

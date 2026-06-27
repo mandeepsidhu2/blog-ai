@@ -37,9 +37,9 @@ async function main() {
   const manifest = await readJson(manifestPath);
   const search = await readJson(searchPath);
 
-  assert(manifest.articles.length >= 5, "Expected at least five tutorial articles.");
+  assert(manifest.articles.length >= 1, "Expected at least one production-grade tutorial article.");
   assert(search.documents.length === manifest.articles.length, "Search index article count mismatch.");
-  assert(manifest.topics.length >= 4, "Expected at least four topic groups.");
+  assert(manifest.topics.length >= 1, "Expected at least one topic group.");
 
   const home = await readText(path.join(appDir, "index.html"));
   assert(home.includes("<title>AI Tutorial Lab</title>"), "Home page title is missing.");
@@ -72,7 +72,7 @@ async function main() {
     assert(html.includes("output-frame"), `Output block missing for ${article.slug}.`);
     assert(!html.includes("undefined"), `Article ${article.slug} contains undefined output.`);
     assert(json.blocks.length > 0, `Article JSON has no blocks for ${article.slug}.`);
-    assert(json.toc.length >= 3, `Article JSON has too few TOC entries for ${article.slug}.`);
+    assert(json.toc.length >= 8, `Article JSON has too few TOC entries for ${article.slug}.`);
     assert(sitemap.includes(article.url), `Sitemap missing ${article.url}.`);
     assert(
       article.image?.startsWith("/content/v1/assets/"),

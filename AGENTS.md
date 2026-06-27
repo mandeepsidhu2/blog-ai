@@ -32,6 +32,10 @@ Reference:
   Public tutorials must be production-grade, customer-facing, current for the
   topic, and supported by code, output, an article-specific visual asset,
   empirical/operational signals, and production-readiness guidance.
+- Quality beats quantity. Publish at most one or two articles per day, and only
+  when they are deep enough for real engineers and research-minded readers to
+  lean on. Lightweight demos, deterministic-fixture writeups, and articles with
+  a generic `Production extension` section must not be published.
 
 ## Start Here
 

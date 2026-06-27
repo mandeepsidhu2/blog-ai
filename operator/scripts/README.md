@@ -26,6 +26,9 @@ node operator/scripts/check-public-content.mjs \
 `publish-generated-content.mjs` does not allow `--skip-check`; if a gate fails,
 nothing should be uploaded and the failing article names must be reported.
 
+The gate is intentionally strict. It is acceptable for a generated article batch
+to fail and remain unpublished. Do not lower the gate to save weak content.
+
 Expected external source shape:
 
 ```text

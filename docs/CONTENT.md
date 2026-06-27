@@ -65,12 +65,16 @@ Do not publish anything that is failing, incomplete, placeholder-like, or only
 useful as an internal note. A public article must have:
 
 - article-specific image and alt text.
-- at least one runnable code block and one output block.
-- enough explanatory prose to stand alone.
+- at least three runnable code blocks and one output block.
+- enough explanatory prose to stand alone as a deep technical reference.
 - empirical or operational signal such as a metric, benchmark, threshold, trace,
   test, or release gate.
 - production-readiness guidance, including failure modes, limitations,
-  guardrails, rollback criteria, or extensions.
+  guardrails, rollback criteria, and reproducibility notes.
+
+Avoid lightweight sections titled `Production extension`. That language is a
+smell that the article is a short demo. Use explicit sections such as
+`Production Readiness`, `Failure Analysis`, and `Reproducibility` instead.
 
 Do not publish:
 

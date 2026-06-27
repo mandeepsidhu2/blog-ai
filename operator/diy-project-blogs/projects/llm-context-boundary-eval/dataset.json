@@ -1,0 +1,225 @@
+[
+  {
+    "id": "rag-supported-citation",
+    "label": "Supported answer with exact citation",
+    "expectedDecision": "answer",
+    "expectedCitations": [
+      "rag-a"
+    ],
+    "expectedTerms": [
+      "citation",
+      "support",
+      "context precision"
+    ],
+    "question": "Which evaluation signals should a production RAG service track before shipping a new retriever?",
+    "contexts": [
+      {
+        "id": "rag-a",
+        "role": "support",
+        "title": "RAG release checklist",
+        "text": "A production RAG release should track answer correctness, citation support, context precision, refusal behavior, and latency. Citation support checks whether every material claim is grounded in retrieved passages."
+      },
+      {
+        "id": "rag-b",
+        "role": "distractor",
+        "title": "Embedding cost note",
+        "text": "Embedding cost depends on corpus size, embedding dimensionality, and refresh frequency. Batch jobs should record index build ids and model names."
+      }
+    ]
+  },
+  {
+    "id": "unsupported-policy",
+    "label": "No supporting policy",
+    "expectedDecision": "abstain",
+    "expectedCitations": [],
+    "expectedTerms": [
+      "not specified",
+      "insufficient",
+      "context"
+    ],
+    "question": "What is the company's refund window for annual enterprise contracts?",
+    "contexts": [
+      {
+        "id": "billing-a",
+        "role": "distractor",
+        "title": "Invoice metadata",
+        "text": "Invoices include the workspace id, billing contact, purchase order number, and payment status. The document does not define refund windows."
+      },
+      {
+        "id": "billing-b",
+        "role": "distractor",
+        "title": "Support handoff",
+        "text": "Enterprise billing questions should be routed to finance when a contract amendment or tax exemption is involved."
+      }
+    ]
+  },
+  {
+    "id": "conflict-needs-review",
+    "label": "Conflicting retrieved context",
+    "expectedDecision": "abstain",
+    "expectedCitations": [
+      "sec-a",
+      "sec-b"
+    ],
+    "expectedTerms": [
+      "conflict",
+      "review",
+      "inconsistent"
+    ],
+    "question": "Can the support agent automatically rotate a production API key?",
+    "contexts": [
+      {
+        "id": "sec-a",
+        "role": "support",
+        "title": "Legacy runbook",
+        "text": "The legacy support runbook says support agents may rotate production API keys automatically after verifying the account owner by email."
+      },
+      {
+        "id": "sec-b",
+        "role": "support",
+        "title": "Current security policy",
+        "text": "The current security policy says production API key rotation requires human security approval and must not be completed by an autonomous support agent."
+      }
+    ]
+  },
+  {
+    "id": "tool-risk-supported",
+    "label": "Tool-use risk classification",
+    "expectedDecision": "answer",
+    "expectedCitations": [
+      "tool-a",
+      "tool-b"
+    ],
+    "expectedTerms": [
+      "allowlist",
+      "idempotency",
+      "approval"
+    ],
+    "question": "What controls should be added before an agent can call write-capable tools?",
+    "contexts": [
+      {
+        "id": "tool-a",
+        "role": "support",
+        "title": "Agent tool policy",
+        "text": "Write-capable tools require tool allowlists, schema validation, dry-run mode where possible, idempotency keys, and approval boundaries for irreversible operations."
+      },
+      {
+        "id": "tool-b",
+        "role": "support",
+        "title": "Incident review",
+        "text": "The last agent incident involved a repeated write call without an idempotency key. The remediation added trace ids, approval checks, and per-tool rate limits."
+      }
+    ]
+  },
+  {
+    "id": "recency-trap",
+    "label": "Recency trap with older distractor",
+    "expectedDecision": "answer",
+    "expectedCitations": [
+      "deploy-b"
+    ],
+    "expectedTerms": [
+      "canary",
+      "rollback",
+      "error budget"
+    ],
+    "question": "What deployment gate replaced manual release approval?",
+    "contexts": [
+      {
+        "id": "deploy-a",
+        "role": "distractor",
+        "title": "2024 release note",
+        "text": "In 2024 every AI workflow release required manual approval from the platform lead before rollout."
+      },
+      {
+        "id": "deploy-b",
+        "role": "support",
+        "title": "2026 release note",
+        "text": "In 2026 manual approval was replaced by an automated canary gate. The gate checks retrieval quality, p95 latency, and error budget burn, then triggers rollback on failure."
+      }
+    ]
+  },
+  {
+    "id": "numeric-extraction",
+    "label": "Numeric extraction under distractor pressure",
+    "expectedDecision": "answer",
+    "expectedCitations": [
+      "eval-a"
+    ],
+    "expectedTerms": [
+      "0.82",
+      "0.76",
+      "recall"
+    ],
+    "question": "What recall@5 threshold blocks a retriever release, and what was last week's value?",
+    "contexts": [
+      {
+        "id": "eval-a",
+        "role": "support",
+        "title": "Retriever scorecard",
+        "text": "The retriever release gate blocks deployment when recall@5 is below 0.82. Last week's offline score was 0.76, so the index refresh did not ship."
+      },
+      {
+        "id": "eval-b",
+        "role": "distractor",
+        "title": "Latency scorecard",
+        "text": "The latency release gate blocks deployment when p95 answer time exceeds 1.8 seconds. Last week's p95 was 1.4 seconds."
+      }
+    ]
+  },
+  {
+    "id": "unsupported-benchmark-claim",
+    "label": "Benchmark claim not in context",
+    "expectedDecision": "abstain",
+    "expectedCitations": [],
+    "expectedTerms": [
+      "not specified",
+      "insufficient",
+      "benchmark"
+    ],
+    "question": "Did the new reranker beat the public BEIR leaderboard?",
+    "contexts": [
+      {
+        "id": "rank-a",
+        "role": "distractor",
+        "title": "Internal reranker result",
+        "text": "The new reranker improved internal citation support from 81% to 88% on a private support-ticket evaluation set."
+      },
+      {
+        "id": "rank-b",
+        "role": "distractor",
+        "title": "Evaluation caveat",
+        "text": "The internal evaluation set is not comparable to public retrieval leaderboards because it uses private tickets and product-specific answer criteria."
+      }
+    ]
+  },
+  {
+    "id": "multi-hop-supported",
+    "label": "Multi-hop answer across two passages",
+    "expectedDecision": "answer",
+    "expectedCitations": [
+      "obs-a",
+      "obs-b"
+    ],
+    "expectedTerms": [
+      "trace",
+      "span",
+      "quality"
+    ],
+    "question": "How should agent traces connect latency debugging with answer-quality review?",
+    "contexts": [
+      {
+        "id": "obs-a",
+        "role": "support",
+        "title": "Trace structure",
+        "text": "Each agent run stores spans for planning, retrieval, tool calls, model calls, and final response assembly. Every span records duration and status."
+      },
+      {
+        "id": "obs-b",
+        "role": "support",
+        "title": "Quality attachment",
+        "text": "The response span should attach evaluator scores for groundedness, citation support, and policy compliance so latency and quality can be reviewed together."
+      }
+    ]
+  }
+]

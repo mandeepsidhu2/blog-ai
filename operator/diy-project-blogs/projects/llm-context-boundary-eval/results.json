@@ -1,0 +1,934 @@
+{
+  "generatedAt": "2026-06-27T14:48:21.208Z",
+  "models": {
+    "baseUrl": "http://127.0.0.1:1234",
+    "chatModel": "qwen/qwen3.6-35b-a3b",
+    "embeddingModel": "text-embedding-qwen3-embedding-0.6b",
+    "keepModelsLoaded": false
+  },
+  "metrics": {
+    "caseCount": 8,
+    "decisionAccuracy": 1,
+    "answerableAccuracy": 1,
+    "abstentionAccuracy": 1,
+    "meanCitationRecall": 0.813,
+    "hallucinationRateOnUnsupported": 0,
+    "meanScore": 0.872,
+    "meanLatencyMs": 986.813,
+    "meanReasoningTokens": 0
+  },
+  "scoredCases": [
+    {
+      "id": "rag-supported-citation",
+      "label": "Supported answer with exact citation",
+      "expectedDecision": "answer",
+      "actualDecision": "answer",
+      "decisionCorrect": true,
+      "citations": [
+        "rag-a"
+      ],
+      "citationsKnown": true,
+      "citationRecall": 1,
+      "termRecall": 1,
+      "hallucinationRisk": 0,
+      "score": 1,
+      "semanticMargin": 0.236,
+      "maxSupportSimilarity": 0.686,
+      "maxDistractorSimilarity": 0.45,
+      "latencyMs": 1097.1,
+      "totalTokens": 319,
+      "reasoningTokens": 0,
+      "finishReason": "stop",
+      "answer": "A production RAG service should track answer correctness, citation support, context precision, refusal behavior, and latency.",
+      "supportNotes": "The context explicitly lists these five signals as part of the RAG release checklist for production services."
+    },
+    {
+      "id": "unsupported-policy",
+      "label": "No supporting policy",
+      "expectedDecision": "abstain",
+      "actualDecision": "abstain",
+      "decisionCorrect": true,
+      "citations": [],
+      "citationsKnown": true,
+      "citationRecall": 1,
+      "termRecall": 0.333,
+      "hallucinationRisk": 0,
+      "score": 0.9,
+      "semanticMargin": null,
+      "maxSupportSimilarity": null,
+      "maxDistractorSimilarity": 0.511,
+      "latencyMs": 749.7,
+      "totalTokens": 267,
+      "reasoningTokens": 0,
+      "finishReason": "stop",
+      "answer": "",
+      "supportNotes": "The provided context explicitly states that the billing document does not define refund windows and offers no information regarding annual enterprise contract terms."
+    },
+    {
+      "id": "conflict-needs-review",
+      "label": "Conflicting retrieved context",
+      "expectedDecision": "abstain",
+      "actualDecision": "abstain",
+      "decisionCorrect": true,
+      "citations": [
+        "sec-a",
+        "sec-b"
+      ],
+      "citationsKnown": true,
+      "citationRecall": 1,
+      "termRecall": 0,
+      "hallucinationRisk": 0,
+      "score": 0.85,
+      "semanticMargin": null,
+      "maxSupportSimilarity": 0.739,
+      "maxDistractorSimilarity": null,
+      "latencyMs": 982.3,
+      "totalTokens": 301,
+      "reasoningTokens": 0,
+      "finishReason": "stop",
+      "answer": "",
+      "supportNotes": "The provided context contains a direct contradiction between the legacy runbook and the current security policy regarding whether support agents can automatically rotate production API keys."
+    },
+    {
+      "id": "tool-risk-supported",
+      "label": "Tool-use risk classification",
+      "expectedDecision": "answer",
+      "actualDecision": "answer",
+      "decisionCorrect": true,
+      "citations": [
+        "[tool-a]"
+      ],
+      "citationsKnown": false,
+      "citationRecall": 0,
+      "termRecall": 1,
+      "hallucinationRisk": 0,
+      "score": 0.6,
+      "semanticMargin": null,
+      "maxSupportSimilarity": 0.777,
+      "maxDistractorSimilarity": null,
+      "latencyMs": 1082.6,
+      "totalTokens": 332,
+      "reasoningTokens": 0,
+      "finishReason": "stop",
+      "answer": "Write-capable tools require tool allowlists, schema validation, dry-run mode where possible, idempotency keys, and approval boundaries for irreversible operations.",
+      "supportNotes": "The context explicitly lists the required controls for write-capable tools in the agent tool policy section."
+    },
+    {
+      "id": "recency-trap",
+      "label": "Recency trap with older distractor",
+      "expectedDecision": "answer",
+      "actualDecision": "answer",
+      "decisionCorrect": true,
+      "citations": [
+        "deploy-b"
+      ],
+      "citationsKnown": true,
+      "citationRecall": 1,
+      "termRecall": 0.333,
+      "hallucinationRisk": 0,
+      "score": 0.9,
+      "semanticMargin": 0.061,
+      "maxSupportSimilarity": 0.738,
+      "maxDistractorSimilarity": 0.677,
+      "latencyMs": 957.5,
+      "totalTokens": 316,
+      "reasoningTokens": 0,
+      "finishReason": "stop",
+      "answer": "automated canary gate",
+      "supportNotes": "The 2026 release note explicitly states that manual approval was replaced by an automated canary gate, overriding the 2024 context where manual approval was still in use."
+    },
+    {
+      "id": "numeric-extraction",
+      "label": "Numeric extraction under distractor pressure",
+      "expectedDecision": "answer",
+      "actualDecision": "answer",
+      "decisionCorrect": true,
+      "citations": [
+        "eval-a"
+      ],
+      "citationsKnown": true,
+      "citationRecall": 1,
+      "termRecall": 1,
+      "hallucinationRisk": 0,
+      "score": 1,
+      "semanticMargin": 0.276,
+      "maxSupportSimilarity": 0.774,
+      "maxDistractorSimilarity": 0.499,
+      "latencyMs": 1077.2,
+      "totalTokens": 347,
+      "reasoningTokens": 0,
+      "finishReason": "stop",
+      "answer": "The recall@5 threshold is 0.82, and last week's value was 0.76.",
+      "supportNotes": "The context explicitly states that the release gate blocks deployment when recall@5 is below 0.82 and reports last week's offline score as 0.76."
+    },
+    {
+      "id": "unsupported-benchmark-claim",
+      "label": "Benchmark claim not in context",
+      "expectedDecision": "abstain",
+      "actualDecision": "abstain",
+      "decisionCorrect": true,
+      "citations": [],
+      "citationsKnown": true,
+      "citationRecall": 1,
+      "termRecall": 0,
+      "hallucinationRisk": 0,
+      "score": 0.85,
+      "semanticMargin": null,
+      "maxSupportSimilarity": null,
+      "maxDistractorSimilarity": 0.6,
+      "latencyMs": 849.6,
+      "totalTokens": 289,
+      "reasoningTokens": 0,
+      "finishReason": "stop",
+      "answer": "",
+      "supportNotes": "The provided context only discusses internal evaluation results and explicitly states that the internal set is not comparable to public leaderboards, offering no information about performance on the BEIR leaderboard."
+    },
+    {
+      "id": "multi-hop-supported",
+      "label": "Multi-hop answer across two passages",
+      "expectedDecision": "answer",
+      "actualDecision": "answer",
+      "decisionCorrect": true,
+      "citations": [
+        "obs-b"
+      ],
+      "citationsKnown": true,
+      "citationRecall": 0.5,
+      "termRecall": 1,
+      "hallucinationRisk": 0,
+      "score": 0.875,
+      "semanticMargin": null,
+      "maxSupportSimilarity": 0.691,
+      "maxDistractorSimilarity": null,
+      "latencyMs": 1098.5,
+      "totalTokens": 320,
+      "reasoningTokens": 0,
+      "finishReason": "stop",
+      "answer": "Agent traces should connect latency debugging with answer-quality review by attaching evaluator scores for groundedness, citation support, and policy compliance to the response span, allowing both latency and quality to be reviewed together.",
+      "supportNotes": "The context explicitly states that attaching evaluator scores to the response span enables the joint review of latency and quality."
+    }
+  ],
+  "runs": [
+    {
+      "case": {
+        "id": "rag-supported-citation",
+        "label": "Supported answer with exact citation",
+        "expectedDecision": "answer",
+        "expectedCitations": [
+          "rag-a"
+        ],
+        "expectedTerms": [
+          "citation",
+          "support",
+          "context precision"
+        ],
+        "question": "Which evaluation signals should a production RAG service track before shipping a new retriever?",
+        "contexts": [
+          {
+            "id": "rag-a",
+            "role": "support",
+            "title": "RAG release checklist",
+            "text": "A production RAG release should track answer correctness, citation support, context precision, refusal behavior, and latency. Citation support checks whether every material claim is grounded in retrieved passages."
+          },
+          {
+            "id": "rag-b",
+            "role": "distractor",
+            "title": "Embedding cost note",
+            "text": "Embedding cost depends on corpus size, embedding dimensionality, and refresh frequency. Batch jobs should record index build ids and model names."
+          }
+        ]
+      },
+      "semantic": {
+        "queryEmbeddingLatencyMs": 47,
+        "contextRows": [
+          {
+            "id": "rag-a",
+            "role": "support",
+            "similarity": 0.686,
+            "embeddingLatencyMs": 66.6
+          },
+          {
+            "id": "rag-b",
+            "role": "distractor",
+            "similarity": 0.45,
+            "embeddingLatencyMs": 16
+          }
+        ],
+        "maxSupportSimilarity": 0.686,
+        "maxDistractorSimilarity": 0.45,
+        "semanticMargin": 0.236
+      },
+      "modelRun": {
+        "rawContent": "{\n\"case_id\": \"rag-supported-citation\",\n\"decision\": \"answer\",\n\"answer\": \"A production RAG service should track answer correctness, citation support, context precision, refusal behavior, and latency.\",\n\"citations\": [\n\"rag-a\"\n],\n\"confidence\": 1.0,\n\"support_notes\": \"The context explicitly lists these five signals as part of the RAG release checklist for production services.\"\n}",
+        "reasoningTokens": 0,
+        "totalTokens": 319,
+        "latencyMs": 1097.120291000001,
+        "finishReason": "stop",
+        "parsed": {
+          "case_id": "rag-supported-citation",
+          "decision": "answer",
+          "answer": "A production RAG service should track answer correctness, citation support, context precision, refusal behavior, and latency.",
+          "citations": [
+            "rag-a"
+          ],
+          "confidence": 1,
+          "support_notes": "The context explicitly lists these five signals as part of the RAG release checklist for production services."
+        }
+      },
+      "score": {
+        "id": "rag-supported-citation",
+        "label": "Supported answer with exact citation",
+        "expectedDecision": "answer",
+        "actualDecision": "answer",
+        "decisionCorrect": true,
+        "citations": [
+          "rag-a"
+        ],
+        "citationsKnown": true,
+        "citationRecall": 1,
+        "termRecall": 1,
+        "hallucinationRisk": 0,
+        "score": 1,
+        "semanticMargin": 0.236,
+        "maxSupportSimilarity": 0.686,
+        "maxDistractorSimilarity": 0.45,
+        "latencyMs": 1097.1,
+        "totalTokens": 319,
+        "reasoningTokens": 0,
+        "finishReason": "stop",
+        "answer": "A production RAG service should track answer correctness, citation support, context precision, refusal behavior, and latency.",
+        "supportNotes": "The context explicitly lists these five signals as part of the RAG release checklist for production services."
+      }
+    },
+    {
+      "case": {
+        "id": "unsupported-policy",
+        "label": "No supporting policy",
+        "expectedDecision": "abstain",
+        "expectedCitations": [],
+        "expectedTerms": [
+          "not specified",
+          "insufficient",
+          "context"
+        ],
+        "question": "What is the company's refund window for annual enterprise contracts?",
+        "contexts": [
+          {
+            "id": "billing-a",
+            "role": "distractor",
+            "title": "Invoice metadata",
+            "text": "Invoices include the workspace id, billing contact, purchase order number, and payment status. The document does not define refund windows."
+          },
+          {
+            "id": "billing-b",
+            "role": "distractor",
+            "title": "Support handoff",
+            "text": "Enterprise billing questions should be routed to finance when a contract amendment or tax exemption is involved."
+          }
+        ]
+      },
+      "semantic": {
+        "queryEmbeddingLatencyMs": 14.5,
+        "contextRows": [
+          {
+            "id": "billing-a",
+            "role": "distractor",
+            "similarity": 0.494,
+            "embeddingLatencyMs": 14.2
+          },
+          {
+            "id": "billing-b",
+            "role": "distractor",
+            "similarity": 0.511,
+            "embeddingLatencyMs": 13.7
+          }
+        ],
+        "maxSupportSimilarity": null,
+        "maxDistractorSimilarity": 0.511,
+        "semanticMargin": null
+      },
+      "modelRun": {
+        "rawContent": "{\n\"case_id\": \"unsupported-policy\",\n\"decision\": \"abstain\",\n\"answer\": \"\",\n\"citations\": [],\n\"confidence\": 1.0,\n\"support_notes\": \"The provided context explicitly states that the billing document does not define refund windows and offers no information regarding annual enterprise contract terms.\"\n}",
+        "reasoningTokens": 0,
+        "totalTokens": 267,
+        "latencyMs": 749.6869999999999,
+        "finishReason": "stop",
+        "parsed": {
+          "case_id": "unsupported-policy",
+          "decision": "abstain",
+          "answer": "",
+          "citations": [],
+          "confidence": 1,
+          "support_notes": "The provided context explicitly states that the billing document does not define refund windows and offers no information regarding annual enterprise contract terms."
+        }
+      },
+      "score": {
+        "id": "unsupported-policy",
+        "label": "No supporting policy",
+        "expectedDecision": "abstain",
+        "actualDecision": "abstain",
+        "decisionCorrect": true,
+        "citations": [],
+        "citationsKnown": true,
+        "citationRecall": 1,
+        "termRecall": 0.333,
+        "hallucinationRisk": 0,
+        "score": 0.9,
+        "semanticMargin": null,
+        "maxSupportSimilarity": null,
+        "maxDistractorSimilarity": 0.511,
+        "latencyMs": 749.7,
+        "totalTokens": 267,
+        "reasoningTokens": 0,
+        "finishReason": "stop",
+        "answer": "",
+        "supportNotes": "The provided context explicitly states that the billing document does not define refund windows and offers no information regarding annual enterprise contract terms."
+      }
+    },
+    {
+      "case": {
+        "id": "conflict-needs-review",
+        "label": "Conflicting retrieved context",
+        "expectedDecision": "abstain",
+        "expectedCitations": [
+          "sec-a",
+          "sec-b"
+        ],
+        "expectedTerms": [
+          "conflict",
+          "review",
+          "inconsistent"
+        ],
+        "question": "Can the support agent automatically rotate a production API key?",
+        "contexts": [
+          {
+            "id": "sec-a",
+            "role": "support",
+            "title": "Legacy runbook",
+            "text": "The legacy support runbook says support agents may rotate production API keys automatically after verifying the account owner by email."
+          },
+          {
+            "id": "sec-b",
+            "role": "support",
+            "title": "Current security policy",
+            "text": "The current security policy says production API key rotation requires human security approval and must not be completed by an autonomous support agent."
+          }
+        ]
+      },
+      "semantic": {
+        "queryEmbeddingLatencyMs": 13.4,
+        "contextRows": [
+          {
+            "id": "sec-a",
+            "role": "support",
+            "similarity": 0.739,
+            "embeddingLatencyMs": 14.1
+          },
+          {
+            "id": "sec-b",
+            "role": "support",
+            "similarity": 0.685,
+            "embeddingLatencyMs": 13.3
+          }
+        ],
+        "maxSupportSimilarity": 0.739,
+        "maxDistractorSimilarity": null,
+        "semanticMargin": null
+      },
+      "modelRun": {
+        "rawContent": "{\n  \"case_id\": \"conflict-needs-review\",\n  \"decision\": \"abstain\",\n  \"answer\": \"\",\n  \"citations\": [\n    \"sec-a\",\n    \"sec-b\"\n  ],\n  \"confidence\": 0.5,\n  \"support_notes\": \"The provided context contains a direct contradiction between the legacy runbook and the current security policy regarding whether support agents can automatically rotate production API keys.\"\n}",
+        "reasoningTokens": 0,
+        "totalTokens": 301,
+        "latencyMs": 982.2638329999991,
+        "finishReason": "stop",
+        "parsed": {
+          "case_id": "conflict-needs-review",
+          "decision": "abstain",
+          "answer": "",
+          "citations": [
+            "sec-a",
+            "sec-b"
+          ],
+          "confidence": 0.5,
+          "support_notes": "The provided context contains a direct contradiction between the legacy runbook and the current security policy regarding whether support agents can automatically rotate production API keys."
+        }
+      },
+      "score": {
+        "id": "conflict-needs-review",
+        "label": "Conflicting retrieved context",
+        "expectedDecision": "abstain",
+        "actualDecision": "abstain",
+        "decisionCorrect": true,
+        "citations": [
+          "sec-a",
+          "sec-b"
+        ],
+        "citationsKnown": true,
+        "citationRecall": 1,
+        "termRecall": 0,
+        "hallucinationRisk": 0,
+        "score": 0.85,
+        "semanticMargin": null,
+        "maxSupportSimilarity": 0.739,
+        "maxDistractorSimilarity": null,
+        "latencyMs": 982.3,
+        "totalTokens": 301,
+        "reasoningTokens": 0,
+        "finishReason": "stop",
+        "answer": "",
+        "supportNotes": "The provided context contains a direct contradiction between the legacy runbook and the current security policy regarding whether support agents can automatically rotate production API keys."
+      }
+    },
+    {
+      "case": {
+        "id": "tool-risk-supported",
+        "label": "Tool-use risk classification",
+        "expectedDecision": "answer",
+        "expectedCitations": [
+          "tool-a",
+          "tool-b"
+        ],
+        "expectedTerms": [
+          "allowlist",
+          "idempotency",
+          "approval"
+        ],
+        "question": "What controls should be added before an agent can call write-capable tools?",
+        "contexts": [
+          {
+            "id": "tool-a",
+            "role": "support",
+            "title": "Agent tool policy",
+            "text": "Write-capable tools require tool allowlists, schema validation, dry-run mode where possible, idempotency keys, and approval boundaries for irreversible operations."
+          },
+          {
+            "id": "tool-b",
+            "role": "support",
+            "title": "Incident review",
+            "text": "The last agent incident involved a repeated write call without an idempotency key. The remediation added trace ids, approval checks, and per-tool rate limits."
+          }
+        ]
+      },
+      "semantic": {
+        "queryEmbeddingLatencyMs": 14.2,
+        "contextRows": [
+          {
+            "id": "tool-a",
+            "role": "support",
+            "similarity": 0.777,
+            "embeddingLatencyMs": 15.3
+          },
+          {
+            "id": "tool-b",
+            "role": "support",
+            "similarity": 0.587,
+            "embeddingLatencyMs": 15
+          }
+        ],
+        "maxSupportSimilarity": 0.777,
+        "maxDistractorSimilarity": null,
+        "semanticMargin": null
+      },
+      "modelRun": {
+        "rawContent": "{\n  \"case_id\": \"tool-risk-supported\",\n  \"decision\": \"answer\",\n  \"answer\": \"Write-capable tools require tool allowlists, schema validation, dry-run mode where possible, idempotency keys, and approval boundaries for irreversible operations.\",\n  \"citations\": [\n    \"[tool-a]\"\n  ],\n  \"confidence\": 1.0,\n  \"support_notes\": \"The context explicitly lists the required controls for write-capable tools in the agent tool policy section.\"\n}",
+        "reasoningTokens": 0,
+        "totalTokens": 332,
+        "latencyMs": 1082.5937919999997,
+        "finishReason": "stop",
+        "parsed": {
+          "case_id": "tool-risk-supported",
+          "decision": "answer",
+          "answer": "Write-capable tools require tool allowlists, schema validation, dry-run mode where possible, idempotency keys, and approval boundaries for irreversible operations.",
+          "citations": [
+            "[tool-a]"
+          ],
+          "confidence": 1,
+          "support_notes": "The context explicitly lists the required controls for write-capable tools in the agent tool policy section."
+        }
+      },
+      "score": {
+        "id": "tool-risk-supported",
+        "label": "Tool-use risk classification",
+        "expectedDecision": "answer",
+        "actualDecision": "answer",
+        "decisionCorrect": true,
+        "citations": [
+          "[tool-a]"
+        ],
+        "citationsKnown": false,
+        "citationRecall": 0,
+        "termRecall": 1,
+        "hallucinationRisk": 0,
+        "score": 0.6,
+        "semanticMargin": null,
+        "maxSupportSimilarity": 0.777,
+        "maxDistractorSimilarity": null,
+        "latencyMs": 1082.6,
+        "totalTokens": 332,
+        "reasoningTokens": 0,
+        "finishReason": "stop",
+        "answer": "Write-capable tools require tool allowlists, schema validation, dry-run mode where possible, idempotency keys, and approval boundaries for irreversible operations.",
+        "supportNotes": "The context explicitly lists the required controls for write-capable tools in the agent tool policy section."
+      }
+    },
+    {
+      "case": {
+        "id": "recency-trap",
+        "label": "Recency trap with older distractor",
+        "expectedDecision": "answer",
+        "expectedCitations": [
+          "deploy-b"
+        ],
+        "expectedTerms": [
+          "canary",
+          "rollback",
+          "error budget"
+        ],
+        "question": "What deployment gate replaced manual release approval?",
+        "contexts": [
+          {
+            "id": "deploy-a",
+            "role": "distractor",
+            "title": "2024 release note",
+            "text": "In 2024 every AI workflow release required manual approval from the platform lead before rollout."
+          },
+          {
+            "id": "deploy-b",
+            "role": "support",
+            "title": "2026 release note",
+            "text": "In 2026 manual approval was replaced by an automated canary gate. The gate checks retrieval quality, p95 latency, and error budget burn, then triggers rollback on failure."
+          }
+        ]
+      },
+      "semantic": {
+        "queryEmbeddingLatencyMs": 13.1,
+        "contextRows": [
+          {
+            "id": "deploy-a",
+            "role": "distractor",
+            "similarity": 0.677,
+            "embeddingLatencyMs": 14.6
+          },
+          {
+            "id": "deploy-b",
+            "role": "support",
+            "similarity": 0.738,
+            "embeddingLatencyMs": 17.3
+          }
+        ],
+        "maxSupportSimilarity": 0.738,
+        "maxDistractorSimilarity": 0.677,
+        "semanticMargin": 0.061
+      },
+      "modelRun": {
+        "rawContent": "{\n\"case_id\": \"recency-trap\",\n\"decision\": \"answer\",\n\"answer\": \"automated canary gate\",\n\"citations\": [\n\"deploy-b\"\n],\n\"confidence\": 1.0,\n\"support_notes\": \"The 2026 release note explicitly states that manual approval was replaced by an automated canary gate, overriding the 2024 context where manual approval was still in use.\"\n}",
+        "reasoningTokens": 0,
+        "totalTokens": 316,
+        "latencyMs": 957.5269580000022,
+        "finishReason": "stop",
+        "parsed": {
+          "case_id": "recency-trap",
+          "decision": "answer",
+          "answer": "automated canary gate",
+          "citations": [
+            "deploy-b"
+          ],
+          "confidence": 1,
+          "support_notes": "The 2026 release note explicitly states that manual approval was replaced by an automated canary gate, overriding the 2024 context where manual approval was still in use."
+        }
+      },
+      "score": {
+        "id": "recency-trap",
+        "label": "Recency trap with older distractor",
+        "expectedDecision": "answer",
+        "actualDecision": "answer",
+        "decisionCorrect": true,
+        "citations": [
+          "deploy-b"
+        ],
+        "citationsKnown": true,
+        "citationRecall": 1,
+        "termRecall": 0.333,
+        "hallucinationRisk": 0,
+        "score": 0.9,
+        "semanticMargin": 0.061,
+        "maxSupportSimilarity": 0.738,
+        "maxDistractorSimilarity": 0.677,
+        "latencyMs": 957.5,
+        "totalTokens": 316,
+        "reasoningTokens": 0,
+        "finishReason": "stop",
+        "answer": "automated canary gate",
+        "supportNotes": "The 2026 release note explicitly states that manual approval was replaced by an automated canary gate, overriding the 2024 context where manual approval was still in use."
+      }
+    },
+    {
+      "case": {
+        "id": "numeric-extraction",
+        "label": "Numeric extraction under distractor pressure",
+        "expectedDecision": "answer",
+        "expectedCitations": [
+          "eval-a"
+        ],
+        "expectedTerms": [
+          "0.82",
+          "0.76",
+          "recall"
+        ],
+        "question": "What recall@5 threshold blocks a retriever release, and what was last week's value?",
+        "contexts": [
+          {
+            "id": "eval-a",
+            "role": "support",
+            "title": "Retriever scorecard",
+            "text": "The retriever release gate blocks deployment when recall@5 is below 0.82. Last week's offline score was 0.76, so the index refresh did not ship."
+          },
+          {
+            "id": "eval-b",
+            "role": "distractor",
+            "title": "Latency scorecard",
+            "text": "The latency release gate blocks deployment when p95 answer time exceeds 1.8 seconds. Last week's p95 was 1.4 seconds."
+          }
+        ]
+      },
+      "semantic": {
+        "queryEmbeddingLatencyMs": 13.8,
+        "contextRows": [
+          {
+            "id": "eval-a",
+            "role": "support",
+            "similarity": 0.774,
+            "embeddingLatencyMs": 14.7
+          },
+          {
+            "id": "eval-b",
+            "role": "distractor",
+            "similarity": 0.499,
+            "embeddingLatencyMs": 15.4
+          }
+        ],
+        "maxSupportSimilarity": 0.774,
+        "maxDistractorSimilarity": 0.499,
+        "semanticMargin": 0.276
+      },
+      "modelRun": {
+        "rawContent": "{\n\"case_id\": \"numeric-extraction\",\n\"decision\": \"answer\",\n\"answer\": \"The recall@5 threshold is 0.82, and last week's value was 0.76.\",\n\"citations\": [\n\"eval-a\"\n],\n\"confidence\": 1.0,\n\"support_notes\": \"The context explicitly states that the release gate blocks deployment when recall@5 is below 0.82 and reports last week's offline score as 0.76.\"\n}",
+        "reasoningTokens": 0,
+        "totalTokens": 347,
+        "latencyMs": 1077.154166999997,
+        "finishReason": "stop",
+        "parsed": {
+          "case_id": "numeric-extraction",
+          "decision": "answer",
+          "answer": "The recall@5 threshold is 0.82, and last week's value was 0.76.",
+          "citations": [
+            "eval-a"
+          ],
+          "confidence": 1,
+          "support_notes": "The context explicitly states that the release gate blocks deployment when recall@5 is below 0.82 and reports last week's offline score as 0.76."
+        }
+      },
+      "score": {
+        "id": "numeric-extraction",
+        "label": "Numeric extraction under distractor pressure",
+        "expectedDecision": "answer",
+        "actualDecision": "answer",
+        "decisionCorrect": true,
+        "citations": [
+          "eval-a"
+        ],
+        "citationsKnown": true,
+        "citationRecall": 1,
+        "termRecall": 1,
+        "hallucinationRisk": 0,
+        "score": 1,
+        "semanticMargin": 0.276,
+        "maxSupportSimilarity": 0.774,
+        "maxDistractorSimilarity": 0.499,
+        "latencyMs": 1077.2,
+        "totalTokens": 347,
+        "reasoningTokens": 0,
+        "finishReason": "stop",
+        "answer": "The recall@5 threshold is 0.82, and last week's value was 0.76.",
+        "supportNotes": "The context explicitly states that the release gate blocks deployment when recall@5 is below 0.82 and reports last week's offline score as 0.76."
+      }
+    },
+    {
+      "case": {
+        "id": "unsupported-benchmark-claim",
+        "label": "Benchmark claim not in context",
+        "expectedDecision": "abstain",
+        "expectedCitations": [],
+        "expectedTerms": [
+          "not specified",
+          "insufficient",
+          "benchmark"
+        ],
+        "question": "Did the new reranker beat the public BEIR leaderboard?",
+        "contexts": [
+          {
+            "id": "rank-a",
+            "role": "distractor",
+            "title": "Internal reranker result",
+            "text": "The new reranker improved internal citation support from 81% to 88% on a private support-ticket evaluation set."
+          },
+          {
+            "id": "rank-b",
+            "role": "distractor",
+            "title": "Evaluation caveat",
+            "text": "The internal evaluation set is not comparable to public retrieval leaderboards because it uses private tickets and product-specific answer criteria."
+          }
+        ]
+      },
+      "semantic": {
+        "queryEmbeddingLatencyMs": 13.3,
+        "contextRows": [
+          {
+            "id": "rank-a",
+            "role": "distractor",
+            "similarity": 0.6,
+            "embeddingLatencyMs": 70.7
+          },
+          {
+            "id": "rank-b",
+            "role": "distractor",
+            "similarity": 0.574,
+            "embeddingLatencyMs": 13.3
+          }
+        ],
+        "maxSupportSimilarity": null,
+        "maxDistractorSimilarity": 0.6,
+        "semanticMargin": null
+      },
+      "modelRun": {
+        "rawContent": "{\n\"case_id\": \"unsupported-benchmark-claim\",\n\"decision\": \"abstain\",\n\"answer\": \"\",\n\"citations\": [],\n\"confidence\": 1.0,\n\"support_notes\": \"The provided context only discusses internal evaluation results and explicitly states that the internal set is not comparable to public leaderboards, offering no information about performance on the BEIR leaderboard.\"\n}",
+        "reasoningTokens": 0,
+        "totalTokens": 289,
+        "latencyMs": 849.5815419999999,
+        "finishReason": "stop",
+        "parsed": {
+          "case_id": "unsupported-benchmark-claim",
+          "decision": "abstain",
+          "answer": "",
+          "citations": [],
+          "confidence": 1,
+          "support_notes": "The provided context only discusses internal evaluation results and explicitly states that the internal set is not comparable to public leaderboards, offering no information about performance on the BEIR leaderboard."
+        }
+      },
+      "score": {
+        "id": "unsupported-benchmark-claim",
+        "label": "Benchmark claim not in context",
+        "expectedDecision": "abstain",
+        "actualDecision": "abstain",
+        "decisionCorrect": true,
+        "citations": [],
+        "citationsKnown": true,
+        "citationRecall": 1,
+        "termRecall": 0,
+        "hallucinationRisk": 0,
+        "score": 0.85,
+        "semanticMargin": null,
+        "maxSupportSimilarity": null,
+        "maxDistractorSimilarity": 0.6,
+        "latencyMs": 849.6,
+        "totalTokens": 289,
+        "reasoningTokens": 0,
+        "finishReason": "stop",
+        "answer": "",
+        "supportNotes": "The provided context only discusses internal evaluation results and explicitly states that the internal set is not comparable to public leaderboards, offering no information about performance on the BEIR leaderboard."
+      }
+    },
+    {
+      "case": {
+        "id": "multi-hop-supported",
+        "label": "Multi-hop answer across two passages",
+        "expectedDecision": "answer",
+        "expectedCitations": [
+          "obs-a",
+          "obs-b"
+        ],
+        "expectedTerms": [
+          "trace",
+          "span",
+          "quality"
+        ],
+        "question": "How should agent traces connect latency debugging with answer-quality review?",
+        "contexts": [
+          {
+            "id": "obs-a",
+            "role": "support",
+            "title": "Trace structure",
+            "text": "Each agent run stores spans for planning, retrieval, tool calls, model calls, and final response assembly. Every span records duration and status."
+          },
+          {
+            "id": "obs-b",
+            "role": "support",
+            "title": "Quality attachment",
+            "text": "The response span should attach evaluator scores for groundedness, citation support, and policy compliance so latency and quality can be reviewed together."
+          }
+        ]
+      },
+      "semantic": {
+        "queryEmbeddingLatencyMs": 13.7,
+        "contextRows": [
+          {
+            "id": "obs-a",
+            "role": "support",
+            "similarity": 0.691,
+            "embeddingLatencyMs": 13.1
+          },
+          {
+            "id": "obs-b",
+            "role": "support",
+            "similarity": 0.621,
+            "embeddingLatencyMs": 14.1
+          }
+        ],
+        "maxSupportSimilarity": 0.691,
+        "maxDistractorSimilarity": null,
+        "semanticMargin": null
+      },
+      "modelRun": {
+        "rawContent": "{\n\"case_id\": \"multi-hop-supported\",\n\"decision\": \"answer\",\n\"answer\": \"Agent traces should connect latency debugging with answer-quality review by attaching evaluator scores for groundedness, citation support, and policy compliance to the response span, allowing both latency and quality to be reviewed together.\",\n\"citations\": [\n\"obs-b\"\n],\n\"confidence\": 0.95,\n\"support_notes\": \"The context explicitly states that attaching evaluator scores to the response span enables the joint review of latency and quality.\"\n}",
+        "reasoningTokens": 0,
+        "totalTokens": 320,
+        "latencyMs": 1098.508041000001,
+        "finishReason": "stop",
+        "parsed": {
+          "case_id": "multi-hop-supported",
+          "decision": "answer",
+          "answer": "Agent traces should connect latency debugging with answer-quality review by attaching evaluator scores for groundedness, citation support, and policy compliance to the response span, allowing both latency and quality to be reviewed together.",
+          "citations": [
+            "obs-b"
+          ],
+          "confidence": 0.95,
+          "support_notes": "The context explicitly states that attaching evaluator scores to the response span enables the joint review of latency and quality."
+        }
+      },
+      "score": {
+        "id": "multi-hop-supported",
+        "label": "Multi-hop answer across two passages",
+        "expectedDecision": "answer",
+        "actualDecision": "answer",
+        "decisionCorrect": true,
+        "citations": [
+          "obs-b"
+        ],
+        "citationsKnown": true,
+        "citationRecall": 0.5,
+        "termRecall": 1,
+        "hallucinationRisk": 0,
+        "score": 0.875,
+        "semanticMargin": null,
+        "maxSupportSimilarity": 0.691,
+        "maxDistractorSimilarity": null,
+        "latencyMs": 1098.5,
+        "totalTokens": 320,
+        "reasoningTokens": 0,
+        "finishReason": "stop",
+        "answer": "Agent traces should connect latency debugging with answer-quality review by attaching evaluator scores for groundedness, citation support, and policy compliance to the response span, allowing both latency and quality to be reviewed together.",
+        "supportNotes": "The context explicitly states that attaching evaluator scores to the response span enables the joint review of latency and quality."
+      }
+    }
+  ]
+}

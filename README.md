@@ -72,8 +72,9 @@ npm run check:content
 ```
 
 Do not publish a generated batch if the gate reports incomplete content,
-operator-only diagnostics, missing assets, weak metadata, or missing production
-readiness guidance.
+operator-only diagnostics, missing assets, weak metadata, lightweight demo
+language, or missing production readiness guidance. Quality beats quantity; one
+or two deep articles per day is the target.
 
 ## Documentation
 

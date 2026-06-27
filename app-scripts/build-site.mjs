@@ -401,9 +401,6 @@ function renderHeader(active = "tutorials") {
       </a>
       <nav class="top-nav" aria-label="Primary">
         <a href="/" ${active === "tutorials" ? 'aria-current="page"' : ""}>Tutorials</a>
-        <a href="/topics/rag/">RAG</a>
-        <a href="/topics/transformers/">Transformers</a>
-        <a href="/topics/agents/">Agents</a>
       </nav>
       <button class="icon-button search-trigger" type="button" data-search-open aria-label="Search tutorials">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.4-4.4m1.4-5.1a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"/></svg>
