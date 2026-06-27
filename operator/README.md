@@ -4,6 +4,7 @@ This folder is for work done by us around the app. The app runtime and the
 CodeBuild pipeline do not import files from here.
 
 - `scripts/`: manual operator helpers, including generated-content publishing.
+- `automations/`: repo-visible Codex automation prompts and schedules.
 - `diy-project-blogs/`: internal article evidence workspaces used to create
   findings, charts, screenshots, and measured support for polished public
   articles. The public website must not expose the DIY/operator distinction.

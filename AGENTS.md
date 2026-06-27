@@ -65,6 +65,8 @@ Reference:
 - `app-scripts/serve-dist.mjs`: local preview server for app and content outputs.
 - `operator/scripts/`: operator-only helpers used by us, not by the app runtime
   or pipeline.
+- `operator/automations/`: repo-visible Codex automation prompts. The Codex app
+  owns the live schedule, but the automation instructions must be reviewed here.
 - `operator/diy-project-blogs/`: internal evidence workspaces for article
   experiments, findings, charts, screenshots, local model catalog snapshots, and
   reproducible code runs. Customers should never see this folder name or the DIY
