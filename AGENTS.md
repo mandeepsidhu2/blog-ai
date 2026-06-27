@@ -24,6 +24,10 @@ Reference:
 - Local model catalog, when available: `curl -s http://localhost:1234/api/v1/models`.
   If it is unavailable, record that in operator project outputs instead of
   blocking unrelated publishing work.
+- Customer-facing articles must not expose operator failures, localhost service
+  health, private filesystem paths, AWS profiles, Terraform state details, or
+  other internal run diagnostics. Keep those details in `operator/` outputs and
+  set generated projects to `publish: false` when they are only useful to us.
 
 ## Start Here
 
@@ -87,3 +91,6 @@ Then inspect:
 - Code and output snippets must remain readable on mobile and desktop.
 - The left-side article table of contents is generated from `h2` and `h3`.
 - Do not introduce client-side-only article rendering as the only SEO surface.
+- Public content is for customers learning AI systems. It should teach a useful
+  technique and help readers stay ahead in AI, not describe our local publishing
+  failures or workstation state.

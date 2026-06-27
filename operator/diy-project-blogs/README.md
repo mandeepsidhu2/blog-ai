@@ -25,6 +25,12 @@ source directory and uploaded with `operator/scripts/publish-generated-content.m
 Do not copy generated article batches into `content/articles` unless they are
 intended to become permanent seed content in the repo.
 
+Public article batches must be customer-facing. They must not include our
+localhost health checks, local model catalog failures, private filesystem paths,
+AWS profiles, Terraform state details, or other operator diagnostics. Mark
+internal-only projects with `publish: false`; the generator can still save their
+project outputs under `projects/` while excluding them from the publish source.
+
 Local model catalog endpoint, when available:
 
 ```sh
@@ -33,4 +39,3 @@ curl -s http://localhost:1234/api/v1/models
 
 Record endpoint availability in `results.json` so later readers know whether a
 project used live local model metadata or a deterministic fallback.
-

@@ -23,6 +23,9 @@ The content source of truth is Markdown in `content/articles`. Build output is g
   findings, charts, screenshots, and generated article batches for S3 publishing. It may use the
   local model catalog endpoint at `curl -s http://localhost:1234/api/v1/models` when that endpoint
   is running.
+- Operator diagnostics are not customer content. Do not publish localhost health,
+  private paths, local run failures, AWS profiles, Terraform state details, or
+  workstation-specific output as articles.
 
 ## Commands
 
@@ -55,6 +58,10 @@ tags: rag, retrieval, embeddings
 ```
 
 Code fences become formatted code blocks with copy buttons. Fences with `output` become terminal output blocks. `h2` and `h3` headings generate the left-side table of contents for article pages.
+
+Every tutorial should be practical, customer-facing, and SEO-readable. The site
+is meant to make readers feel why staying ahead in AI matters now, then give
+them enough code and evidence to act on that urgency.
 
 ## Documentation
 

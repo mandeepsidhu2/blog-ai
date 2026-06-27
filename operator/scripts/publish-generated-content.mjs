@@ -9,6 +9,28 @@ const rootDir = path.resolve(__dirname, "..", "..");
 const articleDir = path.join(rootDir, "content", "articles");
 const assetDir = path.join(rootDir, "content", "assets");
 const distDir = path.join(rootDir, "dist");
+const publicArticleBlocklist = [
+  {
+    label: "local model catalog article",
+    pattern: /local[- ]model[- ]catalog[- ]health[- ]check/i,
+  },
+  {
+    label: "local model catalog endpoint",
+    pattern: /http:\/\/localhost:1234\/api\/v1\/models/i,
+  },
+  {
+    label: "local model catalog run status",
+    pattern: /model catalog status|catalog status unavailable|unavailable catalog/i,
+  },
+  {
+    label: "operator filesystem path",
+    pattern: /\/Users\/|\/private\/tmp\//i,
+  },
+  {
+    label: "operator AWS profile",
+    pattern: /AWS_PROFILE=macbook-terraform|macbook-terraform/i,
+  },
+];
 
 function parseArgs(argv) {
   const args = {
@@ -85,6 +107,28 @@ async function stageFile(sourcePath, targetPath, restorePlan) {
   await fs.copyFile(sourcePath, targetPath);
 }
 
+async function assertPublicArticleSource(articleFiles) {
+  const issues = [];
+
+  for (const articleFile of articleFiles) {
+    const content = await fs.readFile(articleFile, "utf8");
+    for (const rule of publicArticleBlocklist) {
+      if (rule.pattern.test(content)) {
+        issues.push(`${path.basename(articleFile)} contains ${rule.label}`);
+      }
+    }
+  }
+
+  if (issues.length) {
+    throw new Error(
+      [
+        "Generated article source contains operator-only details that must not be published.",
+        ...issues.map((issue) => `- ${issue}`),
+      ].join("\n"),
+    );
+  }
+}
+
 async function stageGeneratedContent(sourceDir) {
   const restorePlan = [];
   const sourceArticleDir = path.join(sourceDir, "articles");
@@ -94,6 +138,7 @@ async function stageGeneratedContent(sourceDir) {
   if (!articleFiles.length) {
     throw new Error(`No Markdown articles found in ${sourceArticleDir}`);
   }
+  await assertPublicArticleSource(articleFiles);
 
   for (const sourcePath of articleFiles) {
     await stageFile(sourcePath, path.join(articleDir, path.basename(sourcePath)), restorePlan);

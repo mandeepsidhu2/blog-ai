@@ -53,6 +53,23 @@ Optional SEO/asset fields:
   findings, charts, screenshots, or local model catalog notes before content is
   staged and published to S3.
 
+## Public Content Boundary
+
+Public articles are for customers. They should teach an AI technique, show code
+and outputs that readers can reuse, and reinforce that staying ahead in AI
+requires hands-on practice now.
+
+Do not publish:
+
+- localhost service health or local model catalog failures.
+- private filesystem paths.
+- AWS profiles, Terraform state details, bucket internals, or deployment logs.
+- operator diagnostics whose main value is explaining our environment.
+
+Keep those details in `operator/` project outputs. If a generated project is
+only useful as an internal diagnostic, set `publish: false` and publish a
+customer-safe tutorial instead.
+
 Example:
 
 ````md
@@ -87,5 +104,7 @@ and reproducibility notes over trend-only commentary.
 - Does the article have a useful image and alt text when the topic benefits from
   a diagram?
 - Are limitations and production extensions clear?
+- Is the article free of operator-only diagnostics and local environment
+  failures?
 - Does the generated article page include a table of contents?
 - Does the article JSON include blocks and metadata?

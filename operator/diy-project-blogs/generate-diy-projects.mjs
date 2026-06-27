@@ -197,6 +197,7 @@ function makeProjects(modelCatalog) {
   const modelStatusScore = modelCatalog.status === "available" ? 100 : 0;
   const modelCatalogProject = {
     slug: "local-model-catalog-health-check",
+    publish: false,
     title: "Local Model Catalog Health Check",
     articleTitle: "Build a Local Model Catalog Health Check for AI Workstations",
     description: "Create a tiny health check that records local model availability before running AI experiments.",
@@ -482,7 +483,68 @@ relative_cost_saved: 58%`,
     },
   };
 
-  return [modelCatalogProject, chunkProject, routerProject, toolProject, cacheProject];
+  const embeddingRows = [
+    { label: "baseline", value: 92 },
+    { label: "week 1", value: 89 },
+    { label: "week 2", value: 81 },
+    { label: "week 3", value: 74 },
+    { label: "alert", value: 80 },
+  ];
+  const embeddingProject = {
+    slug: "embedding-drift-watchlist",
+    title: "Embedding Drift Watchlist",
+    articleTitle: "Build an Embedding Drift Watchlist for RAG Releases",
+    description: "Track retrieval score movement over time so embedding, chunking, or corpus changes do not silently weaken RAG quality.",
+    level: "Intermediate",
+    readingTime: 15,
+    tags: ["embeddings", "rag", "evaluation", "monitoring", "diy-ai"],
+    imageAlt: "Embedding drift watchlist chart showing baseline retrieval score, weekly scores, and alert threshold",
+    summary: "The watchlist flagged week 3 because the retrieval score dropped below the release threshold.",
+    intro:
+      "Embedding upgrades, corpus refreshes, and chunking changes can quietly shift retrieval behavior. This project creates a small watchlist that compares weekly retrieval scores against a baseline before a RAG release goes live.",
+    builds: [
+      "a deterministic retrieval score history",
+      "a threshold rule for release review",
+      "a small chart that makes drift visible to engineers and product reviewers",
+    ],
+    method:
+      "The project treats baseline retrieval score as the reference point and compares weekly measurements against an alert threshold. A score below the threshold means the release needs review before customers see changed retrieval behavior.",
+    reproducibility:
+      "The sample scores are deterministic. Replace them with recall@k, MRR, or answer-grounding scores from your own evaluation harness before using the watchlist for release decisions.",
+    code: `const scores = [
+  { window: "baseline", retrievalScore: 92 },
+  { window: "week 1", retrievalScore: 89 },
+  { window: "week 2", retrievalScore: 81 },
+  { window: "week 3", retrievalScore: 74 },
+];
+const alertThreshold = 80;
+
+const flagged = scores.filter((row) => row.retrievalScore < alertThreshold);
+console.log({
+  alertThreshold,
+  flaggedWindows: flagged.map((row) => row.window),
+  latestScore: scores.at(-1).retrievalScore,
+});`,
+    output: `baseline_score: 92
+alert_threshold: 80
+latest_window: week 3
+latest_score: 74
+release_gate: review_required`,
+    findings: [
+      "The latest score fell below the review threshold, so the release should not ship without investigation.",
+      "A single score is not enough for root cause analysis, but it is enough to stop a silent regression.",
+      "The same watchlist can track embedding model changes, chunking changes, and corpus refreshes.",
+    ],
+    production:
+      "Back this chart with real retrieval fixtures and store the corpus version, embedding model, chunking config, and index build id with every run.",
+    results: {
+      modelCatalog,
+      rows: embeddingRows,
+      metrics: embeddingRows,
+    },
+  };
+
+  return [modelCatalogProject, chunkProject, routerProject, toolProject, cacheProject, embeddingProject];
 }
 
 async function writeText(filePath, text) {
@@ -511,16 +573,22 @@ async function main() {
     await writeText(path.join(projectDir, "output.txt"), `${project.output.trim()}\n`);
     await writeJson(path.join(projectDir, "results.json"), project.results);
     await writeText(path.join(projectDir, "chart.svg"), chart);
-    await writeText(path.join(publishDir, "articles", `${project.slug}.md`), articleMarkdown(project));
-    await writeText(path.join(publishDir, "assets", `${project.slug}.svg`), chart);
+    if (project.publish !== false) {
+      await writeText(path.join(publishDir, "articles", `${project.slug}.md`), articleMarkdown(project));
+      await writeText(path.join(publishDir, "assets", `${project.slug}.svg`), chart);
+    }
   }
+
+  const publishableProjects = projects.filter((project) => project.publish !== false);
 
   await writeJson(path.join(publishDir, "manifest.json"), {
     generatedAt: new Date().toISOString(),
     source: path.relative(rootDir, __filename),
     projectCount: projects.length,
+    publishCount: publishableProjects.length,
     projects: projects.map((project) => ({
       slug: project.slug,
+      publish: project.publish !== false,
       articleTitle: project.articleTitle,
       projectPath: path.relative(rootDir, path.join(projectsDir, project.slug)),
     })),
@@ -528,6 +596,7 @@ async function main() {
   });
 
   console.log(`Generated ${projects.length} DIY projects in ${path.relative(rootDir, projectsDir)}`);
+  console.log(`Generated ${publishableProjects.length} publishable DIY articles`);
   console.log(`Generated publish source in ${publishDir}`);
   console.log(`Model catalog status: ${modelCatalog.status}`);
 }

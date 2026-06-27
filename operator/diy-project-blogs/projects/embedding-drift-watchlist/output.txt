@@ -1,0 +1,5 @@
+baseline_score: 92
+alert_threshold: 80
+latest_window: week 3
+latest_score: 74
+release_gate: review_required
