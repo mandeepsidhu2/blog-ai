@@ -59,6 +59,7 @@ Reference:
 
 - `content/articles/`: Markdown tutorial source of truth.
 - `site/assets/`: browser JS, CSS, and project-owned visual assets.
+- `site/agent-console/`: isolated LangGraph agent console CSS and browser JS.
 - `app-scripts/build-site.mjs`: static generator for app shell, SEO pages, content
   JSON, manifest, sitemap, and pipeline artifact.
 - `app-scripts/check-site.mjs`: mechanical generated-site checks.
@@ -93,6 +94,7 @@ node app-scripts/serve-dist.mjs
 Then inspect:
 
 - Home: `http://127.0.0.1:4173/`
+- Agent console: `http://127.0.0.1:4173/agent-console/`
 - Article: `http://127.0.0.1:4173/tutorials/llm-context-boundary-evaluation/`
 - Content JSON: `http://127.0.0.1:4173/content/v1/manifest.json`
 
@@ -109,6 +111,8 @@ Then inspect:
 - SEO article pages under `/tutorials/*` must be crawler-visible HTML.
 - Content payloads under `/content/v1/*` must stay selectively loadable.
 - Code and output snippets must remain readable on mobile and desktop.
+- The `/agent-console/` route is a separate tool surface. Keep its logic and
+  assets isolated from tutorial search, article rendering, and content payloads.
 - The left-side article table of contents is generated from `h2` and `h3`.
 - Do not introduce client-side-only article rendering as the only SEO surface.
 - Public content is for customers learning AI systems. It should teach a useful
