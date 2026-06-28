@@ -27,7 +27,7 @@ dist/pipeline-artifact/
 
 `dist/app` contains the app shell:
 
-- home page.
+- home page with bounded editorial discovery modules.
 - topic pages.
 - isolated LangGraph agent console under `/agent-console/`.
 - CSS and browser JavaScript.
@@ -71,7 +71,8 @@ crawler-visible HTML page under `/tutorials/*`.
 - generates article table of contents from `h2` and `h3`.
 - emits SEO article pages.
 - emits content JSON payloads.
-- emits topic pages, sitemap, robots, manifest, and pipeline artifact.
+- emits a curated home page, topic pages, sitemap, robots, manifest, and
+  pipeline artifact.
 - emits the isolated `/agent-console/` app route and copies its separate assets,
   including the static DevOps tool catalog consumed by the console.
 
@@ -81,6 +82,10 @@ The generator intentionally has no external package dependencies.
 
 - Edit article source in `content/articles`, not `dist/content`.
 - Edit UI behavior in `site/assets`, not `dist/app/assets`.
+- Keep the home page as a front door, not a complete archive. It should show a
+  bounded set of top/recent articles plus topic, tag, and search discovery.
+  Full article discovery belongs in search, topic pages, the content manifest,
+  and generated SEO article pages.
 - Edit the LangGraph agent console in `site/agent-console`, not `dist/app`.
   Its browser logic must stay separate from tutorial search, article rendering,
   and content payload logic.

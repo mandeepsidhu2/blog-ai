@@ -22,7 +22,11 @@ Home page:
 - header with brand, topic links, and search.
 - hero with a real raster visual.
 - topic chips visible in the first viewport.
-- tutorial cards for the article library.
+- a bounded editorial front door: one spotlight article, a small set of
+  recommended articles, topic hubs, tag-triggered search, and a capped latest
+  list.
+- no raw all-article card dump. The home page must remain useful if the
+  library grows to hundreds or thousands of articles.
 
 Article page:
 
@@ -38,6 +42,7 @@ Browser behavior lives in `site/assets/app.js`:
 
 - search dialog.
 - local search over `/content/v1/search-index.json`.
+- home search and tag buttons that seed the shared search dialog.
 - copy buttons for code blocks.
 - active table-of-contents highlighting.
 - external link hardening.
@@ -76,6 +81,7 @@ node app-scripts/serve-dist.mjs
 Inspect at least:
 
 - desktop home.
+- desktop home discovery sections.
 - mobile home.
 - desktop `/agent-console/`.
 - mobile `/agent-console/`.

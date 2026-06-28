@@ -460,6 +460,64 @@ function renderArticleCard(article) {
   `;
 }
 
+function renderArticleMeta(article) {
+  return `
+    <footer class="article-card-meta">
+      <span>${escapeHtml(article.level)}</span>
+      <span>${article.readingTime} min</span>
+    </footer>
+  `;
+}
+
+function renderSpotlightArticle(article) {
+  if (!article) return "";
+
+  const tags = article.tags
+    .slice(0, 4)
+    .map((tag) => `<span>${escapeHtml(tag)}</span>`)
+    .join("");
+
+  return `
+    <article class="spotlight-card">
+      <a class="spotlight-link" href="${escapeAttribute(article.url)}">
+        <div class="spotlight-copy">
+          <span class="topic-pill">${escapeHtml(article.topic)}</span>
+          <h2>${escapeHtml(article.title)}</h2>
+          <p>${escapeHtml(article.description)}</p>
+          ${renderArticleMeta(article)}
+          <div class="tag-row">${tags}</div>
+        </div>
+        <img src="${escapeAttribute(article.image)}" alt="${escapeAttribute(article.imageAlt)}" width="1600" height="900">
+      </a>
+    </article>
+  `;
+}
+
+function renderCompactArticleCard(article) {
+  return `
+    <article class="compact-article-card">
+      <a href="${escapeAttribute(article.url)}">
+        <span class="topic-pill">${escapeHtml(article.topic)}</span>
+        <h3>${escapeHtml(article.title)}</h3>
+        <p>${escapeHtml(article.description)}</p>
+        ${renderArticleMeta(article)}
+      </a>
+    </article>
+  `;
+}
+
+function renderLatestArticleRow(article) {
+  return `
+    <li>
+      <a class="latest-link" href="${escapeAttribute(article.url)}">
+        <span class="topic-pill">${escapeHtml(article.topic)}</span>
+        <strong>${escapeHtml(article.title)}</strong>
+        <span>${escapeHtml(article.date)} · ${article.readingTime} min</span>
+      </a>
+    </li>
+  `;
+}
+
 function renderTopicChips(topics) {
   return topics
     .map(
@@ -469,9 +527,106 @@ function renderTopicChips(topics) {
     .join("");
 }
 
+function compareArticlesByDate(left, right) {
+  return right.date.localeCompare(left.date) || left.title.localeCompare(right.title);
+}
+
+function compareTopicsByCount(left, right) {
+  return right.count - left.count || left.name.localeCompare(right.name);
+}
+
+function formatCount(value) {
+  return new Intl.NumberFormat("en-US").format(value);
+}
+
+function buildTagSummaries(articles, limit = 12) {
+  const tagMap = new Map();
+  for (const article of articles) {
+    for (const tag of article.tags) {
+      const summary = tagMap.get(tag) || { name: tag, count: 0 };
+      summary.count += 1;
+      tagMap.set(tag, summary);
+    }
+  }
+
+  return [...tagMap.values()]
+    .sort((left, right) => right.count - left.count || left.name.localeCompare(right.name))
+    .slice(0, limit);
+}
+
+function renderTagCloud(tags) {
+  if (!tags.length) {
+    return '<p class="empty-state">Tags will appear as the tutorial library grows.</p>';
+  }
+
+  return tags
+    .map(
+      (tag) => `
+        <button class="tag-chip" type="button" data-search-query="${escapeAttribute(tag.name)}" aria-label="Search ${escapeAttribute(tag.name)} tutorials">
+          <span>${escapeHtml(tag.name)}</span>
+          <strong>${tag.count}</strong>
+        </button>
+      `,
+    )
+    .join("");
+}
+
+function renderTopicHubs(topics, articles) {
+  if (!topics.length) return "";
+
+  const newestByTopic = new Map();
+  for (const article of [...articles].sort(compareArticlesByDate)) {
+    if (!newestByTopic.has(article.topicSlug)) {
+      newestByTopic.set(article.topicSlug, article);
+    }
+  }
+
+  return topics
+    .map((topic) => {
+      const representative = newestByTopic.get(topic.slug);
+      const representativeTitle = representative
+        ? `Latest: ${representative.title}`
+        : "Open the topic archive";
+
+      return `
+        <a class="topic-hub" href="/topics/${escapeAttribute(topic.slug)}/">
+          <span>${formatCount(topic.count)} ${topic.count === 1 ? "guide" : "guides"}</span>
+          <strong>${escapeHtml(topic.name)}</strong>
+          <em>${escapeHtml(representativeTitle)}</em>
+        </a>
+      `;
+    })
+    .join("");
+}
+
 function renderHomePage(articles, topics) {
-  const articleCards = articles.map(renderArticleCard).join("");
-  const topicChips = renderTopicChips(topics);
+  const articlesByDate = [...articles].sort(compareArticlesByDate);
+  const spotlightArticle = articlesByDate[0];
+  const recommendedArticles = articlesByDate.slice(1, 4);
+  const usedSlugs = new Set([spotlightArticle?.slug, ...recommendedArticles.map((article) => article.slug)]);
+  const latestArticles = articlesByDate.filter((article) => !usedSlugs.has(article.slug)).slice(0, 6);
+  const topTopics = [...topics].sort(compareTopicsByCount).slice(0, 8);
+  const topicChips = renderTopicChips(topTopics);
+  const tagSummaries = buildTagSummaries(articles);
+  const articleCount = formatCount(articles.length);
+  const recommendedCards = recommendedArticles.map(renderCompactArticleCard).join("");
+  const latestRows = latestArticles.map(renderLatestArticleRow).join("");
+  const latestSection = latestRows
+    ? `
+    <section class="latest-section" aria-labelledby="latest-heading">
+      <div class="section-heading inline-heading">
+        <div>
+          <p class="eyebrow">Latest updates</p>
+          <h2 id="latest-heading">Fresh work, without the full archive dump.</h2>
+        </div>
+        <button class="secondary-action compact-action" type="button" data-search-open>Search all ${articleCount}</button>
+      </div>
+      <ol class="latest-list">
+        ${latestRows}
+      </ol>
+    </section>
+  `
+    : "";
 
   return `<!doctype html>
 <html lang="en">
@@ -485,9 +640,14 @@ function renderHomePage(articles, topics) {
         <h1>Stay ahead in AI before the stack becomes table stakes.</h1>
         <p class="hero-summary">RAG, transformers, agents, LangGraph, and evaluation are now core engineering literacy. Learn them with practical, code-heavy tutorials.</p>
         <div class="hero-actions">
-          <a class="primary-action" href="#tutorials">Browse tutorials</a>
+          <a class="primary-action" href="#featured">Start with top guides</a>
           <button class="secondary-action" type="button" data-search-open>Search library</button>
         </div>
+        <form class="home-search" data-home-search>
+          <label class="sr-only" for="home-search-input">Search tutorials</label>
+          <input id="home-search-input" type="search" placeholder="Search agents, RAG, evals, security..." autocomplete="off">
+          <button type="submit">Search</button>
+        </form>
       </div>
       <figure class="hero-visual">
         <img src="/assets/hero-ai-workspace.png" alt="Layered AI engineering workspace with code panels and model diagrams" width="1536" height="864">
@@ -498,15 +658,50 @@ function renderHomePage(articles, topics) {
       ${topicChips}
     </section>
 
-    <section class="tutorial-index" id="tutorials">
-      <div class="section-heading">
-        <p class="eyebrow">Tutorial library</p>
-        <h2>Start with a concrete build.</h2>
+    <section class="home-curation" id="featured" data-home-curated>
+      <div class="section-heading inline-heading">
+        <div>
+          <p class="eyebrow">Top articles</p>
+          <h2>Start with the guides that define the library.</h2>
+        </div>
+        <p>${articleCount} production-grade tutorials indexed by topic, tag, and full-text search.</p>
       </div>
-      <div class="tutorial-grid" data-article-grid>
-        ${articleCards}
+      <div class="feature-grid">
+        ${renderSpotlightArticle(spotlightArticle)}
+        <div class="recommendation-stack" aria-label="Recommended tutorials">
+          ${recommendedCards}
+        </div>
       </div>
     </section>
+
+    <section class="discovery-section" id="tutorials">
+      <div class="section-heading">
+        <p class="eyebrow">Library discovery</p>
+        <h2>Browse the map instead of paging through every card.</h2>
+      </div>
+      <div class="discovery-grid">
+        <section class="discovery-panel" aria-labelledby="topics-heading">
+          <div class="panel-heading">
+            <h3 id="topics-heading">Explore by topic</h3>
+            <p>Topic pages keep the library navigable as the archive grows.</p>
+          </div>
+          <div class="topic-hub-grid">
+            ${renderTopicHubs(topTopics, articles)}
+          </div>
+        </section>
+        <section class="discovery-panel" aria-labelledby="tags-heading">
+          <div class="panel-heading">
+            <h3 id="tags-heading">Search by tag</h3>
+            <p>Tags jump directly into matching tutorials without adding another archive page.</p>
+          </div>
+          <div class="tag-cloud" data-tag-cloud>
+            ${renderTagCloud(tagSummaries)}
+          </div>
+        </section>
+      </div>
+    </section>
+
+    ${latestSection}
   </main>
   ${renderSearchDialog()}
 </body>

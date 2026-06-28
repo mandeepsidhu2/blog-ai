@@ -81,11 +81,16 @@ function initSearch() {
   const input = document.querySelector("[data-search-input]");
   const results = document.querySelector("[data-search-results]");
   const triggers = document.querySelectorAll("[data-search-open]");
+  const queryTriggers = document.querySelectorAll("[data-search-query]");
+  const homeSearchForms = document.querySelectorAll("[data-home-search]");
 
-  if (!dialog || !input || !results || !triggers.length) return;
+  if (!dialog || !input || !results) return;
 
-  async function openSearch() {
+  async function openSearch(query = input.value) {
     if (!dialog.open) dialog.showModal();
+    if (typeof query === "string") {
+      input.value = query;
+    }
     input.focus();
     results.innerHTML = '<p class="empty-state">Loading tutorials...</p>';
     try {
@@ -97,7 +102,23 @@ function initSearch() {
   }
 
   triggers.forEach((trigger) => {
-    trigger.addEventListener("click", openSearch);
+    trigger.addEventListener("click", () => {
+      openSearch(trigger.dataset.searchQuery || input.value);
+    });
+  });
+
+  queryTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      openSearch(trigger.dataset.searchQuery || "");
+    });
+  });
+
+  homeSearchForms.forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const homeInput = form.querySelector('input[type="search"]');
+      openSearch(homeInput?.value || "");
+    });
   });
 
   input.addEventListener("input", async () => {

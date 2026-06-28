@@ -64,6 +64,14 @@ async function main() {
   assert(home.includes("<title>AI Tutorial Lab</title>"), "Home page title is missing.");
   assert(home.includes('<meta name="description"'), "Home page description meta tag is missing.");
   assert(home.includes("/assets/hero-ai-workspace.png"), "Home page visual asset is missing.");
+  assert(home.includes("data-home-curated"), "Home page curated discovery modules are missing.");
+  assert(home.includes("data-home-search"), "Home page search entry point is missing.");
+  assert(home.includes("data-tag-cloud"), "Home page tag discovery is missing.");
+  const homeArticleLinks = [...home.matchAll(/href="\/tutorials\//g)].length;
+  assert(
+    homeArticleLinks <= 12,
+    `Home page should not render the full article archive; found ${homeArticleLinks} tutorial links.`,
+  );
   assert(!home.includes("undefined"), "Home page contains undefined output.");
 
   const agentConsole = await readText(path.join(appDir, "agent-console", "index.html"));

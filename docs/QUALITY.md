@@ -65,7 +65,8 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
   filter is selected. Custom tools must export as fill-in Python stubs, and
   browser-local graph state should survive refresh.
 - topic groups exist.
-- home page has SEO metadata and visual asset.
+- home page has SEO metadata, a visual asset, curated discovery modules, topic
+  and tag discovery, and a bounded number of article links.
 - sitemap exists and covers articles.
 - each article has canonical URL, `h1`, TOC, article-specific visual asset,
   generated JSON, and sitemap coverage.

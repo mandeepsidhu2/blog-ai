@@ -30,7 +30,7 @@ static generator, or the CodeBuild pipeline.
   authorizes them, and only for the exact publishing or verification workflow
   described by that prompt.
 - Do not commit or push automatically unless the automation prompt requires that
-  behavior. `latest-ai-article-production.md` is allowed to `git add`,
-  `git commit`, and `git push origin main` only after passing article
-  candidates have been promoted into committed content and all mandatory gates
-  pass.
+  behavior. `latest-ai-article-production.md` explicitly allows `git add`,
+  `git commit`, and `git push origin main` to the main branch only after
+  passing article candidates have been promoted into committed content and all
+  mandatory gates pass.

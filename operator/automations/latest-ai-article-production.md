@@ -181,8 +181,10 @@ If a gate fails, do not weaken the gate. Fix, exclude, or report the candidate.
 ## Deployment Boundary
 
 This automation is authorized to make passing articles durable and publishable
-through the normal GitHub pipeline. After the mandatory public-content gate,
-source promotion, site build, and generated-site check pass:
+through the normal GitHub pipeline. This prompt explicitly authorizes
+`git add`, `git commit`, and `git push origin main` to the main branch for this
+automation, but only after the mandatory public-content gate, source promotion,
+site build, and generated-site check pass:
 
 1. `git add` the promoted article Markdown, article assets, internal evidence
    projects, and any directly related documentation or report updates.
