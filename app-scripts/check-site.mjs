@@ -50,6 +50,162 @@ async function exists(filePath) {
   }
 }
 
+async function listFilesRecursive(dirPath, extension) {
+  const entries = await fs.readdir(dirPath, { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries) {
+    const entryPath = path.join(dirPath, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await listFilesRecursive(entryPath, extension)));
+    } else if (entry.isFile() && entry.name.endsWith(extension)) {
+      files.push(entryPath);
+    }
+  }
+
+  return files.sort();
+}
+
+function parseNumber(value) {
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function svgDimensions(svg) {
+  const viewBox = svg.match(/\bviewBox=["']\s*[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)\s*["']/i);
+  if (viewBox) {
+    return {
+      width: parseNumber(viewBox[1]),
+      height: parseNumber(viewBox[2]),
+    };
+  }
+
+  const width = svg.match(/<svg\b[^>]*\bwidth=["']([\d.]+)(?:px)?["']/i);
+  const height = svg.match(/<svg\b[^>]*\bheight=["']([\d.]+)(?:px)?["']/i);
+  return {
+    width: width ? parseNumber(width[1]) : 0,
+    height: height ? parseNumber(height[1]) : 0,
+  };
+}
+
+function pngDimensions(buffer) {
+  const signature = "89504e470d0a1a0a";
+  if (buffer.length < 24 || buffer.subarray(0, 8).toString("hex") !== signature) return null;
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+  };
+}
+
+function jpegDimensions(buffer) {
+  if (buffer.length < 4 || buffer[0] !== 0xff || buffer[1] !== 0xd8) return null;
+
+  let offset = 2;
+  while (offset + 9 < buffer.length) {
+    if (buffer[offset] !== 0xff) {
+      offset += 1;
+      continue;
+    }
+
+    const marker = buffer[offset + 1];
+    const length = buffer.readUInt16BE(offset + 2);
+    if (length < 2) return null;
+
+    const isStartOfFrame =
+      (marker >= 0xc0 && marker <= 0xc3) ||
+      (marker >= 0xc5 && marker <= 0xc7) ||
+      (marker >= 0xc9 && marker <= 0xcb) ||
+      (marker >= 0xcd && marker <= 0xcf);
+
+    if (isStartOfFrame) {
+      return {
+        height: buffer.readUInt16BE(offset + 5),
+        width: buffer.readUInt16BE(offset + 7),
+      };
+    }
+
+    offset += 2 + length;
+  }
+
+  return null;
+}
+
+async function validateImageAsset(filePath) {
+  const issues = [];
+  const extension = path.extname(filePath).toLowerCase();
+  const buffer = await fs.readFile(filePath);
+  let dimensions = null;
+
+  if (buffer.length < 200) {
+    issues.push("image asset is too small to be useful");
+  }
+
+  if (extension === ".svg") {
+    const svg = buffer.toString("utf8");
+    if (!/<svg\b/i.test(svg)) issues.push("missing <svg> root");
+    if (!/<title\b/i.test(svg)) issues.push("missing SVG <title>");
+    if (!/<desc\b/i.test(svg)) issues.push("missing SVG <desc>");
+    if (/href=["']https?:\/\//i.test(svg)) issues.push("depends on remote linked assets");
+    dimensions = svgDimensions(svg);
+  } else if (extension === ".png") {
+    dimensions = pngDimensions(buffer);
+  } else if (extension === ".jpg" || extension === ".jpeg") {
+    dimensions = jpegDimensions(buffer);
+  } else {
+    issues.push("unsupported image format");
+  }
+
+  if (!dimensions || !dimensions.width || !dimensions.height) {
+    issues.push("missing readable width and height");
+    return issues;
+  }
+
+  const ratio = dimensions.width / dimensions.height;
+  if (dimensions.width < 640 || dimensions.height < 320) {
+    issues.push("should be at least 640x320");
+  }
+  if (ratio < 1.2 || ratio > 2.8) {
+    issues.push("should use a landscape aspect ratio that fits article previews");
+  }
+
+  return issues;
+}
+
+function extractImageSources(html) {
+  return [...html.matchAll(/<img\b[^>]*\bsrc=(["'])(.*?)\1/gi)].map((match) => match[2]);
+}
+
+function resolveGeneratedImagePath(src, htmlFilePath) {
+  const cleanSrc = src.split(/[?#]/)[0];
+  if (/^https?:\/\//i.test(cleanSrc) || cleanSrc.startsWith("data:")) return "";
+  if (cleanSrc.startsWith("/content/") || cleanSrc.startsWith("/tutorials/")) {
+    return path.join(contentDir, cleanSrc.replace(/^\/+/, ""));
+  }
+  if (cleanSrc.startsWith("/")) {
+    return path.join(appDir, cleanSrc.replace(/^\/+/, ""));
+  }
+  return path.resolve(path.dirname(htmlFilePath), cleanSrc);
+}
+
+async function checkGeneratedImageReferences() {
+  const htmlFiles = [
+    ...(await listFilesRecursive(appDir, ".html")),
+    ...(await listFilesRecursive(contentDir, ".html")),
+  ];
+
+  for (const htmlFile of htmlFiles) {
+    const html = await readText(htmlFile);
+    for (const src of extractImageSources(html)) {
+      assert(!/^https?:\/\//i.test(src), `Generated image must be local, found ${src} in ${htmlFile}`);
+      if (src.startsWith("data:")) continue;
+
+      const imagePath = resolveGeneratedImagePath(src, htmlFile);
+      assert(imagePath, `Could not resolve image reference ${src} in ${htmlFile}`);
+      assert(await exists(imagePath), `Broken image reference in ${htmlFile}: ${src}`);
+    }
+  }
+}
+
 async function main() {
   const manifestPath = path.join(contentDir, "content", "v1", "manifest.json");
   const searchPath = path.join(contentDir, "content", "v1", "search-index.json");
@@ -59,6 +215,16 @@ async function main() {
   assert(manifest.articles.length >= 1, "Expected at least one production-grade tutorial article.");
   assert(search.documents.length === manifest.articles.length, "Search index article count mismatch.");
   assert(manifest.topics.length >= 1, "Expected at least one topic group.");
+
+  const styles = await readText(path.join(appDir, "assets", "styles.css"));
+  assert(
+    /\.article-hero-image img\s*{[\s\S]*?object-fit:\s*contain;/.test(styles),
+    "Article image CSS must preserve full diagrams with object-fit: contain.",
+  );
+  assert(
+    /\.spotlight-card img\s*{[\s\S]*?object-fit:\s*contain;/.test(styles),
+    "Home spotlight image CSS must preserve full diagrams with object-fit: contain.",
+  );
 
   const home = await readText(path.join(appDir, "index.html"));
   assert(home.includes("<title>AI Tutorial Lab</title>"), "Home page title is missing.");
@@ -143,7 +309,14 @@ async function main() {
       await exists(path.join(contentDir, article.image.replace(/^\/+/, ""))),
       `Missing article asset for ${article.slug}: ${article.image}`,
     );
+    const articleImageIssues = await validateImageAsset(path.join(contentDir, article.image.replace(/^\/+/, "")));
+    assert(
+      articleImageIssues.length === 0,
+      `Article ${article.slug} image asset failed validation: ${articleImageIssues.join("; ")}`,
+    );
   }
+
+  await checkGeneratedImageReferences();
 
   const requiredFiles = [
     path.join(appDir, "assets", "styles.css"),

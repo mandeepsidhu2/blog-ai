@@ -129,6 +129,113 @@ function assetPathFor(image, assetsDir) {
   return path.join(assetsDir, image.slice(prefix.length));
 }
 
+function parseNumber(value) {
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function svgDimensions(svg) {
+  const viewBox = svg.match(/\bviewBox=["']\s*[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)\s*["']/i);
+  if (viewBox) {
+    return {
+      width: parseNumber(viewBox[1]),
+      height: parseNumber(viewBox[2]),
+    };
+  }
+
+  const width = svg.match(/<svg\b[^>]*\bwidth=["']([\d.]+)(?:px)?["']/i);
+  const height = svg.match(/<svg\b[^>]*\bheight=["']([\d.]+)(?:px)?["']/i);
+  return {
+    width: width ? parseNumber(width[1]) : 0,
+    height: height ? parseNumber(height[1]) : 0,
+  };
+}
+
+function pngDimensions(buffer) {
+  const signature = "89504e470d0a1a0a";
+  if (buffer.length < 24 || buffer.subarray(0, 8).toString("hex") !== signature) return null;
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+  };
+}
+
+function jpegDimensions(buffer) {
+  if (buffer.length < 4 || buffer[0] !== 0xff || buffer[1] !== 0xd8) return null;
+
+  let offset = 2;
+  while (offset + 9 < buffer.length) {
+    if (buffer[offset] !== 0xff) {
+      offset += 1;
+      continue;
+    }
+
+    const marker = buffer[offset + 1];
+    const length = buffer.readUInt16BE(offset + 2);
+    if (length < 2) return null;
+
+    const isStartOfFrame =
+      (marker >= 0xc0 && marker <= 0xc3) ||
+      (marker >= 0xc5 && marker <= 0xc7) ||
+      (marker >= 0xc9 && marker <= 0xcb) ||
+      (marker >= 0xcd && marker <= 0xcf);
+
+    if (isStartOfFrame) {
+      return {
+        height: buffer.readUInt16BE(offset + 5),
+        width: buffer.readUInt16BE(offset + 7),
+      };
+    }
+
+    offset += 2 + length;
+  }
+
+  return null;
+}
+
+async function validateImageAsset(filePath) {
+  const issues = [];
+  const extension = path.extname(filePath).toLowerCase();
+  const buffer = await fs.readFile(filePath);
+  let dimensions = null;
+
+  if (buffer.length < 200) {
+    issues.push("Article image asset is too small to be a useful visual.");
+  }
+
+  if (extension === ".svg") {
+    const svg = buffer.toString("utf8");
+    if (!/<svg\b/i.test(svg)) issues.push("SVG article image is missing an <svg> root.");
+    if (!/<title\b/i.test(svg)) issues.push("SVG article image needs a <title> for accessibility.");
+    if (!/<desc\b/i.test(svg)) issues.push("SVG article image needs a <desc> for accessibility.");
+    if (/href=["']https?:\/\//i.test(svg)) {
+      issues.push("SVG article image must not depend on remote linked assets.");
+    }
+    dimensions = svgDimensions(svg);
+  } else if (extension === ".png") {
+    dimensions = pngDimensions(buffer);
+  } else if (extension === ".jpg" || extension === ".jpeg") {
+    dimensions = jpegDimensions(buffer);
+  } else {
+    issues.push("Article image asset must be SVG, PNG, or JPEG.");
+  }
+
+  if (!dimensions || !dimensions.width || !dimensions.height) {
+    issues.push("Article image asset must expose readable width and height.");
+    return issues;
+  }
+
+  const ratio = dimensions.width / dimensions.height;
+  if (dimensions.width < 640 || dimensions.height < 320) {
+    issues.push("Article image asset should be at least 640x320 for article and social previews.");
+  }
+  if (ratio < 1.2 || ratio > 2.8) {
+    issues.push("Article image aspect ratio should be landscape and fit the article hero slot.");
+  }
+
+  return issues;
+}
+
 async function validateArticle(filePath, assetsDir) {
   const raw = await fs.readFile(filePath, "utf8");
   const { metadata, markdown, issue } = parseFrontMatter(raw, filePath);
@@ -172,8 +279,14 @@ async function validateArticle(filePath, assetsDir) {
   if (metadata.image) {
     if (!metadata.image.startsWith("/content/v1/assets/")) {
       issues.push("Article image must be an article-specific /content/v1/assets/* asset.");
-    } else if (!(await exists(assetPathFor(metadata.image, assetsDir)))) {
-      issues.push(`Missing article image asset: ${metadata.image}`);
+    } else {
+      const articleImagePath = assetPathFor(metadata.image, assetsDir);
+      if (!(await exists(articleImagePath))) {
+        issues.push(`Missing article image asset: ${metadata.image}`);
+      } else {
+        const imageIssues = await validateImageAsset(articleImagePath);
+        issues.push(...imageIssues.map((imageIssue) => `${metadata.image}: ${imageIssue}`));
+      }
     }
   }
   if (metadata.imageAlt && metadata.imageAlt.length < 30) {

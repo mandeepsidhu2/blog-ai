@@ -67,9 +67,14 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
 - topic groups exist.
 - home page has SEO metadata, a visual asset, curated discovery modules, topic
   and tag discovery, and a bounded number of article links.
+- home and article image CSS preserves full diagrams with non-cropping image
+  fit.
+- every generated `<img>` reference in app and content HTML resolves to a local
+  built file.
 - sitemap exists and covers articles.
 - each article has canonical URL, `h1`, TOC, article-specific visual asset,
-  generated JSON, and sitemap coverage.
+  generated JSON, sitemap coverage, and a valid image asset with readable
+  dimensions.
 - experiment-mode source articles render code blocks and output blocks.
 - internal evidence metadata does not appear in generated public HTML or JSON.
 - pipeline artifact contains app and content outputs.
@@ -77,7 +82,10 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
 `operator/scripts/check-public-content.mjs` currently verifies:
 
 - required SEO metadata, including `image` and `imageAlt`.
-- article-specific assets exist under `/content/v1/assets/*`.
+- article-specific assets exist under `/content/v1/assets/*` and image assets
+  are SVG, PNG, or JPEG files with readable dimensions, useful minimum size, a
+  landscape aspect ratio, and no remote SVG dependencies.
+- SVG article assets include `<title>` and `<desc>` accessibility metadata.
 - title and description are strong enough for customer-facing SEO pages.
 - article depth, TOC section count, at least three code blocks, and output
   blocks for `evidenceMode: experiment`.
@@ -102,7 +110,9 @@ For content changes:
 1. Build.
 2. Run the public content gate.
 3. Run the generated-site check.
-4. Spot-check the generated article HTML and JSON.
+4. Browser-review the generated article image and home spotlight image for
+   broken placeholders, clipped labels, hidden axes, or unreadable text.
+5. Spot-check the generated article HTML and JSON.
 
 For visual or interaction changes:
 

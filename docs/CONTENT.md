@@ -42,6 +42,12 @@ Asset fields:
 - `imageAlt`: descriptive alt text for the article image. Keep it literal and
   specific to the diagram or screenshot.
 
+Article images must be reviewable before publishing. Use SVG, PNG, or JPEG
+assets that are non-empty, local to `content/assets`, readable by the build
+checks, at least 640x320, and landscape enough to fit the article hero and home
+spotlight without cropping. SVGs must include a `<title>`, `<desc>`, and
+viewBox or width/height metadata, and must not depend on remote linked assets.
+
 ## Internal Source Modes
 
 `evidenceMode` describes how we produced and validated the article. It is an
@@ -99,6 +105,8 @@ Do not publish anything that is failing, incomplete, placeholder-like, or only
 useful as an internal note. A public article must have:
 
 - article-specific image and alt text.
+- image assets that pass the public content gate and render without broken
+  references or cropped diagram content in local preview.
 - for `evidenceMode: experiment`, at least three runnable code blocks, one
   output block, and a reproducibility section.
 - for `evidenceMode: strategy`, at least five current primary or high-signal
@@ -165,6 +173,8 @@ and reproducibility notes over trend-only commentary.
 - Are outputs visually separated from code?
 - Does the article have a useful image and alt text when the topic benefits from
   a diagram?
+- Does the article image render completely in the article page and home
+  spotlight without clipped labels, hidden axes, or broken image placeholders?
 - Are limitations, guardrails, and rollout boundaries clear?
 - Is the article free of operator-only diagnostics and local environment
   failures?

@@ -62,6 +62,8 @@ Each strategy candidate must:
 - be concrete enough for real software engineers, AI engineers, or research
   scientists to act on.
 - include an article-specific visual asset.
+- ensure the visual asset passes the image gate and renders without cropped
+  labels, hidden axes, broken placeholders, or remote asset dependencies.
 - include a source/signal/research section.
 - include operational signals such as evaluation criteria, release gates,
   benchmark implications, cost/latency trade-offs, adoption risks, or security
@@ -173,7 +175,10 @@ node app-scripts/check-site.mjs
 ```
 
 4. Scan generated output for blocked internal labels and local diagnostics.
-5. Spot-check article HTML and JSON. Use browser review when layout or visual
+5. Browser-review article images on article pages and the home spotlight before
+   publishing. Do not publish if a visual is missing, clipped, unreadable,
+   distorted, or dependent on a remote asset.
+6. Spot-check article HTML and JSON. Use browser review when layout or visual
    changes are involved.
 
 If a gate fails, do not weaken the gate. Fix, exclude, or report the candidate.

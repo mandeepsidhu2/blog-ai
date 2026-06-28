@@ -27,6 +27,8 @@ Home page:
   list.
 - no raw all-article card dump. The home page must remain useful if the
   library grows to hundreds or thousands of articles.
+- article-specific spotlight images use non-cropping containment so charts and
+  diagrams keep their labels, axes, and text visible.
 
 Article page:
 
@@ -88,6 +90,8 @@ Inspect at least:
 - one article page.
 - search dialog.
 - code and output blocks.
+- article hero images and home spotlight images; diagrams must not be cropped,
+  stretched, or visually broken.
 
 Hard failures:
 
