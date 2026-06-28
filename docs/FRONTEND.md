@@ -55,6 +55,16 @@ The built-in console tool library is static JSON at
 emits selected tools into the downloaded LangGraph Python as subprocess-backed
 tool boundaries with explicit approval checks for mutating operations.
 
+Custom console tools are browser-local stubs: users provide a name and
+description, and the Python export includes an empty function for later
+implementation. Console graph state, custom tools, filters, zoom, and selected
+sample flow persist in browser local storage across refreshes.
+
+The console also ships loadable sample flows for research, coding, cloud
+infrastructure, product feedback, and marketing launch workflows. Keep sample
+logic in the isolated console bundle, not in tutorial search or article
+rendering code.
+
 ## Visual Review
 
 When editing layout or interaction, preview locally:

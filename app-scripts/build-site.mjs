@@ -615,18 +615,30 @@ function renderAgentConsolePage() {
         </section>
 
         <section class="panel-section">
+          <h2>Samples</h2>
+          <div class="sample-flow-row">
+            <label class="sr-only" for="sample-flow-select">Sample flow</label>
+            <select id="sample-flow-select" aria-label="Sample flow"></select>
+            <button class="console-button" type="button" id="load-sample-flow">Load</button>
+          </div>
+          <div class="sample-flow-meta" id="sample-flow-meta"></div>
+        </section>
+
+        <section class="panel-section">
           <h2>Tool library</h2>
           <div class="tool-library-controls">
             <label class="sr-only" for="tool-search-input">Search tools</label>
-            <input id="tool-search-input" type="search" placeholder="Search Git, AWS, Terraform, NPM">
+            <input id="tool-search-input" type="search" placeholder="Search tools">
             <label class="sr-only" for="tool-category-filter">Filter tool category</label>
             <select id="tool-category-filter" aria-label="Filter tool category"></select>
           </div>
           <div class="tool-library-meta" id="tool-library-meta"></div>
           <div class="tool-list" id="tool-list"></div>
-          <form class="custom-tool-row" id="add-tool-form">
+          <form class="custom-tool-form" id="add-tool-form">
             <label class="sr-only" for="custom-tool-input">Custom tool name</label>
-            <input id="custom-tool-input" type="text" placeholder="Add tool">
+            <input id="custom-tool-input" type="text" placeholder="Tool name">
+            <label class="sr-only" for="custom-tool-description">Custom tool description</label>
+            <textarea id="custom-tool-description" placeholder="Description / contract"></textarea>
             <button class="console-icon-button" type="submit" title="Add custom tool">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
             </button>

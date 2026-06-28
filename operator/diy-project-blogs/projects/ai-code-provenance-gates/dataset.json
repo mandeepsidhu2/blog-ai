@@ -1,0 +1,90 @@
+[
+  {
+    "id": "docs-only-agent",
+    "filesChanged": ["docs/release-notes.md"],
+    "tests": ["markdownlint"],
+    "agentGenerated": true,
+    "hasTrace": true,
+    "hasReviewer": true,
+    "sensitivePath": false,
+    "linesChanged": 38,
+    "expectedDecision": "allow"
+  },
+  {
+    "id": "auth-policy-no-trace",
+    "filesChanged": ["src/auth/policy.ts"],
+    "tests": ["unit:auth"],
+    "agentGenerated": true,
+    "hasTrace": false,
+    "hasReviewer": true,
+    "sensitivePath": true,
+    "linesChanged": 91,
+    "expectedDecision": "block"
+  },
+  {
+    "id": "eval-harness-with-proof",
+    "filesChanged": ["src/evals/rag-boundary.ts", "test/rag-boundary.test.ts"],
+    "tests": ["unit:evals", "fixture:rag-boundary"],
+    "agentGenerated": true,
+    "hasTrace": true,
+    "hasReviewer": true,
+    "sensitivePath": false,
+    "linesChanged": 124,
+    "expectedDecision": "allow"
+  },
+  {
+    "id": "payment-change-human",
+    "filesChanged": ["src/billing/refunds.ts"],
+    "tests": ["unit:billing", "integration:refunds"],
+    "agentGenerated": false,
+    "hasTrace": false,
+    "hasReviewer": true,
+    "sensitivePath": true,
+    "linesChanged": 74,
+    "expectedDecision": "review"
+  },
+  {
+    "id": "large-agent-refactor",
+    "filesChanged": ["src/router.ts", "src/tools.ts", "src/memory.ts", "src/agent.ts"],
+    "tests": ["unit:router"],
+    "agentGenerated": true,
+    "hasTrace": true,
+    "hasReviewer": false,
+    "sensitivePath": false,
+    "linesChanged": 612,
+    "expectedDecision": "review"
+  },
+  {
+    "id": "prompt-update-no-eval",
+    "filesChanged": ["prompts/support-agent.md"],
+    "tests": [],
+    "agentGenerated": true,
+    "hasTrace": true,
+    "hasReviewer": true,
+    "sensitivePath": false,
+    "linesChanged": 45,
+    "expectedDecision": "block"
+  },
+  {
+    "id": "secret-handling-agent",
+    "filesChanged": ["src/secrets/redaction.ts", "test/redaction.test.ts"],
+    "tests": ["unit:secrets", "fixture:redaction"],
+    "agentGenerated": true,
+    "hasTrace": true,
+    "hasReviewer": true,
+    "sensitivePath": true,
+    "linesChanged": 137,
+    "expectedDecision": "review"
+  },
+  {
+    "id": "small-ui-copy",
+    "filesChanged": ["site/assets/app.js"],
+    "tests": ["unit:ui"],
+    "agentGenerated": true,
+    "hasTrace": true,
+    "hasReviewer": true,
+    "sensitivePath": false,
+    "linesChanged": 22,
+    "expectedDecision": "allow"
+  }
+]

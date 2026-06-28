@@ -236,7 +236,11 @@ button {
 .field-stack input:focus,
 .field-stack select:focus,
 .field-stack textarea:focus,
-.custom-tool-row input:focus {
+.custom-tool-form input:focus,
+.custom-tool-form textarea:focus,
+.tool-library-controls input:focus,
+.tool-library-controls select:focus,
+.sample-flow-row select:focus {
   border-color: var(--console-green);
   outline: 3px solid rgba(66, 242, 200, 0.18);
 }
@@ -357,8 +361,13 @@ button {
   position: relative;
   display: grid;
   flex: 1 1 118px;
+  grid-template-rows: auto auto;
+  gap: 5px;
+  align-content: center;
+  justify-content: stretch;
   justify-items: start;
   min-height: 34px;
+  min-width: 0;
   overflow: hidden;
   padding: 8px 10px;
   text-align: left;
@@ -366,8 +375,18 @@ button {
   font-size: 0.78rem;
 }
 
+.tool-chip-head {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+}
+
 .tool-chip-name {
+  flex: 1 1 auto;
   overflow: hidden;
+  min-width: 0;
   max-width: 100%;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -375,6 +394,7 @@ button {
 
 .tool-chip-meta {
   overflow: hidden;
+  width: 100%;
   max-width: 100%;
   color: var(--console-subtle);
   font-size: 0.66rem;
@@ -384,9 +404,7 @@ button {
 }
 
 .tool-chip-risk {
-  position: absolute;
-  top: 6px;
-  right: 7px;
+  flex: 0 0 auto;
   border: 1px solid rgba(255, 209, 102, 0.4);
   border-radius: 999px;
   background: rgba(255, 209, 102, 0.09);
@@ -410,7 +428,8 @@ button {
 }
 
 .tool-library-controls input,
-.tool-library-controls select {
+.tool-library-controls select,
+.sample-flow-row select {
   width: 100%;
   min-width: 0;
   border: 1px solid var(--console-line);
@@ -424,11 +443,18 @@ button {
   color: var(--console-subtle);
 }
 
-.tool-library-meta {
+.tool-library-meta,
+.sample-flow-meta {
   margin: -1px 0 8px;
   color: var(--console-subtle);
   font-size: 0.68rem;
   font-weight: 850;
+}
+
+.sample-flow-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
 }
 
 .field-stack {
@@ -447,7 +473,8 @@ button {
 .field-stack input,
 .field-stack select,
 .field-stack textarea,
-.custom-tool-row input {
+.custom-tool-form input,
+.custom-tool-form textarea {
   width: 100%;
   min-width: 0;
   border: 1px solid var(--console-line);
@@ -462,15 +489,29 @@ button {
   resize: vertical;
 }
 
+.custom-tool-form textarea {
+  min-height: 64px;
+  resize: vertical;
+}
+
 .field-stack input::placeholder,
-.custom-tool-row input::placeholder {
+.custom-tool-form input::placeholder,
+.custom-tool-form textarea::placeholder {
   color: var(--console-subtle);
 }
 
-.custom-tool-row {
+.custom-tool-form {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 8px;
+}
+
+.custom-tool-form textarea {
+  grid-column: 1 / -1;
+}
+
+.custom-tool-form button {
+  align-self: stretch;
 }
 
 .canvas-shell {
@@ -762,6 +803,9 @@ button {
 }
 
 .node-tools span {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 100%;
   border: 1px solid rgba(124, 171, 255, 0.24);
   border-radius: 6px;
   background: rgba(124, 171, 255, 0.12);
@@ -769,6 +813,8 @@ button {
   padding: 3px 6px;
   font-size: 0.68rem;
   font-weight: 850;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .code-drawer {

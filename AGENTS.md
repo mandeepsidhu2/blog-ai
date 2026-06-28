@@ -117,6 +117,9 @@ Then inspect:
 - Agent-console tool metadata lives in `site/agent-console/tools/catalog.json`;
   selected catalog tools may be emitted into downloaded LangGraph Python, but
   the catalog must stay static and browser-loadable.
+- The console includes loadable sample agent flows, custom tool stubs, and
+  local browser persistence. Keep those behaviors isolated to
+  `site/agent-console/`.
 - The left-side article table of contents is generated from `h2` and `h3`.
 - Do not introduce client-side-only article rendering as the only SEO surface.
 - Public content is for customers learning AI systems. It should teach a useful

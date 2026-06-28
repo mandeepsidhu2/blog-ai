@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-06-27",
+  "updated": "2026-06-28",
   "description": "Static tool catalog for the isolated LangGraph agent console.",
   "tools": [
     {
@@ -451,6 +451,339 @@
       "description": "Publish the current package to the configured npm registry.",
       "command": ["npm", "publish", "--access", "{access}"],
       "defaults": { "access": "public" },
+      "mutates": true
+    },
+    {
+      "id": "github_issue_create",
+      "name": "GitHub issue create",
+      "category": "GitHub",
+      "description": "Create a GitHub issue with a title and body.",
+      "command": ["gh", "issue", "create", "--title", "{title}", "--body", "{body}"],
+      "defaults": { "title": "Agent task", "body": "Created by the LangGraph agent console." },
+      "mutates": true
+    },
+    {
+      "id": "github_release_view",
+      "name": "GitHub release view",
+      "category": "GitHub",
+      "description": "View release metadata for a GitHub tag.",
+      "command": ["gh", "release", "view", "{tag}", "--json", "tagName,name,publishedAt,isDraft,isPrerelease"],
+      "defaults": { "tag": "latest" },
+      "mutates": false
+    },
+    {
+      "id": "github_workflow_list",
+      "name": "GitHub workflow list",
+      "category": "GitHub",
+      "description": "List GitHub Actions workflows for the repository.",
+      "command": ["gh", "workflow", "list"],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "npm_view_package",
+      "name": "npm view package",
+      "category": "NPM",
+      "description": "Read npm package metadata from the configured registry.",
+      "command": ["npm", "view", "{package}", "version,dist-tags,description"],
+      "defaults": { "package": "." },
+      "mutates": false
+    },
+    {
+      "id": "npm_outdated",
+      "name": "npm outdated",
+      "category": "NPM",
+      "description": "Show outdated npm dependencies.",
+      "command": ["npm", "outdated", "--json"],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "npm_pack",
+      "name": "npm pack",
+      "category": "NPM",
+      "description": "Create a tarball from the current npm package.",
+      "command": ["npm", "pack"],
+      "defaults": {},
+      "mutates": true
+    },
+    {
+      "id": "npm_run_script",
+      "name": "npm run script",
+      "category": "NPM",
+      "description": "Run a named npm script.",
+      "command": ["npm", "run", "{script}"],
+      "defaults": { "script": "start" },
+      "mutates": false
+    },
+    {
+      "id": "docker_ps",
+      "name": "Docker ps",
+      "category": "Docker",
+      "description": "List Docker containers.",
+      "command": ["docker", "ps", "--format", "json"],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "docker_build",
+      "name": "Docker build",
+      "category": "Docker",
+      "description": "Build a Docker image from a Dockerfile context.",
+      "command": ["docker", "build", "-t", "{tag}", "{context}"],
+      "defaults": { "tag": "agent-image:latest", "context": "." },
+      "mutates": true
+    },
+    {
+      "id": "docker_run",
+      "name": "Docker run",
+      "category": "Docker",
+      "description": "Run a Docker image with a container name.",
+      "command": ["docker", "run", "--rm", "--name", "{name}", "{image}"],
+      "defaults": { "name": "agent-run", "image": "agent-image:latest" },
+      "mutates": true
+    },
+    {
+      "id": "docker_logs",
+      "name": "Docker logs",
+      "category": "Docker",
+      "description": "Read recent logs from a Docker container.",
+      "command": ["docker", "logs", "--tail", "{tail}", "{container}"],
+      "defaults": { "tail": "200", "container": "container-name" },
+      "mutates": false
+    },
+    {
+      "id": "docker_compose_up",
+      "name": "Docker Compose up",
+      "category": "Docker",
+      "description": "Start Docker Compose services in detached mode.",
+      "command": ["docker", "compose", "up", "-d"],
+      "defaults": {},
+      "mutates": true
+    },
+    {
+      "id": "docker_compose_down",
+      "name": "Docker Compose down",
+      "category": "Docker",
+      "description": "Stop Docker Compose services.",
+      "command": ["docker", "compose", "down"],
+      "defaults": {},
+      "mutates": true
+    },
+    {
+      "id": "docker_exec",
+      "name": "Docker exec",
+      "category": "Docker",
+      "description": "Run a command in a running Docker container.",
+      "command": ["docker", "exec", "{container}", "{command}"],
+      "defaults": { "container": "container-name", "command": "sh" },
+      "mutates": true
+    },
+    {
+      "id": "docker_image_prune",
+      "name": "Docker image prune",
+      "category": "Docker",
+      "description": "Prune dangling Docker images.",
+      "command": ["docker", "image", "prune", "-f"],
+      "defaults": {},
+      "mutates": true
+    },
+    {
+      "id": "kubectl_config_current_context",
+      "name": "kubectl current context",
+      "category": "Kubernetes",
+      "description": "Show the active Kubernetes context.",
+      "command": ["kubectl", "config", "current-context"],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "kubectl_get_pods",
+      "name": "kubectl get pods",
+      "category": "Kubernetes",
+      "description": "List Kubernetes pods in a namespace.",
+      "command": ["kubectl", "get", "pods", "-n", "{namespace}"],
+      "defaults": { "namespace": "default" },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_get_deployments",
+      "name": "kubectl get deployments",
+      "category": "Kubernetes",
+      "description": "List Kubernetes deployments in a namespace.",
+      "command": ["kubectl", "get", "deployments", "-n", "{namespace}"],
+      "defaults": { "namespace": "default" },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_describe_pod",
+      "name": "kubectl describe pod",
+      "category": "Kubernetes",
+      "description": "Describe a Kubernetes pod.",
+      "command": ["kubectl", "describe", "pod", "{pod}", "-n", "{namespace}"],
+      "defaults": { "pod": "pod-name", "namespace": "default" },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_logs",
+      "name": "kubectl logs",
+      "category": "Kubernetes",
+      "description": "Read recent logs from a Kubernetes pod.",
+      "command": ["kubectl", "logs", "{pod}", "-n", "{namespace}", "--tail", "{tail}"],
+      "defaults": { "pod": "pod-name", "namespace": "default", "tail": "200" },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_rollout_status",
+      "name": "kubectl rollout status",
+      "category": "Kubernetes",
+      "description": "Check rollout status for a deployment.",
+      "command": ["kubectl", "rollout", "status", "deployment/{deployment}", "-n", "{namespace}"],
+      "defaults": { "deployment": "app", "namespace": "default" },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_rollout_restart",
+      "name": "kubectl rollout restart",
+      "category": "Kubernetes",
+      "description": "Restart a Kubernetes deployment rollout.",
+      "command": ["kubectl", "rollout", "restart", "deployment/{deployment}", "-n", "{namespace}"],
+      "defaults": { "deployment": "app", "namespace": "default" },
+      "mutates": true
+    },
+    {
+      "id": "kubectl_apply",
+      "name": "kubectl apply",
+      "category": "Kubernetes",
+      "description": "Apply Kubernetes manifests from a file or directory.",
+      "command": ["kubectl", "apply", "-f", "{path}"],
+      "defaults": { "path": "k8s/" },
+      "mutates": true
+    },
+    {
+      "id": "kubectl_diff",
+      "name": "kubectl diff",
+      "category": "Kubernetes",
+      "description": "Preview Kubernetes manifest differences.",
+      "command": ["kubectl", "diff", "-f", "{path}"],
+      "defaults": { "path": "k8s/" },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_scale_deployment",
+      "name": "kubectl scale deployment",
+      "category": "Kubernetes",
+      "description": "Scale a Kubernetes deployment replica count.",
+      "command": ["kubectl", "scale", "deployment/{deployment}", "--replicas", "{replicas}", "-n", "{namespace}"],
+      "defaults": { "deployment": "app", "replicas": "2", "namespace": "default" },
+      "mutates": true
+    },
+    {
+      "id": "python_pytest",
+      "name": "pytest",
+      "category": "Python",
+      "description": "Run Python tests with pytest.",
+      "command": ["python", "-m", "pytest", "{path}"],
+      "defaults": { "path": "tests" },
+      "mutates": false
+    },
+    {
+      "id": "python_ruff_check",
+      "name": "ruff check",
+      "category": "Python",
+      "description": "Run Ruff lint checks.",
+      "command": ["python", "-m", "ruff", "check", "{path}"],
+      "defaults": { "path": "." },
+      "mutates": false
+    },
+    {
+      "id": "python_ruff_format_check",
+      "name": "ruff format check",
+      "category": "Python",
+      "description": "Check Python formatting with Ruff.",
+      "command": ["python", "-m", "ruff", "format", "--check", "{path}"],
+      "defaults": { "path": "." },
+      "mutates": false
+    },
+    {
+      "id": "python_mypy",
+      "name": "mypy",
+      "category": "Python",
+      "description": "Run mypy type checks.",
+      "command": ["python", "-m", "mypy", "{path}"],
+      "defaults": { "path": "." },
+      "mutates": false
+    },
+    {
+      "id": "python_pip_install_requirements",
+      "name": "pip install requirements",
+      "category": "Python",
+      "description": "Install Python dependencies from a requirements file.",
+      "command": ["python", "-m", "pip", "install", "-r", "{requirements}"],
+      "defaults": { "requirements": "requirements.txt" },
+      "mutates": true
+    },
+    {
+      "id": "python_module_run",
+      "name": "python module run",
+      "category": "Python",
+      "description": "Run a Python module with optional arguments.",
+      "command": ["python", "-m", "{module}", "{args}"],
+      "defaults": { "module": "module_name", "args": "" },
+      "mutates": false
+    },
+    {
+      "id": "python_uv_sync",
+      "name": "uv sync",
+      "category": "Python",
+      "description": "Sync Python project dependencies with uv.",
+      "command": ["uv", "sync"],
+      "defaults": {},
+      "mutates": true
+    },
+    {
+      "id": "python_poetry_install",
+      "name": "poetry install",
+      "category": "Python",
+      "description": "Install Python project dependencies with Poetry.",
+      "command": ["poetry", "install"],
+      "defaults": {},
+      "mutates": true
+    },
+    {
+      "id": "make_test",
+      "name": "make test",
+      "category": "Make",
+      "description": "Run a Makefile test target.",
+      "command": ["make", "test"],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "make_build",
+      "name": "make build",
+      "category": "Make",
+      "description": "Run a Makefile build target.",
+      "command": ["make", "build"],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "make_lint",
+      "name": "make lint",
+      "category": "Make",
+      "description": "Run a Makefile lint target.",
+      "command": ["make", "lint"],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "make_deploy",
+      "name": "make deploy",
+      "category": "Make",
+      "description": "Run a Makefile deploy target.",
+      "command": ["make", "deploy"],
+      "defaults": {},
       "mutates": true
     }
   ]

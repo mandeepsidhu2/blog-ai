@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520" role="img" aria-labelledby="title desc">
+  <title id="title">MCP tool risk gate comparison</title>
+  <desc id="desc">Bar chart comparing name-only and schema-aware tool gate accuracy, unsafe approvals, false blocks, and risk weighted score.</desc>
+  <rect width="980" height="520" fill="#f8fafc"/>
+  <text x="48" y="58" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#111827">MCP Tool Risk Gate Results</text>
+  <text x="48" y="92" font-family="Inter, Arial, sans-serif" font-size="15" fill="#475569">Deterministic gate across 8 tool-call cases with remote, write, and secret-data risks.</text>
+
+    <g transform="translate(96,130)">
+      <text x="0" y="0" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#111827">name-only gate</text>
+      <rect x="0" y="123.75" width="72" height="156.25" fill="#2563eb"/>
+      <text x="0" y="306" font-family="Inter, Arial, sans-serif" font-size="13" fill="#334155">accuracy</text>
+      <text x="6" y="111.75" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#111827">0.63</text>
+      <rect x="118" y="123.75" width="72" height="156.25" fill="#0f766e"/>
+      <text x="106" y="306" font-family="Inter, Arial, sans-serif" font-size="13" fill="#334155">risk score</text>
+      <text x="124" y="111.75" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#111827">-0.13</text>
+      <text x="236" y="82" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700" fill="#b91c1c">3</text>
+      <text x="236" y="110" font-family="Inter, Arial, sans-serif" font-size="14" fill="#334155">unsafe approvals</text>
+      <text x="236" y="176" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700" fill="#15803d">0</text>
+      <text x="236" y="204" font-family="Inter, Arial, sans-serif" font-size="14" fill="#334155">false blocks</text>
+    </g>
+    <g transform="translate(516,130)">
+      <text x="0" y="0" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#111827">schema-and-context gate</text>
+      <rect x="0" y="30" width="72" height="250" fill="#2563eb"/>
+      <text x="0" y="306" font-family="Inter, Arial, sans-serif" font-size="13" fill="#334155">accuracy</text>
+      <text x="6" y="18" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#111827">1.00</text>
+      <rect x="118" y="30" width="72" height="250" fill="#0f766e"/>
+      <text x="106" y="306" font-family="Inter, Arial, sans-serif" font-size="13" fill="#334155">risk score</text>
+      <text x="124" y="18" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#111827">1.00</text>
+      <text x="236" y="82" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700" fill="#15803d">0</text>
+      <text x="236" y="110" font-family="Inter, Arial, sans-serif" font-size="14" fill="#334155">unsafe approvals</text>
+      <text x="236" y="176" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700" fill="#15803d">0</text>
+      <text x="236" y="204" font-family="Inter, Arial, sans-serif" font-size="14" fill="#334155">false blocks</text>
+    </g>
+</svg>

@@ -87,6 +87,9 @@ The generator intentionally has no external package dependencies.
 - Edit the console's built-in tool library in
   `site/agent-console/tools/catalog.json`. The static generator copies it as an
   app asset; it is not article content and must stay out of content JSON.
+- Sample flow definitions, custom-tool stub generation, and browser-local
+  persistence are console-only behavior. They must not depend on tutorial app
+  state or content payloads.
 - Edit generation behavior in `app-scripts/build-site.mjs`.
 - Edit validation in `app-scripts/check-site.mjs`.
 - Put operator-only publishing tools in `operator/scripts`.

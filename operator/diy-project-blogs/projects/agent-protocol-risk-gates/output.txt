@@ -1,0 +1,9 @@
+caseCount: 8
+name-only gate.accuracy: 0.625
+name-only gate.unsafeApprovals: 3
+name-only gate.falseBlocks: 0
+name-only gate.riskWeightedScore: -0.125
+schema-and-context gate.accuracy: 1.000
+schema-and-context gate.unsafeApprovals: 0
+schema-and-context gate.falseBlocks: 0
+schema-and-context gate.riskWeightedScore: 1.000

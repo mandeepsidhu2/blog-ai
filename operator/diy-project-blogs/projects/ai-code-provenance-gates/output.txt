@@ -1,0 +1,9 @@
+caseCount: 8
+tests-only gate.accuracy: 0.500
+tests-only gate.unsafeMerges: 4
+tests-only gate.unnecessaryBlocks: 0
+tests-only gate.reviewCapture: 0.000
+provenance gate.accuracy: 1.000
+provenance gate.unsafeMerges: 0
+provenance gate.unnecessaryBlocks: 0
+provenance gate.reviewCapture: 1.000

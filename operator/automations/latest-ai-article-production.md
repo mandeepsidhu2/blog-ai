@@ -130,7 +130,8 @@ hygiene, or run unrelated system commands.
 
 ## Candidate Output
 
-Use a temporary batch directory outside committed article source by default:
+Use a temporary batch directory outside committed article source while drafting
+and validating candidates:
 
 ```text
 /tmp/blog-ai-article-run-<timestamp>/
@@ -139,10 +140,14 @@ Use a temporary batch directory outside committed article source by default:
   report.md
 ```
 
-Only copy a candidate into `content/articles` and `content/assets` when the run
-intentionally promotes it as a committed seed article. Routine generated
-articles should stay in the temporary batch, be validated, and then be
-published through the generated-content publishing helper when they pass.
+After candidates pass the mandatory public content gate, promote the passing
+articles and article-specific assets into committed source:
+
+- copy article Markdown files into `content/articles/`.
+- copy article visual assets into `content/assets/`.
+- keep internal experiment artifacts under `operator/diy-project-blogs/`.
+- exclude failed, weak, incomplete, or diagnostic-only candidates instead of
+  promoting them.
 
 ```sh
 node operator/scripts/check-public-content.mjs \
@@ -153,17 +158,16 @@ node operator/scripts/check-public-content.mjs \
 
 ## Quality Gates
 
-Before any candidate is published:
+Before any candidate is published or committed:
 
 1. Run `node operator/scripts/check-public-content.mjs` against the candidate
    batch.
-2. Stage the generated batch and run the site build/check through
-   `operator/scripts/publish-generated-content.mjs`. This helper must not be
-   called with `--skip-check`.
-3. If candidates are promoted into committed site content instead of routine
-   generated publishing, run:
+2. Promote only the passing candidates into `content/articles` and
+   `content/assets`.
+3. Run the committed-source gates:
 
 ```sh
+node operator/scripts/check-public-content.mjs
 SITE_URL=https://learn.toolsite.com node app-scripts/build-site.mjs
 node app-scripts/check-site.mjs
 ```
@@ -176,9 +180,24 @@ If a gate fails, do not weaken the gate. Fix, exclude, or report the candidate.
 
 ## Deployment Boundary
 
-This automation is authorized to publish passing generated article batches to
-the production S3-backed website. After the mandatory public-content gate,
-site build, and generated-site check pass, publish with:
+This automation is authorized to make passing articles durable and publishable
+through the normal GitHub pipeline. After the mandatory public-content gate,
+source promotion, site build, and generated-site check pass:
+
+1. `git add` the promoted article Markdown, article assets, internal evidence
+   projects, and any directly related documentation or report updates.
+2. `git commit` the passing article batch with a concise message.
+3. `git push origin main`.
+
+The GitHub/CodeBuild pipeline is then responsible for rebuilding, uploading the
+site outputs, and invalidating CloudFront. This is the preferred path because it
+keeps published articles in Git history and makes the public website update
+through the same route as normal source changes.
+
+Use generated-content S3 publishing only when explicitly needed for an immediate
+manual publish or when the GitHub pipeline is unavailable. In that fallback
+case, after the mandatory public-content gate, site build, and generated-site
+check pass, publish with:
 
 ```sh
 node operator/scripts/publish-generated-content.mjs \
@@ -195,12 +214,11 @@ The helper stages generated articles/assets, rebuilds the site, runs
 website observes the uploaded S3 objects, and restores staged source files. Do
 not use `--skip-check`.
 
-AWS CLI commands are allowed only for this publishing workflow and read-only
-verification of uploaded objects. This includes the S3 syncs and the CloudFront
-invalidation performed by the publishing helper. Do not run Terraform,
-OpenTofu, unrelated AWS resource mutation, git commit, or git push unless this
-prompt is updated again to authorize that behavior. Do not publish if any gate
-fails.
+AWS CLI commands are allowed only for this fallback publishing workflow and
+read-only verification of uploaded objects. This includes the S3 syncs and the
+CloudFront invalidation performed by the publishing helper. Do not run
+Terraform, OpenTofu, or unrelated AWS resource mutation. Do not commit, push, or
+publish if any gate fails.
 
 The normal output is a concise run report with:
 
@@ -209,5 +227,7 @@ The normal output is a concise run report with:
 - which candidates passed or failed.
 - experiment artifacts created.
 - checks run.
-- S3 publishing result and any uploaded-object verification.
+- commit hash and push result for the normal GitHub pipeline path, or S3
+  publishing result and uploaded-object verification when the fallback path is
+  explicitly used.
 - any intervention needed.

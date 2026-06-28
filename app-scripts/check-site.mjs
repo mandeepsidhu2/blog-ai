@@ -77,10 +77,10 @@ async function main() {
   const agentToolCatalog = await readJson(path.join(appDir, "agent-console", "tools", "catalog.json"));
   assert(Array.isArray(agentToolCatalog.tools), "Agent console tool catalog must contain a tools array.");
   assert(
-    agentToolCatalog.tools.length >= 40 && agentToolCatalog.tools.length <= 50,
-    "Agent console tool catalog must contain 40 to 50 tools.",
+    agentToolCatalog.tools.length >= 80 && agentToolCatalog.tools.length <= 120,
+    "Agent console tool catalog must contain 80 to 120 tools.",
   );
-  for (const category of ["Git", "GitHub", "GitLab", "AWS", "Terraform", "NPM"]) {
+  for (const category of ["Git", "GitHub", "GitLab", "AWS", "Terraform", "NPM", "Docker", "Kubernetes", "Python", "Make"]) {
     assert(
       agentToolCatalog.tools.some((tool) => tool.category === category),
       `Agent console tool catalog missing ${category} tools.`,

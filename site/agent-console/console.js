@@ -56,6 +56,7 @@ const state = {
   customTools: [],
   toolFilter: "",
   toolCategory: "all",
+  sampleFlowId: "research-synthesis",
   catalogError: "",
   selectedNodeId: "start",
   selectedEdgeId: null,
@@ -72,6 +73,135 @@ const state = {
     limit: 80,
   },
 };
+
+const storageKey = "langgraph-agent-console:v3";
+
+const sampleFlows = [
+  {
+    id: "research-synthesis",
+    name: "Research synthesis agent",
+    description: "Collect signals, inspect source repos, branch on evidence quality, and prepare a synthesis.",
+    nodes: [
+      { id: "start", kind: "start", title: "Start", detail: "Research request and source scope.", x: 645, y: 50, tools: [], condition: "", branches: ["next"] },
+      { id: "scope", kind: "step", title: "Frame research brief", detail: "Normalize the question, output format, constraints, and evidence threshold.", x: 645, y: 190, tools: [], condition: "", branches: ["next"] },
+      { id: "source-scan", kind: "tool", title: "Scan source signals", detail: "Collect repository, issue, and release signals for the research topic.", x: 645, y: 340, tools: ["github_repo_view", "github_issue_list", "github_release_view", "gitlab_issue_list"], condition: "", branches: ["next"] },
+      { id: "evidence-gate", kind: "condition", title: "Evidence quality gate", detail: "Route based on whether enough credible source material exists.", x: 645, y: 500, tools: [], condition: "return 'draft' when sources are current and relevant", branches: ["draft", "collect_more"] },
+      { id: "collect-more", kind: "tool", title: "Collect more context", detail: "Expand search using PRs, workflows, and package metadata.", x: 950, y: 500, tools: ["github_pr_list", "github_workflow_list", "npm_view_package"], condition: "", branches: ["next"] },
+      { id: "draft", kind: "step", title: "Draft synthesis", detail: "Write findings, caveats, recommendations, and source traceability.", x: 645, y: 660, tools: [], condition: "", branches: ["next"] },
+      { id: "end", kind: "end", title: "End", detail: "Compiled graph returns here.", x: 645, y: 820, tools: [], condition: "", branches: ["done"] },
+    ],
+    edges: [
+      { id: "research-start-scope", from: "start", to: "scope", label: "next" },
+      { id: "research-scope-source", from: "scope", to: "source-scan", label: "next" },
+      { id: "research-source-gate", from: "source-scan", to: "evidence-gate", label: "next" },
+      { id: "research-gate-draft", from: "evidence-gate", to: "draft", label: "draft" },
+      { id: "research-gate-more", from: "evidence-gate", to: "collect-more", label: "collect_more" },
+      { id: "research-more-source", from: "collect-more", to: "source-scan", label: "next" },
+      { id: "research-draft-end", from: "draft", to: "end", label: "next" },
+    ],
+  },
+  {
+    id: "coding-release",
+    name: "Coding release agent",
+    description: "Inspect a repo, run checks, open a PR, and prepare a release path.",
+    nodes: [
+      { id: "start", kind: "start", title: "Start", detail: "Feature request and repository path.", x: 645, y: 50, tools: [], condition: "", branches: ["next"] },
+      { id: "repo-state", kind: "tool", title: "Inspect repository", detail: "Read status, staged diff, branches, and recent commit context.", x: 645, y: 185, tools: ["git_status", "git_diff", "git_diff_staged", "git_log"], condition: "", branches: ["next"] },
+      { id: "implement", kind: "step", title: "Plan code edits", detail: "Choose files, expected tests, and implementation boundaries.", x: 645, y: 330, tools: [], condition: "", branches: ["next"] },
+      { id: "quality", kind: "tool", title: "Run quality checks", detail: "Run project tests, linting, and build before release work.", x: 645, y: 475, tools: ["npm_test", "npm_run_lint", "npm_run_build", "python_pytest"], condition: "", branches: ["next"] },
+      { id: "gate", kind: "condition", title: "Release gate", detail: "Route based on quality results.", x: 645, y: 625, tools: [], condition: "return 'ship' when tests and build pass", branches: ["ship", "fix"] },
+      { id: "fix", kind: "step", title: "Patch failures", detail: "Summarize failures and loop back with targeted fixes.", x: 940, y: 625, tools: [], condition: "", branches: ["next"] },
+      { id: "pr", kind: "tool", title: "Open delivery path", detail: "Create PR and inspect checks after push.", x: 645, y: 770, tools: ["git_push", "github_pr_create", "github_pr_checks"], condition: "", branches: ["next"] },
+      { id: "end", kind: "end", title: "End", detail: "Compiled graph returns here.", x: 645, y: 850, tools: [], condition: "", branches: ["done"] },
+    ],
+    edges: [
+      { id: "coding-start-repo", from: "start", to: "repo-state", label: "next" },
+      { id: "coding-repo-impl", from: "repo-state", to: "implement", label: "next" },
+      { id: "coding-impl-quality", from: "implement", to: "quality", label: "next" },
+      { id: "coding-quality-gate", from: "quality", to: "gate", label: "next" },
+      { id: "coding-gate-pr", from: "gate", to: "pr", label: "ship" },
+      { id: "coding-gate-fix", from: "gate", to: "fix", label: "fix" },
+      { id: "coding-fix-quality", from: "fix", to: "quality", label: "next" },
+      { id: "coding-pr-end", from: "pr", to: "end", label: "next" },
+    ],
+  },
+  {
+    id: "cloud-infra",
+    name: "Cloud infrastructure agent",
+    description: "Validate Terraform, plan changes, inspect AWS state, and gate apply.",
+    nodes: [
+      { id: "start", kind: "start", title: "Start", detail: "Infrastructure change request.", x: 645, y: 50, tools: [], condition: "", branches: ["next"] },
+      { id: "identity", kind: "tool", title: "Confirm cloud context", detail: "Verify AWS identity and current Kubernetes context.", x: 645, y: 190, tools: ["aws_sts_identity", "kubectl_config_current_context"], condition: "", branches: ["next"] },
+      { id: "tf-checks", kind: "tool", title: "Terraform checks", detail: "Initialize, format-check, validate, and build a plan.", x: 645, y: 350, tools: ["terraform_init", "terraform_fmt_check", "terraform_validate", "terraform_plan"], condition: "", branches: ["next"] },
+      { id: "blast-radius", kind: "tool", title: "Inspect runtime state", detail: "Read EC2, ECS, Lambda, CloudFormation, and logs for blast-radius context.", x: 645, y: 510, tools: ["aws_ec2_describe_instances", "aws_ecs_list_services", "aws_lambda_list_functions", "aws_cloudformation_describe_stacks", "aws_cloudwatch_logs_tail"], condition: "", branches: ["next"] },
+      { id: "approval", kind: "condition", title: "Change approval", detail: "Route based on whether the plan is reviewed and approved.", x: 645, y: 675, tools: [], condition: "return 'apply' only after human approval", branches: ["apply", "hold"] },
+      { id: "apply", kind: "tool", title: "Apply and verify", detail: "Apply a saved plan, inspect outputs, and invalidate cache if needed.", x: 440, y: 820, tools: ["terraform_apply", "terraform_output", "aws_cloudfront_invalidate"], condition: "", branches: ["next"] },
+      { id: "hold", kind: "step", title: "Hold change", detail: "Return review notes without changing cloud resources.", x: 850, y: 820, tools: [], condition: "", branches: ["next"] },
+      { id: "end", kind: "end", title: "End", detail: "Compiled graph returns here.", x: 645, y: 860, tools: [], condition: "", branches: ["done"] },
+    ],
+    edges: [
+      { id: "infra-start-identity", from: "start", to: "identity", label: "next" },
+      { id: "infra-identity-tf", from: "identity", to: "tf-checks", label: "next" },
+      { id: "infra-tf-blast", from: "tf-checks", to: "blast-radius", label: "next" },
+      { id: "infra-blast-approval", from: "blast-radius", to: "approval", label: "next" },
+      { id: "infra-approval-apply", from: "approval", to: "apply", label: "apply" },
+      { id: "infra-approval-hold", from: "approval", to: "hold", label: "hold" },
+      { id: "infra-apply-end", from: "apply", to: "end", label: "next" },
+      { id: "infra-hold-end", from: "hold", to: "end", label: "next" },
+    ],
+  },
+  {
+    id: "product-feedback",
+    name: "Product feedback agent",
+    description: "Collect user feedback, triage signals, and create product delivery work.",
+    nodes: [
+      { id: "start", kind: "start", title: "Start", detail: "Product area, customer segment, and timeframe.", x: 645, y: 50, tools: [], condition: "", branches: ["next"] },
+      { id: "collect", kind: "tool", title: "Collect feedback", detail: "Pull issues, merge requests, workflow status, and operational logs.", x: 645, y: 205, tools: ["github_issue_list", "gitlab_issue_list", "github_pr_list", "aws_cloudwatch_logs_tail"], condition: "", branches: ["next"] },
+      { id: "cluster", kind: "step", title: "Cluster themes", detail: "Group feedback into product themes, severity, and customer impact.", x: 645, y: 365, tools: [], condition: "", branches: ["next"] },
+      { id: "triage", kind: "condition", title: "Triage decision", detail: "Choose immediate delivery, research, or backlog.", x: 645, y: 525, tools: [], condition: "return 'delivery' for validated high-impact themes", branches: ["delivery", "research", "backlog"] },
+      { id: "delivery", kind: "tool", title: "Open delivery work", detail: "Create delivery PR/MR or issue artifacts for the chosen theme.", x: 385, y: 700, tools: ["github_pr_create", "gitlab_mr_create"], condition: "", branches: ["next"] },
+      { id: "research", kind: "tool", title: "Open research loop", detail: "Create research tasks and gather repo/package context.", x: 645, y: 700, tools: ["github_issue_create", "npm_view_package"], condition: "", branches: ["next"] },
+      { id: "backlog", kind: "step", title: "Backlog summary", detail: "Write a prioritized backlog note with customer evidence.", x: 905, y: 700, tools: [], condition: "", branches: ["next"] },
+      { id: "end", kind: "end", title: "End", detail: "Compiled graph returns here.", x: 645, y: 860, tools: [], condition: "", branches: ["done"] },
+    ],
+    edges: [
+      { id: "product-start-collect", from: "start", to: "collect", label: "next" },
+      { id: "product-collect-cluster", from: "collect", to: "cluster", label: "next" },
+      { id: "product-cluster-triage", from: "cluster", to: "triage", label: "next" },
+      { id: "product-triage-delivery", from: "triage", to: "delivery", label: "delivery" },
+      { id: "product-triage-research", from: "triage", to: "research", label: "research" },
+      { id: "product-triage-backlog", from: "triage", to: "backlog", label: "backlog" },
+      { id: "product-delivery-end", from: "delivery", to: "end", label: "next" },
+      { id: "product-research-end", from: "research", to: "end", label: "next" },
+      { id: "product-backlog-end", from: "backlog", to: "end", label: "next" },
+    ],
+  },
+  {
+    id: "marketing-launch",
+    name: "Marketing launch agent",
+    description: "Prepare a launch package, publish artifacts, and verify distribution.",
+    nodes: [
+      { id: "start", kind: "start", title: "Start", detail: "Launch brief, package path, and channel list.", x: 645, y: 50, tools: [], condition: "", branches: ["next"] },
+      { id: "package", kind: "tool", title: "Inspect package", detail: "Read package metadata, audit dependencies, and run tests.", x: 645, y: 205, tools: ["npm_view_package", "npm_audit", "npm_test"], condition: "", branches: ["next"] },
+      { id: "assets", kind: "tool", title: "Prepare assets", detail: "Build the site/package and sync launch assets to S3.", x: 645, y: 365, tools: ["npm_run_build", "aws_s3_sync_upload"], condition: "", branches: ["next"] },
+      { id: "launch-gate", kind: "condition", title: "Launch gate", detail: "Route based on readiness, approvals, and audit status.", x: 645, y: 525, tools: [], condition: "return 'publish' when launch assets and approvals are ready", branches: ["publish", "revise"] },
+      { id: "publish", kind: "tool", title: "Publish release", detail: "Create release notes, publish package, and refresh CDN.", x: 450, y: 700, tools: ["github_release_create", "npm_publish", "aws_cloudfront_invalidate"], condition: "", branches: ["next"] },
+      { id: "revise", kind: "step", title: "Revise launch", detail: "Return blockers, copy edits, and remaining launch tasks.", x: 850, y: 700, tools: [], condition: "", branches: ["next"] },
+      { id: "verify", kind: "tool", title: "Verify launch", detail: "Check S3 objects, CloudWatch logs, and repository release state.", x: 645, y: 840, tools: ["aws_s3_list", "aws_cloudwatch_logs_tail", "github_release_view"], condition: "", branches: ["next"] },
+      { id: "end", kind: "end", title: "End", detail: "Compiled graph returns here.", x: 645, y: 850, tools: [], condition: "", branches: ["done"] },
+    ],
+    edges: [
+      { id: "marketing-start-package", from: "start", to: "package", label: "next" },
+      { id: "marketing-package-assets", from: "package", to: "assets", label: "next" },
+      { id: "marketing-assets-gate", from: "assets", to: "launch-gate", label: "next" },
+      { id: "marketing-gate-publish", from: "launch-gate", to: "publish", label: "publish" },
+      { id: "marketing-gate-revise", from: "launch-gate", to: "revise", label: "revise" },
+      { id: "marketing-publish-verify", from: "publish", to: "verify", label: "next" },
+      { id: "marketing-revise-end", from: "revise", to: "end", label: "next" },
+      { id: "marketing-verify-end", from: "verify", to: "end", label: "next" },
+    ],
+  },
+];
 
 const els = {};
 
@@ -173,14 +303,13 @@ function toolCategories() {
 }
 
 function toolMatchesFilter(tool) {
-  const categoryMatches = state.toolCategory === "all" || tool.category === state.toolCategory;
-  if (!categoryMatches) return false;
   const query = state.toolFilter.trim().toLowerCase();
-  if (!query) return true;
-  return [tool.name, tool.category, tool.description, tool.command.join(" ")]
+  const searchMatches = [tool.name, tool.category, tool.description, tool.command.join(" ")]
     .join(" ")
     .toLowerCase()
     .includes(query);
+  if (query) return searchMatches;
+  return state.toolCategory === "all" || tool.category === state.toolCategory;
 }
 
 function filteredTools() {
@@ -310,6 +439,53 @@ function graphSnapshot() {
     selectedEdgeId: state.selectedEdgeId,
     nextNodeNumber: state.nextNodeNumber,
   };
+}
+
+function persistentSnapshot() {
+  return {
+    nodes: cloneValue(state.nodes),
+    edges: cloneValue(state.edges),
+    customTools: cloneValue(state.customTools),
+    selectedNodeId: state.selectedNodeId,
+    selectedEdgeId: state.selectedEdgeId,
+    nextNodeNumber: state.nextNodeNumber,
+    toolFilter: state.toolFilter,
+    toolCategory: state.toolCategory,
+    sampleFlowId: state.sampleFlowId,
+    zoom: state.zoom,
+  };
+}
+
+function savePersistentState() {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(persistentSnapshot()));
+  } catch {
+    // Persistence should never block graph editing.
+  }
+}
+
+function restorePersistentState() {
+  try {
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) return;
+    const saved = JSON.parse(raw);
+    if (Array.isArray(saved.nodes) && Array.isArray(saved.edges)) {
+      state.nodes = cloneValue(saved.nodes);
+      state.edges = cloneValue(saved.edges);
+    }
+    if (Array.isArray(saved.customTools)) state.customTools = cloneValue(saved.customTools);
+    state.selectedNodeId = state.nodes.some((node) => node.id === saved.selectedNodeId) ? saved.selectedNodeId : "start";
+    state.selectedEdgeId = state.edges.some((edge) => edge.id === saved.selectedEdgeId) ? saved.selectedEdgeId : null;
+    state.nextNodeNumber = Number.isFinite(saved.nextNodeNumber) ? saved.nextNodeNumber : state.nextNodeNumber;
+    state.toolFilter = typeof saved.toolFilter === "string" ? saved.toolFilter : "";
+    state.toolCategory = typeof saved.toolCategory === "string" ? saved.toolCategory : "all";
+    state.sampleFlowId = sampleFlows.some((sample) => sample.id === saved.sampleFlowId)
+      ? saved.sampleFlowId
+      : sampleFlows[0].id;
+    state.zoom = Number.isFinite(saved.zoom) ? clamp(saved.zoom, zoomRange.min, zoomRange.max) : 1;
+  } catch {
+    localStorage.removeItem(storageKey);
+  }
 }
 
 function pushHistorySnapshot(snapshot = graphSnapshot()) {
@@ -456,32 +632,60 @@ function updateEdge(id, patch) {
   render();
 }
 
-function addCustomTool(name) {
+function addCustomTool(name, description) {
   const trimmed = name.trim();
   if (!trimmed) return;
-  const idBase = `custom_${sanitizeIdentifier(trimmed, "tool")}`;
-  let id = idBase;
-  let suffix = 2;
-  const existingIds = new Set(allTools().map((tool) => tool.id));
-  while (existingIds.has(id)) {
-    id = `${idBase}_${suffix}`;
-    suffix += 1;
+  const detail = description.trim() || `Implement the ${trimmed} custom tool behavior.`;
+  const existingTool = allTools().find((tool) => tool.name.toLowerCase() === trimmed.toLowerCase());
+  let id = existingTool?.id;
+  pushHistorySnapshot();
+  if (!id) {
+    const idBase = `custom_${sanitizeIdentifier(trimmed, "tool")}`;
+    id = idBase;
+    let suffix = 2;
+    const existingIds = new Set(allTools().map((tool) => tool.id));
+    while (existingIds.has(id)) {
+      id = `${idBase}_${suffix}`;
+      suffix += 1;
+    }
   }
-  const exists = allTools().some((tool) => tool.name.toLowerCase() === trimmed.toLowerCase());
-  if (!exists) pushHistorySnapshot();
-  if (!exists) {
+  if (!existingTool) {
     state.customTools.push({
       id,
       name: trimmed,
       category: "Custom",
-      description: "Custom operator-supplied tool boundary. Add command details in the generated Python.",
+      description: detail,
       command: [],
       defaults: {},
       mutates: false,
       custom: true,
     });
   }
+  let node = nodeById(state.selectedNodeId);
+  if (!node || node.kind === "start" || node.kind === "end") {
+    const position = nextPosition();
+    const nodeId = `tool-${Date.now().toString(36)}-${state.nextNodeNumber}`;
+    state.nextNodeNumber += 1;
+    node = {
+      id: nodeId,
+      kind: "tool",
+      title: trimmed,
+      detail,
+      x: position.x,
+      y: position.y,
+      tools: [],
+      condition: "",
+      branches: ["next"],
+    };
+    state.nodes.push(node);
+    state.selectedNodeId = node.id;
+    state.selectedEdgeId = null;
+  }
+  if (!node.tools.includes(id)) {
+    node.tools.push(id);
+  }
   els.customToolInput.value = "";
+  els.customToolDescription.value = "";
   render();
 }
 
@@ -495,6 +699,24 @@ function resetGraph() {
   state.connectionDraft = null;
   state.zoom = 1;
   state.nextNodeNumber = 1;
+  render();
+}
+
+function loadSampleFlow(sampleId = state.sampleFlowId) {
+  const sample = sampleFlows.find((item) => item.id === sampleId) || sampleFlows[0];
+  pushHistorySnapshot();
+  state.nodes = cloneValue(sample.nodes);
+  state.edges = cloneValue(sample.edges);
+  state.sampleFlowId = sample.id;
+  state.selectedNodeId = "start";
+  state.selectedEdgeId = null;
+  state.connectSourceId = null;
+  state.connectionDraft = null;
+  state.zoom = 1;
+  state.nextNodeNumber = Math.max(
+    1,
+    state.nodes.filter((node) => !["start", "end"].includes(node.kind)).length + 1,
+  );
   render();
 }
 
@@ -785,7 +1007,8 @@ function renderDraftEdge() {
 function renderTools() {
   renderToolControls();
   const tools = filteredTools();
-  els.toolMeta.textContent = `${tools.length} of ${allTools().length} tools`;
+  const globalSearch = state.toolFilter.trim() ? " global search" : "";
+  els.toolMeta.textContent = `${tools.length} of ${allTools().length} tools${globalSearch}`;
   els.toolList.innerHTML =
     tools
       .map((tool) => renderToolChip(tool, "data-tool", nodeById(state.selectedNodeId)?.tools.includes(tool.id)))
@@ -825,11 +1048,22 @@ function renderToolChip(tool, attributeName, selected = false) {
   const mutates = tool.mutates ? '<span class="tool-chip-risk">writes</span>' : "";
   return `
     <button class="tool-chip${selectedClass}" type="button" ${attributeName}="${escapeHtml(tool.id)}" title="${escapeHtml(tool.description)}">
-      <span class="tool-chip-name">${escapeHtml(tool.name)}</span>
+      <span class="tool-chip-head">
+        <span class="tool-chip-name">${escapeHtml(tool.name)}</span>
+        ${mutates}
+      </span>
       <span class="tool-chip-meta">${escapeHtml(tool.category)} · ${escapeHtml(toolCommandLabel(tool))}</span>
-      ${mutates}
     </button>
   `;
+}
+
+function renderSamples() {
+  const selected = sampleFlows.find((sample) => sample.id === state.sampleFlowId) || sampleFlows[0];
+  state.sampleFlowId = selected.id;
+  els.sampleFlowSelect.innerHTML = sampleFlows
+    .map((sample) => `<option value="${escapeHtml(sample.id)}" ${sample.id === state.sampleFlowId ? "selected" : ""}>${escapeHtml(sample.name)}</option>`)
+    .join("");
+  els.sampleFlowMeta.textContent = selected.description;
 }
 
 function renderInspector() {
@@ -1004,8 +1238,6 @@ function validateGraph() {
       const tool = toolById(toolId);
       if (!tool) {
         messages.push({ type: "warning", text: `${node.title} references a missing tool: ${toolId}.` });
-      } else if (!tool.command.length) {
-        messages.push({ type: "warning", text: `${tool.name} is custom and needs command details in the exported Python.` });
       }
     }
   }
@@ -1054,8 +1286,10 @@ function generatePython() {
   const selectedTools = [...new Set(regularNodes.flatMap((node) => node.tools))]
     .map(toolById)
     .filter(Boolean);
+  const commandTools = selectedTools.filter((tool) => tool.command.length);
+  const stubTools = selectedTools.filter((tool) => !tool.command.length);
   const toolRegistry = Object.fromEntries(
-    selectedTools.map((tool) => [
+    commandTools.map((tool) => [
       tool.id,
       {
         name: tool.name,
@@ -1069,7 +1303,7 @@ function generatePython() {
   );
 
   const lines = ["from typing import Any, Literal, TypedDict"];
-  if (selectedTools.length) lines.push("import subprocess");
+  if (commandTools.length) lines.push("import subprocess");
   lines.push(
     "",
     "from langgraph.graph import END, START, StateGraph",
@@ -1085,7 +1319,7 @@ function generatePython() {
     "",
   );
 
-  if (selectedTools.length) {
+  if (commandTools.length) {
     lines.push(`TOOL_REGISTRY: dict[str, dict[str, Any]] = ${pythonLiteral(toolRegistry)}`);
     lines.push("");
     lines.push("");
@@ -1124,7 +1358,7 @@ function generatePython() {
     lines.push("        \"stderr\": completed.stderr,");
     lines.push("    }");
 
-    for (const tool of selectedTools) {
+    for (const tool of commandTools) {
       const functionName = `run_${sanitizeIdentifier(tool.id, "tool")}`;
       lines.push("");
       lines.push("");
@@ -1133,6 +1367,16 @@ function generatePython() {
       lines.push(`    return run_cli_tool(${pythonString(tool.id)}, state)`);
     }
     lines.push("");
+  }
+
+  for (const tool of stubTools) {
+    const functionName = `run_${sanitizeIdentifier(tool.id, "tool")}`;
+    lines.push("");
+    lines.push("");
+    lines.push(`def ${functionName}(state: AgentState) -> dict[str, Any]:`);
+    lines.push(`    \"\"\"${tool.description || `Implement ${tool.name}.`}\"\"\"`);
+    lines.push("    # TODO: Fill in this custom tool implementation.");
+    lines.push(`    return {"tool": ${pythonString(tool.name)}, "status": "not_implemented"}`);
   }
 
   for (const node of regularNodes) {
@@ -1242,12 +1486,14 @@ function copyPython() {
 
 function render() {
   applyZoom();
+  renderSamples();
   renderNodes();
   renderEdges();
   renderTools();
   renderInspector();
   renderValidation();
   renderCode();
+  savePersistentState();
 }
 
 function startPaletteDrag(button, event) {
@@ -1485,6 +1731,9 @@ function init() {
     toolSearchInput: byId("tool-search-input"),
     toolCategory: byId("tool-category-filter"),
     customToolInput: byId("custom-tool-input"),
+    customToolDescription: byId("custom-tool-description"),
+    sampleFlowSelect: byId("sample-flow-select"),
+    sampleFlowMeta: byId("sample-flow-meta"),
     inspector: byId("inspector"),
     validation: byId("validation-list"),
     status: byId("status-pill"),
@@ -1512,8 +1761,14 @@ function init() {
 
   byId("add-tool-form").addEventListener("submit", (event) => {
     event.preventDefault();
-    addCustomTool(els.customToolInput.value);
+    addCustomTool(els.customToolInput.value, els.customToolDescription.value);
   });
+  els.sampleFlowSelect.addEventListener("change", () => {
+    state.sampleFlowId = els.sampleFlowSelect.value;
+    renderSamples();
+    savePersistentState();
+  });
+  byId("load-sample-flow").addEventListener("click", () => loadSampleFlow(els.sampleFlowSelect.value));
   els.toolSearchInput.addEventListener("input", () => {
     state.toolFilter = els.toolSearchInput.value;
     renderTools();
@@ -1574,6 +1829,7 @@ function init() {
     }
   });
 
+  restorePersistentState();
   render();
   loadToolCatalog().then(() => {
     render();

@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-06-28T03:10:23.206Z",
+  "caseCount": 8,
+  "baselines": [
+    {
+      "label": "tests-only gate",
+      "accuracy": 0.5,
+      "unsafeMerges": 4,
+      "unnecessaryBlocks": 0,
+      "reviewCapture": 0,
+      "cases": [
+        {
+          "id": "docs-only-agent",
+          "expected": "allow",
+          "decision": "allow",
+          "correct": true
+        },
+        {
+          "id": "auth-policy-no-trace",
+          "expected": "block",
+          "decision": "allow",
+          "correct": false
+        },
+        {
+          "id": "eval-harness-with-proof",
+          "expected": "allow",
+          "decision": "allow",
+          "correct": true
+        },
+        {
+          "id": "payment-change-human",
+          "expected": "review",
+          "decision": "allow",
+          "correct": false
+        },
+        {
+          "id": "large-agent-refactor",
+          "expected": "review",
+          "decision": "allow",
+          "correct": false
+        },
+        {
+          "id": "prompt-update-no-eval",
+          "expected": "block",
+          "decision": "block",
+          "correct": true
+        },
+        {
+          "id": "secret-handling-agent",
+          "expected": "review",
+          "decision": "allow",
+          "correct": false
+        },
+        {
+          "id": "small-ui-copy",
+          "expected": "allow",
+          "decision": "allow",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "label": "provenance gate",
+      "accuracy": 1,
+      "unsafeMerges": 0,
+      "unnecessaryBlocks": 0,
+      "reviewCapture": 1,
+      "cases": [
+        {
+          "id": "docs-only-agent",
+          "expected": "allow",
+          "decision": "allow",
+          "correct": true
+        },
+        {
+          "id": "auth-policy-no-trace",
+          "expected": "block",
+          "decision": "block",
+          "correct": true
+        },
+        {
+          "id": "eval-harness-with-proof",
+          "expected": "allow",
+          "decision": "allow",
+          "correct": true
+        },
+        {
+          "id": "payment-change-human",
+          "expected": "review",
+          "decision": "review",
+          "correct": true
+        },
+        {
+          "id": "large-agent-refactor",
+          "expected": "review",
+          "decision": "review",
+          "correct": true
+        },
+        {
+          "id": "prompt-update-no-eval",
+          "expected": "block",
+          "decision": "block",
+          "correct": true
+        },
+        {
+          "id": "secret-handling-agent",
+          "expected": "review",
+          "decision": "review",
+          "correct": true
+        },
+        {
+          "id": "small-ui-copy",
+          "expected": "allow",
+          "decision": "allow",
+          "correct": true
+        }
+      ]
+    }
+  ]
+}

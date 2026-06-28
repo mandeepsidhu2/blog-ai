@@ -1,0 +1,13 @@
+caseCount: 16
+optimistic.accuracy: 0.625
+optimistic.missedIncidentRate: 0.750
+optimistic.overblockRate: 0.000
+optimistic.blocked: 2
+reviewed.accuracy: 1.000
+reviewed.missedIncidentRate: 0.000
+reviewed.overblockRate: 0.000
+reviewed.blocked: 8
+production.accuracy: 1.000
+production.missedIncidentRate: 0.000
+production.overblockRate: 0.000
+production.blocked: 8

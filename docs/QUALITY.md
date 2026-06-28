@@ -59,8 +59,11 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
 - isolated agent console route exists under `/agent-console/`, uses its own
   console assets, and does not load tutorial app CSS or JavaScript.
 - agent console static tool catalog is copied under
-  `/agent-console/tools/catalog.json`, contains 40 to 50 tools, and covers Git,
-  GitHub, GitLab, AWS, Terraform, and NPM.
+  `/agent-console/tools/catalog.json`, contains 80 to 120 tools, and covers Git,
+  GitHub, GitLab, AWS, Terraform, NPM, Docker, Kubernetes, Python, and Make.
+- agent console search must find matching tools globally even when a category
+  filter is selected. Custom tools must export as fill-in Python stubs, and
+  browser-local graph state should survive refresh.
 - topic groups exist.
 - home page has SEO metadata and visual asset.
 - sitemap exists and covers articles.

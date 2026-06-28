@@ -37,7 +37,8 @@ single file into a catch-all manual.
   https://openai.com/index/harness-engineering/
 - App generator: `app-scripts/build-site.mjs`
 - Generated-site checks: `app-scripts/check-site.mjs`
-- Agent console source and static tool catalog: `site/agent-console/`
+- Agent console source, sample flows, and static tool catalog:
+  `site/agent-console/`
 - Operator publishing helpers: `operator/scripts/`
 - Internal article evidence workspace: `operator/diy-project-blogs/`
 - App-specific infrastructure: `../infrastructure/blog-ai-frontend`
