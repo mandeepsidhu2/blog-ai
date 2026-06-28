@@ -1,0 +1,468 @@
+{
+  "tasks": 12,
+  "tiers": {
+    "small-realtime": {
+      "inputPerMTok": 0.18,
+      "outputPerMTok": 0.72,
+      "baseLatencyMs": 650,
+      "throughputTokensPerSecond": 1550,
+      "quality": 0.76,
+      "supportsReasoning": false
+    },
+    "batch-small": {
+      "inputPerMTok": 0.09,
+      "outputPerMTok": 0.36,
+      "baseLatencyMs": 5000,
+      "throughputTokensPerSecond": 900,
+      "quality": 0.74,
+      "supportsReasoning": false
+    },
+    "flex-balanced": {
+      "inputPerMTok": 0.55,
+      "outputPerMTok": 2.2,
+      "baseLatencyMs": 1400,
+      "throughputTokensPerSecond": 980,
+      "quality": 0.84,
+      "supportsReasoning": false
+    },
+    "priority-frontier": {
+      "inputPerMTok": 2.5,
+      "outputPerMTok": 10,
+      "baseLatencyMs": 900,
+      "throughputTokensPerSecond": 720,
+      "quality": 0.94,
+      "supportsReasoning": true
+    }
+  },
+  "results": [
+    {
+      "name": "frontierOnly",
+      "totalCost": 0.19235,
+      "meanLatencyMs": 9012,
+      "expectedMatchRate": 0.5,
+      "passRate": 0.75,
+      "slaMisses": 3,
+      "qualityMisses": 0,
+      "decisions": [
+        {
+          "id": "support-summary",
+          "expectedTier": "batch-small",
+          "tier": "priority-frontier",
+          "cost": 0.006834,
+          "latencyMs": 2978,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": true
+        },
+        {
+          "id": "contract-redline",
+          "expectedTier": "priority-frontier",
+          "tier": "priority-frontier",
+          "cost": 0.023194,
+          "latencyMs": 10764,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "embedding-refresh",
+          "expectedTier": "batch-small",
+          "tier": "priority-frontier",
+          "cost": 0.02955,
+          "latencyMs": 16990,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": true
+        },
+        {
+          "id": "incident-triage",
+          "expectedTier": "priority-frontier",
+          "tier": "priority-frontier",
+          "cost": 0.015353,
+          "latencyMs": 6631,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "faq-rewrite",
+          "expectedTier": "flex-balanced",
+          "tier": "priority-frontier",
+          "cost": 0.010198,
+          "latencyMs": 4031,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": true
+        },
+        {
+          "id": "analytics-sql",
+          "expectedTier": "priority-frontier",
+          "tier": "priority-frontier",
+          "cost": 0.015231,
+          "latencyMs": 5881,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "nightly-docs",
+          "expectedTier": "batch-small",
+          "tier": "batch-small",
+          "cost": 0.001325,
+          "latencyMs": 17423,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "sales-call-extract",
+          "expectedTier": "flex-balanced",
+          "tier": "priority-frontier",
+          "cost": 0.016464,
+          "latencyMs": 8303,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": true
+        },
+        {
+          "id": "migration-plan",
+          "expectedTier": "priority-frontier",
+          "tier": "priority-frontier",
+          "cost": 0.048095,
+          "latencyMs": 21659,
+          "qualityOk": true,
+          "latencyOk": false,
+          "expectedMatch": true,
+          "pass": false
+        },
+        {
+          "id": "spam-classifier",
+          "expectedTier": "small-realtime",
+          "tier": "priority-frontier",
+          "cost": 0.002588,
+          "latencyMs": 2104,
+          "qualityOk": true,
+          "latencyOk": false,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "schema-repair",
+          "expectedTier": "flex-balanced",
+          "tier": "priority-frontier",
+          "cost": 0.008854,
+          "latencyMs": 4435,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": true
+        },
+        {
+          "id": "policy-answer",
+          "expectedTier": "priority-frontier",
+          "tier": "priority-frontier",
+          "cost": 0.014663,
+          "latencyMs": 6944,
+          "qualityOk": true,
+          "latencyOk": false,
+          "expectedMatch": true,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "name": "cheapestFirst",
+      "totalCost": 0.03753,
+      "meanLatencyMs": 7794,
+      "expectedMatchRate": 0.5,
+      "passRate": 0.583,
+      "slaMisses": 0,
+      "qualityMisses": 5,
+      "decisions": [
+        {
+          "id": "support-summary",
+          "expectedTier": "batch-small",
+          "tier": "flex-balanced",
+          "cost": 0.001503,
+          "latencyMs": 2778,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": true
+        },
+        {
+          "id": "contract-redline",
+          "expectedTier": "priority-frontier",
+          "tier": "flex-balanced",
+          "cost": 0.005103,
+          "latencyMs": 8341,
+          "qualityOk": false,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "embedding-refresh",
+          "expectedTier": "batch-small",
+          "tier": "batch-small",
+          "cost": 0.001064,
+          "latencyMs": 17840,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "incident-triage",
+          "expectedTier": "priority-frontier",
+          "tier": "flex-balanced",
+          "cost": 0.003378,
+          "latencyMs": 5364,
+          "qualityOk": false,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "faq-rewrite",
+          "expectedTier": "flex-balanced",
+          "tier": "flex-balanced",
+          "cost": 0.002244,
+          "latencyMs": 3522,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "analytics-sql",
+          "expectedTier": "priority-frontier",
+          "tier": "flex-balanced",
+          "cost": 0.003351,
+          "latencyMs": 4847,
+          "qualityOk": false,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "nightly-docs",
+          "expectedTier": "batch-small",
+          "tier": "batch-small",
+          "cost": 0.001325,
+          "latencyMs": 17423,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "sales-call-extract",
+          "expectedTier": "flex-balanced",
+          "tier": "flex-balanced",
+          "cost": 0.003622,
+          "latencyMs": 6567,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "migration-plan",
+          "expectedTier": "priority-frontier",
+          "tier": "flex-balanced",
+          "cost": 0.010581,
+          "latencyMs": 16325,
+          "qualityOk": false,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "spam-classifier",
+          "expectedTier": "small-realtime",
+          "tier": "small-realtime",
+          "cost": 0.000186,
+          "latencyMs": 1166,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "schema-repair",
+          "expectedTier": "flex-balanced",
+          "tier": "flex-balanced",
+          "cost": 0.001948,
+          "latencyMs": 3810,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "policy-answer",
+          "expectedTier": "priority-frontier",
+          "tier": "flex-balanced",
+          "cost": 0.003226,
+          "latencyMs": 5548,
+          "qualityOk": false,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "name": "budgetGate",
+      "totalCost": 0.12843,
+      "meanLatencyMs": 8749,
+      "expectedMatchRate": 0.917,
+      "passRate": 0.833,
+      "slaMisses": 2,
+      "qualityMisses": 0,
+      "decisions": [
+        {
+          "id": "support-summary",
+          "expectedTier": "batch-small",
+          "tier": "flex-balanced",
+          "cost": 0.001503,
+          "latencyMs": 2778,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": false,
+          "pass": true
+        },
+        {
+          "id": "contract-redline",
+          "expectedTier": "priority-frontier",
+          "tier": "priority-frontier",
+          "cost": 0.023194,
+          "latencyMs": 10764,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "embedding-refresh",
+          "expectedTier": "batch-small",
+          "tier": "batch-small",
+          "cost": 0.001064,
+          "latencyMs": 17840,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "incident-triage",
+          "expectedTier": "priority-frontier",
+          "tier": "priority-frontier",
+          "cost": 0.015353,
+          "latencyMs": 6631,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "faq-rewrite",
+          "expectedTier": "flex-balanced",
+          "tier": "flex-balanced",
+          "cost": 0.002244,
+          "latencyMs": 3522,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "analytics-sql",
+          "expectedTier": "priority-frontier",
+          "tier": "priority-frontier",
+          "cost": 0.015231,
+          "latencyMs": 5881,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "nightly-docs",
+          "expectedTier": "batch-small",
+          "tier": "batch-small",
+          "cost": 0.001325,
+          "latencyMs": 17423,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "sales-call-extract",
+          "expectedTier": "flex-balanced",
+          "tier": "flex-balanced",
+          "cost": 0.003622,
+          "latencyMs": 6567,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "migration-plan",
+          "expectedTier": "priority-frontier",
+          "tier": "priority-frontier",
+          "cost": 0.048095,
+          "latencyMs": 21659,
+          "qualityOk": true,
+          "latencyOk": false,
+          "expectedMatch": true,
+          "pass": false
+        },
+        {
+          "id": "spam-classifier",
+          "expectedTier": "small-realtime",
+          "tier": "small-realtime",
+          "cost": 0.000186,
+          "latencyMs": 1166,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "schema-repair",
+          "expectedTier": "flex-balanced",
+          "tier": "flex-balanced",
+          "cost": 0.001948,
+          "latencyMs": 3810,
+          "qualityOk": true,
+          "latencyOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "policy-answer",
+          "expectedTier": "priority-frontier",
+          "tier": "priority-frontier",
+          "cost": 0.014663,
+          "latencyMs": 6944,
+          "qualityOk": true,
+          "latencyOk": false,
+          "expectedMatch": true,
+          "pass": false
+        }
+      ]
+    }
+  ]
+}

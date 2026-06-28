@@ -1,0 +1,5 @@
+Token-budget routing experiment
+tasks=12
+frontierOnly: pass_rate=0.75 expected_match=0.5 total_cost=$0.19235 mean_latency_ms=9012 sla_misses=3 quality_misses=0
+cheapestFirst: pass_rate=0.583 expected_match=0.5 total_cost=$0.03753 mean_latency_ms=7794 sla_misses=0 quality_misses=5
+budgetGate: pass_rate=0.833 expected_match=0.917 total_cost=$0.12843 mean_latency_ms=8749 sla_misses=2 quality_misses=0
