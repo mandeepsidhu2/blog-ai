@@ -53,6 +53,7 @@ objects when needed:
 /assets/styles.css
 /agent-console/console.js
 /agent-console/console.css
+/agent-console/tools/catalog.json
 /content/v1/manifest.json
 /content/v1/search-index.json
 /content/v1/articles/<slug>/index.json
@@ -71,7 +72,8 @@ crawler-visible HTML page under `/tutorials/*`.
 - emits SEO article pages.
 - emits content JSON payloads.
 - emits topic pages, sitemap, robots, manifest, and pipeline artifact.
-- emits the isolated `/agent-console/` app route and copies its separate assets.
+- emits the isolated `/agent-console/` app route and copies its separate assets,
+  including the static DevOps tool catalog consumed by the console.
 
 The generator intentionally has no external package dependencies.
 
@@ -82,6 +84,9 @@ The generator intentionally has no external package dependencies.
 - Edit the LangGraph agent console in `site/agent-console`, not `dist/app`.
   Its browser logic must stay separate from tutorial search, article rendering,
   and content payload logic.
+- Edit the console's built-in tool library in
+  `site/agent-console/tools/catalog.json`. The static generator copies it as an
+  app asset; it is not article content and must stay out of content JSON.
 - Edit generation behavior in `app-scripts/build-site.mjs`.
 - Edit validation in `app-scripts/check-site.mjs`.
 - Put operator-only publishing tools in `operator/scripts`.

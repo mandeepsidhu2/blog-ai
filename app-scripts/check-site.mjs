@@ -74,6 +74,18 @@ async function main() {
   assert(!agentConsole.includes("/assets/styles.css"), "Agent console must not load the tutorial stylesheet.");
   assert(!JSON.stringify(manifest).includes("agent-console"), "Agent console must stay out of content manifest.");
   assert(!JSON.stringify(search).includes("agent-console"), "Agent console must stay out of search index.");
+  const agentToolCatalog = await readJson(path.join(appDir, "agent-console", "tools", "catalog.json"));
+  assert(Array.isArray(agentToolCatalog.tools), "Agent console tool catalog must contain a tools array.");
+  assert(
+    agentToolCatalog.tools.length >= 40 && agentToolCatalog.tools.length <= 50,
+    "Agent console tool catalog must contain 40 to 50 tools.",
+  );
+  for (const category of ["Git", "GitHub", "GitLab", "AWS", "Terraform", "NPM"]) {
+    assert(
+      agentToolCatalog.tools.some((tool) => tool.category === category),
+      `Agent console tool catalog missing ${category} tools.`,
+    );
+  }
 
   const sitemap = await readText(path.join(appDir, "sitemap.xml"));
   assert(sitemap.includes("<urlset"), "Sitemap is not valid XML sitemap output.");
@@ -131,6 +143,7 @@ async function main() {
     path.join(appDir, "assets", "hero-ai-workspace.png"),
     path.join(appDir, "agent-console", "console.css"),
     path.join(appDir, "agent-console", "console.js"),
+    path.join(appDir, "agent-console", "tools", "catalog.json"),
     path.join(appDir, "robots.txt"),
     path.join(distDir, "pipeline-artifact", "app", "index.html"),
     path.join(distDir, "pipeline-artifact", "app", "agent-console", "index.html"),

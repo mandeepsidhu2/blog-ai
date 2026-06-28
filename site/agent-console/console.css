@@ -349,13 +349,51 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
+  max-height: 220px;
+  overflow: auto;
 }
 
 .tool-chip {
+  position: relative;
+  display: grid;
+  flex: 1 1 118px;
+  justify-items: start;
   min-height: 34px;
-  padding: 0 10px;
+  overflow: hidden;
+  padding: 8px 10px;
+  text-align: left;
   color: #d3eee5;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
+}
+
+.tool-chip-name {
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tool-chip-meta {
+  overflow: hidden;
+  max-width: 100%;
+  color: var(--console-subtle);
+  font-size: 0.66rem;
+  font-weight: 760;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tool-chip-risk {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  border: 1px solid rgba(255, 209, 102, 0.4);
+  border-radius: 999px;
+  background: rgba(255, 209, 102, 0.09);
+  color: #ffe6a1;
+  padding: 1px 5px;
+  font-size: 0.58rem;
+  font-weight: 900;
 }
 
 .tool-chip.is-selected {
@@ -363,6 +401,34 @@ button {
   background: rgba(66, 242, 200, 0.13);
   color: #ccfff1;
   box-shadow: 0 0 18px rgba(66, 242, 200, 0.12);
+}
+
+.tool-library-controls {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.tool-library-controls input,
+.tool-library-controls select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--console-line);
+  border-radius: 8px;
+  background: rgba(4, 8, 8, 0.78);
+  color: var(--console-ink);
+  padding: 9px 10px;
+}
+
+.tool-library-controls input::placeholder {
+  color: var(--console-subtle);
+}
+
+.tool-library-meta {
+  margin: -1px 0 8px;
+  color: var(--console-subtle);
+  font-size: 0.68rem;
+  font-weight: 850;
 }
 
 .field-stack {
@@ -637,40 +703,54 @@ button {
   position: absolute;
   z-index: 3;
   display: grid;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   place-items: center;
   border: 2px solid #07100f;
   border-radius: 999px;
   background: var(--console-blue);
-  box-shadow: 0 0 0 3px rgba(124, 171, 255, 0.16), 0 0 16px rgba(124, 171, 255, 0.38);
+  box-shadow: 0 0 0 4px rgba(124, 171, 255, 0.16), 0 0 18px rgba(124, 171, 255, 0.42);
   padding: 0;
+  cursor: crosshair;
   touch-action: none;
 }
 
 .node-port::after {
   content: "";
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 999px;
   background: #ffffff;
 }
 
-.node-port:hover {
+.node-port[data-port="out"] {
   background: var(--console-green);
-  box-shadow: 0 0 0 3px rgba(66, 242, 200, 0.18), 0 0 18px rgba(66, 242, 200, 0.46);
+  box-shadow: 0 0 0 4px rgba(66, 242, 200, 0.18), 0 0 18px rgba(66, 242, 200, 0.44);
+}
+
+.node-port:hover {
+  box-shadow: 0 0 0 5px rgba(255, 209, 102, 0.2), 0 0 22px rgba(255, 209, 102, 0.5);
   transform: scale(1.12);
 }
 
-.node-port-in {
-  top: calc(50% - 9px);
-  left: -9px;
+.node-port-left {
+  top: calc(50% - 10px);
+  left: -10px;
 }
 
-.node-port-out {
-  top: calc(50% - 9px);
-  right: -9px;
-  cursor: crosshair;
+.node-port-right {
+  top: calc(50% - 10px);
+  right: -10px;
+}
+
+.node-port-top {
+  top: -10px;
+  left: calc(50% - 10px);
+}
+
+.node-port-bottom {
+  bottom: -10px;
+  left: calc(50% - 10px);
 }
 
 .node-tools {

@@ -616,6 +616,13 @@ function renderAgentConsolePage() {
 
         <section class="panel-section">
           <h2>Tool library</h2>
+          <div class="tool-library-controls">
+            <label class="sr-only" for="tool-search-input">Search tools</label>
+            <input id="tool-search-input" type="search" placeholder="Search Git, AWS, Terraform, NPM">
+            <label class="sr-only" for="tool-category-filter">Filter tool category</label>
+            <select id="tool-category-filter" aria-label="Filter tool category"></select>
+          </div>
+          <div class="tool-library-meta" id="tool-library-meta"></div>
           <div class="tool-list" id="tool-list"></div>
           <form class="custom-tool-row" id="add-tool-form">
             <label class="sr-only" for="custom-tool-input">Custom tool name</label>

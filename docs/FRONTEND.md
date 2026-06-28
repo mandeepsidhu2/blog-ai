@@ -49,6 +49,12 @@ in `site/agent-console/console.css`. Keep its graph state, code generation,
 dragging, tool list, and download behavior isolated from tutorial search and
 article interactions.
 
+The built-in console tool library is static JSON at
+`site/agent-console/tools/catalog.json`. The browser loads it from
+`/agent-console/tools/catalog.json`, supports search and category filtering, and
+emits selected tools into the downloaded LangGraph Python as subprocess-backed
+tool boundaries with explicit approval checks for mutating operations.
+
 ## Visual Review
 
 When editing layout or interaction, preview locally:

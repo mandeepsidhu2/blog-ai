@@ -6,15 +6,57 @@ const nodeKinds = {
   condition: { glyph: "?", label: "Conditional", description: "A router node with named branches." },
 };
 
-const defaultTools = ["Git", "AWS", "Terraform", "NPM"];
+const fallbackToolCatalog = [
+  {
+    id: "git_status",
+    name: "Git status",
+    category: "Git",
+    description: "Show the short working tree status for the current repository.",
+    command: ["git", "status", "--short"],
+    defaults: {},
+    mutates: false,
+  },
+  {
+    id: "aws_sts_identity",
+    name: "AWS caller identity",
+    category: "AWS",
+    description: "Show the active AWS account, ARN, and user identity.",
+    command: ["aws", "sts", "get-caller-identity"],
+    defaults: {},
+    mutates: false,
+  },
+  {
+    id: "terraform_validate",
+    name: "Terraform validate",
+    category: "Terraform",
+    description: "Validate Terraform configuration syntax and provider schemas.",
+    command: ["terraform", "validate"],
+    defaults: {},
+    mutates: false,
+  },
+  {
+    id: "npm_test",
+    name: "npm test",
+    category: "NPM",
+    description: "Run the project test script.",
+    command: ["npm", "test"],
+    defaults: {},
+    mutates: false,
+  },
+];
 const canvasSize = { width: 1500, height: 980 };
 const defaultNodeX = 645;
 const zoomRange = { min: 0.55, max: 1.55, step: 0.1 };
+const nodeFallbackSize = { width: 210, height: 104 };
 
 const state = {
   nodes: createInitialNodes(),
   edges: [{ id: "edge-start-end", from: "start", to: "end", label: "next" }],
-  tools: [...defaultTools],
+  toolCatalog: [...fallbackToolCatalog],
+  customTools: [],
+  toolFilter: "",
+  toolCategory: "all",
+  catalogError: "",
   selectedNodeId: "start",
   selectedEdgeId: null,
   connectSourceId: null,
@@ -80,10 +122,119 @@ function edgeById(id) {
   return state.edges.find((edge) => edge.id === id) || null;
 }
 
-function centerOf(node) {
+function normalizeTool(rawTool) {
+  const name = String(rawTool?.name || rawTool?.id || "Tool").trim();
+  const id = sanitizeIdentifier(rawTool?.id || name, "tool");
+  const category = String(rawTool?.category || "Custom").trim() || "Custom";
+  const command = Array.isArray(rawTool?.command) ? rawTool.command.map((part) => String(part)) : [];
+  const defaults =
+    rawTool?.defaults && typeof rawTool.defaults === "object" && !Array.isArray(rawTool.defaults)
+      ? Object.fromEntries(Object.entries(rawTool.defaults).map(([key, value]) => [key, String(value)]))
+      : {};
+
   return {
-    x: node.x + 105,
-    y: node.y + 52,
+    id,
+    name,
+    category,
+    description: String(rawTool?.description || "").trim(),
+    command,
+    defaults,
+    mutates: Boolean(rawTool?.mutates),
+    custom: Boolean(rawTool?.custom),
+  };
+}
+
+function allTools() {
+  const seen = new Set();
+  return [...state.toolCatalog, ...state.customTools]
+    .map(normalizeTool)
+    .filter((tool) => {
+      if (seen.has(tool.id)) return false;
+      seen.add(tool.id);
+      return true;
+    });
+}
+
+function toolById(id) {
+  return allTools().find((tool) => tool.id === id) || null;
+}
+
+function toolLabel(id) {
+  return toolById(id)?.name || id;
+}
+
+function toolCommandLabel(tool) {
+  if (!tool?.command?.length) return "custom";
+  return tool.command.slice(0, 3).join(" ");
+}
+
+function toolCategories() {
+  return [...new Set(allTools().map((tool) => tool.category))].sort((a, b) => a.localeCompare(b));
+}
+
+function toolMatchesFilter(tool) {
+  const categoryMatches = state.toolCategory === "all" || tool.category === state.toolCategory;
+  if (!categoryMatches) return false;
+  const query = state.toolFilter.trim().toLowerCase();
+  if (!query) return true;
+  return [tool.name, tool.category, tool.description, tool.command.join(" ")]
+    .join(" ")
+    .toLowerCase()
+    .includes(query);
+}
+
+function filteredTools() {
+  return allTools().filter(toolMatchesFilter);
+}
+
+function centerOf(node) {
+  const bounds = nodeBounds(node);
+  return {
+    x: bounds.x + bounds.width / 2,
+    y: bounds.y + bounds.height / 2,
+  };
+}
+
+function nodeBounds(node) {
+  const element = els.nodeLayer?.querySelector?.(`.node-card[data-id="${cssEscape(node.id)}"]`);
+  return {
+    x: node.x,
+    y: node.y,
+    width: element?.offsetWidth || nodeFallbackSize.width,
+    height: element?.offsetHeight || nodeFallbackSize.height,
+  };
+}
+
+function anchorPoint(node, otherPoint) {
+  const bounds = nodeBounds(node);
+  const center = {
+    x: bounds.x + bounds.width / 2,
+    y: bounds.y + bounds.height / 2,
+  };
+  const dx = otherPoint.x - center.x;
+  const dy = otherPoint.y - center.y;
+
+  if (Math.abs(dy) >= Math.abs(dx)) {
+    return {
+      x: center.x,
+      y: dy >= 0 ? bounds.y + bounds.height : bounds.y,
+      side: dy >= 0 ? "bottom" : "top",
+    };
+  }
+
+  return {
+    x: dx >= 0 ? bounds.x + bounds.width : bounds.x,
+    y: center.y,
+    side: dx >= 0 ? "right" : "left",
+  };
+}
+
+function edgeAnchors(from, to) {
+  const toCenter = centerOf(to);
+  const fromCenter = centerOf(from);
+  return {
+    start: anchorPoint(from, toCenter),
+    end: anchorPoint(to, fromCenter),
   };
 }
 
@@ -154,7 +305,7 @@ function graphSnapshot() {
   return {
     nodes: cloneValue(state.nodes),
     edges: cloneValue(state.edges),
-    tools: [...state.tools],
+    customTools: cloneValue(state.customTools),
     selectedNodeId: state.selectedNodeId,
     selectedEdgeId: state.selectedEdgeId,
     nextNodeNumber: state.nextNodeNumber,
@@ -172,7 +323,7 @@ function pushHistorySnapshot(snapshot = graphSnapshot()) {
 function restoreGraphSnapshot(snapshot) {
   state.nodes = cloneValue(snapshot.nodes);
   state.edges = cloneValue(snapshot.edges);
-  state.tools = [...snapshot.tools];
+  state.customTools = cloneValue(snapshot.customTools || []);
   state.nextNodeNumber = snapshot.nextNodeNumber;
   state.selectedNodeId = state.nodes.some((node) => node.id === snapshot.selectedNodeId)
     ? snapshot.selectedNodeId
@@ -245,7 +396,7 @@ function addNode(kind, position = nextPosition()) {
           : "Transform state and return updates.",
     x: position.x,
     y: position.y,
-    tools: kind === "tool" ? [state.tools[0]].filter(Boolean) : [],
+    tools: kind === "tool" ? [allTools()[0]?.id].filter(Boolean) : [],
     condition: kind === "condition" ? "return 'yes' when the state is ready" : "",
     branches: kind === "condition" ? ["yes", "no"] : ["next"],
   });
@@ -308,9 +459,28 @@ function updateEdge(id, patch) {
 function addCustomTool(name) {
   const trimmed = name.trim();
   if (!trimmed) return;
-  const exists = state.tools.some((tool) => tool.toLowerCase() === trimmed.toLowerCase());
+  const idBase = `custom_${sanitizeIdentifier(trimmed, "tool")}`;
+  let id = idBase;
+  let suffix = 2;
+  const existingIds = new Set(allTools().map((tool) => tool.id));
+  while (existingIds.has(id)) {
+    id = `${idBase}_${suffix}`;
+    suffix += 1;
+  }
+  const exists = allTools().some((tool) => tool.name.toLowerCase() === trimmed.toLowerCase());
   if (!exists) pushHistorySnapshot();
-  if (!exists) state.tools.push(trimmed);
+  if (!exists) {
+    state.customTools.push({
+      id,
+      name: trimmed,
+      category: "Custom",
+      description: "Custom operator-supplied tool boundary. Add command details in the generated Python.",
+      command: [],
+      defaults: {},
+      mutates: false,
+      custom: true,
+    });
+  }
   els.customToolInput.value = "";
   render();
 }
@@ -355,22 +525,39 @@ function renderNodes() {
     element.style.top = `${node.y}px`;
     if (state.selectedNodeId === node.id) element.classList.add("is-selected");
     if (state.connectSourceId === node.id) element.classList.add("is-connect-source");
-    const tools = node.tools.map((tool) => `<span>${escapeHtml(tool)}</span>`).join("");
-    const inputPort = node.kind === "start" ? "" : '<button class="node-port node-port-in" type="button" data-port="in" title="Drop connector here" aria-label="Drop connector here"></button>';
-    const outputPort = node.kind === "end" ? "" : '<button class="node-port node-port-out" type="button" data-port="out" title="Draw connector from here" aria-label="Draw connector from here"></button>';
+    const tools = node.tools.map((toolId) => `<span>${escapeHtml(toolLabel(toolId))}</span>`).join("");
+    const ports = renderNodePorts(node);
     element.innerHTML = `
-      ${inputPort}
+      ${ports}
       <header>
         <span class="node-glyph">${escapeHtml(nodeKinds[node.kind].glyph)}</span>
         <h3>${escapeHtml(node.title)}</h3>
       </header>
       <p>${escapeHtml(node.detail || nodeKinds[node.kind].description)}</p>
       <div class="node-tools">${tools}</div>
-      ${outputPort}
     `;
     attachNodeEvents(element, node);
     els.nodeLayer.appendChild(element);
   }
+}
+
+function renderNodePorts(node) {
+  const ports = [];
+  if (node.kind !== "start") {
+    ports.push({ flow: "in", side: "left", label: "Connect into left side" });
+    ports.push({ flow: "in", side: "top", label: "Connect into top side" });
+  }
+  if (node.kind !== "end") {
+    ports.push({ flow: "out", side: "right", label: "Draw connector from right side" });
+    ports.push({ flow: "out", side: "bottom", label: "Draw connector from bottom side" });
+  }
+
+  return ports
+    .map(
+      (port) =>
+        `<button class="node-port node-port-${port.side}" type="button" data-port="${port.flow}" data-side="${port.side}" title="${escapeHtml(port.label)}" aria-label="${escapeHtml(port.label)}"></button>`,
+    )
+    .join("");
 }
 
 function attachNodeEvents(element, node) {
@@ -434,30 +621,47 @@ function attachNodeEvents(element, node) {
     render();
   });
 
-  const outputPort = element.querySelector('[data-port="out"]');
-  outputPort?.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0) return;
-    event.preventDefault();
-    event.stopPropagation();
-    startConnectionDrag(node, outputPort, event);
+  element.querySelectorAll('[data-port="out"]').forEach((outputPort) => {
+    outputPort.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) return;
+      event.preventDefault();
+      event.stopPropagation();
+      startConnectionDrag(node, outputPort, event);
+    });
+    outputPort.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (state.suppressNextPortClick) {
+        state.suppressNextPortClick = false;
+        return;
+      }
+      state.connectSourceId = node.id;
+      state.selectedNodeId = node.id;
+      state.selectedEdgeId = null;
+      render();
+    });
   });
-  outputPort?.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (state.suppressNextPortClick) {
-      state.suppressNextPortClick = false;
-      return;
-    }
-    state.connectSourceId = node.id;
-    state.selectedNodeId = node.id;
-    state.selectedEdgeId = null;
-    render();
+
+  element.querySelectorAll('[data-port="in"]').forEach((inputPort) => {
+    inputPort.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0 || !state.connectSourceId || state.connectSourceId === node.id) return;
+      event.preventDefault();
+      event.stopPropagation();
+      addEdge(state.connectSourceId, node.id);
+    });
+    inputPort.addEventListener("click", (event) => {
+      if (!state.connectSourceId || state.connectSourceId === node.id) return;
+      event.preventDefault();
+      event.stopPropagation();
+      addEdge(state.connectSourceId, node.id);
+    });
   });
 }
 
 function startConnectionDrag(node, handle, event) {
   handle.setPointerCapture(event.pointerId);
-  const start = centerOf(node);
+  const initialPoint = canvasPointFromClient(event.clientX, event.clientY);
+  const start = anchorPoint(node, initialPoint);
   const origin = { x: event.clientX, y: event.clientY };
   let moved = false;
   state.connectionDraft = {
@@ -547,8 +751,7 @@ function renderEdges() {
       const from = nodeById(edge.from);
       const to = nodeById(edge.to);
       if (!from || !to) return "";
-      const start = centerOf(from);
-      const end = centerOf(to);
+      const { start, end } = edgeAnchors(from, to);
       const curve = edgeCurve(start, end);
       const selected = state.selectedEdgeId === edge.id ? " is-selected" : "";
       const conditional = from.kind === "condition" ? " is-conditional" : "";
@@ -573,19 +776,21 @@ function renderDraftEdge() {
   if (!state.connectionDraft) return "";
   const from = nodeById(state.connectionDraft.from);
   if (!from) return "";
-  const start = centerOf(from);
   const end = { x: state.connectionDraft.x, y: state.connectionDraft.y };
+  const start = anchorPoint(from, end);
   const curve = edgeCurve(start, end);
   return `<path class="edge-path is-draft" d="${curve.path}" marker-end="url(#arrow-head)"></path>`;
 }
 
 function renderTools() {
-  els.toolList.innerHTML = state.tools
-    .map((tool) => `<button class="tool-chip" type="button" data-tool="${escapeHtml(tool)}">${escapeHtml(tool)}</button>`)
-    .join("");
+  renderToolControls();
+  const tools = filteredTools();
+  els.toolMeta.textContent = `${tools.length} of ${allTools().length} tools`;
+  els.toolList.innerHTML =
+    tools
+      .map((tool) => renderToolChip(tool, "data-tool", nodeById(state.selectedNodeId)?.tools.includes(tool.id)))
+      .join("") || '<div class="inspector-empty">No tools match this filter.</div>';
   els.toolList.querySelectorAll("[data-tool]").forEach((button) => {
-    const selectedNode = nodeById(state.selectedNodeId);
-    if (selectedNode?.tools.includes(button.dataset.tool)) button.classList.add("is-selected");
     button.addEventListener("click", () => {
       const node = nodeById(state.selectedNodeId);
       if (!node || node.kind === "start" || node.kind === "end") return;
@@ -599,6 +804,32 @@ function renderTools() {
       render();
     });
   });
+}
+
+function renderToolControls() {
+  const categories = ["all", ...toolCategories()];
+  const categoryExists = categories.includes(state.toolCategory);
+  if (!categoryExists) state.toolCategory = "all";
+
+  els.toolSearchInput.value = state.toolFilter;
+  els.toolCategory.innerHTML = categories
+    .map((category) => {
+      const label = category === "all" ? "All tools" : category;
+      return `<option value="${escapeHtml(category)}" ${state.toolCategory === category ? "selected" : ""}>${escapeHtml(label)}</option>`;
+    })
+    .join("");
+}
+
+function renderToolChip(tool, attributeName, selected = false) {
+  const selectedClass = selected ? " is-selected" : "";
+  const mutates = tool.mutates ? '<span class="tool-chip-risk">writes</span>' : "";
+  return `
+    <button class="tool-chip${selectedClass}" type="button" ${attributeName}="${escapeHtml(tool.id)}" title="${escapeHtml(tool.description)}">
+      <span class="tool-chip-name">${escapeHtml(tool.name)}</span>
+      <span class="tool-chip-meta">${escapeHtml(tool.category)} · ${escapeHtml(toolCommandLabel(tool))}</span>
+      ${mutates}
+    </button>
+  `;
 }
 
 function renderInspector() {
@@ -695,12 +926,13 @@ function renderInspector() {
 function renderInspectorTools(node) {
   const container = els.inspector.querySelector("[data-inspector-tools]");
   if (!container) return;
-  container.innerHTML = state.tools
-    .map((tool) => {
-      const selected = node.tools.includes(tool) ? " is-selected" : "";
-      return `<button class="tool-chip${selected}" type="button" data-inspector-tool="${escapeHtml(tool)}">${escapeHtml(tool)}</button>`;
-    })
-    .join("");
+  const filtered = filteredTools();
+  const renderedIds = new Set(filtered.map((tool) => tool.id));
+  const selectedOutsideFilter = allTools().filter((tool) => node.tools.includes(tool.id) && !renderedIds.has(tool.id));
+  const tools = [...selectedOutsideFilter, ...filtered];
+  container.innerHTML =
+    tools.map((tool) => renderToolChip(tool, "data-inspector-tool", node.tools.includes(tool.id))).join("") ||
+    '<div class="inspector-empty">No tools match this filter.</div>';
   container.querySelectorAll("[data-inspector-tool]").forEach((button) => {
     button.addEventListener("click", () => {
       const tool = button.dataset.inspectorTool;
@@ -768,6 +1000,14 @@ function validateGraph() {
         messages.push({ type: "warning", text: `${node.title} is missing branch edges for ${missing.join(", ")}.` });
       }
     }
+    for (const toolId of node.tools) {
+      const tool = toolById(toolId);
+      if (!tool) {
+        messages.push({ type: "warning", text: `${node.title} references a missing tool: ${toolId}.` });
+      } else if (!tool.command.length) {
+        messages.push({ type: "warning", text: `${tool.name} is custom and needs command details in the exported Python.` });
+      }
+    }
   }
 
   if (!messages.length) {
@@ -790,6 +1030,19 @@ function pythonString(value) {
   return JSON.stringify(String(value || ""));
 }
 
+function pythonLiteral(value) {
+  if (value === true) return "True";
+  if (value === false) return "False";
+  if (value === null || value === undefined) return "None";
+  if (Array.isArray(value)) return `[${value.map(pythonLiteral).join(", ")}]`;
+  if (typeof value === "object") {
+    return `{${Object.entries(value)
+      .map(([key, item]) => `${pythonString(key)}: ${pythonLiteral(item)}`)
+      .join(", ")}}`;
+  }
+  return pythonString(value);
+}
+
 function generatePython() {
   const regularNodes = state.nodes.filter((node) => !["start", "end"].includes(node.kind));
   const usedNames = new Set();
@@ -798,9 +1051,26 @@ function generatePython() {
     nameById.set(node.id, uniquePythonName(node, usedNames));
   }
 
-  const toolNames = [...new Set(regularNodes.flatMap((node) => node.tools))];
-  const lines = [
-    "from typing import Any, Literal, TypedDict",
+  const selectedTools = [...new Set(regularNodes.flatMap((node) => node.tools))]
+    .map(toolById)
+    .filter(Boolean);
+  const toolRegistry = Object.fromEntries(
+    selectedTools.map((tool) => [
+      tool.id,
+      {
+        name: tool.name,
+        category: tool.category,
+        description: tool.description,
+        command: tool.command,
+        defaults: tool.defaults,
+        mutates: tool.mutates,
+      },
+    ]),
+  );
+
+  const lines = ["from typing import Any, Literal, TypedDict"];
+  if (selectedTools.length) lines.push("import subprocess");
+  lines.push(
     "",
     "from langgraph.graph import END, START, StateGraph",
     "",
@@ -808,17 +1078,59 @@ function generatePython() {
     "class AgentState(TypedDict, total=False):",
     "    messages: list[str]",
     "    artifacts: dict[str, Any]",
+    "    cwd: str",
+    "    tool_args: dict[str, dict[str, str]]",
+    "    approvals: dict[str, bool]",
     "    route: str",
     "",
-  ];
+  );
 
-  if (toolNames.length) {
-    for (const tool of toolNames) {
-      const functionName = `run_${sanitizeIdentifier(tool, "tool")}`;
+  if (selectedTools.length) {
+    lines.push(`TOOL_REGISTRY: dict[str, dict[str, Any]] = ${pythonLiteral(toolRegistry)}`);
+    lines.push("");
+    lines.push("");
+    lines.push("def _format_command(template: list[str], values: dict[str, str]) -> list[str]:");
+    lines.push("    command = []");
+    lines.push("    for part in template:");
+    lines.push("        try:");
+    lines.push("            command.append(part.format(**values))");
+    lines.push("        except KeyError as exc:");
+    lines.push("            missing = exc.args[0]");
+    lines.push("            raise KeyError(f\"Missing tool argument: {missing}\") from exc");
+    lines.push("    return [part for part in command if part]");
+    lines.push("");
+    lines.push("");
+    lines.push("def run_cli_tool(tool_id: str, state: AgentState) -> dict[str, Any]:");
+    lines.push("    tool = TOOL_REGISTRY[tool_id]");
+    lines.push("    if not tool.get(\"command\"):");
+    lines.push("        raise RuntimeError(f\"Tool {tool['name']} has no command template yet.\")");
+    lines.push("    if tool.get(\"mutates\") and not state.get(\"approvals\", {}).get(tool_id):");
+    lines.push("        raise PermissionError(f\"Tool {tool['name']} can change external state; set approvals[{tool_id!r}] = True to run it.\")");
+    lines.push("    values = {**tool.get(\"defaults\", {}), **state.get(\"tool_args\", {}).get(tool_id, {})}");
+    lines.push("    command = _format_command(tool[\"command\"], values)");
+    lines.push("    completed = subprocess.run(");
+    lines.push("        command,");
+    lines.push("        cwd=state.get(\"cwd\") or None,");
+    lines.push("        text=True,");
+    lines.push("        capture_output=True,");
+    lines.push("        check=False,");
+    lines.push("    )");
+    lines.push("    return {");
+    lines.push("        \"tool\": tool[\"name\"],");
+    lines.push("        \"category\": tool[\"category\"],");
+    lines.push("        \"command\": command,");
+    lines.push("        \"returncode\": completed.returncode,");
+    lines.push("        \"stdout\": completed.stdout,");
+    lines.push("        \"stderr\": completed.stderr,");
+    lines.push("    }");
+
+    for (const tool of selectedTools) {
+      const functionName = `run_${sanitizeIdentifier(tool.id, "tool")}`;
+      lines.push("");
       lines.push("");
       lines.push(`def ${functionName}(state: AgentState) -> dict[str, Any]:`);
-      lines.push(`    \"\"\"Call the ${tool} tool boundary.\"\"\"`);
-      lines.push("    return {\"artifacts\": {}}");
+      lines.push(`    \"\"\"${tool.description || `Run ${tool.name}.`}\"\"\"`);
+      lines.push(`    return run_cli_tool(${pythonString(tool.id)}, state)`);
     }
     lines.push("");
   }
@@ -839,11 +1151,18 @@ function generatePython() {
       lines.push(`def ${functionName}(state: AgentState) -> dict[str, Any]:`);
       lines.push(`    \"\"\"${node.detail || "Return state updates."}\"\"\"`);
       if (node.tools.length) {
-        for (const tool of node.tools) {
-          lines.push(`    run_${sanitizeIdentifier(tool, "tool")}(state)`);
+        lines.push("    artifacts = dict(state.get(\"artifacts\") or {})");
+        lines.push("    tool_results = dict(artifacts.get(\"tool_results\") or {})");
+        for (const toolId of node.tools) {
+          const tool = toolById(toolId);
+          if (!tool) continue;
+          lines.push(`    tool_results[${pythonString(tool.id)}] = run_${sanitizeIdentifier(tool.id, "tool")}(state)`);
         }
+        lines.push("    artifacts[\"tool_results\"] = tool_results");
+        lines.push("    return {\"artifacts\": artifacts}");
+      } else {
+        lines.push("    return {}");
       }
-      lines.push("    return {}");
     }
   }
 
@@ -1138,6 +1457,22 @@ function setupCanvasDrop() {
   });
 }
 
+async function loadToolCatalog() {
+  try {
+    const response = await fetch("/agent-console/tools/catalog.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    const tools = Array.isArray(payload.tools) ? payload.tools.map(normalizeTool) : [];
+    if (!tools.length) throw new Error("Tool catalog is empty.");
+    state.toolCatalog = tools;
+    state.catalogError = "";
+  } catch (error) {
+    state.toolCatalog = [...fallbackToolCatalog];
+    state.catalogError = `Tool catalog unavailable; using ${fallbackToolCatalog.length} starter tools.`;
+    console.warn(state.catalogError, error);
+  }
+}
+
 function init() {
   Object.assign(els, {
     canvas: byId("graph-canvas"),
@@ -1146,6 +1481,9 @@ function init() {
     edgeLayer: byId("edge-layer"),
     nodeLayer: byId("node-layer"),
     toolList: byId("tool-list"),
+    toolMeta: byId("tool-library-meta"),
+    toolSearchInput: byId("tool-search-input"),
+    toolCategory: byId("tool-category-filter"),
     customToolInput: byId("custom-tool-input"),
     inspector: byId("inspector"),
     validation: byId("validation-list"),
@@ -1175,6 +1513,16 @@ function init() {
   byId("add-tool-form").addEventListener("submit", (event) => {
     event.preventDefault();
     addCustomTool(els.customToolInput.value);
+  });
+  els.toolSearchInput.addEventListener("input", () => {
+    state.toolFilter = els.toolSearchInput.value;
+    renderTools();
+    renderInspector();
+  });
+  els.toolCategory.addEventListener("change", () => {
+    state.toolCategory = els.toolCategory.value;
+    renderTools();
+    renderInspector();
   });
 
   byId("delete-selected").addEventListener("click", removeSelected);
@@ -1227,6 +1575,9 @@ function init() {
   });
 
   render();
+  loadToolCatalog().then(() => {
+    render();
+  });
 }
 
 init();
