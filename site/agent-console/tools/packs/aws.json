@@ -266,6 +266,256 @@
         "name": "/app/config/example"
       },
       "mutates": false
+    },
+    {
+      "id": "aws_s3api_list_buckets",
+      "name": "AWS S3 API list buckets",
+      "description": "List S3 buckets through the AWS S3 API surface.",
+      "command": [
+        "aws",
+        "s3api",
+        "list-buckets"
+      ],
+      "subcommand": [
+        "s3api",
+        "list-buckets"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "aws_s3api_get_bucket_encryption",
+      "name": "AWS S3 API get bucket encryption",
+      "description": "Read S3 bucket encryption configuration.",
+      "command": [
+        "aws",
+        "s3api",
+        "get-bucket-encryption",
+        "--bucket",
+        "{bucket}"
+      ],
+      "subcommand": [
+        "s3api",
+        "get-bucket-encryption",
+        "--bucket",
+        "{bucket}"
+      ],
+      "defaults": {
+        "bucket": "bucket-name"
+      },
+      "mutates": false
+    },
+    {
+      "id": "aws_s3api_put_bucket_encryption",
+      "name": "AWS S3 API put bucket encryption",
+      "description": "Set default S3 bucket encryption using a JSON encryption configuration.",
+      "command": [
+        "aws",
+        "s3api",
+        "put-bucket-encryption",
+        "--bucket",
+        "{bucket}",
+        "--server-side-encryption-configuration",
+        "{encryption_json}"
+      ],
+      "subcommand": [
+        "s3api",
+        "put-bucket-encryption",
+        "--bucket",
+        "{bucket}",
+        "--server-side-encryption-configuration",
+        "{encryption_json}"
+      ],
+      "defaults": {
+        "bucket": "bucket-name",
+        "encryption_json": "{\"Rules\":[{\"ApplyServerSideEncryptionByDefault\":{\"SSEAlgorithm\":\"AES256\"}}]}"
+      },
+      "mutates": true
+    },
+    {
+      "id": "aws_rds_describe_db_instances",
+      "name": "AWS RDS describe DB instances",
+      "description": "Describe RDS DB instances in the active region.",
+      "command": [
+        "aws",
+        "rds",
+        "describe-db-instances"
+      ],
+      "subcommand": [
+        "rds",
+        "describe-db-instances"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "aws_rds_describe_db_snapshots",
+      "name": "AWS RDS describe DB snapshots",
+      "description": "Describe RDS DB snapshots for a DB instance.",
+      "command": [
+        "aws",
+        "rds",
+        "describe-db-snapshots",
+        "--db-instance-identifier",
+        "{db_instance_identifier}"
+      ],
+      "subcommand": [
+        "rds",
+        "describe-db-snapshots",
+        "--db-instance-identifier",
+        "{db_instance_identifier}"
+      ],
+      "defaults": {
+        "db_instance_identifier": "database-1"
+      },
+      "mutates": false
+    },
+    {
+      "id": "aws_rds_create_db_snapshot",
+      "name": "AWS RDS create DB snapshot",
+      "description": "Create an RDS DB snapshot after explicit approval.",
+      "command": [
+        "aws",
+        "rds",
+        "create-db-snapshot",
+        "--db-instance-identifier",
+        "{db_instance_identifier}",
+        "--db-snapshot-identifier",
+        "{snapshot_identifier}"
+      ],
+      "subcommand": [
+        "rds",
+        "create-db-snapshot",
+        "--db-instance-identifier",
+        "{db_instance_identifier}",
+        "--db-snapshot-identifier",
+        "{snapshot_identifier}"
+      ],
+      "defaults": {
+        "db_instance_identifier": "database-1",
+        "snapshot_identifier": "database-1-manual-snapshot"
+      },
+      "mutates": true
+    },
+    {
+      "id": "aws_rds_stop_db_instance",
+      "name": "AWS RDS stop DB instance",
+      "description": "Stop an RDS DB instance after explicit approval.",
+      "command": [
+        "aws",
+        "rds",
+        "stop-db-instance",
+        "--db-instance-identifier",
+        "{db_instance_identifier}"
+      ],
+      "subcommand": [
+        "rds",
+        "stop-db-instance",
+        "--db-instance-identifier",
+        "{db_instance_identifier}"
+      ],
+      "defaults": {
+        "db_instance_identifier": "database-1"
+      },
+      "mutates": true
+    },
+    {
+      "id": "aws_rds_start_db_instance",
+      "name": "AWS RDS start DB instance",
+      "description": "Start an RDS DB instance after explicit approval.",
+      "command": [
+        "aws",
+        "rds",
+        "start-db-instance",
+        "--db-instance-identifier",
+        "{db_instance_identifier}"
+      ],
+      "subcommand": [
+        "rds",
+        "start-db-instance",
+        "--db-instance-identifier",
+        "{db_instance_identifier}"
+      ],
+      "defaults": {
+        "db_instance_identifier": "database-1"
+      },
+      "mutates": true
+    },
+    {
+      "id": "aws_iam_get_role",
+      "name": "AWS IAM get role",
+      "description": "Read IAM role metadata.",
+      "command": [
+        "aws",
+        "iam",
+        "get-role",
+        "--role-name",
+        "{role_name}"
+      ],
+      "subcommand": [
+        "iam",
+        "get-role",
+        "--role-name",
+        "{role_name}"
+      ],
+      "defaults": {
+        "role_name": "role-name"
+      },
+      "mutates": false
+    },
+    {
+      "id": "aws_ecr_describe_repositories",
+      "name": "AWS ECR describe repositories",
+      "description": "Describe ECR repositories in the active region.",
+      "command": [
+        "aws",
+        "ecr",
+        "describe-repositories"
+      ],
+      "subcommand": [
+        "ecr",
+        "describe-repositories"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "aws_sqs_list_queues",
+      "name": "AWS SQS list queues",
+      "description": "List SQS queue URLs in the active region.",
+      "command": [
+        "aws",
+        "sqs",
+        "list-queues"
+      ],
+      "subcommand": [
+        "sqs",
+        "list-queues"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "aws_cloudtrail_lookup_events",
+      "name": "AWS CloudTrail lookup events",
+      "description": "Lookup recent CloudTrail management events.",
+      "command": [
+        "aws",
+        "cloudtrail",
+        "lookup-events",
+        "--max-results",
+        "{max_results}"
+      ],
+      "subcommand": [
+        "cloudtrail",
+        "lookup-events",
+        "--max-results",
+        "{max_results}"
+      ],
+      "defaults": {
+        "max_results": "25"
+      },
+      "mutates": false
     }
   ]
 }

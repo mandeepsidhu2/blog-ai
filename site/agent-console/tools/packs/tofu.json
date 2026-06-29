@@ -1,18 +1,18 @@
 {
   "version": 1,
   "updated": "2026-06-29",
-  "id": "terraform",
-  "name": "Terraform",
-  "binary": "terraform",
+  "id": "tofu",
+  "name": "Tofu",
+  "binary": "tofu",
   "sourceCategory": "Terraform",
-  "description": "Terraform command pack generated from the console's Terraform command catalog.",
+  "description": "Tofu command pack generated from the console's Terraform command catalog.",
   "commands": [
     {
-      "id": "terraform_init",
-      "name": "Terraform init",
-      "description": "Initialize Terraform providers and backend metadata.",
+      "id": "tofu_init",
+      "name": "Tofu init",
+      "description": "Initialize Tofu providers and backend metadata.",
       "command": [
-        "terraform",
+        "tofu",
         "init"
       ],
       "subcommand": [
@@ -22,11 +22,11 @@
       "mutates": true
     },
     {
-      "id": "terraform_fmt_check",
-      "name": "Terraform fmt check",
-      "description": "Check Terraform formatting recursively without rewriting files.",
+      "id": "tofu_fmt_check",
+      "name": "Tofu fmt check",
+      "description": "Check Tofu formatting recursively without rewriting files.",
       "command": [
-        "terraform",
+        "tofu",
         "fmt",
         "-check",
         "-recursive"
@@ -40,11 +40,11 @@
       "mutates": false
     },
     {
-      "id": "terraform_validate",
-      "name": "Terraform validate",
-      "description": "Validate Terraform configuration syntax and provider schemas.",
+      "id": "tofu_validate",
+      "name": "Tofu validate",
+      "description": "Validate Tofu configuration syntax and provider schemas.",
       "command": [
-        "terraform",
+        "tofu",
         "validate"
       ],
       "subcommand": [
@@ -54,11 +54,11 @@
       "mutates": false
     },
     {
-      "id": "terraform_plan",
-      "name": "Terraform plan",
-      "description": "Create a Terraform execution plan.",
+      "id": "tofu_plan",
+      "name": "Tofu plan",
+      "description": "Create a Tofu execution plan.",
       "command": [
-        "terraform",
+        "tofu",
         "plan",
         "-out",
         "{plan_file}"
@@ -74,11 +74,11 @@
       "mutates": false
     },
     {
-      "id": "terraform_apply",
-      "name": "Terraform apply",
-      "description": "Apply a saved Terraform execution plan.",
+      "id": "tofu_apply",
+      "name": "Tofu apply",
+      "description": "Apply a saved Tofu execution plan.",
       "command": [
-        "terraform",
+        "tofu",
         "apply",
         "{plan_file}"
       ],
@@ -92,11 +92,11 @@
       "mutates": true
     },
     {
-      "id": "terraform_state_list",
-      "name": "Terraform state list",
-      "description": "List resources in Terraform state.",
+      "id": "tofu_state_list",
+      "name": "Tofu state list",
+      "description": "List resources in Tofu state.",
       "command": [
-        "terraform",
+        "tofu",
         "state",
         "list"
       ],
@@ -108,11 +108,11 @@
       "mutates": false
     },
     {
-      "id": "terraform_output",
-      "name": "Terraform output",
-      "description": "Read Terraform outputs as JSON.",
+      "id": "tofu_output",
+      "name": "Tofu output",
+      "description": "Read Tofu outputs as JSON.",
       "command": [
-        "terraform",
+        "tofu",
         "output",
         "-json"
       ],
@@ -124,11 +124,11 @@
       "mutates": false
     },
     {
-      "id": "terraform_show_plan",
-      "name": "Terraform show plan JSON",
-      "description": "Render a saved Terraform plan as JSON for AI inspection.",
+      "id": "tofu_show_plan",
+      "name": "Tofu show plan JSON",
+      "description": "Render a saved Tofu plan as JSON for AI inspection.",
       "command": [
-        "terraform",
+        "tofu",
         "show",
         "-json",
         "{plan_file}"
@@ -144,11 +144,11 @@
       "mutates": false
     },
     {
-      "id": "terraform_workspace_list",
-      "name": "Terraform workspace list",
-      "description": "List Terraform workspaces.",
+      "id": "tofu_workspace_list",
+      "name": "Tofu workspace list",
+      "description": "List Tofu workspaces.",
       "command": [
-        "terraform",
+        "tofu",
         "workspace",
         "list"
       ],
@@ -160,11 +160,11 @@
       "mutates": false
     },
     {
-      "id": "terraform_workspace_select",
-      "name": "Terraform workspace select",
-      "description": "Select an existing Terraform workspace.",
+      "id": "tofu_workspace_select",
+      "name": "Tofu workspace select",
+      "description": "Select an existing Tofu workspace.",
       "command": [
-        "terraform",
+        "tofu",
         "workspace",
         "select",
         "{workspace}"
@@ -180,11 +180,11 @@
       "mutates": true
     },
     {
-      "id": "terraform_workspace_new",
-      "name": "Terraform workspace new",
-      "description": "Create and select a Terraform workspace.",
+      "id": "tofu_workspace_new",
+      "name": "Tofu workspace new",
+      "description": "Create and select a Tofu workspace.",
       "command": [
-        "terraform",
+        "tofu",
         "workspace",
         "new",
         "{workspace}"
@@ -200,11 +200,11 @@
       "mutates": true
     },
     {
-      "id": "terraform_import",
-      "name": "Terraform import",
-      "description": "Import an existing remote object into Terraform state.",
+      "id": "tofu_import",
+      "name": "Tofu import",
+      "description": "Import an existing remote object into Tofu state.",
       "command": [
-        "terraform",
+        "tofu",
         "import",
         "{address}",
         "{resource_id}"
@@ -221,11 +221,11 @@
       "mutates": true
     },
     {
-      "id": "terraform_state_show",
-      "name": "Terraform state show",
-      "description": "Show attributes for a resource in Terraform state.",
+      "id": "tofu_state_show",
+      "name": "Tofu state show",
+      "description": "Show attributes for a resource in Tofu state.",
       "command": [
-        "terraform",
+        "tofu",
         "state",
         "show",
         "{address}"
@@ -241,11 +241,11 @@
       "mutates": false
     },
     {
-      "id": "terraform_state_rm",
-      "name": "Terraform state rm",
-      "description": "Remove a resource binding from Terraform state.",
+      "id": "tofu_state_rm",
+      "name": "Tofu state rm",
+      "description": "Remove a resource binding from Tofu state.",
       "command": [
-        "terraform",
+        "tofu",
         "state",
         "rm",
         "{address}"
@@ -261,11 +261,11 @@
       "mutates": true
     },
     {
-      "id": "terraform_providers_lock",
-      "name": "Terraform providers lock",
+      "id": "tofu_providers_lock",
+      "name": "Tofu providers lock",
       "description": "Write provider dependency locks for the current platform.",
       "command": [
-        "terraform",
+        "tofu",
         "providers",
         "lock"
       ],
@@ -277,11 +277,11 @@
       "mutates": true
     },
     {
-      "id": "terraform_graph",
-      "name": "Terraform graph",
-      "description": "Emit the Terraform dependency graph in DOT format.",
+      "id": "tofu_graph",
+      "name": "Tofu graph",
+      "description": "Emit the Tofu dependency graph in DOT format.",
       "command": [
-        "terraform",
+        "tofu",
         "graph"
       ],
       "subcommand": [
@@ -291,11 +291,11 @@
       "mutates": false
     },
     {
-      "id": "terraform_test",
-      "name": "Terraform test",
-      "description": "Run Terraform native tests for modules in the current configuration.",
+      "id": "tofu_test",
+      "name": "Tofu test",
+      "description": "Run Tofu native tests for modules in the current configuration.",
       "command": [
-        "terraform",
+        "tofu",
         "test"
       ],
       "subcommand": [
@@ -305,11 +305,11 @@
       "mutates": false
     },
     {
-      "id": "terraform_version",
-      "name": "Terraform version",
-      "description": "Show the Terraform CLI version.",
+      "id": "tofu_version",
+      "name": "Tofu version",
+      "description": "Show the Tofu CLI version.",
       "command": [
-        "terraform",
+        "tofu",
         "version"
       ],
       "subcommand": [
@@ -319,11 +319,11 @@
       "mutates": false
     },
     {
-      "id": "terraform_destroy",
-      "name": "Terraform destroy",
-      "description": "Destroy Terraform-managed infrastructure after explicit approval.",
+      "id": "tofu_destroy",
+      "name": "Tofu destroy",
+      "description": "Destroy Tofu-managed infrastructure after explicit approval.",
       "command": [
-        "terraform",
+        "tofu",
         "destroy",
         "-auto-approve"
       ],
@@ -335,11 +335,11 @@
       "mutates": true
     },
     {
-      "id": "terraform_force_unlock",
-      "name": "Terraform force unlock",
-      "description": "Force-unlock a stuck Terraform state lock after explicit approval.",
+      "id": "tofu_force_unlock",
+      "name": "Tofu force unlock",
+      "description": "Force-unlock a stuck Tofu state lock after explicit approval.",
       "command": [
-        "terraform",
+        "tofu",
         "force-unlock",
         "-force",
         "{lock_id}"

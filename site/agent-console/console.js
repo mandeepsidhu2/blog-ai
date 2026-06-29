@@ -1,7 +1,7 @@
 const nodeKinds = {
   start: { glyph: "S", label: "Start", description: "Entry point for the graph." },
   end: { glyph: "E", label: "End", description: "Terminal state for the graph." },
-  step: { glyph: "PY", label: "Code", description: "A deterministic Python node." },
+  step: { glyph: "N", label: "Node", description: "A configurable node that can run an AI prompt or Python code." },
   tool: { glyph: "AI", label: "AI", description: "A prompt-driven node that can call selected provider packs." },
   condition: { glyph: "?", label: "Conditional", description: "A router node with named branches." },
 };
@@ -19,13 +19,13 @@ const fallbackToolCatalog = [
     pack: true,
   },
   {
-    id: "dofu",
-    name: "Dofu",
+    id: "tofu",
+    name: "Tofu",
     category: "Infrastructure",
-    description: "Dofu provider-level command pack.",
+    description: "Tofu provider-level command pack.",
     binary: "tofu",
-    commandPackUrl: "/agent-console/tools/packs/dofu.json",
-    defaults: { command_id: "dofu_validate" },
+    commandPackUrl: "/agent-console/tools/packs/tofu.json",
+    defaults: { command_id: "tofu_validate" },
     mutates: true,
     pack: true,
   },
@@ -56,6 +56,10 @@ const canvasSize = { width: 1500, height: 980 };
 const defaultNodeX = 645;
 const zoomRange = { min: 0.55, max: 1.55, step: 0.1 };
 const nodeFallbackSize = { width: 210, height: 104 };
+const nodeSizeLimits = {
+  width: { min: 170, max: 360 },
+  height: { min: 100, max: 260 },
+};
 
 const state = {
   nodes: createInitialNodes(),
@@ -72,6 +76,8 @@ const state = {
   selectedEdgeId: null,
   connectSourceId: null,
   connectionDraft: null,
+  sidebarCollapsed: false,
+  inspectorCollapsed: false,
   zoom: 1,
   suppressNextPaletteClick: false,
   suppressNextPortClick: false,
@@ -142,10 +148,10 @@ const sampleFlows = [
     nodes: [
       { id: "start", kind: "start", title: "Start", detail: "Infrastructure change request.", x: 645, y: 50, tools: [], condition: "", branches: ["next"] },
       { id: "identity", kind: "tool", title: "Confirm cloud context", detail: "Verify AWS identity and current Kubernetes context.", x: 645, y: 190, tools: ["aws", "kubernetes"], condition: "", branches: ["next"] },
-      { id: "tf-checks", kind: "tool", title: "Terraform checks", detail: "Initialize, format-check, validate, and build a plan.", x: 645, y: 350, tools: ["terraform", "dofu"], condition: "", branches: ["next"] },
+      { id: "tf-checks", kind: "tool", title: "Terraform checks", detail: "Initialize, format-check, validate, and build a plan.", x: 645, y: 350, tools: ["terraform", "tofu"], condition: "", branches: ["next"] },
       { id: "blast-radius", kind: "tool", title: "Inspect runtime state", detail: "Read EC2, ECS, Lambda, CloudFormation, and logs for blast-radius context.", x: 645, y: 510, tools: ["aws"], condition: "", branches: ["next"] },
       { id: "approval", kind: "condition", title: "Change approval", detail: "Route based on whether the plan is reviewed and approved.", x: 645, y: 675, tools: [], condition: "return 'apply' only after human approval", branches: ["apply", "hold"] },
-      { id: "apply", kind: "tool", title: "Apply and verify", detail: "Apply a saved plan, inspect outputs, and invalidate cache if needed.", x: 440, y: 820, tools: ["terraform", "dofu", "aws"], condition: "", branches: ["next"] },
+      { id: "apply", kind: "tool", title: "Apply and verify", detail: "Apply a saved plan, inspect outputs, and invalidate cache if needed.", x: 440, y: 820, tools: ["terraform", "tofu", "aws"], condition: "", branches: ["next"] },
       { id: "hold", kind: "step", title: "Hold change", detail: "Return review notes without changing cloud resources.", x: 850, y: 820, tools: [], condition: "", branches: ["next"] },
       { id: "end", kind: "end", title: "End", detail: "Compiled graph returns here.", x: 645, y: 860, tools: [], condition: "", branches: ["done"] },
     ],
@@ -283,13 +289,14 @@ function defaultPromptForNode(node) {
 function defaultCodeForNode(node) {
   if (node?.kind === "condition") {
     const branch = node.branches?.[0] || "next";
-    return `return {"route": ${JSON.stringify(branch)}}`;
+    return `return {"route": ${JSON.stringify(branch)}, "data": {"decision": ${JSON.stringify(branch)}}}`;
   }
-  return "return {}";
+  return "return {\"data\": {\"result\": {}}}";
 }
 
 function normalizeNode(rawNode) {
   const kind = nodeKinds[rawNode?.kind] ? rawNode.kind : "step";
+  const toolAliases = { dofu: "tofu" };
   const normalized = {
     id: String(rawNode?.id || `${kind}-${Date.now().toString(36)}`),
     kind,
@@ -297,10 +304,22 @@ function normalizeNode(rawNode) {
     detail: String(rawNode?.detail || nodeKinds[kind].description),
     x: Number.isFinite(rawNode?.x) ? rawNode.x : defaultNodeX,
     y: Number.isFinite(rawNode?.y) ? rawNode.y : 220,
-    tools: Array.isArray(rawNode?.tools) ? rawNode.tools.map((tool) => String(tool)) : [],
+    width: Number.isFinite(rawNode?.width)
+      ? clamp(rawNode.width, nodeSizeLimits.width.min, nodeSizeLimits.width.max)
+      : nodeFallbackSize.width,
+    height: Number.isFinite(rawNode?.height)
+      ? clamp(rawNode.height, nodeSizeLimits.height.min, nodeSizeLimits.height.max)
+      : nodeFallbackSize.height,
+    tools: Array.isArray(rawNode?.tools)
+      ? rawNode.tools.map((tool) => toolAliases[String(tool)] || String(tool))
+      : [],
     condition: String(rawNode?.condition || ""),
     branches: Array.isArray(rawNode?.branches) && rawNode.branches.length ? rawNode.branches.map(String) : ["next"],
-    mode: rawNode?.mode === "code" ? "code" : "ai",
+    mode: rawNode?.mode === "code" || rawNode?.mode === "ai"
+      ? rawNode.mode
+      : kind === "condition"
+        ? "code"
+        : "ai",
     prompt: typeof rawNode?.prompt === "string" ? rawNode.prompt : "",
     code: typeof rawNode?.code === "string" ? rawNode.code : "",
     codeCheck: typeof rawNode?.codeCheck === "string" ? rawNode.codeCheck : "",
@@ -311,6 +330,8 @@ function normalizeNode(rawNode) {
     normalized.prompt = "";
     normalized.code = "";
     normalized.tools = [];
+    normalized.width = nodeFallbackSize.width;
+    normalized.height = nodeFallbackSize.height;
     return normalized;
   }
 
@@ -458,8 +479,10 @@ async function ensureToolPack(toolId) {
   const tool = toolById(toolId);
   if (!tool?.pack || !tool.commandPackUrl || state.loadedPacks[tool.id]) return;
   state.packStatus[tool.id] = "Loading command pack...";
-  renderTools();
-  renderInspector();
+  if (els.toolList && els.inspector) {
+    renderTools();
+    renderInspector();
+  }
   try {
     const response = await fetch(tool.commandPackUrl, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -470,6 +493,15 @@ async function ensureToolPack(toolId) {
   } catch (error) {
     state.packStatus[tool.id] = "Command pack could not be fetched; export will keep the pack boundary.";
     console.warn(`Command pack unavailable for ${tool.id}`, error);
+  }
+}
+
+async function ensureSelectedToolPacks() {
+  const selectedToolIds = [
+    ...new Set(state.nodes.filter(isAiNode).flatMap((node) => (Array.isArray(node.tools) ? node.tools : []))),
+  ];
+  for (const toolId of selectedToolIds) {
+    await ensureToolPack(toolId);
   }
 }
 
@@ -565,6 +597,8 @@ function createInitialNodes() {
       detail: "Initial workflow state.",
       x: defaultNodeX,
       y: 70,
+      width: nodeFallbackSize.width,
+      height: nodeFallbackSize.height,
       tools: [],
       condition: "",
       branches: ["next"],
@@ -576,6 +610,8 @@ function createInitialNodes() {
       detail: "Compiled graph returns here.",
       x: defaultNodeX,
       y: 810,
+      width: nodeFallbackSize.width,
+      height: nodeFallbackSize.height,
       tools: [],
       condition: "",
       branches: ["done"],
@@ -610,6 +646,8 @@ function persistentSnapshot() {
     toolCategory: state.toolCategory,
     sampleFlowId: state.sampleFlowId,
     zoom: state.zoom,
+    sidebarCollapsed: state.sidebarCollapsed,
+    inspectorCollapsed: state.inspectorCollapsed,
   };
 }
 
@@ -640,6 +678,8 @@ function restorePersistentState() {
       ? saved.sampleFlowId
       : sampleFlows[0].id;
     state.zoom = Number.isFinite(saved.zoom) ? clamp(saved.zoom, zoomRange.min, zoomRange.max) : 1;
+    state.sidebarCollapsed = Boolean(saved.sidebarCollapsed);
+    state.inspectorCollapsed = Boolean(saved.inspectorCollapsed);
   } catch {
     localStorage.removeItem(storageKey);
   }
@@ -717,7 +757,7 @@ function addNode(kind, position = nextPosition()) {
   const id = `${kind}-${Date.now().toString(36)}-${state.nextNodeNumber}`;
   const number = state.nextNodeNumber;
   state.nextNodeNumber += 1;
-  const mode = kind === "tool" ? "ai" : "code";
+  const mode = kind === "condition" ? "code" : "ai";
   const title = `${nodeKinds[kind].label} ${number}`;
   const branches = kind === "condition" ? ["yes", "no"] : ["next"];
   state.nodes.push({
@@ -727,15 +767,15 @@ function addNode(kind, position = nextPosition()) {
     detail:
       kind === "condition"
         ? "Route state into named branches."
-        : kind === "tool"
-          ? "Call selected tools and return state updates."
-          : "Transform state and return updates.",
+        : "Transform state and return updates.",
     x: position.x,
     y: position.y,
-    tools: kind === "tool" ? [] : [],
+    width: nodeFallbackSize.width,
+    height: nodeFallbackSize.height,
+    tools: [],
     mode,
     prompt:
-      kind === "tool"
+      mode === "ai"
         ? "Use the current state and any selected provider packs to complete this node."
         : "Use the current state to decide the next workflow update.",
     code: kind === "condition" ? `return {"route": ${JSON.stringify(branches[0])}}` : "return {}",
@@ -765,12 +805,12 @@ function removeSelected() {
   }
 }
 
-function addEdge(from, to) {
+function addEdge(from, to, labelOverride = "") {
   if (!from || !to || from === to) return;
-  if (state.edges.some((edge) => edge.from === from && edge.to === to)) return;
-  pushHistorySnapshot();
   const source = nodeById(from);
-  const label = source?.kind === "condition" ? firstUnusedBranch(source) : "next";
+  const label = labelOverride || (source?.kind === "condition" ? firstUnusedBranch(source) : "next");
+  if (state.edges.some((edge) => edge.from === from && edge.to === to && edge.label === label)) return;
+  pushHistorySnapshot();
   const id = `edge-${from}-${to}-${Date.now().toString(36)}`;
   state.edges.push({ id, from, to, label });
   state.connectSourceId = null;
@@ -830,15 +870,17 @@ function addCustomTool(name, description) {
   let node = nodeById(state.selectedNodeId);
   if (!node || lockedNode(node) || !isAiNode(node)) {
     const position = nextPosition();
-    const nodeId = `tool-${Date.now().toString(36)}-${state.nextNodeNumber}`;
+    const nodeId = `step-${Date.now().toString(36)}-${state.nextNodeNumber}`;
     state.nextNodeNumber += 1;
     node = {
       id: nodeId,
-      kind: "tool",
+      kind: "step",
       title: trimmed,
       detail,
       x: position.x,
       y: position.y,
+      width: nodeFallbackSize.width,
+      height: nodeFallbackSize.height,
       tools: [],
       mode: "ai",
       prompt: detail,
@@ -869,6 +911,7 @@ function resetGraph() {
   state.zoom = 1;
   state.nextNodeNumber = 1;
   render();
+  centerCanvasView();
 }
 
 function loadSampleFlow(sampleId = state.sampleFlowId) {
@@ -887,6 +930,8 @@ function loadSampleFlow(sampleId = state.sampleFlowId) {
     state.nodes.filter((node) => !["start", "end"].includes(node.kind)).length + 1,
   );
   render();
+  centerCanvasView();
+  ensureSelectedToolPacks().then(() => render());
 }
 
 function setZoom(nextZoom) {
@@ -905,6 +950,13 @@ function applyZoom() {
   }
 }
 
+function centerCanvasView() {
+  if (!els.canvasFrame) return;
+  const targetX = (defaultNodeX + nodeFallbackSize.width / 2) * state.zoom;
+  els.canvasFrame.scrollLeft = Math.max(0, targetX - els.canvasFrame.clientWidth / 2);
+  els.canvasFrame.scrollTop = 0;
+}
+
 function renderNodes() {
   els.nodeLayer.innerHTML = "";
   for (const node of state.nodes) {
@@ -915,11 +967,15 @@ function renderNodes() {
     element.dataset.mode = nodeMode(node);
     element.style.left = `${node.x}px`;
     element.style.top = `${node.y}px`;
+    element.style.width = `${node.width || nodeFallbackSize.width}px`;
+    element.style.height = `${node.height || nodeFallbackSize.height}px`;
     if (state.selectedNodeId === node.id) element.classList.add("is-selected");
     if (state.connectSourceId === node.id) element.classList.add("is-connect-source");
-    const tools = isAiNode(node)
-      ? node.tools.map((toolId) => `<span>${escapeHtml(toolLabel(toolId))}</span>`).join("")
-      : '<span class="node-code-pill">Python</span>';
+    const tools = lockedNode(node)
+      ? ""
+      : isAiNode(node)
+        ? node.tools.map((toolId) => `<span>${escapeHtml(toolLabel(toolId))}</span>`).join("")
+        : '<span class="node-code-pill">Python</span>';
     const modeBadge = lockedNode(node) ? "" : `<span class="node-mode-badge">${isAiNode(node) ? "AI" : "PY"}</span>`;
     const summary = isAiNode(node) ? node.prompt || node.detail || nodeKinds[node.kind].description : node.detail || "Python code node.";
     const ports = renderNodePorts(node);
@@ -932,6 +988,7 @@ function renderNodes() {
       </header>
       <p>${escapeHtml(summary)}</p>
       <div class="node-tools">${tools}</div>
+      ${lockedNode(node) ? "" : '<button class="node-resize-handle" type="button" title="Resize node" aria-label="Resize node"></button>'}
     `;
     attachNodeEvents(element, node);
     els.nodeLayer.appendChild(element);
@@ -960,6 +1017,7 @@ function renderNodePorts(node) {
 function attachNodeEvents(element, node) {
   element.addEventListener("pointerdown", (event) => {
     if (event.target.closest("[data-port]")) return;
+    if (event.target.closest(".node-resize-handle")) return;
     if (event.button !== 0) return;
     event.preventDefault();
     if (state.connectSourceId && state.connectSourceId !== node.id) {
@@ -990,8 +1048,8 @@ function attachNodeEvents(element, node) {
       if (!moved && Math.hypot(nextX - origin.x, nextY - origin.y) > 2) {
         moved = true;
       }
-      node.x = Math.max(20, Math.min(canvasSize.width - 230, nextX));
-      node.y = Math.max(20, Math.min(canvasSize.height - 130, nextY));
+      node.x = Math.max(20, Math.min(canvasSize.width - (node.width || nodeFallbackSize.width) - 20, nextX));
+      node.y = Math.max(20, Math.min(canvasSize.height - (node.height || nodeFallbackSize.height) - 20, nextY));
       element.style.left = `${node.x}px`;
       element.style.top = `${node.y}px`;
       renderEdges();
@@ -1016,6 +1074,14 @@ function attachNodeEvents(element, node) {
   element.addEventListener("dblclick", () => {
     state.connectSourceId = node.id;
     render();
+  });
+
+  const resizeHandle = element.querySelector(".node-resize-handle");
+  resizeHandle?.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+    startNodeResize(node, element, resizeHandle, event);
   });
 
   element.querySelectorAll('[data-port="out"]').forEach((outputPort) => {
@@ -1053,6 +1119,54 @@ function attachNodeEvents(element, node) {
       addEdge(state.connectSourceId, node.id);
     });
   });
+}
+
+function startNodeResize(node, element, handle, event) {
+  handle.setPointerCapture(event.pointerId);
+  const origin = {
+    x: event.clientX,
+    y: event.clientY,
+    width: node.width || nodeFallbackSize.width,
+    height: node.height || nodeFallbackSize.height,
+  };
+  const beforeResize = graphSnapshot();
+  let resized = false;
+
+  function onMove(moveEvent) {
+    const nextWidth = origin.width + (moveEvent.clientX - origin.x) / state.zoom;
+    const nextHeight = origin.height + (moveEvent.clientY - origin.y) / state.zoom;
+    node.width = Math.round(clamp(nextWidth, nodeSizeLimits.width.min, nodeSizeLimits.width.max));
+    node.height = Math.round(clamp(nextHeight, nodeSizeLimits.height.min, nodeSizeLimits.height.max));
+    resized = true;
+    element.style.width = `${node.width}px`;
+    element.style.height = `${node.height}px`;
+    renderEdges();
+  }
+
+  function onUp() {
+    handle.removeEventListener("pointermove", onMove);
+    handle.removeEventListener("pointerup", onUp);
+    handle.removeEventListener("pointercancel", onCancel);
+    if (handle.hasPointerCapture?.(event.pointerId)) {
+      handle.releasePointerCapture(event.pointerId);
+    }
+    if (resized) pushHistorySnapshot(beforeResize);
+    render();
+  }
+
+  function onCancel() {
+    handle.removeEventListener("pointermove", onMove);
+    handle.removeEventListener("pointerup", onUp);
+    handle.removeEventListener("pointercancel", onCancel);
+    if (handle.hasPointerCapture?.(event.pointerId)) {
+      handle.releasePointerCapture(event.pointerId);
+    }
+    restoreGraphSnapshot(beforeResize);
+  }
+
+  handle.addEventListener("pointermove", onMove);
+  handle.addEventListener("pointerup", onUp);
+  handle.addEventListener("pointercancel", onCancel);
 }
 
 function startConnectionDrag(node, handle, event) {
@@ -1187,7 +1301,7 @@ function renderTools() {
   const canAttach = Boolean(selectedNode && isAiNode(selectedNode));
   els.toolMeta.textContent = canAttach
     ? `${tools.length} of ${allTools().length} provider packs${globalSearch}`
-    : `${tools.length} provider packs · select an AI node to attach`;
+    : `${tools.length} provider packs · select an AI-enabled node to attach`;
   els.toolList.innerHTML =
     tools
       .map((tool) => renderToolChip(tool, "data-tool", canAttach && selectedNode?.tools.includes(tool.id), !canAttach))
@@ -1207,6 +1321,7 @@ function renderTools() {
       render();
     });
   });
+  attachToolCodeHandlers(els.toolList);
 }
 
 function renderToolControls() {
@@ -1217,7 +1332,7 @@ function renderToolControls() {
   els.toolSearchInput.value = state.toolFilter;
   els.toolCategory.innerHTML = categories
     .map((category) => {
-      const label = category === "all" ? "All tools" : category;
+      const label = category === "all" ? "All packs" : category;
       return `<option value="${escapeHtml(category)}" ${state.toolCategory === category ? "selected" : ""}>${escapeHtml(label)}</option>`;
     })
     .join("");
@@ -1229,17 +1344,171 @@ function renderToolChip(tool, attributeName, selected = false, disabled = false)
   const mutates = tool.mutates ? '<span class="tool-chip-risk">writes</span>' : "";
   const pack = tool.pack ? '<span class="tool-chip-pack">pack</span>' : "";
   const status = state.packStatus[tool.id] ? `<span class="tool-chip-status">${escapeHtml(state.packStatus[tool.id])}</span>` : "";
+  const codeLabel = `View generated Python for ${tool.name}`;
   return `
-    <button class="tool-chip${selectedClass}${disabledClass}" type="button" ${attributeName}="${escapeHtml(tool.id)}" title="${escapeHtml(tool.description)}" ${disabled ? "disabled" : ""}>
-      <span class="tool-chip-head">
-        <span class="tool-chip-name">${escapeHtml(tool.name)}</span>
-        ${pack}
-        ${mutates}
-      </span>
-      <span class="tool-chip-meta">${escapeHtml(tool.category)} · ${escapeHtml(toolCommandLabel(tool))}</span>
-      ${status}
-    </button>
+    <div class="tool-chip-shell">
+      <button class="tool-chip${selectedClass}${disabledClass}" type="button" ${attributeName}="${escapeHtml(tool.id)}" title="${escapeHtml(tool.description)}" ${disabled ? "disabled" : ""}>
+        <span class="tool-chip-head">
+          <span class="tool-chip-name">${escapeHtml(tool.name)}</span>
+          ${pack}
+          ${mutates}
+        </span>
+        <span class="tool-chip-meta">${escapeHtml(tool.category)} · ${escapeHtml(toolCommandLabel(tool))}</span>
+        ${status}
+      </button>
+      <button class="tool-code-button" type="button" data-tool-code="${escapeHtml(tool.id)}" title="${escapeHtml(codeLabel)}" aria-label="${escapeHtml(codeLabel)}">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m8 9-4 3 4 3"/><path d="m16 9 4 3-4 3"/><path d="m14 5-4 14"/></svg>
+      </button>
+    </div>
   `;
+}
+
+function attachToolCodeHandlers(container) {
+  container.querySelectorAll("[data-tool-code]").forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      await openToolCode(button.dataset.toolCode);
+    });
+  });
+}
+
+function toolPythonSnippet(tool) {
+  const commands = commandsForPack(tool);
+  const functionBlocks = commands.length
+    ? commands.map((command) => commandToolFunction(tool, command))
+    : [customToolFunction(tool)];
+  const toolNames = commands.length
+    ? commands.map((command) => sanitizeIdentifier(command.id, "tool_command"))
+    : [`run_${sanitizeIdentifier(tool.id, "tool")}`];
+  return [
+    "from __future__ import annotations",
+    "",
+    "from typing import Any",
+    "import subprocess",
+    "",
+    "try:",
+    "    from langchain_core.tools import tool",
+    "except ImportError:",
+    "    from langchain.tools import tool",
+    "",
+    "",
+    "def _format_command(template: list[str], values: dict[str, Any]) -> list[str]:",
+    "    formatted: list[str] = []",
+    "    for part in template:",
+    "        try:",
+    "            value = str(part).format(**values)",
+    "        except KeyError as exc:",
+    "            missing = exc.args[0]",
+    "            raise KeyError(f\"Missing required tool argument: {missing}\") from exc",
+    "        if value:",
+    "            formatted.append(value)",
+    "    return formatted",
+    "",
+    "",
+    "def _run_command(",
+    "    tool_name: str,",
+    "    command_id: str,",
+    "    command: list[str],",
+    "    cwd: str | None = None,",
+    "    timeout_seconds: int = 120,",
+    ") -> dict[str, Any]:",
+    "    completed = subprocess.run(",
+    "        command,",
+    "        cwd=cwd,",
+    "        text=True,",
+    "        capture_output=True,",
+    "        check=False,",
+    "        timeout=timeout_seconds,",
+    "    )",
+    "    return {",
+    "        \"tool\": tool_name,",
+    "        \"command_id\": command_id,",
+    "        \"command\": command,",
+    "        \"returncode\": completed.returncode,",
+    "        \"stdout\": completed.stdout,",
+    "        \"stderr\": completed.stderr,",
+    "    }",
+    "",
+    ...functionBlocks.flatMap((block) => ["", block]),
+    "",
+    `TOOLS = [${toolNames.join(", ")}]`,
+    "TOOLS_BY_NAME = {item.name: item for item in TOOLS}",
+  ].join("\n");
+}
+
+function commandToolFunction(tool, command) {
+  const functionName = sanitizeIdentifier(command.id, "tool_command");
+  const parameters = commandSignatureParameters(command);
+  const description = command.description || `Run ${command.name || command.id} from ${tool.name}.`;
+  const lines = [
+    "@tool",
+    `def ${functionName}(${parameters.join(", ")}) -> dict[str, Any]:`,
+    `    ${pythonDocString(description)}`,
+  ];
+  if (command.mutates) {
+    lines.push(
+      "    if not approved:",
+      `        raise PermissionError(${pythonString(`${command.name || command.id} can change external state; pass approved=True after human review.`)})`,
+    );
+  }
+  lines.push(
+    `    command = _format_command(${pythonLiteral(command.command)}, locals())`,
+    `    return _run_command(${pythonString(tool.name)}, ${pythonString(command.id)}, command, cwd, timeout_seconds)`,
+  );
+  return lines.join("\n");
+}
+
+function customToolFunction(tool) {
+  const functionName = `run_${sanitizeIdentifier(tool.id, "tool")}`;
+  return [
+    "@tool",
+    `def ${functionName}(state: dict[str, Any]) -> dict[str, Any]:`,
+    `    ${pythonDocString(tool.description || `Implement ${tool.name}.`)}`,
+    "    return {\"status\": \"not_implemented\", \"state\": state}",
+  ].join("\n");
+}
+
+function commandSignatureParameters(command) {
+  const parameters = commandPlaceholders(command.command).map((name) => {
+    const pythonName = sanitizeIdentifier(name, "value");
+    const defaultValue = Object.prototype.hasOwnProperty.call(command.defaults || {}, name)
+      ? command.defaults[name]
+      : "";
+    return `${pythonName}: str = ${pythonString(defaultValue)}`;
+  });
+  if (command.mutates) parameters.push("approved: bool = False");
+  parameters.push("cwd: str | None = None", "timeout_seconds: int = 120");
+  return parameters;
+}
+
+function commandPlaceholders(commandParts) {
+  const names = [];
+  const seen = new Set();
+  for (const part of commandParts || []) {
+    for (const match of String(part).matchAll(/\{([a-zA-Z_][a-zA-Z0-9_]*)\}/g)) {
+      if (!seen.has(match[1])) {
+        seen.add(match[1]);
+        names.push(match[1]);
+      }
+    }
+  }
+  return names;
+}
+
+function pythonDocString(value) {
+  const text = String(value || "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replaceAll("\\", "\\\\")
+    .replaceAll('"""', '\\"\\"\\"');
+  return `"""${text || "Run the tool."}"""`;
+}
+
+async function openToolCode(toolId) {
+  const tool = toolById(toolId);
+  if (!tool) return;
+  window.open(`/agent-console/?tool-code=${encodeURIComponent(tool.id)}`, "_blank");
 }
 
 function renderSamples() {
@@ -1324,10 +1593,10 @@ function validatePythonBlock(code, node) {
     messages.push({ type: "warning", text: "Generated node functions are synchronous; remove top-level await." });
   }
   if (!/^\s*return\b/m.test(source)) {
-    messages.push({ type: "warning", text: "Add a return statement so LangGraph receives a state update dictionary." });
+    messages.push({ type: "warning", text: "Add a return statement so LangGraph receives a node output." });
   }
-  if (node?.kind === "condition" && !source.includes("route")) {
-    messages.push({ type: "warning", text: "Conditional code should return or set a route matching one of the branch labels." });
+  if (node?.kind === "condition" && !source.includes("route") && !/^\s*return\s+["'][^"']+["']/m.test(source)) {
+    messages.push({ type: "warning", text: "Conditional code should return a branch string or a dict with a route matching one branch label." });
   }
 
   if (!messages.length) {
@@ -1340,6 +1609,80 @@ function renderPythonCheckList(messages) {
   return `<ul class="code-check-list">${messages
     .map((message) => `<li class="${message.type === "warning" ? "is-warning" : "is-ok"}">${escapeHtml(message.text)}</li>`)
     .join("")}</ul>`;
+}
+
+function renderConnectionEditor(node) {
+  const parents = state.nodes.filter((candidate) => candidate.id !== node.id && candidate.kind !== "end");
+  const children = state.nodes.filter((candidate) => candidate.id !== node.id && candidate.kind !== "start");
+  const incoming = state.edges
+    .filter((edge) => edge.to === node.id)
+    .map((edge) => nodeById(edge.from)?.title || edge.from)
+    .join(", ");
+  const outgoing = state.edges
+    .filter((edge) => edge.from === node.id)
+    .map((edge) => {
+      const target = nodeById(edge.to)?.title || edge.to;
+      return node.kind === "condition" ? `${edge.label} -> ${target}` : target;
+    })
+    .join(", ");
+  const branchSelector =
+    node.kind === "condition"
+      ? `
+        <label>
+          Branch
+          <select data-connect-branch>
+            ${node.branches.map((branch) => `<option value="${escapeHtml(branch)}">${escapeHtml(branch)}</option>`).join("")}
+          </select>
+        </label>
+      `
+      : "";
+
+  return `
+    <section class="panel-section">
+      <h2>Connections</h2>
+      <div class="connection-summary">
+        <span><strong>Parents</strong>${incoming ? escapeHtml(incoming) : "None"}</span>
+        <span><strong>Children</strong>${outgoing ? escapeHtml(outgoing) : "None"}</span>
+      </div>
+      <div class="connection-grid">
+        <label>
+          Add parent
+          <select data-connect-parent>
+            <option value="">Choose node...</option>
+            ${parents.map((candidate) => `<option value="${escapeHtml(candidate.id)}">${escapeHtml(candidate.title)}</option>`).join("")}
+          </select>
+        </label>
+        ${branchSelector}
+        <label>
+          Add child
+          <select data-connect-child>
+            <option value="">Choose node...</option>
+            ${children.map((candidate) => `<option value="${escapeHtml(candidate.id)}">${escapeHtml(candidate.title)}</option>`).join("")}
+          </select>
+        </label>
+      </div>
+    </section>
+  `;
+}
+
+function attachConnectionEditorHandlers(node) {
+  els.inspector.querySelector("[data-connect-parent]")?.addEventListener("change", (event) => {
+    const parentId = event.target.value;
+    if (!parentId) return;
+    addEdge(parentId, node.id);
+    state.selectedNodeId = node.id;
+    state.selectedEdgeId = null;
+    render();
+  });
+  els.inspector.querySelector("[data-connect-child]")?.addEventListener("change", (event) => {
+    const childId = event.target.value;
+    if (!childId) return;
+    const branch = els.inspector.querySelector("[data-connect-branch]")?.value || "";
+    addEdge(node.id, childId, branch);
+    state.selectedNodeId = node.id;
+    state.selectedEdgeId = null;
+    render();
+  });
 }
 
 function renderInspector() {
@@ -1380,6 +1723,23 @@ function renderInspector() {
         <button class="${mode === "code" ? "is-active" : ""}" type="button" data-node-mode="code" aria-pressed="${mode === "code"}">Python code</button>
       </div>
     `;
+  const sizeEditor = locked
+    ? ""
+    : `
+      <details class="inspector-details">
+        <summary>Layout</summary>
+        <div class="size-controls" aria-label="Node size">
+          <label>
+            Width
+            <input data-node-size="width" type="number" min="${nodeSizeLimits.width.min}" max="${nodeSizeLimits.width.max}" step="10" value="${escapeHtml(node.width || nodeFallbackSize.width)}">
+          </label>
+          <label>
+            Height
+            <input data-node-size="height" type="number" min="${nodeSizeLimits.height.min}" max="${nodeSizeLimits.height.max}" step="10" value="${escapeHtml(node.height || nodeFallbackSize.height)}">
+          </label>
+        </div>
+      </details>
+    `;
   const executionEditor =
     locked
       ? ""
@@ -1398,9 +1758,10 @@ function renderInspector() {
           <button class="console-button" type="button" data-check-code>Check code</button>
           ${renderPythonCheckList(validatePythonBlock(node.code || defaultCodeForNode(node), node))}
         `;
+  const inspectorTitle = nodeKinds[node.kind].label === "Node" ? "Node" : `${nodeKinds[node.kind].label} node`;
   els.inspector.innerHTML = `
     <section class="panel-section">
-      <h2>${escapeHtml(nodeKinds[node.kind].label)} node</h2>
+      <h2>${escapeHtml(inspectorTitle)}</h2>
       <div class="field-stack">
         <label>
           Label
@@ -1411,25 +1772,34 @@ function renderInspector() {
           <textarea data-node-field="detail" ${locked ? "readonly" : ""}>${escapeHtml(node.detail)}</textarea>
         </label>
         ${modeEditor}
+        ${sizeEditor}
         ${executionEditor}
         ${branchEditor}
       </div>
     </section>
+    ${renderConnectionEditor(node)}
     ${
       isAiNode(node)
         ? `
           <section class="panel-section">
-            <h2>Provider packs on this node</h2>
-            <div class="tool-list" data-inspector-tools></div>
+            <details class="inspector-details" open>
+              <summary>Provider packs on this node</summary>
+              <div class="tool-list" data-inspector-tools></div>
+            </details>
           </section>
         `
         : ""
     }
-    <section class="panel-section">
-      <h2>Connectors</h2>
-      <button class="console-button" type="button" data-connect-from="${escapeHtml(node.id)}">Connect from this node</button>
-      ${locked ? "" : '<button class="console-button warning" type="button" data-delete-selected>Delete node</button>'}
-    </section>
+    ${
+      locked
+        ? ""
+        : `
+          <section class="panel-section">
+            <h2>Node actions</h2>
+            <button class="console-button warning" type="button" data-delete-selected>Delete node</button>
+          </section>
+        `
+    }
   `;
 
   els.inspector.querySelectorAll("[data-node-mode]").forEach((button) => {
@@ -1469,6 +1839,24 @@ function renderInspector() {
     });
   });
 
+  els.inspector.querySelectorAll("[data-node-size]").forEach((field) => {
+    let didPushHistory = false;
+    field.addEventListener("input", () => {
+      const axis = field.dataset.nodeSize;
+      const limits = nodeSizeLimits[axis];
+      const parsed = Number(field.value);
+      if (!Number.isFinite(parsed)) return;
+      if (!didPushHistory) {
+        pushHistorySnapshot();
+        didPushHistory = true;
+      }
+      node[axis] = Math.round(clamp(parsed, limits.min, limits.max));
+      renderNodes();
+      renderEdges();
+      savePersistentState();
+    });
+  });
+
   els.inspector.querySelector("[data-check-code]")?.addEventListener("click", () => {
     const checkList = els.inspector.querySelector(".code-check-list");
     if (checkList) {
@@ -1477,13 +1865,8 @@ function renderInspector() {
     renderValidation();
   });
 
-  const connectButton = els.inspector.querySelector("[data-connect-from]");
-  connectButton?.addEventListener("click", () => {
-    state.connectSourceId = node.id;
-    render();
-  });
-
   els.inspector.querySelector("[data-delete-selected]")?.addEventListener("click", removeSelected);
+  attachConnectionEditorHandlers(node);
   renderInspectorTools(node);
 }
 
@@ -1510,6 +1893,7 @@ function renderInspectorTools(node) {
       render();
     });
   });
+  attachToolCodeHandlers(container);
 }
 
 function renderEdgeInspector(edge) {
@@ -1624,15 +2008,48 @@ function commandsForPack(tool) {
   return Array.isArray(tool.commands) ? tool.commands : [];
 }
 
+function indentPythonBlock(code, fallback = "return {}") {
+  const source = String(code || fallback || "return {}").replace(/\s+$/g, "");
+  const lines = source.split(/\r?\n/);
+  if (!lines.some((line) => line.trim())) return "    return {}";
+  return lines.map((line) => (line.trim() ? `    ${line}` : "")).join("\n");
+}
+
+function emitAiNodeBody(lines, node, functionName) {
+  const promptRecord = {
+    title: node.title,
+    prompt: node.prompt || defaultPromptForNode(node),
+    branches: node.kind === "condition" ? node.branches : [],
+  };
+  lines.push("    artifacts = dict(state.get(\"artifacts\") or {})");
+  lines.push("    prompts = dict(artifacts.get(\"prompts\") or {})");
+  lines.push(`    prompts[${pythonString(functionName)}] = ${pythonLiteral(promptRecord)}`);
+  lines.push("    artifacts[\"prompts\"] = prompts");
+  if (node.tools?.length) {
+    lines.push("    tool_results = dict(artifacts.get(\"tool_results\") or {})");
+    for (const toolId of node.tools) {
+      const tool = toolById(toolId);
+      if (!tool) continue;
+      lines.push(`    tool_results[${pythonString(tool.id)}] = run_${sanitizeIdentifier(tool.id, "tool")}(state)`);
+    }
+    lines.push("    artifacts[\"tool_results\"] = tool_results");
+  }
+  if (node.kind === "condition") {
+    lines.push(`    return _state_update(state, ${pythonString(functionName)}, {"artifacts": artifacts, "route": ${pythonString(node.branches[0] || "next")}})`);
+  } else {
+    lines.push(`    return _state_update(state, ${pythonString(functionName)}, {"artifacts": artifacts})`);
+  }
+}
+
 function generatePython() {
-  const regularNodes = state.nodes.filter((node) => !["start", "end"].includes(node.kind));
+  const regularNodes = state.nodes.filter((node) => !lockedNode(node));
   const usedNames = new Set();
   const nameById = new Map();
   for (const node of regularNodes) {
     nameById.set(node.id, uniquePythonName(node, usedNames));
   }
 
-  const selectedTools = [...new Set(regularNodes.flatMap((node) => node.tools))]
+  const selectedTools = [...new Set(regularNodes.filter(isAiNode).flatMap((node) => node.tools))]
     .map(toolById)
     .filter(Boolean);
   const commandTools = selectedTools.filter((tool) => tool.command.length);
@@ -1658,6 +2075,8 @@ function generatePython() {
         name: tool.name,
         category: tool.category,
         description: tool.description,
+        binary: tool.binary,
+        command_pack_url: tool.commandPackUrl,
         default_command_id: tool.defaults.command_id || commandsForPack(tool)[0]?.id || "",
         mutates: tool.mutates,
         commands: Object.fromEntries(
@@ -1678,18 +2097,55 @@ function generatePython() {
 
   const lines = ["from typing import Any, Literal, TypedDict"];
   if (commandTools.length || packTools.length) lines.push("import subprocess");
+  if (packTools.length) lines.push("import shlex");
   lines.push(
     "",
     "from langgraph.graph import END, START, StateGraph",
     "",
-    "",
+  );
+  if (packTools.length) {
+    lines.push(
+      "try:",
+      "    from langchain_core.tools import tool",
+      "except ImportError:",
+      "    from langchain.tools import tool",
+      "",
+    );
+  }
+  lines.push(
     "class AgentState(TypedDict, total=False):",
     "    messages: list[str]",
     "    artifacts: dict[str, Any]",
+    "    data: dict[str, Any]",
     "    cwd: str",
-    "    tool_args: dict[str, dict[str, str]]",
+    "    tool_args: dict[str, dict[str, Any]]",
     "    approvals: dict[str, bool]",
     "    route: str",
+    "",
+    "",
+    "STATE_KEYS = {\"messages\", \"artifacts\", \"data\", \"cwd\", \"tool_args\", \"approvals\", \"route\"}",
+    "",
+    "",
+    "def _state_update(state: AgentState, node_name: str, output: Any) -> dict[str, Any]:",
+    "    if output is None:",
+    "        output = {}",
+    "    update = dict(output) if isinstance(output, dict) else {\"data\": {node_name: output}}",
+    "    artifacts = dict(state.get(\"artifacts\") or {})",
+    "    if isinstance(update.get(\"artifacts\"), dict):",
+    "        artifacts.update(update[\"artifacts\"])",
+    "    node_outputs = dict(artifacts.get(\"node_outputs\") or {})",
+    "    node_outputs[node_name] = output",
+    "    artifacts[\"node_outputs\"] = node_outputs",
+    "    update[\"artifacts\"] = artifacts",
+    "    custom_values = {key: value for key, value in update.items() if key not in STATE_KEYS}",
+    "    if custom_values or isinstance(update.get(\"data\"), dict):",
+    "        data = dict(state.get(\"data\") or {})",
+    "        if custom_values:",
+    "            data[node_name] = custom_values",
+    "        if isinstance(update.get(\"data\"), dict):",
+    "            data.update(update[\"data\"])",
+    "        update[\"data\"] = data",
+    "    return update",
     "",
   );
 
@@ -1698,7 +2154,7 @@ function generatePython() {
     lines.push(`PACK_REGISTRY: dict[str, dict[str, Any]] = ${pythonLiteral(packRegistry)}`);
     lines.push("");
     lines.push("");
-    lines.push("def _format_command(template: list[str], values: dict[str, str]) -> list[str]:");
+    lines.push("def _format_command(template: list[str], values: dict[str, Any]) -> list[str]:");
     lines.push("    command = []");
     lines.push("    for part in template:");
     lines.push("        try:");
@@ -1709,6 +2165,33 @@ function generatePython() {
     lines.push("    return [part for part in command if part]");
     lines.push("");
     lines.push("");
+    if (packTools.length) {
+      lines.push("def _run_command(");
+      lines.push("    tool_name: str,");
+      lines.push("    command_id: str,");
+      lines.push("    command: list[str],");
+      lines.push("    cwd: str | None = None,");
+      lines.push("    timeout_seconds: int = 120,");
+      lines.push(") -> dict[str, Any]:");
+      lines.push("    completed = subprocess.run(");
+      lines.push("        command,");
+      lines.push("        cwd=cwd,");
+      lines.push("        text=True,");
+      lines.push("        capture_output=True,");
+      lines.push("        check=False,");
+      lines.push("        timeout=timeout_seconds,");
+      lines.push("    )");
+      lines.push("    return {");
+      lines.push("        \"tool\": tool_name,");
+      lines.push("        \"command_id\": command_id,");
+      lines.push("        \"command\": command,");
+      lines.push("        \"returncode\": completed.returncode,");
+      lines.push("        \"stdout\": completed.stdout,");
+      lines.push("        \"stderr\": completed.stderr,");
+      lines.push("    }");
+      lines.push("");
+      lines.push("");
+    }
     lines.push("def run_cli_tool(tool_id: str, state: AgentState) -> dict[str, Any]:");
     lines.push("    tool = TOOL_REGISTRY[tool_id]");
     lines.push("    if not tool.get(\"command\"):");
@@ -1741,12 +2224,17 @@ function generatePython() {
     lines.push("    command_id = pack_args.get(\"command_id\") or pack.get(\"default_command_id\")");
     lines.push("    command_spec = pack.get(\"commands\", {}).get(command_id)");
     lines.push("    if not command_spec:");
-    lines.push("        available = \", \".join(sorted(pack.get(\"commands\", {}).keys()))");
-    lines.push("        raise RuntimeError(f\"Pack {pack['name']} has no command {command_id!r}. Available: {available}\")");
-    lines.push("    if (pack.get(\"mutates\") or command_spec.get(\"mutates\")) and not state.get(\"approvals\", {}).get(pack_id):");
+    lines.push("        raw_command = pack_args.get(\"command\") or pack_args.get(\"subcommand\")");
+    lines.push("        if not raw_command:");
+    lines.push("            available = \", \".join(sorted(pack.get(\"commands\", {}).keys()))");
+    lines.push("            raise RuntimeError(f\"Pack {pack['name']} has no command {command_id!r}. Available: {available}\")");
+    lines.push("        binary = str(pack.get(\"binary\") or pack[\"name\"]).strip()");
+    lines.push("        command = [binary, *shlex.split(str(raw_command))]");
+    lines.push("    else:");
+    lines.push("        values = {**command_spec.get(\"defaults\", {}), **{key: value for key, value in pack_args.items() if key != \"command_id\"}}");
+    lines.push("        command = _format_command(command_spec[\"command\"], values)");
+    lines.push("    if (pack.get(\"mutates\") or (command_spec and command_spec.get(\"mutates\"))) and not state.get(\"approvals\", {}).get(pack_id):");
     lines.push("        raise PermissionError(f\"Pack {pack['name']} can change external state; set approvals[{pack_id!r}] = True to run it.\")");
-    lines.push("    values = {**command_spec.get(\"defaults\", {}), **{key: value for key, value in pack_args.items() if key != \"command_id\"}}");
-    lines.push("    command = _format_command(command_spec[\"command\"], values)");
     lines.push("    completed = subprocess.run(");
     lines.push("        command,");
     lines.push("        cwd=state.get(\"cwd\") or None,");
@@ -1779,6 +2267,20 @@ function generatePython() {
       lines.push(`    \"\"\"${tool.description || `Run a command from the ${tool.name} pack.`}\"\"\"`);
       lines.push(`    return run_pack_tool(${pythonString(tool.id)}, state)`);
     }
+    const langChainToolNames = [];
+    for (const tool of packTools) {
+      for (const command of commandsForPack(tool)) {
+        langChainToolNames.push(sanitizeIdentifier(command.id, "tool_command"));
+        lines.push("");
+        lines.push("");
+        lines.push(commandToolFunction(tool, command));
+      }
+    }
+    if (langChainToolNames.length) {
+      lines.push("");
+      lines.push(`LANGCHAIN_TOOLS = [${langChainToolNames.join(", ")}]`);
+      lines.push("LANGCHAIN_TOOLS_BY_NAME = {item.name: item for item in LANGCHAIN_TOOLS}");
+    }
     lines.push("");
   }
 
@@ -1794,32 +2296,39 @@ function generatePython() {
 
   for (const node of regularNodes) {
     const functionName = nameById.get(node.id);
-    if (node.kind === "condition") {
+    if (isAiNode(node)) {
       lines.push("");
       lines.push(`def ${functionName}(state: AgentState) -> dict[str, Any]:`);
-      lines.push(`    \"\"\"${node.detail || "Prepare routing state."}\"\"\"`);
-      lines.push(`    return {\"route\": ${pythonString(node.branches[0] || "next")}}`);
+      lines.push(`    ${pythonString(node.detail || "Return state updates.")}`);
+      emitAiNodeBody(lines, node, functionName);
+    } else {
+      const implName = `_${functionName}_impl`;
+      lines.push("");
+      lines.push(`def ${implName}(state: AgentState) -> Any:`);
+      lines.push(`    ${pythonString(node.detail || "Run the user-authored Python block.")}`);
+      lines.push(indentPythonBlock(node.code || defaultCodeForNode(node), defaultCodeForNode(node)));
+      lines.push("");
+      lines.push("");
+      lines.push(`def ${functionName}(state: AgentState) -> dict[str, Any]:`);
+      lines.push(`    ${pythonString(node.detail || "Return state updates.")}`);
+      lines.push(`    output = ${implName}(state)`);
+      lines.push(`    update = _state_update(state, ${pythonString(functionName)}, output)`);
+      if (node.kind === "condition") {
+        const defaultBranch = node.branches[0] || "next";
+        lines.push("    if \"route\" not in update:");
+        lines.push(`        update["route"] = output if isinstance(output, str) else ${pythonString(defaultBranch)}`);
+      }
+      lines.push("    return update");
+    }
+
+    if (node.kind === "condition") {
+      const defaultBranch = node.branches[0] || "next";
+      const allowedBranches = `[${node.branches.map(pythonString).join(", ")}]`;
       lines.push("");
       lines.push(`def route_${functionName}(state: AgentState) -> Literal[${node.branches.map(pythonString).join(", ")}]:`);
-      lines.push(`    \"\"\"${node.condition || "Choose the next branch."}\"\"\"`);
-      lines.push(`    return state.get(\"route\", ${pythonString(node.branches[0] || "next")})`);
-    } else {
-      lines.push("");
-      lines.push(`def ${functionName}(state: AgentState) -> dict[str, Any]:`);
-      lines.push(`    \"\"\"${node.detail || "Return state updates."}\"\"\"`);
-      if (node.tools.length) {
-        lines.push("    artifacts = dict(state.get(\"artifacts\") or {})");
-        lines.push("    tool_results = dict(artifacts.get(\"tool_results\") or {})");
-        for (const toolId of node.tools) {
-          const tool = toolById(toolId);
-          if (!tool) continue;
-          lines.push(`    tool_results[${pythonString(tool.id)}] = run_${sanitizeIdentifier(tool.id, "tool")}(state)`);
-        }
-        lines.push("    artifacts[\"tool_results\"] = tool_results");
-        lines.push("    return {\"artifacts\": artifacts}");
-      } else {
-        lines.push("    return {}");
-      }
+      lines.push(`    ${pythonString(node.prompt || node.condition || "Choose the next branch.")}`);
+      lines.push(`    route = state.get("route", ${pythonString(defaultBranch)})`);
+      lines.push(`    return route if route in ${allowedBranches} else ${pythonString(defaultBranch)}`);
     }
   }
 
@@ -1876,6 +2385,13 @@ function renderCode() {
   els.codePreview.textContent = generatePython();
 }
 
+function renderPanelState() {
+  els.shell?.classList.toggle("is-sidebar-collapsed", state.sidebarCollapsed);
+  els.shell?.classList.toggle("is-inspector-collapsed", state.inspectorCollapsed);
+  els.sidebarToggle?.setAttribute("aria-pressed", String(state.sidebarCollapsed));
+  els.inspectorToggle?.setAttribute("aria-pressed", String(state.inspectorCollapsed));
+}
+
 function downloadPython() {
   const blob = new Blob([generatePython()], { type: "text/x-python;charset=utf-8" });
   const url = URL.createObjectURL(blob);
@@ -1898,6 +2414,8 @@ function copyPython() {
 }
 
 function render() {
+  state.nodes = normalizeNodes(state.nodes);
+  renderPanelState();
   applyZoom();
   renderSamples();
   renderNodes();
@@ -2125,46 +2643,53 @@ async function loadToolCatalog() {
     if (!tools.length) throw new Error("Tool catalog is empty.");
     state.toolCatalog = tools;
     state.catalogError = "";
-    await loadCommandPacks(tools);
   } catch (error) {
     state.toolCatalog = [...fallbackToolCatalog];
     state.catalogError = `Tool catalog unavailable; using ${fallbackToolCatalog.length} starter tools.`;
     console.warn(state.catalogError, error);
-    await loadCommandPacks(state.toolCatalog);
   }
 }
 
-async function loadCommandPacks(tools) {
-  state.loadedPacks = {};
-  state.packStatus = {};
-  await Promise.all(
-    tools
-      .filter((tool) => tool.pack && tool.commandPackUrl)
-      .map(async (tool) => {
-        try {
-          const response = await fetch(tool.commandPackUrl, { cache: "no-store" });
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const payload = await response.json();
-          const packTool = normalizeTool({
-            ...tool,
-            commands: Array.isArray(payload.commands) ? payload.commands : [],
-          });
-          state.loadedPacks[tool.id] = {
-            id: tool.id,
-            name: payload.name || tool.name,
-            commands: packTool.commands,
-          };
-          state.packStatus[tool.id] = `${packTool.commands.length} loaded`;
-        } catch (error) {
-          state.packStatus[tool.id] = "unavailable";
-          console.warn(`Command pack unavailable for ${tool.name}.`, error);
-        }
-      }),
-  );
+async function initToolCodePage(toolId) {
+  document.body.innerHTML = `
+    <main class="tool-code-page">
+      <header>
+        <a href="/agent-console/">LangGraph Agent Console</a>
+        <h1>Tool Python</h1>
+        <p>Loading provider-pack code...</p>
+      </header>
+      <pre><code></code></pre>
+    </main>
+  `;
+  await loadToolCatalog();
+  const tool = toolById(toolId);
+  const page = document.querySelector(".tool-code-page");
+  if (!tool || !page) {
+    page.innerHTML = `
+      <header>
+        <a href="/agent-console/">LangGraph Agent Console</a>
+        <h1>Tool not found</h1>
+        <p>The requested provider pack is not available in the catalog.</p>
+      </header>
+    `;
+    return;
+  }
+  await ensureToolPack(tool.id);
+  const freshTool = toolById(toolId) || tool;
+  document.title = `${freshTool.name} Python tool | AI Tutorial Lab`;
+  page.innerHTML = `
+    <header>
+      <a href="/agent-console/">LangGraph Agent Console</a>
+      <h1>${escapeHtml(freshTool.name)} Python tool</h1>
+      <p>${escapeHtml(freshTool.description || "Generated tool-pack boundary.")}</p>
+    </header>
+    <pre><code>${escapeHtml(toolPythonSnippet(freshTool))}</code></pre>
+  `;
 }
 
 function init() {
   Object.assign(els, {
+    shell: document.querySelector(".console-shell"),
     canvas: byId("graph-canvas"),
     graphScale: byId("graph-scale"),
     canvasFrame: byId("canvas-frame"),
@@ -2184,6 +2709,8 @@ function init() {
     zoomLabel: byId("zoom-label"),
     codePreview: byId("code-preview"),
     copyButton: byId("copy-code"),
+    sidebarToggle: byId("toggle-sidebar"),
+    inspectorToggle: byId("toggle-inspector"),
   });
 
   document.querySelectorAll("[data-add-node]").forEach((button) => {
@@ -2231,6 +2758,16 @@ function init() {
   byId("zoom-reset").addEventListener("click", () => setZoom(1));
   byId("download-code").addEventListener("click", downloadPython);
   byId("copy-code").addEventListener("click", copyPython);
+  byId("toggle-sidebar").addEventListener("click", () => {
+    state.sidebarCollapsed = !state.sidebarCollapsed;
+    renderPanelState();
+    savePersistentState();
+  });
+  byId("toggle-inspector").addEventListener("click", () => {
+    state.inspectorCollapsed = !state.inspectorCollapsed;
+    renderPanelState();
+    savePersistentState();
+  });
   byId("connect-mode").addEventListener("click", () => {
     if (state.selectedNodeId) {
       state.connectSourceId = state.selectedNodeId;
@@ -2275,9 +2812,16 @@ function init() {
 
   restorePersistentState();
   render();
-  loadToolCatalog().then(() => {
+  centerCanvasView();
+  loadToolCatalog().then(async () => {
+    await ensureSelectedToolPacks();
     render();
   });
 }
 
-init();
+const toolCodeParam = new URLSearchParams(window.location.search).get("tool-code");
+if (toolCodeParam) {
+  initToolCodePage(toolCodeParam);
+} else {
+  init();
+}

@@ -22,19 +22,19 @@
       "pack": true
     },
     {
-      "id": "dofu",
-      "name": "Dofu",
+      "id": "tofu",
+      "name": "Tofu",
       "category": "Infrastructure",
-      "description": "Dofu provider-level tool pack. Select the pack once, then choose a command from the fetched command metadata at runtime.",
+      "description": "Tofu provider-level tool pack. Select the pack once, then choose a command from the fetched command metadata at runtime.",
       "binary": "tofu",
-      "commandPackUrl": "/agent-console/tools/packs/dofu.json",
+      "commandPackUrl": "/agent-console/tools/packs/tofu.json",
       "storage": {
         "kind": "s3-object",
-        "key": "agent-console/tools/packs/dofu.json",
+        "key": "agent-console/tools/packs/tofu.json",
         "note": "Hosted with the static app origin; fetch on selection keeps the starter catalog small."
       },
       "defaults": {
-        "command_id": "dofu_validate"
+        "command_id": "tofu_validate"
       },
       "mutates": true,
       "pack": true

@@ -794,17 +794,13 @@ function renderAgentConsolePage() {
         <section class="panel-section">
           <h2>Add nodes</h2>
           <div class="node-palette">
-            <button class="node-action" type="button" data-add-node="step" data-kind="step" title="Drag step node to canvas">
+            <button class="node-action" type="button" data-add-node="step" data-kind="step" title="Drag node to canvas">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M9 9h6M9 13h6"/></svg>
-              Step node
+              Node
             </button>
             <button class="node-action" type="button" data-add-node="condition" data-kind="condition" title="Drag conditional router to canvas">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v4"/><path d="M6 13h12"/><path d="M12 17v4"/><path d="M8 7h8v10H8z"/></svg>
               Conditional
-            </button>
-            <button class="node-action" type="button" data-add-node="tool" data-kind="tool" title="Drag tool node to canvas">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 7 9 12l5 5"/><path d="M4 12h16"/></svg>
-              Tool node
             </button>
           </div>
         </section>
@@ -820,12 +816,12 @@ function renderAgentConsolePage() {
         </section>
 
         <section class="panel-section">
-          <h2>Tool library</h2>
+          <h2>Provider packs</h2>
           <div class="tool-library-controls">
-            <label class="sr-only" for="tool-search-input">Search tools</label>
-            <input id="tool-search-input" type="search" placeholder="Search tools">
-            <label class="sr-only" for="tool-category-filter">Filter tool category</label>
-            <select id="tool-category-filter" aria-label="Filter tool category"></select>
+            <label class="sr-only" for="tool-search-input">Search provider packs</label>
+            <input id="tool-search-input" type="search" placeholder="Search provider packs">
+            <label class="sr-only" for="tool-category-filter">Filter provider pack category</label>
+            <select id="tool-category-filter" aria-label="Filter provider pack category"></select>
           </div>
           <div class="tool-library-meta" id="tool-library-meta"></div>
           <div class="tool-list" id="tool-list"></div>
@@ -848,7 +844,13 @@ function renderAgentConsolePage() {
 
       <section class="canvas-shell" aria-label="LangGraph canvas">
         <div class="canvas-toolbar">
-          <button class="toolbar-button" type="button" id="connect-mode" title="Connect from the selected node">
+          <button class="toolbar-button" type="button" id="toggle-sidebar" title="Toggle graph library" aria-pressed="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16"/><path d="M4 12h10"/><path d="M4 19h16"/></svg>
+          </button>
+          <button class="toolbar-button" type="button" id="toggle-inspector" title="Toggle inspector" aria-pressed="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M14 5v14"/></svg>
+          </button>
+          <button class="toolbar-button" type="button" id="connect-mode" title="Start connector from selected node">
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 8a3 3 0 1 0 0.1 0"/><path d="M18 16a3 3 0 1 0 0.1 0"/><path d="M8.5 9.5 15.5 14.5"/></svg>
           </button>
           <button class="toolbar-button" type="button" id="delete-selected" title="Delete selected node or connector">
@@ -880,7 +882,7 @@ function renderAgentConsolePage() {
         </div>
         <section class="code-drawer" aria-label="Generated LangGraph Python">
           <header>
-            <span>Generated LangGraph Python</span>
+            <span>Live LangGraph Python</span>
           </header>
           <pre class="code-preview" id="code-preview"></pre>
         </section>

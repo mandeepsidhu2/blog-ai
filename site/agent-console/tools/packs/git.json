@@ -178,6 +178,172 @@
       ],
       "defaults": {},
       "mutates": true
+    },
+    {
+      "id": "git_fetch_all",
+      "name": "Git fetch all",
+      "description": "Fetch all remotes and prune deleted remote-tracking branches.",
+      "command": [
+        "git",
+        "fetch",
+        "--all",
+        "--prune"
+      ],
+      "subcommand": [
+        "fetch",
+        "--all",
+        "--prune"
+      ],
+      "defaults": {},
+      "mutates": true
+    },
+    {
+      "id": "git_add_path",
+      "name": "Git add path",
+      "description": "Stage a path for commit.",
+      "command": [
+        "git",
+        "add",
+        "{path}"
+      ],
+      "subcommand": [
+        "add",
+        "{path}"
+      ],
+      "defaults": {
+        "path": "."
+      },
+      "mutates": true
+    },
+    {
+      "id": "git_commit",
+      "name": "Git commit",
+      "description": "Create a commit with staged changes and a supplied message.",
+      "command": [
+        "git",
+        "commit",
+        "-m",
+        "{message}"
+      ],
+      "subcommand": [
+        "commit",
+        "-m",
+        "{message}"
+      ],
+      "defaults": {
+        "message": "agent workflow update"
+      },
+      "mutates": true
+    },
+    {
+      "id": "git_switch",
+      "name": "Git switch",
+      "description": "Switch the working tree to an existing branch.",
+      "command": [
+        "git",
+        "switch",
+        "{branch}"
+      ],
+      "subcommand": [
+        "switch",
+        "{branch}"
+      ],
+      "defaults": {
+        "branch": "main"
+      },
+      "mutates": true
+    },
+    {
+      "id": "git_restore_path",
+      "name": "Git restore path",
+      "description": "Restore a path from HEAD after explicit approval.",
+      "command": [
+        "git",
+        "restore",
+        "{path}"
+      ],
+      "subcommand": [
+        "restore",
+        "{path}"
+      ],
+      "defaults": {
+        "path": "path/to/file"
+      },
+      "mutates": true
+    },
+    {
+      "id": "git_stash_push",
+      "name": "Git stash push",
+      "description": "Create a stash entry for current working tree changes.",
+      "command": [
+        "git",
+        "stash",
+        "push",
+        "-m",
+        "{message}"
+      ],
+      "subcommand": [
+        "stash",
+        "push",
+        "-m",
+        "{message}"
+      ],
+      "defaults": {
+        "message": "agent-workflow-stash"
+      },
+      "mutates": true
+    },
+    {
+      "id": "git_tag_create",
+      "name": "Git tag create",
+      "description": "Create a lightweight Git tag.",
+      "command": [
+        "git",
+        "tag",
+        "{tag}"
+      ],
+      "subcommand": [
+        "tag",
+        "{tag}"
+      ],
+      "defaults": {
+        "tag": "v0.1.0"
+      },
+      "mutates": true
+    },
+    {
+      "id": "git_show",
+      "name": "Git show",
+      "description": "Show an object, commit, or path from the Git database.",
+      "command": [
+        "git",
+        "show",
+        "{revision}"
+      ],
+      "subcommand": [
+        "show",
+        "{revision}"
+      ],
+      "defaults": {
+        "revision": "HEAD"
+      },
+      "mutates": false
+    },
+    {
+      "id": "git_remote_verbose",
+      "name": "Git remote verbose",
+      "description": "List configured Git remotes and their URLs.",
+      "command": [
+        "git",
+        "remote",
+        "-v"
+      ],
+      "subcommand": [
+        "remote",
+        "-v"
+      ],
+      "defaults": {},
+      "mutates": false
     }
   ]
 }

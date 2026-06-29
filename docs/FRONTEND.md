@@ -59,15 +59,38 @@ article interactions.
 The built-in console tool library is static JSON. Provider-level metadata lives
 in `site/agent-console/tools/catalog.json`, and command packs live in
 `site/agent-console/tools/packs/*.json`. The browser loads the catalog from
-`/agent-console/tools/catalog.json`, fetches same-origin command packs, supports
-search and category filtering, and emits selected provider packs into the
-downloaded LangGraph Python as subprocess-backed tool boundaries with explicit
-approval checks for mutating operations.
+`/agent-console/tools/catalog.json`, fetches same-origin command packs only
+when a pack is selected or present in a loaded sample, supports search and
+category filtering, and emits selected provider packs into the downloaded
+LangGraph Python as subprocess-backed tool boundaries with explicit approval
+checks for mutating operations. The pack files are static assets hosted with
+the S3-backed app origin.
 
-Custom console tools are browser-local stubs: users provide a name and
-description, and the Python export includes an empty function for later
-implementation. Console graph state, custom tools, filters, zoom, and selected
-sample flow persist in browser local storage across refreshes.
+Every editable console node has an execution mode. AI-enabled nodes show a
+prompt editor and may attach provider packs. Python-code nodes hide provider
+packs, show a Python block editor, and run the browser-local embeddable-block
+check before export. The palette exposes one generic node button; the node's
+mode is selected in the inspector. Nodes can be resized from the inspector or
+with the card resize handle.
+
+Generated LangGraph code wraps Python-code node bodies so their return values
+are merged into state and recorded under `artifacts["node_outputs"]`. Dict
+returns update declared state keys, custom keys are also copied into `data`,
+and conditional nodes may return either a branch string or a dict containing
+`route`.
+
+Provider-pack chips include a code view action that opens a separate browser
+tab with generated LangChain-compatible `@tool` functions for every command in
+that pack. Mutating command functions require an explicit approval argument.
+
+The canvas keeps a live generated LangGraph Python preview visible while graph
+edits are made. The graph library and inspector can collapse from the canvas
+toolbar so larger graphs and the code preview have more room.
+
+Custom console tools are browser-local stubs for AI-enabled nodes: users
+provide a name and description, and the Python export includes an empty function
+for later implementation. Console graph state, custom tools, filters, zoom, and
+selected sample flow persist in browser local storage across refreshes.
 
 The console also ships loadable sample flows for research, coding, cloud
 infrastructure, product feedback, and marketing launch workflows. Keep sample

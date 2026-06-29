@@ -237,6 +237,182 @@
         "namespace": "default"
       },
       "mutates": true
+    },
+    {
+      "id": "kubectl_get_services",
+      "name": "kubectl get services",
+      "description": "List Kubernetes services in a namespace.",
+      "command": [
+        "kubectl",
+        "get",
+        "services",
+        "-n",
+        "{namespace}"
+      ],
+      "subcommand": [
+        "get",
+        "services",
+        "-n",
+        "{namespace}"
+      ],
+      "defaults": {
+        "namespace": "default"
+      },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_get_events",
+      "name": "kubectl get events",
+      "description": "List Kubernetes events sorted by last timestamp.",
+      "command": [
+        "kubectl",
+        "get",
+        "events",
+        "-n",
+        "{namespace}",
+        "--sort-by=.lastTimestamp"
+      ],
+      "subcommand": [
+        "get",
+        "events",
+        "-n",
+        "{namespace}",
+        "--sort-by=.lastTimestamp"
+      ],
+      "defaults": {
+        "namespace": "default"
+      },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_top_pods",
+      "name": "kubectl top pods",
+      "description": "Show pod resource usage in a namespace.",
+      "command": [
+        "kubectl",
+        "top",
+        "pods",
+        "-n",
+        "{namespace}"
+      ],
+      "subcommand": [
+        "top",
+        "pods",
+        "-n",
+        "{namespace}"
+      ],
+      "defaults": {
+        "namespace": "default"
+      },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_describe_deployment",
+      "name": "kubectl describe deployment",
+      "description": "Describe a Kubernetes deployment.",
+      "command": [
+        "kubectl",
+        "describe",
+        "deployment/{deployment}",
+        "-n",
+        "{namespace}"
+      ],
+      "subcommand": [
+        "describe",
+        "deployment/{deployment}",
+        "-n",
+        "{namespace}"
+      ],
+      "defaults": {
+        "deployment": "app",
+        "namespace": "default"
+      },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_get_nodes",
+      "name": "kubectl get nodes",
+      "description": "List Kubernetes cluster nodes.",
+      "command": [
+        "kubectl",
+        "get",
+        "nodes"
+      ],
+      "subcommand": [
+        "get",
+        "nodes"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "kubectl_delete_file",
+      "name": "kubectl delete file",
+      "description": "Delete Kubernetes objects from a manifest file after explicit approval.",
+      "command": [
+        "kubectl",
+        "delete",
+        "-f",
+        "{path}"
+      ],
+      "subcommand": [
+        "delete",
+        "-f",
+        "{path}"
+      ],
+      "defaults": {
+        "path": "k8s/"
+      },
+      "mutates": true
+    },
+    {
+      "id": "kubectl_create_namespace",
+      "name": "kubectl create namespace",
+      "description": "Create a Kubernetes namespace after explicit approval.",
+      "command": [
+        "kubectl",
+        "create",
+        "namespace",
+        "{namespace}"
+      ],
+      "subcommand": [
+        "create",
+        "namespace",
+        "{namespace}"
+      ],
+      "defaults": {
+        "namespace": "app"
+      },
+      "mutates": true
+    },
+    {
+      "id": "kubectl_set_image",
+      "name": "kubectl set image",
+      "description": "Update a deployment container image after explicit approval.",
+      "command": [
+        "kubectl",
+        "set",
+        "image",
+        "deployment/{deployment}",
+        "{container}={image}",
+        "-n",
+        "{namespace}"
+      ],
+      "subcommand": [
+        "set",
+        "image",
+        "deployment/{deployment}",
+        "{container}={image}",
+        "-n",
+        "{namespace}"
+      ],
+      "defaults": {
+        "deployment": "app",
+        "container": "app",
+        "image": "example/app:latest",
+        "namespace": "default"
+      },
+      "mutates": true
     }
   ]
 }

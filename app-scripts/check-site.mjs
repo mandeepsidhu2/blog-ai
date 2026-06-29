@@ -254,7 +254,7 @@ async function main() {
     agentToolCatalog.tools.length >= 8 && agentToolCatalog.tools.length <= 20,
     "Agent console tool catalog must contain provider-level tool packs.",
   );
-  for (const id of ["git", "github", "gitlab", "aws", "terraform", "npm", "docker", "kubernetes", "python", "make"]) {
+  for (const id of ["git", "github", "gitlab", "aws", "terraform", "tofu", "npm", "docker", "kubernetes", "python", "make"]) {
     assert(
       agentToolCatalog.tools.some((tool) => tool.id === id && tool.pack && tool.commandPackUrl),
       `Agent console tool catalog missing ${id} provider pack.`,
@@ -265,6 +265,10 @@ async function main() {
     assert(
       tool.commandPackUrl?.startsWith("/agent-console/tools/packs/"),
       `Agent console provider pack ${tool.id} must use a local pack URL.`,
+    );
+    assert(
+      tool.storage?.kind === "s3-object" && tool.storage.key?.startsWith("agent-console/tools/packs/"),
+      `Agent console provider pack ${tool.id} must record its S3 object location.`,
     );
     const packPath = path.join(appDir, tool.commandPackUrl.replace(/^\/+/, ""));
     assert(await exists(packPath), `Missing agent console command pack for ${tool.id}.`);
@@ -278,8 +282,8 @@ async function main() {
   }
   const totalPackedCommands = packCommandCounts.reduce((sum, count) => sum + count, 0);
   assert(
-    totalPackedCommands >= 80 && totalPackedCommands <= 140,
-    `Agent console provider packs must expose 80 to 140 commands; found ${totalPackedCommands}.`,
+    totalPackedCommands >= 120 && totalPackedCommands <= 240,
+    `Agent console provider packs must expose 120 to 240 commands; found ${totalPackedCommands}.`,
   );
 
   const sitemap = await readText(path.join(appDir, "sitemap.xml"));

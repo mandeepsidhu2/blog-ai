@@ -61,10 +61,13 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
 - agent console static provider catalog is copied under
   `/agent-console/tools/catalog.json`, local command packs are copied under
   `/agent-console/tools/packs/*.json`, and the combined pack commands cover Git,
-  GitHub, GitLab, AWS, Terraform, NPM, Docker, Kubernetes, Python, and Make.
+  GitHub, GitLab, AWS, Terraform, Tofu, NPM, Docker, Kubernetes, Python, and
+  Make with at least 120 static command entries.
 - agent console search must find matching tools globally even when a category
-  filter is selected. Custom tools must export as fill-in Python stubs, and
-  browser-local graph state should survive refresh.
+  filter is selected. AI-enabled nodes must expose prompts and provider packs;
+  Python-code nodes must expose the embeddable-block check and hide packs.
+  Custom tools must export as fill-in Python stubs, and browser-local graph
+  state should survive refresh.
 - topic groups exist.
 - home page has SEO metadata, a visual asset, curated discovery modules, topic
   and tag discovery, and a bounded number of article links.

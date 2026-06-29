@@ -54,6 +54,7 @@ objects when needed:
 /agent-console/console.js
 /agent-console/console.css
 /agent-console/tools/catalog.json
+/agent-console/tools/packs/*.json
 /content/v1/manifest.json
 /content/v1/search-index.json
 /content/v1/articles/<slug>/index.json
@@ -74,7 +75,8 @@ crawler-visible HTML page under `/tutorials/*`.
 - emits a curated home page, topic pages, sitemap, robots, manifest, and
   pipeline artifact.
 - emits the isolated `/agent-console/` app route and copies its separate assets,
-  including the static DevOps tool catalog consumed by the console.
+  including the static provider catalog and deferred command-pack files consumed
+  by the console.
 
 The generator intentionally has no external package dependencies.
 
