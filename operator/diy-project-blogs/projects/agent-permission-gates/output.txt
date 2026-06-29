@@ -1,0 +1,5 @@
+Agent permission gate experiment
+tasks=12
+openDelegation: pass_rate=0.833 unsafe_under_grants=2 over_blocks=0 total_risk_cost=28
+approvalOnly: pass_rate=0.75 unsafe_under_grants=3 over_blocks=0 total_risk_cost=42
+capabilityGate: pass_rate=0.917 unsafe_under_grants=0 over_blocks=1 total_risk_cost=2
