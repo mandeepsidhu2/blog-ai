@@ -1759,23 +1759,36 @@ function renderInspector() {
           ${renderPythonCheckList(validatePythonBlock(node.code || defaultCodeForNode(node), node))}
         `;
   const inspectorTitle = nodeKinds[node.kind].label === "Node" ? "Node" : `${nodeKinds[node.kind].label} node`;
-  els.inspector.innerHTML = `
-    <section class="panel-section">
-      <h2>${escapeHtml(inspectorTitle)}</h2>
+  const nodeEditor = locked
+    ? `
+      <div class="inspector-node-summary">
+        <span class="node-summary-glyph">${escapeHtml(nodeKinds[node.kind].glyph)}</span>
+        <div>
+          <strong>${escapeHtml(node.title)}</strong>
+          <p>${escapeHtml(node.detail || nodeKinds[node.kind].description)}</p>
+        </div>
+      </div>
+    `
+    : `
       <div class="field-stack">
         <label>
           Label
-          <input data-node-field="title" value="${escapeHtml(node.title)}" ${locked ? "readonly" : ""}>
+          <input data-node-field="title" value="${escapeHtml(node.title)}">
         </label>
         <label>
           Canvas note
-          <textarea data-node-field="detail" ${locked ? "readonly" : ""}>${escapeHtml(node.detail)}</textarea>
+          <textarea data-node-field="detail">${escapeHtml(node.detail)}</textarea>
         </label>
         ${modeEditor}
         ${sizeEditor}
         ${executionEditor}
         ${branchEditor}
       </div>
+    `;
+  els.inspector.innerHTML = `
+    <section class="panel-section">
+      <h2>${escapeHtml(inspectorTitle)}</h2>
+      ${nodeEditor}
     </section>
     ${renderConnectionEditor(node)}
     ${
