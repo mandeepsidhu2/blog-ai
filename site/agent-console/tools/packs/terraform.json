@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "updated": "2026-06-29",
+  "id": "terraform",
+  "name": "Terraform",
+  "binary": "terraform",
+  "sourceCategory": "Terraform",
+  "description": "Terraform command pack generated from the console's Terraform command catalog.",
+  "commands": [
+    {
+      "id": "terraform_init",
+      "name": "Terraform init",
+      "description": "Initialize Terraform providers and backend metadata.",
+      "command": [
+        "terraform",
+        "init"
+      ],
+      "subcommand": [
+        "init"
+      ],
+      "defaults": {},
+      "mutates": true
+    },
+    {
+      "id": "terraform_fmt_check",
+      "name": "Terraform fmt check",
+      "description": "Check Terraform formatting recursively without rewriting files.",
+      "command": [
+        "terraform",
+        "fmt",
+        "-check",
+        "-recursive"
+      ],
+      "subcommand": [
+        "fmt",
+        "-check",
+        "-recursive"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "terraform_validate",
+      "name": "Terraform validate",
+      "description": "Validate Terraform configuration syntax and provider schemas.",
+      "command": [
+        "terraform",
+        "validate"
+      ],
+      "subcommand": [
+        "validate"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "terraform_plan",
+      "name": "Terraform plan",
+      "description": "Create a Terraform execution plan.",
+      "command": [
+        "terraform",
+        "plan",
+        "-out",
+        "{plan_file}"
+      ],
+      "subcommand": [
+        "plan",
+        "-out",
+        "{plan_file}"
+      ],
+      "defaults": {
+        "plan_file": "tfplan"
+      },
+      "mutates": false
+    },
+    {
+      "id": "terraform_apply",
+      "name": "Terraform apply",
+      "description": "Apply a saved Terraform execution plan.",
+      "command": [
+        "terraform",
+        "apply",
+        "{plan_file}"
+      ],
+      "subcommand": [
+        "apply",
+        "{plan_file}"
+      ],
+      "defaults": {
+        "plan_file": "tfplan"
+      },
+      "mutates": true
+    },
+    {
+      "id": "terraform_state_list",
+      "name": "Terraform state list",
+      "description": "List resources in Terraform state.",
+      "command": [
+        "terraform",
+        "state",
+        "list"
+      ],
+      "subcommand": [
+        "state",
+        "list"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "terraform_output",
+      "name": "Terraform output",
+      "description": "Read Terraform outputs as JSON.",
+      "command": [
+        "terraform",
+        "output",
+        "-json"
+      ],
+      "subcommand": [
+        "output",
+        "-json"
+      ],
+      "defaults": {},
+      "mutates": false
+    }
+  ]
+}

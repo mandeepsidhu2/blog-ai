@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "updated": "2026-06-29",
+  "id": "dofu",
+  "name": "Dofu",
+  "binary": "tofu",
+  "sourceCategory": "Terraform",
+  "description": "Dofu command pack generated from the console's Terraform command catalog.",
+  "commands": [
+    {
+      "id": "dofu_init",
+      "name": "Dofu init",
+      "description": "Initialize Dofu providers and backend metadata.",
+      "command": [
+        "tofu",
+        "init"
+      ],
+      "subcommand": [
+        "init"
+      ],
+      "defaults": {},
+      "mutates": true
+    },
+    {
+      "id": "dofu_fmt_check",
+      "name": "Dofu fmt check",
+      "description": "Check Dofu formatting recursively without rewriting files.",
+      "command": [
+        "tofu",
+        "fmt",
+        "-check",
+        "-recursive"
+      ],
+      "subcommand": [
+        "fmt",
+        "-check",
+        "-recursive"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "dofu_validate",
+      "name": "Dofu validate",
+      "description": "Validate Dofu configuration syntax and provider schemas.",
+      "command": [
+        "tofu",
+        "validate"
+      ],
+      "subcommand": [
+        "validate"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "dofu_plan",
+      "name": "Dofu plan",
+      "description": "Create a Dofu execution plan.",
+      "command": [
+        "tofu",
+        "plan",
+        "-out",
+        "{plan_file}"
+      ],
+      "subcommand": [
+        "plan",
+        "-out",
+        "{plan_file}"
+      ],
+      "defaults": {
+        "plan_file": "tfplan"
+      },
+      "mutates": false
+    },
+    {
+      "id": "dofu_apply",
+      "name": "Dofu apply",
+      "description": "Apply a saved Dofu execution plan.",
+      "command": [
+        "tofu",
+        "apply",
+        "{plan_file}"
+      ],
+      "subcommand": [
+        "apply",
+        "{plan_file}"
+      ],
+      "defaults": {
+        "plan_file": "tfplan"
+      },
+      "mutates": true
+    },
+    {
+      "id": "dofu_state_list",
+      "name": "Dofu state list",
+      "description": "List resources in Dofu state.",
+      "command": [
+        "tofu",
+        "state",
+        "list"
+      ],
+      "subcommand": [
+        "state",
+        "list"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "dofu_output",
+      "name": "Dofu output",
+      "description": "Read Dofu outputs as JSON.",
+      "command": [
+        "tofu",
+        "output",
+        "-json"
+      ],
+      "subcommand": [
+        "output",
+        "-json"
+      ],
+      "defaults": {},
+      "mutates": false
+    }
+  ]
+}

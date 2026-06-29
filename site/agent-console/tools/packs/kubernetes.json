@@ -1,0 +1,242 @@
+{
+  "version": 1,
+  "updated": "2026-06-29",
+  "id": "kubernetes",
+  "name": "Kubernetes",
+  "binary": "kubectl",
+  "sourceCategory": "Kubernetes",
+  "description": "Kubernetes command pack generated from the console's Kubernetes command catalog.",
+  "commands": [
+    {
+      "id": "kubectl_config_current_context",
+      "name": "kubectl current context",
+      "description": "Show the active Kubernetes context.",
+      "command": [
+        "kubectl",
+        "config",
+        "current-context"
+      ],
+      "subcommand": [
+        "config",
+        "current-context"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "kubectl_get_pods",
+      "name": "kubectl get pods",
+      "description": "List Kubernetes pods in a namespace.",
+      "command": [
+        "kubectl",
+        "get",
+        "pods",
+        "-n",
+        "{namespace}"
+      ],
+      "subcommand": [
+        "get",
+        "pods",
+        "-n",
+        "{namespace}"
+      ],
+      "defaults": {
+        "namespace": "default"
+      },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_get_deployments",
+      "name": "kubectl get deployments",
+      "description": "List Kubernetes deployments in a namespace.",
+      "command": [
+        "kubectl",
+        "get",
+        "deployments",
+        "-n",
+        "{namespace}"
+      ],
+      "subcommand": [
+        "get",
+        "deployments",
+        "-n",
+        "{namespace}"
+      ],
+      "defaults": {
+        "namespace": "default"
+      },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_describe_pod",
+      "name": "kubectl describe pod",
+      "description": "Describe a Kubernetes pod.",
+      "command": [
+        "kubectl",
+        "describe",
+        "pod",
+        "{pod}",
+        "-n",
+        "{namespace}"
+      ],
+      "subcommand": [
+        "describe",
+        "pod",
+        "{pod}",
+        "-n",
+        "{namespace}"
+      ],
+      "defaults": {
+        "pod": "pod-name",
+        "namespace": "default"
+      },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_logs",
+      "name": "kubectl logs",
+      "description": "Read recent logs from a Kubernetes pod.",
+      "command": [
+        "kubectl",
+        "logs",
+        "{pod}",
+        "-n",
+        "{namespace}",
+        "--tail",
+        "{tail}"
+      ],
+      "subcommand": [
+        "logs",
+        "{pod}",
+        "-n",
+        "{namespace}",
+        "--tail",
+        "{tail}"
+      ],
+      "defaults": {
+        "pod": "pod-name",
+        "namespace": "default",
+        "tail": "200"
+      },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_rollout_status",
+      "name": "kubectl rollout status",
+      "description": "Check rollout status for a deployment.",
+      "command": [
+        "kubectl",
+        "rollout",
+        "status",
+        "deployment/{deployment}",
+        "-n",
+        "{namespace}"
+      ],
+      "subcommand": [
+        "rollout",
+        "status",
+        "deployment/{deployment}",
+        "-n",
+        "{namespace}"
+      ],
+      "defaults": {
+        "deployment": "app",
+        "namespace": "default"
+      },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_rollout_restart",
+      "name": "kubectl rollout restart",
+      "description": "Restart a Kubernetes deployment rollout.",
+      "command": [
+        "kubectl",
+        "rollout",
+        "restart",
+        "deployment/{deployment}",
+        "-n",
+        "{namespace}"
+      ],
+      "subcommand": [
+        "rollout",
+        "restart",
+        "deployment/{deployment}",
+        "-n",
+        "{namespace}"
+      ],
+      "defaults": {
+        "deployment": "app",
+        "namespace": "default"
+      },
+      "mutates": true
+    },
+    {
+      "id": "kubectl_apply",
+      "name": "kubectl apply",
+      "description": "Apply Kubernetes manifests from a file or directory.",
+      "command": [
+        "kubectl",
+        "apply",
+        "-f",
+        "{path}"
+      ],
+      "subcommand": [
+        "apply",
+        "-f",
+        "{path}"
+      ],
+      "defaults": {
+        "path": "k8s/"
+      },
+      "mutates": true
+    },
+    {
+      "id": "kubectl_diff",
+      "name": "kubectl diff",
+      "description": "Preview Kubernetes manifest differences.",
+      "command": [
+        "kubectl",
+        "diff",
+        "-f",
+        "{path}"
+      ],
+      "subcommand": [
+        "diff",
+        "-f",
+        "{path}"
+      ],
+      "defaults": {
+        "path": "k8s/"
+      },
+      "mutates": false
+    },
+    {
+      "id": "kubectl_scale_deployment",
+      "name": "kubectl scale deployment",
+      "description": "Scale a Kubernetes deployment replica count.",
+      "command": [
+        "kubectl",
+        "scale",
+        "deployment/{deployment}",
+        "--replicas",
+        "{replicas}",
+        "-n",
+        "{namespace}"
+      ],
+      "subcommand": [
+        "scale",
+        "deployment/{deployment}",
+        "--replicas",
+        "{replicas}",
+        "-n",
+        "{namespace}"
+      ],
+      "defaults": {
+        "deployment": "app",
+        "replicas": "2",
+        "namespace": "default"
+      },
+      "mutates": true
+    }
+  ]
+}

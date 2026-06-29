@@ -251,15 +251,36 @@ async function main() {
   const agentToolCatalog = await readJson(path.join(appDir, "agent-console", "tools", "catalog.json"));
   assert(Array.isArray(agentToolCatalog.tools), "Agent console tool catalog must contain a tools array.");
   assert(
-    agentToolCatalog.tools.length >= 80 && agentToolCatalog.tools.length <= 120,
-    "Agent console tool catalog must contain 80 to 120 tools.",
+    agentToolCatalog.tools.length >= 8 && agentToolCatalog.tools.length <= 20,
+    "Agent console tool catalog must contain provider-level tool packs.",
   );
-  for (const category of ["Git", "GitHub", "GitLab", "AWS", "Terraform", "NPM", "Docker", "Kubernetes", "Python", "Make"]) {
+  for (const id of ["git", "github", "gitlab", "aws", "terraform", "npm", "docker", "kubernetes", "python", "make"]) {
     assert(
-      agentToolCatalog.tools.some((tool) => tool.category === category),
-      `Agent console tool catalog missing ${category} tools.`,
+      agentToolCatalog.tools.some((tool) => tool.id === id && tool.pack && tool.commandPackUrl),
+      `Agent console tool catalog missing ${id} provider pack.`,
     );
   }
+  const packCommandCounts = [];
+  for (const tool of agentToolCatalog.tools.filter((entry) => entry.pack)) {
+    assert(
+      tool.commandPackUrl?.startsWith("/agent-console/tools/packs/"),
+      `Agent console provider pack ${tool.id} must use a local pack URL.`,
+    );
+    const packPath = path.join(appDir, tool.commandPackUrl.replace(/^\/+/, ""));
+    assert(await exists(packPath), `Missing agent console command pack for ${tool.id}.`);
+    const pack = await readJson(packPath);
+    assert(Array.isArray(pack.commands) && pack.commands.length > 0, `Command pack ${tool.id} must contain commands.`);
+    for (const command of pack.commands) {
+      assert(Array.isArray(command.command) && command.command.length > 0, `Command pack ${tool.id} has an empty command.`);
+      assert(typeof command.id === "string" && command.id.length > 0, `Command pack ${tool.id} has a command without id.`);
+    }
+    packCommandCounts.push(pack.commands.length);
+  }
+  const totalPackedCommands = packCommandCounts.reduce((sum, count) => sum + count, 0);
+  assert(
+    totalPackedCommands >= 80 && totalPackedCommands <= 140,
+    `Agent console provider packs must expose 80 to 140 commands; found ${totalPackedCommands}.`,
+  );
 
   const sitemap = await readText(path.join(appDir, "sitemap.xml"));
   assert(sitemap.includes("<urlset"), "Sitemap is not valid XML sitemap output.");

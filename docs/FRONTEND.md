@@ -56,11 +56,13 @@ in `site/agent-console/console.css`. Keep its graph state, code generation,
 dragging, tool list, and download behavior isolated from tutorial search and
 article interactions.
 
-The built-in console tool library is static JSON at
-`site/agent-console/tools/catalog.json`. The browser loads it from
-`/agent-console/tools/catalog.json`, supports search and category filtering, and
-emits selected tools into the downloaded LangGraph Python as subprocess-backed
-tool boundaries with explicit approval checks for mutating operations.
+The built-in console tool library is static JSON. Provider-level metadata lives
+in `site/agent-console/tools/catalog.json`, and command packs live in
+`site/agent-console/tools/packs/*.json`. The browser loads the catalog from
+`/agent-console/tools/catalog.json`, fetches same-origin command packs, supports
+search and category filtering, and emits selected provider packs into the
+downloaded LangGraph Python as subprocess-backed tool boundaries with explicit
+approval checks for mutating operations.
 
 Custom console tools are browser-local stubs: users provide a name and
 description, and the Python export includes an empty function for later

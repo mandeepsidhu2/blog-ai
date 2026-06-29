@@ -1,47 +1,55 @@
 const nodeKinds = {
   start: { glyph: "S", label: "Start", description: "Entry point for the graph." },
   end: { glyph: "E", label: "End", description: "Terminal state for the graph." },
-  step: { glyph: "N", label: "Step", description: "A normal LangGraph node." },
-  tool: { glyph: "T", label: "Tool", description: "A node that calls selected tools." },
+  step: { glyph: "PY", label: "Code", description: "A deterministic Python node." },
+  tool: { glyph: "AI", label: "AI", description: "A prompt-driven node that can call selected provider packs." },
   condition: { glyph: "?", label: "Conditional", description: "A router node with named branches." },
 };
 
 const fallbackToolCatalog = [
   {
-    id: "git_status",
-    name: "Git status",
-    category: "Git",
-    description: "Show the short working tree status for the current repository.",
-    command: ["git", "status", "--short"],
-    defaults: {},
-    mutates: false,
+    id: "terraform",
+    name: "Terraform",
+    category: "Infrastructure",
+    description: "Terraform provider-level command pack.",
+    binary: "terraform",
+    commandPackUrl: "/agent-console/tools/packs/terraform.json",
+    defaults: { command_id: "terraform_validate" },
+    mutates: true,
+    pack: true,
   },
   {
-    id: "aws_sts_identity",
-    name: "AWS caller identity",
-    category: "AWS",
-    description: "Show the active AWS account, ARN, and user identity.",
-    command: ["aws", "sts", "get-caller-identity"],
-    defaults: {},
-    mutates: false,
+    id: "dofu",
+    name: "Dofu",
+    category: "Infrastructure",
+    description: "Dofu provider-level command pack.",
+    binary: "tofu",
+    commandPackUrl: "/agent-console/tools/packs/dofu.json",
+    defaults: { command_id: "dofu_validate" },
+    mutates: true,
+    pack: true,
   },
   {
-    id: "terraform_validate",
-    name: "Terraform validate",
-    category: "Terraform",
-    description: "Validate Terraform configuration syntax and provider schemas.",
-    command: ["terraform", "validate"],
-    defaults: {},
-    mutates: false,
+    id: "aws",
+    name: "AWS",
+    category: "Cloud",
+    description: "AWS provider-level command pack.",
+    binary: "aws",
+    commandPackUrl: "/agent-console/tools/packs/aws.json",
+    defaults: { command_id: "aws_sts_identity" },
+    mutates: true,
+    pack: true,
   },
   {
-    id: "npm_test",
-    name: "npm test",
-    category: "NPM",
-    description: "Run the project test script.",
-    command: ["npm", "test"],
-    defaults: {},
-    mutates: false,
+    id: "git",
+    name: "Git",
+    category: "Source control",
+    description: "Git provider-level command pack.",
+    binary: "git",
+    commandPackUrl: "/agent-console/tools/packs/git.json",
+    defaults: { command_id: "git_status" },
+    mutates: true,
+    pack: true,
   },
 ];
 const canvasSize = { width: 1500, height: 980 };
@@ -54,6 +62,8 @@ const state = {
   edges: [{ id: "edge-start-end", from: "start", to: "end", label: "next" }],
   toolCatalog: [...fallbackToolCatalog],
   customTools: [],
+  loadedPacks: {},
+  packStatus: {},
   toolFilter: "",
   toolCategory: "all",
   sampleFlowId: "research-synthesis",
@@ -74,7 +84,7 @@ const state = {
   },
 };
 
-const storageKey = "langgraph-agent-console:v3";
+const storageKey = "langgraph-agent-console:v4";
 
 const sampleFlows = [
   {
@@ -84,9 +94,9 @@ const sampleFlows = [
     nodes: [
       { id: "start", kind: "start", title: "Start", detail: "Research request and source scope.", x: 645, y: 50, tools: [], condition: "", branches: ["next"] },
       { id: "scope", kind: "step", title: "Frame research brief", detail: "Normalize the question, output format, constraints, and evidence threshold.", x: 645, y: 190, tools: [], condition: "", branches: ["next"] },
-      { id: "source-scan", kind: "tool", title: "Scan source signals", detail: "Collect repository, issue, and release signals for the research topic.", x: 645, y: 340, tools: ["github_repo_view", "github_issue_list", "github_release_view", "gitlab_issue_list"], condition: "", branches: ["next"] },
+      { id: "source-scan", kind: "tool", title: "Scan source signals", detail: "Collect repository, issue, and release signals for the research topic.", x: 645, y: 340, tools: ["github", "gitlab"], condition: "", branches: ["next"] },
       { id: "evidence-gate", kind: "condition", title: "Evidence quality gate", detail: "Route based on whether enough credible source material exists.", x: 645, y: 500, tools: [], condition: "return 'draft' when sources are current and relevant", branches: ["draft", "collect_more"] },
-      { id: "collect-more", kind: "tool", title: "Collect more context", detail: "Expand search using PRs, workflows, and package metadata.", x: 950, y: 500, tools: ["github_pr_list", "github_workflow_list", "npm_view_package"], condition: "", branches: ["next"] },
+      { id: "collect-more", kind: "tool", title: "Collect more context", detail: "Expand search using PRs, workflows, and package metadata.", x: 950, y: 500, tools: ["github", "npm"], condition: "", branches: ["next"] },
       { id: "draft", kind: "step", title: "Draft synthesis", detail: "Write findings, caveats, recommendations, and source traceability.", x: 645, y: 660, tools: [], condition: "", branches: ["next"] },
       { id: "end", kind: "end", title: "End", detail: "Compiled graph returns here.", x: 645, y: 820, tools: [], condition: "", branches: ["done"] },
     ],
@@ -106,12 +116,12 @@ const sampleFlows = [
     description: "Inspect a repo, run checks, open a PR, and prepare a release path.",
     nodes: [
       { id: "start", kind: "start", title: "Start", detail: "Feature request and repository path.", x: 645, y: 50, tools: [], condition: "", branches: ["next"] },
-      { id: "repo-state", kind: "tool", title: "Inspect repository", detail: "Read status, staged diff, branches, and recent commit context.", x: 645, y: 185, tools: ["git_status", "git_diff", "git_diff_staged", "git_log"], condition: "", branches: ["next"] },
+      { id: "repo-state", kind: "tool", title: "Inspect repository", detail: "Read status, staged diff, branches, and recent commit context.", x: 645, y: 185, tools: ["git"], condition: "", branches: ["next"] },
       { id: "implement", kind: "step", title: "Plan code edits", detail: "Choose files, expected tests, and implementation boundaries.", x: 645, y: 330, tools: [], condition: "", branches: ["next"] },
-      { id: "quality", kind: "tool", title: "Run quality checks", detail: "Run project tests, linting, and build before release work.", x: 645, y: 475, tools: ["npm_test", "npm_run_lint", "npm_run_build", "python_pytest"], condition: "", branches: ["next"] },
+      { id: "quality", kind: "tool", title: "Run quality checks", detail: "Run project tests, linting, and build before release work.", x: 645, y: 475, tools: ["npm", "python"], condition: "", branches: ["next"] },
       { id: "gate", kind: "condition", title: "Release gate", detail: "Route based on quality results.", x: 645, y: 625, tools: [], condition: "return 'ship' when tests and build pass", branches: ["ship", "fix"] },
       { id: "fix", kind: "step", title: "Patch failures", detail: "Summarize failures and loop back with targeted fixes.", x: 940, y: 625, tools: [], condition: "", branches: ["next"] },
-      { id: "pr", kind: "tool", title: "Open delivery path", detail: "Create PR and inspect checks after push.", x: 645, y: 770, tools: ["git_push", "github_pr_create", "github_pr_checks"], condition: "", branches: ["next"] },
+      { id: "pr", kind: "tool", title: "Open delivery path", detail: "Create PR and inspect checks after push.", x: 645, y: 770, tools: ["git", "github"], condition: "", branches: ["next"] },
       { id: "end", kind: "end", title: "End", detail: "Compiled graph returns here.", x: 645, y: 850, tools: [], condition: "", branches: ["done"] },
     ],
     edges: [
@@ -131,11 +141,11 @@ const sampleFlows = [
     description: "Validate Terraform, plan changes, inspect AWS state, and gate apply.",
     nodes: [
       { id: "start", kind: "start", title: "Start", detail: "Infrastructure change request.", x: 645, y: 50, tools: [], condition: "", branches: ["next"] },
-      { id: "identity", kind: "tool", title: "Confirm cloud context", detail: "Verify AWS identity and current Kubernetes context.", x: 645, y: 190, tools: ["aws_sts_identity", "kubectl_config_current_context"], condition: "", branches: ["next"] },
-      { id: "tf-checks", kind: "tool", title: "Terraform checks", detail: "Initialize, format-check, validate, and build a plan.", x: 645, y: 350, tools: ["terraform_init", "terraform_fmt_check", "terraform_validate", "terraform_plan"], condition: "", branches: ["next"] },
-      { id: "blast-radius", kind: "tool", title: "Inspect runtime state", detail: "Read EC2, ECS, Lambda, CloudFormation, and logs for blast-radius context.", x: 645, y: 510, tools: ["aws_ec2_describe_instances", "aws_ecs_list_services", "aws_lambda_list_functions", "aws_cloudformation_describe_stacks", "aws_cloudwatch_logs_tail"], condition: "", branches: ["next"] },
+      { id: "identity", kind: "tool", title: "Confirm cloud context", detail: "Verify AWS identity and current Kubernetes context.", x: 645, y: 190, tools: ["aws", "kubernetes"], condition: "", branches: ["next"] },
+      { id: "tf-checks", kind: "tool", title: "Terraform checks", detail: "Initialize, format-check, validate, and build a plan.", x: 645, y: 350, tools: ["terraform", "dofu"], condition: "", branches: ["next"] },
+      { id: "blast-radius", kind: "tool", title: "Inspect runtime state", detail: "Read EC2, ECS, Lambda, CloudFormation, and logs for blast-radius context.", x: 645, y: 510, tools: ["aws"], condition: "", branches: ["next"] },
       { id: "approval", kind: "condition", title: "Change approval", detail: "Route based on whether the plan is reviewed and approved.", x: 645, y: 675, tools: [], condition: "return 'apply' only after human approval", branches: ["apply", "hold"] },
-      { id: "apply", kind: "tool", title: "Apply and verify", detail: "Apply a saved plan, inspect outputs, and invalidate cache if needed.", x: 440, y: 820, tools: ["terraform_apply", "terraform_output", "aws_cloudfront_invalidate"], condition: "", branches: ["next"] },
+      { id: "apply", kind: "tool", title: "Apply and verify", detail: "Apply a saved plan, inspect outputs, and invalidate cache if needed.", x: 440, y: 820, tools: ["terraform", "dofu", "aws"], condition: "", branches: ["next"] },
       { id: "hold", kind: "step", title: "Hold change", detail: "Return review notes without changing cloud resources.", x: 850, y: 820, tools: [], condition: "", branches: ["next"] },
       { id: "end", kind: "end", title: "End", detail: "Compiled graph returns here.", x: 645, y: 860, tools: [], condition: "", branches: ["done"] },
     ],
@@ -156,11 +166,11 @@ const sampleFlows = [
     description: "Collect user feedback, triage signals, and create product delivery work.",
     nodes: [
       { id: "start", kind: "start", title: "Start", detail: "Product area, customer segment, and timeframe.", x: 645, y: 50, tools: [], condition: "", branches: ["next"] },
-      { id: "collect", kind: "tool", title: "Collect feedback", detail: "Pull issues, merge requests, workflow status, and operational logs.", x: 645, y: 205, tools: ["github_issue_list", "gitlab_issue_list", "github_pr_list", "aws_cloudwatch_logs_tail"], condition: "", branches: ["next"] },
+      { id: "collect", kind: "tool", title: "Collect feedback", detail: "Pull issues, merge requests, workflow status, and operational logs.", x: 645, y: 205, tools: ["github", "gitlab", "aws"], condition: "", branches: ["next"] },
       { id: "cluster", kind: "step", title: "Cluster themes", detail: "Group feedback into product themes, severity, and customer impact.", x: 645, y: 365, tools: [], condition: "", branches: ["next"] },
       { id: "triage", kind: "condition", title: "Triage decision", detail: "Choose immediate delivery, research, or backlog.", x: 645, y: 525, tools: [], condition: "return 'delivery' for validated high-impact themes", branches: ["delivery", "research", "backlog"] },
-      { id: "delivery", kind: "tool", title: "Open delivery work", detail: "Create delivery PR/MR or issue artifacts for the chosen theme.", x: 385, y: 700, tools: ["github_pr_create", "gitlab_mr_create"], condition: "", branches: ["next"] },
-      { id: "research", kind: "tool", title: "Open research loop", detail: "Create research tasks and gather repo/package context.", x: 645, y: 700, tools: ["github_issue_create", "npm_view_package"], condition: "", branches: ["next"] },
+      { id: "delivery", kind: "tool", title: "Open delivery work", detail: "Create delivery PR/MR or issue artifacts for the chosen theme.", x: 385, y: 700, tools: ["github", "gitlab"], condition: "", branches: ["next"] },
+      { id: "research", kind: "tool", title: "Open research loop", detail: "Create research tasks and gather repo/package context.", x: 645, y: 700, tools: ["github", "npm"], condition: "", branches: ["next"] },
       { id: "backlog", kind: "step", title: "Backlog summary", detail: "Write a prioritized backlog note with customer evidence.", x: 905, y: 700, tools: [], condition: "", branches: ["next"] },
       { id: "end", kind: "end", title: "End", detail: "Compiled graph returns here.", x: 645, y: 860, tools: [], condition: "", branches: ["done"] },
     ],
@@ -182,12 +192,12 @@ const sampleFlows = [
     description: "Prepare a launch package, publish artifacts, and verify distribution.",
     nodes: [
       { id: "start", kind: "start", title: "Start", detail: "Launch brief, package path, and channel list.", x: 645, y: 50, tools: [], condition: "", branches: ["next"] },
-      { id: "package", kind: "tool", title: "Inspect package", detail: "Read package metadata, audit dependencies, and run tests.", x: 645, y: 205, tools: ["npm_view_package", "npm_audit", "npm_test"], condition: "", branches: ["next"] },
-      { id: "assets", kind: "tool", title: "Prepare assets", detail: "Build the site/package and sync launch assets to S3.", x: 645, y: 365, tools: ["npm_run_build", "aws_s3_sync_upload"], condition: "", branches: ["next"] },
+      { id: "package", kind: "tool", title: "Inspect package", detail: "Read package metadata, audit dependencies, and run tests.", x: 645, y: 205, tools: ["npm"], condition: "", branches: ["next"] },
+      { id: "assets", kind: "tool", title: "Prepare assets", detail: "Build the site/package and sync launch assets to S3.", x: 645, y: 365, tools: ["npm", "aws"], condition: "", branches: ["next"] },
       { id: "launch-gate", kind: "condition", title: "Launch gate", detail: "Route based on readiness, approvals, and audit status.", x: 645, y: 525, tools: [], condition: "return 'publish' when launch assets and approvals are ready", branches: ["publish", "revise"] },
-      { id: "publish", kind: "tool", title: "Publish release", detail: "Create release notes, publish package, and refresh CDN.", x: 450, y: 700, tools: ["github_release_create", "npm_publish", "aws_cloudfront_invalidate"], condition: "", branches: ["next"] },
+      { id: "publish", kind: "tool", title: "Publish release", detail: "Create release notes, publish package, and refresh CDN.", x: 450, y: 700, tools: ["github", "npm", "aws"], condition: "", branches: ["next"] },
       { id: "revise", kind: "step", title: "Revise launch", detail: "Return blockers, copy edits, and remaining launch tasks.", x: 850, y: 700, tools: [], condition: "", branches: ["next"] },
-      { id: "verify", kind: "tool", title: "Verify launch", detail: "Check S3 objects, CloudWatch logs, and repository release state.", x: 645, y: 840, tools: ["aws_s3_list", "aws_cloudwatch_logs_tail", "github_release_view"], condition: "", branches: ["next"] },
+      { id: "verify", kind: "tool", title: "Verify launch", detail: "Check S3 objects, CloudWatch logs, and repository release state.", x: 645, y: 840, tools: ["aws", "github"], condition: "", branches: ["next"] },
       { id: "end", kind: "end", title: "End", detail: "Compiled graph returns here.", x: 645, y: 850, tools: [], condition: "", branches: ["done"] },
     ],
     edges: [
@@ -252,11 +262,100 @@ function edgeById(id) {
   return state.edges.find((edge) => edge.id === id) || null;
 }
 
+function lockedNode(node) {
+  return node?.kind === "start" || node?.kind === "end";
+}
+
+function nodeMode(node) {
+  if (lockedNode(node)) return "system";
+  if (node?.mode === "code" || node?.mode === "ai") return node.mode;
+  return "ai";
+}
+
+function isAiNode(node) {
+  return nodeMode(node) === "ai";
+}
+
+function defaultPromptForNode(node) {
+  return node?.condition || node?.detail || "Use the current state, produce the next state update, and cite any tool outputs used.";
+}
+
+function defaultCodeForNode(node) {
+  if (node?.kind === "condition") {
+    const branch = node.branches?.[0] || "next";
+    return `return {"route": ${JSON.stringify(branch)}}`;
+  }
+  return "return {}";
+}
+
+function normalizeNode(rawNode) {
+  const kind = nodeKinds[rawNode?.kind] ? rawNode.kind : "step";
+  const normalized = {
+    id: String(rawNode?.id || `${kind}-${Date.now().toString(36)}`),
+    kind,
+    title: String(rawNode?.title || nodeKinds[kind].label),
+    detail: String(rawNode?.detail || nodeKinds[kind].description),
+    x: Number.isFinite(rawNode?.x) ? rawNode.x : defaultNodeX,
+    y: Number.isFinite(rawNode?.y) ? rawNode.y : 220,
+    tools: Array.isArray(rawNode?.tools) ? rawNode.tools.map((tool) => String(tool)) : [],
+    condition: String(rawNode?.condition || ""),
+    branches: Array.isArray(rawNode?.branches) && rawNode.branches.length ? rawNode.branches.map(String) : ["next"],
+    mode: rawNode?.mode === "code" ? "code" : "ai",
+    prompt: typeof rawNode?.prompt === "string" ? rawNode.prompt : "",
+    code: typeof rawNode?.code === "string" ? rawNode.code : "",
+    codeCheck: typeof rawNode?.codeCheck === "string" ? rawNode.codeCheck : "",
+  };
+
+  if (lockedNode(normalized)) {
+    normalized.mode = "system";
+    normalized.prompt = "";
+    normalized.code = "";
+    normalized.tools = [];
+    return normalized;
+  }
+
+  if (!normalized.prompt) normalized.prompt = defaultPromptForNode(normalized);
+  if (!normalized.code) normalized.code = defaultCodeForNode(normalized);
+  if (!isAiNode(normalized)) normalized.tools = [];
+  return normalized;
+}
+
+function normalizeNodes(nodes) {
+  return Array.isArray(nodes) ? nodes.map(normalizeNode) : createInitialNodes();
+}
+
+function setNodeMode(node, mode) {
+  if (!node || lockedNode(node)) return;
+  node.mode = mode === "code" ? "code" : "ai";
+  if (node.mode === "code") {
+    node.tools = [];
+    if (!node.code) node.code = defaultCodeForNode(node);
+  } else if (!node.prompt) {
+    node.prompt = defaultPromptForNode(node);
+  }
+}
+
 function normalizeTool(rawTool) {
   const name = String(rawTool?.name || rawTool?.id || "Tool").trim();
   const id = sanitizeIdentifier(rawTool?.id || name, "tool");
   const category = String(rawTool?.category || "Custom").trim() || "Custom";
   const command = Array.isArray(rawTool?.command) ? rawTool.command.map((part) => String(part)) : [];
+  const binary = String(rawTool?.binary || command[0] || "").trim();
+  const commandPackUrl = String(rawTool?.commandPackUrl || rawTool?.packUrl || "").trim();
+  const commands = Array.isArray(rawTool?.commands)
+    ? rawTool.commands.map((commandItem) => ({
+        id: sanitizeIdentifier(commandItem?.id || commandItem?.name || "command", "command"),
+        name: String(commandItem?.name || commandItem?.id || "Command").trim(),
+        description: String(commandItem?.description || "").trim(),
+        command: Array.isArray(commandItem?.command) ? commandItem.command.map((part) => String(part)) : [],
+        subcommand: Array.isArray(commandItem?.subcommand) ? commandItem.subcommand.map((part) => String(part)) : [],
+        defaults:
+          commandItem?.defaults && typeof commandItem.defaults === "object" && !Array.isArray(commandItem.defaults)
+            ? Object.fromEntries(Object.entries(commandItem.defaults).map(([key, value]) => [key, String(value)]))
+            : {},
+        mutates: Boolean(commandItem?.mutates),
+      }))
+    : [];
   const defaults =
     rawTool?.defaults && typeof rawTool.defaults === "object" && !Array.isArray(rawTool.defaults)
       ? Object.fromEntries(Object.entries(rawTool.defaults).map(([key, value]) => [key, String(value)]))
@@ -268,9 +367,14 @@ function normalizeTool(rawTool) {
     category,
     description: String(rawTool?.description || "").trim(),
     command,
+    binary,
+    commandPackUrl,
+    commands,
     defaults,
     mutates: Boolean(rawTool?.mutates),
     custom: Boolean(rawTool?.custom),
+    pack: Boolean(rawTool?.pack || commandPackUrl || commands.length),
+    storage: rawTool?.storage && typeof rawTool.storage === "object" && !Array.isArray(rawTool.storage) ? rawTool.storage : null,
   };
 }
 
@@ -294,6 +398,12 @@ function toolLabel(id) {
 }
 
 function toolCommandLabel(tool) {
+  if (tool?.pack) {
+    const loaded = state.loadedPacks[tool.id]?.commands?.length;
+    if (loaded) return `${loaded} commands`;
+    if (tool.commandPackUrl) return "remote pack";
+    if (tool.commands?.length) return `${tool.commands.length} commands`;
+  }
   if (!tool?.command?.length) return "custom";
   return tool.command.slice(0, 3).join(" ");
 }
@@ -304,7 +414,11 @@ function toolCategories() {
 
 function toolMatchesFilter(tool) {
   const query = state.toolFilter.trim().toLowerCase();
-  const searchMatches = [tool.name, tool.category, tool.description, tool.command.join(" ")]
+  const commandNames = [
+    ...(tool.commands || []).flatMap((command) => [command.name, command.description, command.command.join(" ")]),
+    ...(state.loadedPacks[tool.id]?.commands || []).flatMap((command) => [command.name, command.description, command.command.join(" ")]),
+  ];
+  const searchMatches = [tool.name, tool.category, tool.description, tool.binary, tool.commandPackUrl, tool.command.join(" "), ...commandNames]
     .join(" ")
     .toLowerCase()
     .includes(query);
@@ -314,6 +428,49 @@ function toolMatchesFilter(tool) {
 
 function filteredTools() {
   return allTools().filter(toolMatchesFilter);
+}
+
+function normalizeCommandPack(rawPack) {
+  const commands = Array.isArray(rawPack?.commands)
+    ? rawPack.commands.map((command) => normalizeTool({ ...command, id: command.id || command.name }).commands?.[0] || {
+        id: sanitizeIdentifier(command?.id || command?.name || "command", "command"),
+        name: String(command?.name || command?.id || "Command"),
+        description: String(command?.description || ""),
+        command: Array.isArray(command?.command) ? command.command.map(String) : [],
+        subcommand: Array.isArray(command?.subcommand) ? command.subcommand.map(String) : [],
+        defaults:
+          command?.defaults && typeof command.defaults === "object" && !Array.isArray(command.defaults)
+            ? Object.fromEntries(Object.entries(command.defaults).map(([key, value]) => [key, String(value)]))
+            : {},
+        mutates: Boolean(command?.mutates),
+      })
+    : [];
+  return {
+    version: rawPack?.version || 1,
+    id: String(rawPack?.id || ""),
+    name: String(rawPack?.name || ""),
+    binary: String(rawPack?.binary || ""),
+    commands,
+  };
+}
+
+async function ensureToolPack(toolId) {
+  const tool = toolById(toolId);
+  if (!tool?.pack || !tool.commandPackUrl || state.loadedPacks[tool.id]) return;
+  state.packStatus[tool.id] = "Loading command pack...";
+  renderTools();
+  renderInspector();
+  try {
+    const response = await fetch(tool.commandPackUrl, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const pack = normalizeCommandPack(await response.json());
+    if (!pack.commands.length) throw new Error("empty command pack");
+    state.loadedPacks[tool.id] = pack;
+    state.packStatus[tool.id] = `${pack.commands.length} commands loaded`;
+  } catch (error) {
+    state.packStatus[tool.id] = "Command pack could not be fetched; export will keep the pack boundary.";
+    console.warn(`Command pack unavailable for ${tool.id}`, error);
+  }
 }
 
 function centerOf(node) {
@@ -470,7 +627,7 @@ function restorePersistentState() {
     if (!raw) return;
     const saved = JSON.parse(raw);
     if (Array.isArray(saved.nodes) && Array.isArray(saved.edges)) {
-      state.nodes = cloneValue(saved.nodes);
+      state.nodes = normalizeNodes(cloneValue(saved.nodes));
       state.edges = cloneValue(saved.edges);
     }
     if (Array.isArray(saved.customTools)) state.customTools = cloneValue(saved.customTools);
@@ -497,7 +654,7 @@ function pushHistorySnapshot(snapshot = graphSnapshot()) {
 }
 
 function restoreGraphSnapshot(snapshot) {
-  state.nodes = cloneValue(snapshot.nodes);
+  state.nodes = normalizeNodes(cloneValue(snapshot.nodes));
   state.edges = cloneValue(snapshot.edges);
   state.customTools = cloneValue(snapshot.customTools || []);
   state.nextNodeNumber = snapshot.nextNodeNumber;
@@ -560,10 +717,13 @@ function addNode(kind, position = nextPosition()) {
   const id = `${kind}-${Date.now().toString(36)}-${state.nextNodeNumber}`;
   const number = state.nextNodeNumber;
   state.nextNodeNumber += 1;
+  const mode = kind === "tool" ? "ai" : "code";
+  const title = `${nodeKinds[kind].label} ${number}`;
+  const branches = kind === "condition" ? ["yes", "no"] : ["next"];
   state.nodes.push({
     id,
     kind,
-    title: `${nodeKinds[kind].label} ${number}`,
+    title,
     detail:
       kind === "condition"
         ? "Route state into named branches."
@@ -572,9 +732,15 @@ function addNode(kind, position = nextPosition()) {
           : "Transform state and return updates.",
     x: position.x,
     y: position.y,
-    tools: kind === "tool" ? [allTools()[0]?.id].filter(Boolean) : [],
+    tools: kind === "tool" ? [] : [],
+    mode,
+    prompt:
+      kind === "tool"
+        ? "Use the current state and any selected provider packs to complete this node."
+        : "Use the current state to decide the next workflow update.",
+    code: kind === "condition" ? `return {"route": ${JSON.stringify(branches[0])}}` : "return {}",
     condition: kind === "condition" ? "return 'yes' when the state is ready" : "",
-    branches: kind === "condition" ? ["yes", "no"] : ["next"],
+    branches,
   });
   selectNode(id);
 }
@@ -662,7 +828,7 @@ function addCustomTool(name, description) {
     });
   }
   let node = nodeById(state.selectedNodeId);
-  if (!node || node.kind === "start" || node.kind === "end") {
+  if (!node || lockedNode(node) || !isAiNode(node)) {
     const position = nextPosition();
     const nodeId = `tool-${Date.now().toString(36)}-${state.nextNodeNumber}`;
     state.nextNodeNumber += 1;
@@ -674,6 +840,9 @@ function addCustomTool(name, description) {
       x: position.x,
       y: position.y,
       tools: [],
+      mode: "ai",
+      prompt: detail,
+      code: "return {}",
       condition: "",
       branches: ["next"],
     };
@@ -705,7 +874,7 @@ function resetGraph() {
 function loadSampleFlow(sampleId = state.sampleFlowId) {
   const sample = sampleFlows.find((item) => item.id === sampleId) || sampleFlows[0];
   pushHistorySnapshot();
-  state.nodes = cloneValue(sample.nodes);
+  state.nodes = normalizeNodes(cloneValue(sample.nodes));
   state.edges = cloneValue(sample.edges);
   state.sampleFlowId = sample.id;
   state.selectedNodeId = "start";
@@ -743,19 +912,25 @@ function renderNodes() {
     element.className = "node-card";
     element.dataset.id = node.id;
     element.dataset.kind = node.kind;
+    element.dataset.mode = nodeMode(node);
     element.style.left = `${node.x}px`;
     element.style.top = `${node.y}px`;
     if (state.selectedNodeId === node.id) element.classList.add("is-selected");
     if (state.connectSourceId === node.id) element.classList.add("is-connect-source");
-    const tools = node.tools.map((toolId) => `<span>${escapeHtml(toolLabel(toolId))}</span>`).join("");
+    const tools = isAiNode(node)
+      ? node.tools.map((toolId) => `<span>${escapeHtml(toolLabel(toolId))}</span>`).join("")
+      : '<span class="node-code-pill">Python</span>';
+    const modeBadge = lockedNode(node) ? "" : `<span class="node-mode-badge">${isAiNode(node) ? "AI" : "PY"}</span>`;
+    const summary = isAiNode(node) ? node.prompt || node.detail || nodeKinds[node.kind].description : node.detail || "Python code node.";
     const ports = renderNodePorts(node);
     element.innerHTML = `
       ${ports}
       <header>
         <span class="node-glyph">${escapeHtml(nodeKinds[node.kind].glyph)}</span>
         <h3>${escapeHtml(node.title)}</h3>
+        ${modeBadge}
       </header>
-      <p>${escapeHtml(node.detail || nodeKinds[node.kind].description)}</p>
+      <p>${escapeHtml(summary)}</p>
       <div class="node-tools">${tools}</div>
     `;
     attachNodeEvents(element, node);
@@ -1008,21 +1183,26 @@ function renderTools() {
   renderToolControls();
   const tools = filteredTools();
   const globalSearch = state.toolFilter.trim() ? " global search" : "";
-  els.toolMeta.textContent = `${tools.length} of ${allTools().length} tools${globalSearch}`;
+  const selectedNode = nodeById(state.selectedNodeId);
+  const canAttach = Boolean(selectedNode && isAiNode(selectedNode));
+  els.toolMeta.textContent = canAttach
+    ? `${tools.length} of ${allTools().length} provider packs${globalSearch}`
+    : `${tools.length} provider packs · select an AI node to attach`;
   els.toolList.innerHTML =
     tools
-      .map((tool) => renderToolChip(tool, "data-tool", nodeById(state.selectedNodeId)?.tools.includes(tool.id)))
+      .map((tool) => renderToolChip(tool, "data-tool", canAttach && selectedNode?.tools.includes(tool.id), !canAttach))
       .join("") || '<div class="inspector-empty">No tools match this filter.</div>';
   els.toolList.querySelectorAll("[data-tool]").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const node = nodeById(state.selectedNodeId);
-      if (!node || node.kind === "start" || node.kind === "end") return;
+      if (!node || !isAiNode(node)) return;
       const tool = button.dataset.tool;
       pushHistorySnapshot();
       if (node.tools.includes(tool)) {
         node.tools = node.tools.filter((item) => item !== tool);
       } else {
         node.tools.push(tool);
+        await ensureToolPack(tool);
       }
       render();
     });
@@ -1043,16 +1223,21 @@ function renderToolControls() {
     .join("");
 }
 
-function renderToolChip(tool, attributeName, selected = false) {
+function renderToolChip(tool, attributeName, selected = false, disabled = false) {
   const selectedClass = selected ? " is-selected" : "";
+  const disabledClass = disabled ? " is-disabled" : "";
   const mutates = tool.mutates ? '<span class="tool-chip-risk">writes</span>' : "";
+  const pack = tool.pack ? '<span class="tool-chip-pack">pack</span>' : "";
+  const status = state.packStatus[tool.id] ? `<span class="tool-chip-status">${escapeHtml(state.packStatus[tool.id])}</span>` : "";
   return `
-    <button class="tool-chip${selectedClass}" type="button" ${attributeName}="${escapeHtml(tool.id)}" title="${escapeHtml(tool.description)}">
+    <button class="tool-chip${selectedClass}${disabledClass}" type="button" ${attributeName}="${escapeHtml(tool.id)}" title="${escapeHtml(tool.description)}" ${disabled ? "disabled" : ""}>
       <span class="tool-chip-head">
         <span class="tool-chip-name">${escapeHtml(tool.name)}</span>
+        ${pack}
         ${mutates}
       </span>
       <span class="tool-chip-meta">${escapeHtml(tool.category)} · ${escapeHtml(toolCommandLabel(tool))}</span>
+      ${status}
     </button>
   `;
 }
@@ -1064,6 +1249,97 @@ function renderSamples() {
     .map((sample) => `<option value="${escapeHtml(sample.id)}" ${sample.id === state.sampleFlowId ? "selected" : ""}>${escapeHtml(sample.name)}</option>`)
     .join("");
   els.sampleFlowMeta.textContent = selected.description;
+}
+
+function validatePythonBlock(code, node) {
+  const messages = [];
+  const source = String(code || "").replace(/\r\n/g, "\n");
+  const trimmed = source.trim();
+  if (!trimmed) {
+    return [{ type: "warning", text: "Python code is empty." }];
+  }
+
+  const stack = [];
+  const pairs = { "(": ")", "[": "]", "{": "}" };
+  const closers = new Set(Object.values(pairs));
+  let quote = "";
+  let tripleQuote = "";
+  let escaped = false;
+  for (let index = 0; index < source.length; index += 1) {
+    const char = source[index];
+    const next3 = source.slice(index, index + 3);
+    if (tripleQuote) {
+      if (next3 === tripleQuote) {
+        tripleQuote = "";
+        index += 2;
+      }
+      continue;
+    }
+    if (quote) {
+      if (escaped) {
+        escaped = false;
+      } else if (char === "\\") {
+        escaped = true;
+      } else if (char === quote) {
+        quote = "";
+      }
+      continue;
+    }
+    if (next3 === "'''" || next3 === '"""') {
+      tripleQuote = next3;
+      index += 2;
+      continue;
+    }
+    if (char === "'" || char === '"') {
+      quote = char;
+      continue;
+    }
+    if (pairs[char]) stack.push(pairs[char]);
+    if (closers.has(char) && stack.pop() !== char) {
+      messages.push({ type: "warning", text: `Unbalanced delimiter near "${char}".` });
+      break;
+    }
+  }
+  if (quote || tripleQuote) messages.push({ type: "warning", text: "String literal is not closed." });
+  if (stack.length) messages.push({ type: "warning", text: `Missing closing delimiter "${stack.at(-1)}".` });
+
+  const lines = source.split("\n");
+  for (let index = 0; index < lines.length - 1; index += 1) {
+    const line = lines[index];
+    if (!line.trim() || line.trim().startsWith("#")) continue;
+    if (!line.trimEnd().endsWith(":")) continue;
+    const currentIndent = line.match(/^\s*/)[0].length;
+    const nextLine = lines.slice(index + 1).find((candidate) => candidate.trim() && !candidate.trim().startsWith("#"));
+    if (!nextLine) {
+      messages.push({ type: "warning", text: `Block starting on line ${index + 1} has no body.` });
+      continue;
+    }
+    const nextIndent = nextLine.match(/^\s*/)[0].length;
+    if (nextIndent <= currentIndent) {
+      messages.push({ type: "warning", text: `Line ${index + 1} opens a block but the following body is not indented.` });
+    }
+  }
+
+  if (/^\s*await\s+/m.test(source)) {
+    messages.push({ type: "warning", text: "Generated node functions are synchronous; remove top-level await." });
+  }
+  if (!/^\s*return\b/m.test(source)) {
+    messages.push({ type: "warning", text: "Add a return statement so LangGraph receives a state update dictionary." });
+  }
+  if (node?.kind === "condition" && !source.includes("route")) {
+    messages.push({ type: "warning", text: "Conditional code should return or set a route matching one of the branch labels." });
+  }
+
+  if (!messages.length) {
+    messages.push({ type: "ok", text: "Static Python block check passed." });
+  }
+  return messages;
+}
+
+function renderPythonCheckList(messages) {
+  return `<ul class="code-check-list">${messages
+    .map((message) => `<li class="${message.type === "warning" ? "is-warning" : "is-ok"}">${escapeHtml(message.text)}</li>`)
+    .join("")}</ul>`;
 }
 
 function renderInspector() {
@@ -1085,20 +1361,43 @@ function renderInspector() {
     return;
   }
 
+  const locked = lockedNode(node);
+  const mode = nodeMode(node);
   const branchEditor =
     node.kind === "condition"
       ? `
         <label>
-          Router note
-          <textarea data-node-field="condition">${escapeHtml(node.condition)}</textarea>
-        </label>
-        <label>
           Branch labels
-          <input data-node-field="branches" value="${escapeHtml(node.branches.join(", "))}">
+          <input data-node-field="branches" value="${escapeHtml(node.branches.join(", "))}" ${locked ? "readonly" : ""}>
         </label>
       `
       : "";
-  const locked = node.kind === "start" || node.kind === "end";
+  const modeEditor = locked
+    ? ""
+    : `
+      <div class="mode-toggle" role="group" aria-label="Node execution mode">
+        <button class="${mode === "ai" ? "is-active" : ""}" type="button" data-node-mode="ai" aria-pressed="${mode === "ai"}">AI-enabled</button>
+        <button class="${mode === "code" ? "is-active" : ""}" type="button" data-node-mode="code" aria-pressed="${mode === "code"}">Python code</button>
+      </div>
+    `;
+  const executionEditor =
+    locked
+      ? ""
+      : mode === "ai"
+        ? `
+          <label>
+            ${node.kind === "condition" ? "Router prompt" : "Prompt"}
+            <textarea data-node-field="prompt">${escapeHtml(node.prompt || defaultPromptForNode(node))}</textarea>
+          </label>
+        `
+        : `
+          <label>
+            Python code
+            <textarea class="python-editor" data-node-field="code" spellcheck="false">${escapeHtml(node.code || defaultCodeForNode(node))}</textarea>
+          </label>
+          <button class="console-button" type="button" data-check-code>Check code</button>
+          ${renderPythonCheckList(validatePythonBlock(node.code || defaultCodeForNode(node), node))}
+        `;
   els.inspector.innerHTML = `
     <section class="panel-section">
       <h2>${escapeHtml(nodeKinds[node.kind].label)} node</h2>
@@ -1108,22 +1407,39 @@ function renderInspector() {
           <input data-node-field="title" value="${escapeHtml(node.title)}" ${locked ? "readonly" : ""}>
         </label>
         <label>
-          State update
+          Canvas note
           <textarea data-node-field="detail" ${locked ? "readonly" : ""}>${escapeHtml(node.detail)}</textarea>
         </label>
+        ${modeEditor}
+        ${executionEditor}
         ${branchEditor}
       </div>
     </section>
-    <section class="panel-section">
-      <h2>Tools on this node</h2>
-      <div class="tool-list" data-inspector-tools></div>
-    </section>
+    ${
+      isAiNode(node)
+        ? `
+          <section class="panel-section">
+            <h2>Provider packs on this node</h2>
+            <div class="tool-list" data-inspector-tools></div>
+          </section>
+        `
+        : ""
+    }
     <section class="panel-section">
       <h2>Connectors</h2>
       <button class="console-button" type="button" data-connect-from="${escapeHtml(node.id)}">Connect from this node</button>
       ${locked ? "" : '<button class="console-button warning" type="button" data-delete-selected>Delete node</button>'}
     </section>
   `;
+
+  els.inspector.querySelectorAll("[data-node-mode]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.dataset.nodeMode === nodeMode(node)) return;
+      pushHistorySnapshot();
+      setNodeMode(node, button.dataset.nodeMode);
+      render();
+    });
+  });
 
   els.inspector.querySelectorAll("[data-node-field]").forEach((field) => {
     let didPushHistory = false;
@@ -1144,7 +1460,21 @@ function renderInspector() {
       renderEdges();
       renderCode();
       renderValidation();
+      if (field.dataset.nodeField === "code") {
+        const checkList = els.inspector.querySelector(".code-check-list");
+        if (checkList) {
+          checkList.outerHTML = renderPythonCheckList(validatePythonBlock(field.value, node));
+        }
+      }
     });
+  });
+
+  els.inspector.querySelector("[data-check-code]")?.addEventListener("click", () => {
+    const checkList = els.inspector.querySelector(".code-check-list");
+    if (checkList) {
+      checkList.outerHTML = renderPythonCheckList(validatePythonBlock(node.code || defaultCodeForNode(node), node));
+    }
+    renderValidation();
   });
 
   const connectButton = els.inspector.querySelector("[data-connect-from]");
@@ -1159,7 +1489,7 @@ function renderInspector() {
 
 function renderInspectorTools(node) {
   const container = els.inspector.querySelector("[data-inspector-tools]");
-  if (!container) return;
+  if (!container || !isAiNode(node)) return;
   const filtered = filteredTools();
   const renderedIds = new Set(filtered.map((tool) => tool.id));
   const selectedOutsideFilter = allTools().filter((tool) => node.tools.includes(tool.id) && !renderedIds.has(tool.id));
@@ -1168,13 +1498,14 @@ function renderInspectorTools(node) {
     tools.map((tool) => renderToolChip(tool, "data-inspector-tool", node.tools.includes(tool.id))).join("") ||
     '<div class="inspector-empty">No tools match this filter.</div>';
   container.querySelectorAll("[data-inspector-tool]").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const tool = button.dataset.inspectorTool;
       pushHistorySnapshot();
       if (node.tools.includes(tool)) {
         node.tools = node.tools.filter((item) => item !== tool);
       } else {
         node.tools.push(tool);
+        await ensureToolPack(tool);
       }
       render();
     });
@@ -1234,10 +1565,22 @@ function validateGraph() {
         messages.push({ type: "warning", text: `${node.title} is missing branch edges for ${missing.join(", ")}.` });
       }
     }
-    for (const toolId of node.tools) {
-      const tool = toolById(toolId);
-      if (!tool) {
-        messages.push({ type: "warning", text: `${node.title} references a missing tool: ${toolId}.` });
+    if (isAiNode(node)) {
+      if (!String(node.prompt || "").trim()) {
+        messages.push({ type: "warning", text: `${node.title} is AI-enabled but has no prompt.` });
+      }
+      for (const toolId of node.tools) {
+        const tool = toolById(toolId);
+        if (!tool) {
+          messages.push({ type: "warning", text: `${node.title} references a missing provider pack: ${toolId}.` });
+        }
+      }
+    } else if (!lockedNode(node)) {
+      const codeMessages = validatePythonBlock(node.code || defaultCodeForNode(node), node).filter(
+        (message) => message.type === "warning",
+      );
+      for (const message of codeMessages) {
+        messages.push({ type: "warning", text: `${node.title}: ${message.text}` });
       }
     }
   }
@@ -1275,6 +1618,12 @@ function pythonLiteral(value) {
   return pythonString(value);
 }
 
+function commandsForPack(tool) {
+  const loadedCommands = state.loadedPacks[tool.id]?.commands;
+  if (Array.isArray(loadedCommands) && loadedCommands.length) return loadedCommands;
+  return Array.isArray(tool.commands) ? tool.commands : [];
+}
+
 function generatePython() {
   const regularNodes = state.nodes.filter((node) => !["start", "end"].includes(node.kind));
   const usedNames = new Set();
@@ -1287,7 +1636,8 @@ function generatePython() {
     .map(toolById)
     .filter(Boolean);
   const commandTools = selectedTools.filter((tool) => tool.command.length);
-  const stubTools = selectedTools.filter((tool) => !tool.command.length);
+  const packTools = selectedTools.filter((tool) => tool.pack);
+  const stubTools = selectedTools.filter((tool) => !tool.command.length && !tool.pack);
   const toolRegistry = Object.fromEntries(
     commandTools.map((tool) => [
       tool.id,
@@ -1301,9 +1651,33 @@ function generatePython() {
       },
     ]),
   );
+  const packRegistry = Object.fromEntries(
+    packTools.map((tool) => [
+      tool.id,
+      {
+        name: tool.name,
+        category: tool.category,
+        description: tool.description,
+        default_command_id: tool.defaults.command_id || commandsForPack(tool)[0]?.id || "",
+        mutates: tool.mutates,
+        commands: Object.fromEntries(
+          commandsForPack(tool).map((command) => [
+            command.id,
+            {
+              name: command.name,
+              description: command.description,
+              command: command.command,
+              defaults: command.defaults,
+              mutates: command.mutates,
+            },
+          ]),
+        ),
+      },
+    ]),
+  );
 
   const lines = ["from typing import Any, Literal, TypedDict"];
-  if (commandTools.length) lines.push("import subprocess");
+  if (commandTools.length || packTools.length) lines.push("import subprocess");
   lines.push(
     "",
     "from langgraph.graph import END, START, StateGraph",
@@ -1319,8 +1693,9 @@ function generatePython() {
     "",
   );
 
-  if (commandTools.length) {
+  if (commandTools.length || packTools.length) {
     lines.push(`TOOL_REGISTRY: dict[str, dict[str, Any]] = ${pythonLiteral(toolRegistry)}`);
+    lines.push(`PACK_REGISTRY: dict[str, dict[str, Any]] = ${pythonLiteral(packRegistry)}`);
     lines.push("");
     lines.push("");
     lines.push("def _format_command(template: list[str], values: dict[str, str]) -> list[str]:");
@@ -1358,6 +1733,36 @@ function generatePython() {
     lines.push("        \"stderr\": completed.stderr,");
     lines.push("    }");
 
+    lines.push("");
+    lines.push("");
+    lines.push("def run_pack_tool(pack_id: str, state: AgentState) -> dict[str, Any]:");
+    lines.push("    pack = PACK_REGISTRY[pack_id]");
+    lines.push("    pack_args = state.get(\"tool_args\", {}).get(pack_id, {})");
+    lines.push("    command_id = pack_args.get(\"command_id\") or pack.get(\"default_command_id\")");
+    lines.push("    command_spec = pack.get(\"commands\", {}).get(command_id)");
+    lines.push("    if not command_spec:");
+    lines.push("        available = \", \".join(sorted(pack.get(\"commands\", {}).keys()))");
+    lines.push("        raise RuntimeError(f\"Pack {pack['name']} has no command {command_id!r}. Available: {available}\")");
+    lines.push("    if (pack.get(\"mutates\") or command_spec.get(\"mutates\")) and not state.get(\"approvals\", {}).get(pack_id):");
+    lines.push("        raise PermissionError(f\"Pack {pack['name']} can change external state; set approvals[{pack_id!r}] = True to run it.\")");
+    lines.push("    values = {**command_spec.get(\"defaults\", {}), **{key: value for key, value in pack_args.items() if key != \"command_id\"}}");
+    lines.push("    command = _format_command(command_spec[\"command\"], values)");
+    lines.push("    completed = subprocess.run(");
+    lines.push("        command,");
+    lines.push("        cwd=state.get(\"cwd\") or None,");
+    lines.push("        text=True,");
+    lines.push("        capture_output=True,");
+    lines.push("        check=False,");
+    lines.push("    )");
+    lines.push("    return {");
+    lines.push("        \"tool\": pack[\"name\"],");
+    lines.push("        \"command_id\": command_id,");
+    lines.push("        \"command\": command,");
+    lines.push("        \"returncode\": completed.returncode,");
+    lines.push("        \"stdout\": completed.stdout,");
+    lines.push("        \"stderr\": completed.stderr,");
+    lines.push("    }");
+
     for (const tool of commandTools) {
       const functionName = `run_${sanitizeIdentifier(tool.id, "tool")}`;
       lines.push("");
@@ -1365,6 +1770,14 @@ function generatePython() {
       lines.push(`def ${functionName}(state: AgentState) -> dict[str, Any]:`);
       lines.push(`    \"\"\"${tool.description || `Run ${tool.name}.`}\"\"\"`);
       lines.push(`    return run_cli_tool(${pythonString(tool.id)}, state)`);
+    }
+    for (const tool of packTools) {
+      const functionName = `run_${sanitizeIdentifier(tool.id, "tool")}`;
+      lines.push("");
+      lines.push("");
+      lines.push(`def ${functionName}(state: AgentState) -> dict[str, Any]:`);
+      lines.push(`    \"\"\"${tool.description || `Run a command from the ${tool.name} pack.`}\"\"\"`);
+      lines.push(`    return run_pack_tool(${pythonString(tool.id)}, state)`);
     }
     lines.push("");
   }
@@ -1712,11 +2125,42 @@ async function loadToolCatalog() {
     if (!tools.length) throw new Error("Tool catalog is empty.");
     state.toolCatalog = tools;
     state.catalogError = "";
+    await loadCommandPacks(tools);
   } catch (error) {
     state.toolCatalog = [...fallbackToolCatalog];
     state.catalogError = `Tool catalog unavailable; using ${fallbackToolCatalog.length} starter tools.`;
     console.warn(state.catalogError, error);
+    await loadCommandPacks(state.toolCatalog);
   }
+}
+
+async function loadCommandPacks(tools) {
+  state.loadedPacks = {};
+  state.packStatus = {};
+  await Promise.all(
+    tools
+      .filter((tool) => tool.pack && tool.commandPackUrl)
+      .map(async (tool) => {
+        try {
+          const response = await fetch(tool.commandPackUrl, { cache: "no-store" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const payload = await response.json();
+          const packTool = normalizeTool({
+            ...tool,
+            commands: Array.isArray(payload.commands) ? payload.commands : [],
+          });
+          state.loadedPacks[tool.id] = {
+            id: tool.id,
+            name: payload.name || tool.name,
+            commands: packTool.commands,
+          };
+          state.packStatus[tool.id] = `${packTool.commands.length} loaded`;
+        } catch (error) {
+          state.packStatus[tool.id] = "unavailable";
+          console.warn(`Command pack unavailable for ${tool.name}.`, error);
+        }
+      }),
+  );
 }
 
 function init() {

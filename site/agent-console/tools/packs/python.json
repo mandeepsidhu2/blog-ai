@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "updated": "2026-06-29",
+  "id": "python",
+  "name": "Python",
+  "binary": "python",
+  "sourceCategory": "Python",
+  "description": "Python command pack generated from the console's Python command catalog.",
+  "commands": [
+    {
+      "id": "python_pytest",
+      "name": "pytest",
+      "description": "Run Python tests with pytest.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "{path}"
+      ],
+      "subcommand": [
+        "-m",
+        "pytest",
+        "{path}"
+      ],
+      "defaults": {
+        "path": "tests"
+      },
+      "mutates": false
+    },
+    {
+      "id": "python_ruff_check",
+      "name": "ruff check",
+      "description": "Run Ruff lint checks.",
+      "command": [
+        "python",
+        "-m",
+        "ruff",
+        "check",
+        "{path}"
+      ],
+      "subcommand": [
+        "-m",
+        "ruff",
+        "check",
+        "{path}"
+      ],
+      "defaults": {
+        "path": "."
+      },
+      "mutates": false
+    },
+    {
+      "id": "python_ruff_format_check",
+      "name": "ruff format check",
+      "description": "Check Python formatting with Ruff.",
+      "command": [
+        "python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "{path}"
+      ],
+      "subcommand": [
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "{path}"
+      ],
+      "defaults": {
+        "path": "."
+      },
+      "mutates": false
+    },
+    {
+      "id": "python_mypy",
+      "name": "mypy",
+      "description": "Run mypy type checks.",
+      "command": [
+        "python",
+        "-m",
+        "mypy",
+        "{path}"
+      ],
+      "subcommand": [
+        "-m",
+        "mypy",
+        "{path}"
+      ],
+      "defaults": {
+        "path": "."
+      },
+      "mutates": false
+    },
+    {
+      "id": "python_pip_install_requirements",
+      "name": "pip install requirements",
+      "description": "Install Python dependencies from a requirements file.",
+      "command": [
+        "python",
+        "-m",
+        "pip",
+        "install",
+        "-r",
+        "{requirements}"
+      ],
+      "subcommand": [
+        "-m",
+        "pip",
+        "install",
+        "-r",
+        "{requirements}"
+      ],
+      "defaults": {
+        "requirements": "requirements.txt"
+      },
+      "mutates": true
+    },
+    {
+      "id": "python_module_run",
+      "name": "python module run",
+      "description": "Run a Python module with optional arguments.",
+      "command": [
+        "python",
+        "-m",
+        "{module}",
+        "{args}"
+      ],
+      "subcommand": [
+        "-m",
+        "{module}",
+        "{args}"
+      ],
+      "defaults": {
+        "module": "module_name",
+        "args": ""
+      },
+      "mutates": false
+    },
+    {
+      "id": "python_uv_sync",
+      "name": "uv sync",
+      "description": "Sync Python project dependencies with uv.",
+      "command": [
+        "uv",
+        "sync"
+      ],
+      "subcommand": [
+        "uv",
+        "sync"
+      ],
+      "defaults": {},
+      "mutates": true
+    },
+    {
+      "id": "python_poetry_install",
+      "name": "poetry install",
+      "description": "Install Python project dependencies with Poetry.",
+      "command": [
+        "poetry",
+        "install"
+      ],
+      "subcommand": [
+        "poetry",
+        "install"
+      ],
+      "defaults": {},
+      "mutates": true
+    }
+  ]
+}

@@ -114,9 +114,10 @@ Then inspect:
 - Code and output snippets must remain readable on mobile and desktop.
 - The `/agent-console/` route is a separate tool surface. Keep its logic and
   assets isolated from tutorial search, article rendering, and content payloads.
-- Agent-console tool metadata lives in `site/agent-console/tools/catalog.json`;
-  selected catalog tools may be emitted into downloaded LangGraph Python, but
-  the catalog must stay static and browser-loadable.
+- Agent-console provider metadata lives in `site/agent-console/tools/catalog.json`;
+  command packs live in `site/agent-console/tools/packs/*.json`. Both must stay
+  static and browser-loadable, and selected provider packs may be emitted into
+  downloaded LangGraph Python.
 - The console includes loadable sample agent flows, custom tool stubs, and
   local browser persistence. Keep those behaviors isolated to
   `site/agent-console/`.

@@ -1,0 +1,183 @@
+{
+  "version": 1,
+  "updated": "2026-06-29",
+  "id": "git",
+  "name": "Git",
+  "binary": "git",
+  "sourceCategory": "Git",
+  "description": "Git command pack generated from the console's Git command catalog.",
+  "commands": [
+    {
+      "id": "git_status",
+      "name": "Git status",
+      "description": "Show the short working tree status for the current repository.",
+      "command": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "subcommand": [
+        "status",
+        "--short"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "git_log",
+      "name": "Git log",
+      "description": "Show the most recent commits in compact one-line form.",
+      "command": [
+        "git",
+        "log",
+        "--oneline",
+        "-n",
+        "{limit}"
+      ],
+      "subcommand": [
+        "log",
+        "--oneline",
+        "-n",
+        "{limit}"
+      ],
+      "defaults": {
+        "limit": "12"
+      },
+      "mutates": false
+    },
+    {
+      "id": "git_diff",
+      "name": "Git diff",
+      "description": "Show unstaged changes in the working tree.",
+      "command": [
+        "git",
+        "diff"
+      ],
+      "subcommand": [
+        "diff"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "git_diff_staged",
+      "name": "Git diff staged",
+      "description": "Show staged changes that are ready to commit.",
+      "command": [
+        "git",
+        "diff",
+        "--cached"
+      ],
+      "subcommand": [
+        "diff",
+        "--cached"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "git_branch_list",
+      "name": "Git branch list",
+      "description": "List local and remote branches.",
+      "command": [
+        "git",
+        "branch",
+        "--all"
+      ],
+      "subcommand": [
+        "branch",
+        "--all"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "git_checkout_branch",
+      "name": "Git checkout branch",
+      "description": "Switch the working tree to an existing branch.",
+      "command": [
+        "git",
+        "checkout",
+        "{branch}"
+      ],
+      "subcommand": [
+        "checkout",
+        "{branch}"
+      ],
+      "defaults": {
+        "branch": "main"
+      },
+      "mutates": true
+    },
+    {
+      "id": "git_create_branch",
+      "name": "Git create branch",
+      "description": "Create and switch to a new branch.",
+      "command": [
+        "git",
+        "checkout",
+        "-b",
+        "{branch}"
+      ],
+      "subcommand": [
+        "checkout",
+        "-b",
+        "{branch}"
+      ],
+      "defaults": {
+        "branch": "feature/agent-workflow"
+      },
+      "mutates": true
+    },
+    {
+      "id": "git_pull_rebase",
+      "name": "Git pull rebase",
+      "description": "Fetch and rebase the current branch onto its upstream.",
+      "command": [
+        "git",
+        "pull",
+        "--rebase"
+      ],
+      "subcommand": [
+        "pull",
+        "--rebase"
+      ],
+      "defaults": {},
+      "mutates": true
+    },
+    {
+      "id": "git_commit_all",
+      "name": "Git commit all",
+      "description": "Commit tracked changes with a supplied commit message.",
+      "command": [
+        "git",
+        "commit",
+        "-am",
+        "{message}"
+      ],
+      "subcommand": [
+        "commit",
+        "-am",
+        "{message}"
+      ],
+      "defaults": {
+        "message": "agent workflow update"
+      },
+      "mutates": true
+    },
+    {
+      "id": "git_push",
+      "name": "Git push",
+      "description": "Push the current branch to its configured upstream remote.",
+      "command": [
+        "git",
+        "push"
+      ],
+      "subcommand": [
+        "push"
+      ],
+      "defaults": {},
+      "mutates": true
+    }
+  ]
+}

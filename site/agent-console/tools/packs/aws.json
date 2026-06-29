@@ -1,0 +1,271 @@
+{
+  "version": 1,
+  "updated": "2026-06-29",
+  "id": "aws",
+  "name": "AWS",
+  "binary": "aws",
+  "sourceCategory": "AWS",
+  "description": "AWS command pack generated from the console's AWS command catalog.",
+  "commands": [
+    {
+      "id": "aws_sts_identity",
+      "name": "AWS caller identity",
+      "description": "Show the active AWS account, ARN, and user identity.",
+      "command": [
+        "aws",
+        "sts",
+        "get-caller-identity"
+      ],
+      "subcommand": [
+        "sts",
+        "get-caller-identity"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "aws_s3_list",
+      "name": "AWS S3 list",
+      "description": "List S3 buckets or objects at a bucket URI.",
+      "command": [
+        "aws",
+        "s3",
+        "ls",
+        "{uri}"
+      ],
+      "subcommand": [
+        "s3",
+        "ls",
+        "{uri}"
+      ],
+      "defaults": {
+        "uri": "s3://"
+      },
+      "mutates": false
+    },
+    {
+      "id": "aws_s3_sync_upload",
+      "name": "AWS S3 sync upload",
+      "description": "Sync a local directory to an S3 prefix.",
+      "command": [
+        "aws",
+        "s3",
+        "sync",
+        "{source}",
+        "{destination}"
+      ],
+      "subcommand": [
+        "s3",
+        "sync",
+        "{source}",
+        "{destination}"
+      ],
+      "defaults": {
+        "source": "dist/app",
+        "destination": "s3://example-bucket/prefix"
+      },
+      "mutates": true
+    },
+    {
+      "id": "aws_s3_sync_download",
+      "name": "AWS S3 sync download",
+      "description": "Sync an S3 prefix to a local directory.",
+      "command": [
+        "aws",
+        "s3",
+        "sync",
+        "{source}",
+        "{destination}"
+      ],
+      "subcommand": [
+        "s3",
+        "sync",
+        "{source}",
+        "{destination}"
+      ],
+      "defaults": {
+        "source": "s3://example-bucket/prefix",
+        "destination": "./downloaded"
+      },
+      "mutates": true
+    },
+    {
+      "id": "aws_cloudfront_invalidate",
+      "name": "AWS CloudFront invalidate",
+      "description": "Create a CloudFront invalidation for one or more paths.",
+      "command": [
+        "aws",
+        "cloudfront",
+        "create-invalidation",
+        "--distribution-id",
+        "{distribution_id}",
+        "--paths",
+        "{paths}"
+      ],
+      "subcommand": [
+        "cloudfront",
+        "create-invalidation",
+        "--distribution-id",
+        "{distribution_id}",
+        "--paths",
+        "{paths}"
+      ],
+      "defaults": {
+        "distribution_id": "DISTRIBUTION_ID",
+        "paths": "/*"
+      },
+      "mutates": true
+    },
+    {
+      "id": "aws_ec2_describe_instances",
+      "name": "AWS EC2 describe instances",
+      "description": "Describe EC2 instances in the active region.",
+      "command": [
+        "aws",
+        "ec2",
+        "describe-instances"
+      ],
+      "subcommand": [
+        "ec2",
+        "describe-instances"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "aws_lambda_list_functions",
+      "name": "AWS Lambda list functions",
+      "description": "List Lambda functions in the active region.",
+      "command": [
+        "aws",
+        "lambda",
+        "list-functions"
+      ],
+      "subcommand": [
+        "lambda",
+        "list-functions"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "aws_lambda_update_code",
+      "name": "AWS Lambda update code",
+      "description": "Update a Lambda function from an S3 object.",
+      "command": [
+        "aws",
+        "lambda",
+        "update-function-code",
+        "--function-name",
+        "{function_name}",
+        "--s3-bucket",
+        "{bucket}",
+        "--s3-key",
+        "{key}"
+      ],
+      "subcommand": [
+        "lambda",
+        "update-function-code",
+        "--function-name",
+        "{function_name}",
+        "--s3-bucket",
+        "{bucket}",
+        "--s3-key",
+        "{key}"
+      ],
+      "defaults": {
+        "function_name": "function-name",
+        "bucket": "deployment-bucket",
+        "key": "lambda.zip"
+      },
+      "mutates": true
+    },
+    {
+      "id": "aws_ecs_list_services",
+      "name": "AWS ECS list services",
+      "description": "List ECS services in a cluster.",
+      "command": [
+        "aws",
+        "ecs",
+        "list-services",
+        "--cluster",
+        "{cluster}"
+      ],
+      "subcommand": [
+        "ecs",
+        "list-services",
+        "--cluster",
+        "{cluster}"
+      ],
+      "defaults": {
+        "cluster": "default"
+      },
+      "mutates": false
+    },
+    {
+      "id": "aws_cloudwatch_logs_tail",
+      "name": "AWS CloudWatch logs tail",
+      "description": "Tail a CloudWatch Logs group.",
+      "command": [
+        "aws",
+        "logs",
+        "tail",
+        "{log_group}",
+        "--since",
+        "{since}"
+      ],
+      "subcommand": [
+        "logs",
+        "tail",
+        "{log_group}",
+        "--since",
+        "{since}"
+      ],
+      "defaults": {
+        "log_group": "/aws/lambda/example",
+        "since": "1h"
+      },
+      "mutates": false
+    },
+    {
+      "id": "aws_cloudformation_describe_stacks",
+      "name": "AWS CloudFormation describe stacks",
+      "description": "Describe CloudFormation stacks in the active region.",
+      "command": [
+        "aws",
+        "cloudformation",
+        "describe-stacks"
+      ],
+      "subcommand": [
+        "cloudformation",
+        "describe-stacks"
+      ],
+      "defaults": {},
+      "mutates": false
+    },
+    {
+      "id": "aws_ssm_get_parameter",
+      "name": "AWS SSM get parameter",
+      "description": "Read a Systems Manager Parameter Store value.",
+      "command": [
+        "aws",
+        "ssm",
+        "get-parameter",
+        "--name",
+        "{name}",
+        "--with-decryption"
+      ],
+      "subcommand": [
+        "ssm",
+        "get-parameter",
+        "--name",
+        "{name}",
+        "--with-decryption"
+      ],
+      "defaults": {
+        "name": "/app/config/example"
+      },
+      "mutates": false
+    }
+  ]
+}
