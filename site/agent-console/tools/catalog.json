@@ -184,6 +184,42 @@
       "pack": true
     },
     {
+      "id": "twitter",
+      "name": "Twitter / X",
+      "category": "Social",
+      "description": "Twitter/X provider-level API pack. Select the pack once, then choose from posts, users, streams, lists, spaces, DMs, communities, notes, media, news, and trend operations.",
+      "binary": "curl",
+      "commandPackUrl": "/agent-console/tools/packs/twitter.json",
+      "storage": {
+        "kind": "s3-object",
+        "key": "agent-console/tools/packs/twitter.json",
+        "note": "Hosted with the static app origin; fetch on selection keeps the starter catalog small."
+      },
+      "defaults": {
+        "command_id": "twitter_recent_search"
+      },
+      "mutates": true,
+      "pack": true
+    },
+    {
+      "id": "reddit",
+      "name": "Reddit",
+      "category": "Social",
+      "description": "Reddit provider-level API pack. Select the pack once, then choose from identity, subreddit, listing, search, post, comment, message, live thread, moderation, modmail, user, and wiki operations.",
+      "binary": "curl",
+      "commandPackUrl": "/agent-console/tools/packs/reddit.json",
+      "storage": {
+        "kind": "s3-object",
+        "key": "agent-console/tools/packs/reddit.json",
+        "note": "Hosted with the static app origin; fetch on selection keeps the starter catalog small."
+      },
+      "defaults": {
+        "command_id": "reddit_global_search"
+      },
+      "mutates": true,
+      "pack": true
+    },
+    {
       "id": "make",
       "name": "Make",
       "category": "Runtime",

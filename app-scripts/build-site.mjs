@@ -777,103 +777,128 @@ function renderAgentConsolePage() {
         <h1>LangGraph Agent Console</h1>
         <p>Agent topology compiler</p>
       </div>
-      <div class="console-header-actions">
-        <button class="console-button" type="button" id="copy-code" title="Copy generated Python">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 8h10v12H8z"/><path d="M6 16H4V4h12v2"/></svg>
-          Copy
-        </button>
-        <button class="console-button primary" type="button" id="download-code" title="Download LangGraph Python">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-          Download Python
-        </button>
-      </div>
     </header>
 
     <main class="console-workbench">
-      <aside class="console-sidebar" aria-label="Graph palette">
-        <section class="panel-section">
-          <h2>Add nodes</h2>
-          <div class="node-palette">
-            <button class="node-action" type="button" data-add-node="step" data-kind="step" title="Drag node to canvas">
+      <aside class="console-sidebar" aria-label="Graph inspector and tools">
+        <details class="sidebar-group sidebar-group-selected" aria-labelledby="selected-item-heading" open>
+          <summary class="sidebar-group-header">
+            <span class="sidebar-group-title" id="selected-item-heading">Selected item</span>
+            <span class="sidebar-group-description">Edit the active node or connector.</span>
+          </summary>
+          <div class="sidebar-group-body inspector-region" id="inspector" aria-label="Inspector"></div>
+        </details>
+
+        <details class="sidebar-group sidebar-group-library" aria-labelledby="workspace-library-heading" open>
+          <summary class="sidebar-group-header">
+            <span class="sidebar-group-title" id="workspace-library-heading">Workspace library</span>
+            <span class="sidebar-group-description">Load examples, attach provider packs, and inspect graph checks.</span>
+          </summary>
+          <div class="sidebar-group-body workspace-library-body">
+
+          <details class="panel-disclosure library-disclosure">
+            <summary>Samples</summary>
+            <div class="library-disclosure-body">
+              <div class="sample-flow-row">
+                <label class="sr-only" for="sample-flow-select">Sample flow</label>
+                <select id="sample-flow-select" aria-label="Sample flow"></select>
+                <button class="console-button" type="button" id="load-sample-flow">Load</button>
+              </div>
+              <div class="sample-flow-meta" id="sample-flow-meta"></div>
+            </div>
+          </details>
+
+          <details class="panel-disclosure library-disclosure" open>
+            <summary>Provider packs</summary>
+            <div class="library-disclosure-body">
+              <div class="tool-library-controls">
+                <label class="sr-only" for="tool-search-input">Search provider packs</label>
+                <input id="tool-search-input" type="search" placeholder="Search provider packs">
+                <label class="sr-only" for="tool-category-filter">Filter provider pack category</label>
+                <select id="tool-category-filter" aria-label="Filter provider pack category"></select>
+              </div>
+              <div class="tool-library-meta" id="tool-library-meta"></div>
+              <div class="tool-list" id="tool-list"></div>
+              <details class="panel-disclosure">
+                <summary>Custom tool</summary>
+                <form class="custom-tool-form" id="add-tool-form">
+                  <label class="sr-only" for="custom-tool-input">Custom tool name</label>
+                  <input id="custom-tool-input" type="text" placeholder="Tool name">
+                  <label class="sr-only" for="custom-tool-description">Custom tool description</label>
+                  <textarea id="custom-tool-description" placeholder="Description / contract"></textarea>
+                  <button class="console-icon-button" type="submit" title="Add custom tool">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                  </button>
+                </form>
+              </details>
+            </div>
+          </details>
+
+          <details class="panel-disclosure library-disclosure" open>
+            <summary>Graph checks</summary>
+            <div class="library-disclosure-body">
+              <ul class="validation-list" id="validation-list"></ul>
+            </div>
+          </details>
+          </div>
+        </details>
+      </aside>
+
+      <button class="panel-resize-handle panel-resize-handle-left" type="button" id="resize-sidebar" title="Resize left panel" aria-label="Resize left panel"></button>
+
+      <section class="canvas-shell" aria-label="LangGraph canvas">
+        <div class="canvas-toolbar">
+          <div class="toolbar-node-actions" aria-label="Add graph nodes">
+            <button class="node-action toolbar-node-action" type="button" data-add-node="step" data-kind="step" title="Add node" aria-label="Add node" data-tooltip="Add node">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M9 9h6M9 13h6"/></svg>
               Node
             </button>
-            <button class="node-action" type="button" data-add-node="condition" data-kind="condition" title="Drag conditional router to canvas">
+            <button class="node-action toolbar-node-action" type="button" data-add-node="condition" data-kind="condition" title="Add conditional" aria-label="Add conditional" data-tooltip="Add conditional">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v4"/><path d="M6 13h12"/><path d="M12 17v4"/><path d="M8 7h8v10H8z"/></svg>
               Conditional
             </button>
           </div>
-        </section>
-
-        <section class="panel-section">
-          <h2>Samples</h2>
-          <div class="sample-flow-row">
-            <label class="sr-only" for="sample-flow-select">Sample flow</label>
-            <select id="sample-flow-select" aria-label="Sample flow"></select>
-            <button class="console-button" type="button" id="load-sample-flow">Load</button>
-          </div>
-          <div class="sample-flow-meta" id="sample-flow-meta"></div>
-        </section>
-
-        <section class="panel-section">
-          <h2>Provider packs</h2>
-          <div class="tool-library-controls">
-            <label class="sr-only" for="tool-search-input">Search provider packs</label>
-            <input id="tool-search-input" type="search" placeholder="Search provider packs">
-            <label class="sr-only" for="tool-category-filter">Filter provider pack category</label>
-            <select id="tool-category-filter" aria-label="Filter provider pack category"></select>
-          </div>
-          <div class="tool-library-meta" id="tool-library-meta"></div>
-          <div class="tool-list" id="tool-list"></div>
-          <details class="panel-disclosure">
-            <summary>Custom tool</summary>
-            <form class="custom-tool-form" id="add-tool-form">
-              <label class="sr-only" for="custom-tool-input">Custom tool name</label>
-              <input id="custom-tool-input" type="text" placeholder="Tool name">
-              <label class="sr-only" for="custom-tool-description">Custom tool description</label>
-              <textarea id="custom-tool-description" placeholder="Description / contract"></textarea>
-              <button class="console-icon-button" type="submit" title="Add custom tool">
-                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-              </button>
-            </form>
-          </details>
-        </section>
-
-        <section class="panel-section">
-          <h2>Graph checks</h2>
-          <ul class="validation-list" id="validation-list"></ul>
-        </section>
-      </aside>
-
-      <section class="canvas-shell" aria-label="LangGraph canvas">
-        <div class="canvas-toolbar">
-          <button class="toolbar-button" type="button" id="toggle-sidebar" title="Toggle graph library" aria-pressed="false">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16"/><path d="M4 12h10"/><path d="M4 19h16"/></svg>
-          </button>
-          <button class="toolbar-button" type="button" id="toggle-inspector" title="Toggle inspector" aria-pressed="false">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M14 5v14"/></svg>
-          </button>
-          <button class="toolbar-button" type="button" id="connect-mode" title="Start connector from selected node">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 8a3 3 0 1 0 0.1 0"/><path d="M18 16a3 3 0 1 0 0.1 0"/><path d="M8.5 9.5 15.5 14.5"/></svg>
-          </button>
-          <button class="toolbar-button" type="button" id="delete-selected" title="Delete selected node or connector">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M8 11v7M16 11v7"/><path d="M6 7l1 14h10l1-14"/></svg>
-          </button>
-          <button class="toolbar-button" type="button" id="reset-graph" title="Reset graph">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v6h6"/></svg>
-          </button>
-          <button class="toolbar-button" type="button" id="zoom-out" title="Zoom out diagram">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M21 21l-4.5-4.5"/><path d="M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg>
-          </button>
-          <button class="toolbar-button" type="button" id="zoom-reset" title="Reset diagram zoom">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/><path d="M9 12h6"/></svg>
-          </button>
-          <button class="toolbar-button" type="button" id="zoom-in" title="Zoom in diagram">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M11 8v8M7 12h8"/><path d="M21 21l-4.5-4.5"/><path d="M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg>
-          </button>
-          <span class="zoom-pill" id="zoom-label">100%</span>
           <span class="toolbar-spacer"></span>
-          <span class="status-pill" id="status-pill">Ready</span>
+          <div class="toolbar-action-group" aria-label="Graph and code controls">
+            <span class="status-pill" id="status-pill">Ready</span>
+            <button class="toolbar-button" type="button" id="toggle-sidebar" title="Hide or show left inspector and tools" aria-label="Hide or show left inspector and tools" data-tooltip="Left panel" aria-pressed="false">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16"/><path d="M4 12h10"/><path d="M4 19h16"/></svg>
+            </button>
+            <button class="toolbar-button" type="button" id="toggle-inspector" title="Hide or show right code panel" aria-label="Hide or show right code panel" data-tooltip="Right code" aria-pressed="false">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M14 5v14"/></svg>
+            </button>
+            <button class="toolbar-button" type="button" id="connect-mode" title="Connect from selected node" aria-label="Connect from selected node" data-tooltip="Connect">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 8a3 3 0 1 0 0.1 0"/><path d="M18 16a3 3 0 1 0 0.1 0"/><path d="M8.5 9.5 15.5 14.5"/></svg>
+            </button>
+            <button class="toolbar-button" type="button" id="delete-selected" title="Delete selected node or connector" aria-label="Delete selected node or connector" data-tooltip="Delete">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M8 11v7M16 11v7"/><path d="M6 7l1 14h10l1-14"/></svg>
+            </button>
+            <button class="toolbar-button" type="button" id="reset-graph" title="Reset graph" aria-label="Reset graph" data-tooltip="Reset">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v6h6"/></svg>
+            </button>
+            <button class="toolbar-button" type="button" id="zoom-out" title="Zoom out diagram" aria-label="Zoom out diagram" data-tooltip="Zoom out">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M21 21l-4.5-4.5"/><path d="M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg>
+            </button>
+            <button class="toolbar-button" type="button" id="zoom-reset" title="Reset diagram zoom" aria-label="Reset diagram zoom" data-tooltip="Reset zoom">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/><path d="M9 12h6"/></svg>
+            </button>
+            <button class="toolbar-button" type="button" id="zoom-in" title="Zoom in diagram" aria-label="Zoom in diagram" data-tooltip="Zoom in">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M11 8v8M7 12h8"/><path d="M21 21l-4.5-4.5"/><path d="M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg>
+            </button>
+            <span class="zoom-pill" id="zoom-label">100%</span>
+            <button class="toolbar-button" type="button" id="copy-code" title="Copy generated Python" aria-label="Copy generated Python" data-tooltip="Copy code">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 8h10v12H8z"/><path d="M6 16H4V4h12v2"/></svg>
+            </button>
+            <button class="toolbar-button" type="button" id="download-code" title="Download generated Python" aria-label="Download generated Python" data-tooltip="Download">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            </button>
+            <button class="toolbar-button" type="button" id="fullscreen-code" title="View code full screen" aria-label="View code full screen" data-tooltip="Full screen" aria-pressed="false">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+            </button>
+            <button class="toolbar-button" type="button" id="open-code-tab" title="Open code in new tab" aria-label="Open code in new tab" data-tooltip="Open tab">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3h7v7"/><path d="M21 3 10 14"/><path d="M12 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/></svg>
+            </button>
+          </div>
         </div>
         <div class="canvas-frame" id="canvas-frame">
           <div class="graph-canvas" id="graph-canvas">
@@ -883,15 +908,16 @@ function renderAgentConsolePage() {
             </div>
           </div>
         </div>
-        <section class="code-drawer" aria-label="Generated LangGraph Python">
-          <header>
-            <span>Live LangGraph Python</span>
-          </header>
-          <pre class="code-preview" id="code-preview"></pre>
-        </section>
       </section>
 
-      <aside class="console-inspector" id="inspector" aria-label="Inspector"></aside>
+      <button class="panel-resize-handle panel-resize-handle-right" type="button" id="resize-inspector" title="Resize right panel" aria-label="Resize right panel"></button>
+
+      <section class="code-drawer" aria-label="Generated LangGraph Python">
+        <header>
+          <span>Live LangGraph Python</span>
+        </header>
+        <pre class="code-preview" id="code-preview"></pre>
+      </section>
     </main>
   </div>
 </body>

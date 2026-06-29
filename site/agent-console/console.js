@@ -51,6 +51,28 @@ const fallbackToolCatalog = [
     mutates: true,
     pack: true,
   },
+  {
+    id: "twitter",
+    name: "Twitter / X",
+    category: "Social",
+    description: "Twitter/X provider-level API command pack.",
+    binary: "curl",
+    commandPackUrl: "/agent-console/tools/packs/twitter.json",
+    defaults: { command_id: "twitter_recent_search" },
+    mutates: true,
+    pack: true,
+  },
+  {
+    id: "reddit",
+    name: "Reddit",
+    category: "Social",
+    description: "Reddit provider-level API command pack.",
+    binary: "curl",
+    commandPackUrl: "/agent-console/tools/packs/reddit.json",
+    defaults: { command_id: "reddit_global_search" },
+    mutates: true,
+    pack: true,
+  },
 ];
 const canvasSize = { width: 1500, height: 980 };
 const defaultNodeX = 645;
@@ -60,6 +82,17 @@ const nodeSizeLimits = {
   width: { min: 170, max: 360 },
   height: { min: 100, max: 260 },
 };
+const panelSizeDefaults = {
+  sidebarWidth: 320,
+  inspectorWidth: 430,
+  codePanelHeight: 280,
+};
+const panelSizeLimits = {
+  sidebarWidth: { min: 260, max: 560 },
+  inspectorWidth: { min: 340, max: 760 },
+  codePanelHeight: { min: 150, max: 620 },
+};
+const consoleLayoutVersion = 2;
 
 const state = {
   nodes: createInitialNodes(),
@@ -78,6 +111,9 @@ const state = {
   connectionDraft: null,
   sidebarCollapsed: false,
   inspectorCollapsed: false,
+  sidebarWidth: panelSizeDefaults.sidebarWidth,
+  inspectorWidth: panelSizeDefaults.inspectorWidth,
+  codePanelHeight: panelSizeDefaults.codePanelHeight,
   zoom: 1,
   suppressNextPaletteClick: false,
   suppressNextPortClick: false,
@@ -251,6 +287,8 @@ function uniquePythonName(node, used) {
   return name;
 }
 
+const generatedStateKeys = new Set(["messages", "artifacts", "data", "cwd", "tool_args", "approvals", "route"]);
+
 function escapeHtml(value = "") {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -258,6 +296,202 @@ function escapeHtml(value = "") {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+const pythonKeywords = new Set([
+  "and",
+  "as",
+  "assert",
+  "break",
+  "class",
+  "continue",
+  "def",
+  "del",
+  "elif",
+  "else",
+  "except",
+  "finally",
+  "for",
+  "from",
+  "global",
+  "if",
+  "import",
+  "in",
+  "is",
+  "lambda",
+  "nonlocal",
+  "not",
+  "or",
+  "pass",
+  "raise",
+  "return",
+  "try",
+  "while",
+  "with",
+  "yield",
+]);
+const pythonAsyncKeywords = new Set(["async", "await"]);
+const pythonBuiltins = new Set([
+  "Any",
+  "Boolean",
+  "Exception",
+  "ImportError",
+  "KeyError",
+  "Literal",
+  "NoneType",
+  "PermissionError",
+  "RuntimeError",
+  "StateGraph",
+  "String",
+  "TypedDict",
+  "ValueError",
+  "bool",
+  "dict",
+  "float",
+  "int",
+  "isinstance",
+  "len",
+  "list",
+  "max",
+  "min",
+  "print",
+  "range",
+  "set",
+  "sorted",
+  "str",
+  "sum",
+  "tuple",
+  "type",
+]);
+const pythonConstants = new Set(["False", "None", "NotImplemented", "True"]);
+
+function pythonToken(className, value) {
+  return `<span class="py-token ${className}">${escapeHtml(value)}</span>`;
+}
+
+function isPythonIdentifierStart(char) {
+  return /[A-Za-z_]/.test(char);
+}
+
+function isPythonIdentifierPart(char) {
+  return /[A-Za-z0-9_]/.test(char);
+}
+
+function nextNonSpace(source, index) {
+  let cursor = index;
+  while (cursor < source.length && /[ \t]/.test(source[cursor])) cursor += 1;
+  return source[cursor] || "";
+}
+
+function readPythonString(source, index) {
+  let openerEnd = index;
+  while (openerEnd - index < 3 && /[rRuUbBfF]/.test(source[openerEnd] || "")) {
+    openerEnd += 1;
+  }
+  if (openerEnd === index && source[index] !== '"' && source[index] !== "'") return null;
+  if (source[openerEnd] !== '"' && source[openerEnd] !== "'") return null;
+  const quoteChar = source[openerEnd];
+  const triple = source[openerEnd + 1] === quoteChar && source[openerEnd + 2] === quoteChar;
+  const quote = triple ? quoteChar.repeat(3) : quoteChar;
+  let cursor = openerEnd + quote.length;
+  while (cursor < source.length) {
+    if (source.startsWith(quote, cursor)) {
+      cursor += quote.length;
+      break;
+    }
+    if (!triple && source[cursor] === "\n") break;
+    if (source[cursor] === "\\") {
+      cursor += 2;
+    } else {
+      cursor += 1;
+    }
+  }
+  return source.slice(index, cursor);
+}
+
+function highlightPython(source) {
+  let index = 0;
+  const highlighted = [];
+  let expectFunctionName = false;
+  let expectClassName = false;
+  const text = String(source || "");
+
+  while (index < text.length) {
+    const char = text[index];
+    const stringToken = readPythonString(text, index);
+    if (stringToken) {
+      highlighted.push(pythonToken("py-string", stringToken));
+      index += stringToken.length;
+      continue;
+    }
+
+    if (char === "#") {
+      let cursor = index;
+      while (cursor < text.length && text[cursor] !== "\n") cursor += 1;
+      highlighted.push(pythonToken("py-comment", text.slice(index, cursor)));
+      index = cursor;
+      continue;
+    }
+
+    if (char === "@") {
+      let cursor = index + 1;
+      while (cursor < text.length && /[A-Za-z0-9_.]/.test(text[cursor])) cursor += 1;
+      highlighted.push(pythonToken("py-decorator", text.slice(index, cursor)));
+      index = cursor;
+      continue;
+    }
+
+    if (/[0-9]/.test(char)) {
+      let cursor = index + 1;
+      while (cursor < text.length && /[A-Za-z0-9_.]/.test(text[cursor])) cursor += 1;
+      highlighted.push(pythonToken("py-number", text.slice(index, cursor)));
+      index = cursor;
+      continue;
+    }
+
+    if (isPythonIdentifierStart(char)) {
+      let cursor = index + 1;
+      while (cursor < text.length && isPythonIdentifierPart(text[cursor])) cursor += 1;
+      const word = text.slice(index, cursor);
+      let className = "";
+      if (expectFunctionName) {
+        className = "py-definition";
+        expectFunctionName = false;
+      } else if (expectClassName) {
+        className = "py-class-name";
+        expectClassName = false;
+      } else if (pythonAsyncKeywords.has(word)) {
+        className = "py-async";
+      } else if (pythonKeywords.has(word)) {
+        className = "py-keyword";
+      } else if (pythonConstants.has(word)) {
+        className = "py-constant";
+      } else if (word === "self" || word === "cls") {
+        className = "py-self";
+      } else if (pythonBuiltins.has(word)) {
+        className = "py-builtin";
+      } else if (nextNonSpace(text, cursor) === "(") {
+        className = "py-call";
+      }
+
+      highlighted.push(className ? pythonToken(className, word) : escapeHtml(word));
+      if (word === "def") expectFunctionName = true;
+      if (word === "class") expectClassName = true;
+      index = cursor;
+      continue;
+    }
+
+    if (/[\[\]{}().,:;+\-*\/%=!<>|&^~]/.test(char)) {
+      highlighted.push(pythonToken("py-operator", char));
+      index += 1;
+      continue;
+    }
+
+    highlighted.push(escapeHtml(char));
+    index += 1;
+  }
+
+  return highlighted.join("");
 }
 
 function nodeById(id) {
@@ -636,6 +870,7 @@ function graphSnapshot() {
 
 function persistentSnapshot() {
   return {
+    layoutVersion: consoleLayoutVersion,
     nodes: cloneValue(state.nodes),
     edges: cloneValue(state.edges),
     customTools: cloneValue(state.customTools),
@@ -648,6 +883,9 @@ function persistentSnapshot() {
     zoom: state.zoom,
     sidebarCollapsed: state.sidebarCollapsed,
     inspectorCollapsed: state.inspectorCollapsed,
+    sidebarWidth: state.sidebarWidth,
+    inspectorWidth: state.inspectorWidth,
+    codePanelHeight: state.codePanelHeight,
   };
 }
 
@@ -680,6 +918,16 @@ function restorePersistentState() {
     state.zoom = Number.isFinite(saved.zoom) ? clamp(saved.zoom, zoomRange.min, zoomRange.max) : 1;
     state.sidebarCollapsed = Boolean(saved.sidebarCollapsed);
     state.inspectorCollapsed = Boolean(saved.inspectorCollapsed);
+    const savedLayoutIsCurrent = saved.layoutVersion === consoleLayoutVersion;
+    state.sidebarWidth = savedLayoutIsCurrent && Number.isFinite(saved.sidebarWidth)
+      ? clamp(Math.round(saved.sidebarWidth), panelSizeLimits.sidebarWidth.min, panelSizeLimits.sidebarWidth.max)
+      : panelSizeDefaults.sidebarWidth;
+    state.inspectorWidth = savedLayoutIsCurrent && Number.isFinite(saved.inspectorWidth)
+      ? clamp(Math.round(saved.inspectorWidth), panelSizeLimits.inspectorWidth.min, panelSizeLimits.inspectorWidth.max)
+      : panelSizeDefaults.inspectorWidth;
+    state.codePanelHeight = savedLayoutIsCurrent && Number.isFinite(saved.codePanelHeight)
+      ? clamp(Math.round(saved.codePanelHeight), panelSizeLimits.codePanelHeight.min, panelSizeLimits.codePanelHeight.max)
+      : panelSizeDefaults.codePanelHeight;
   } catch {
     localStorage.removeItem(storageKey);
   }
@@ -805,16 +1053,28 @@ function removeSelected() {
   }
 }
 
-function addEdge(from, to, labelOverride = "") {
+function addEdge(from, to, labelOverride = "", options = {}) {
   if (!from || !to || from === to) return;
   const source = nodeById(from);
   const label = labelOverride || (source?.kind === "condition" ? firstUnusedBranch(source) : "next");
-  if (state.edges.some((edge) => edge.from === from && edge.to === to && edge.label === label)) return;
+  const selection = options.select || "target";
+  if (state.edges.some((edge) => edge.from === from && edge.to === to && edge.label === label)) {
+    state.connectSourceId = null;
+    if (selection === "source") selectNode(from);
+    else if (selection === "target") selectNode(to);
+    return;
+  }
   pushHistorySnapshot();
   const id = `edge-${from}-${to}-${Date.now().toString(36)}`;
   state.edges.push({ id, from, to, label });
   state.connectSourceId = null;
-  selectEdge(id);
+  if (selection === "edge") {
+    selectEdge(id);
+  } else if (selection === "source") {
+    selectNode(from);
+  } else {
+    selectNode(to);
+  }
 }
 
 function firstUnusedBranch(node) {
@@ -1021,7 +1281,7 @@ function attachNodeEvents(element, node) {
     if (event.button !== 0) return;
     event.preventDefault();
     if (state.connectSourceId && state.connectSourceId !== node.id) {
-      addEdge(state.connectSourceId, node.id);
+      addEdge(state.connectSourceId, node.id, "", { select: "target" });
       return;
     }
 
@@ -1110,13 +1370,13 @@ function attachNodeEvents(element, node) {
       if (event.button !== 0 || !state.connectSourceId || state.connectSourceId === node.id) return;
       event.preventDefault();
       event.stopPropagation();
-      addEdge(state.connectSourceId, node.id);
+      addEdge(state.connectSourceId, node.id, "", { select: "target" });
     });
     inputPort.addEventListener("click", (event) => {
       if (!state.connectSourceId || state.connectSourceId === node.id) return;
       event.preventDefault();
       event.stopPropagation();
-      addEdge(state.connectSourceId, node.id);
+      addEdge(state.connectSourceId, node.id, "", { select: "target" });
     });
   });
 }
@@ -1224,7 +1484,7 @@ function startConnectionDrag(node, handle, event) {
     state.connectSourceId = null;
     state.suppressNextPortClick = moved;
     if (targetId && targetId !== node.id) {
-      addEdge(node.id, targetId);
+      addEdge(node.id, targetId, "", { select: "target" });
     } else {
       render();
     }
@@ -1267,6 +1527,7 @@ function renderEdges() {
       const selected = state.selectedEdgeId === edge.id ? " is-selected" : "";
       const conditional = from.kind === "condition" ? " is-conditional" : "";
       return `
+        <path class="edge-hit-area" data-edge-id="${escapeHtml(edge.id)}" d="${curve.path}"></path>
         <path class="edge-path${selected}${conditional}" data-edge-id="${escapeHtml(edge.id)}" d="${curve.path}" marker-end="url(#arrow-head)"></path>
         <text class="edge-label" data-edge-id="${escapeHtml(edge.id)}" x="${curve.labelX}" y="${curve.labelY}" text-anchor="middle">${escapeHtml(edge.label)}</text>
       `;
@@ -1275,7 +1536,7 @@ function renderEdges() {
   const draft = renderDraftEdge();
   els.edgeLayer.innerHTML = `${defs}${edges}${draft}`;
   els.edgeLayer.querySelectorAll("[data-edge-id]").forEach((edgeElement) => {
-    edgeElement.style.pointerEvents = "auto";
+    edgeElement.style.pointerEvents = edgeElement.classList.contains("edge-hit-area") ? "stroke" : "auto";
     edgeElement.addEventListener("click", (event) => {
       event.stopPropagation();
       selectEdge(edgeElement.dataset.edgeId);
@@ -1611,6 +1872,309 @@ function renderPythonCheckList(messages) {
     .join("")}</ul>`;
 }
 
+function renderPythonEditor(code) {
+  const source = String(code || "");
+  return `
+    <label class="python-editor-label">
+      Python code
+      <div class="python-editor-shell">
+        <pre class="python-editor-highlight" aria-hidden="true"><code data-python-highlight>${highlightPython(source)}\n</code></pre>
+        <textarea class="python-editor" data-node-field="code" spellcheck="false" autocomplete="off" autocapitalize="off">${escapeHtml(source)}</textarea>
+      </div>
+    </label>
+  `;
+}
+
+function syncPythonEditorHighlight(textarea) {
+  const shell = textarea.closest(".python-editor-shell");
+  const highlight = shell?.querySelector("[data-python-highlight]");
+  const preview = shell?.querySelector(".python-editor-highlight");
+  if (highlight) {
+    highlight.innerHTML = `${highlightPython(textarea.value)}\n`;
+  }
+  if (preview) {
+    preview.scrollTop = textarea.scrollTop;
+    preview.scrollLeft = textarea.scrollLeft;
+  }
+}
+
+function setupPythonEditorHighlights(container) {
+  container.querySelectorAll(".python-editor").forEach((textarea) => {
+    syncPythonEditorHighlight(textarea);
+    textarea.addEventListener("input", () => syncPythonEditorHighlight(textarea));
+    textarea.addEventListener("scroll", () => syncPythonEditorHighlight(textarea));
+  });
+}
+
+function pythonNamesByNodeId() {
+  const usedNames = new Set();
+  const nameById = new Map();
+  for (const graphNode of state.nodes.filter((candidate) => !lockedNode(candidate))) {
+    nameById.set(graphNode.id, uniquePythonName(graphNode, usedNames));
+  }
+  return nameById;
+}
+
+function readPythonQuotedString(source, index) {
+  const quote = source[index];
+  if (quote !== '"' && quote !== "'") return null;
+  let cursor = index + 1;
+  let value = "";
+  while (cursor < source.length) {
+    const char = source[cursor];
+    if (char === "\\") {
+      value += source[cursor + 1] || "";
+      cursor += 2;
+      continue;
+    }
+    if (char === quote) {
+      return { value, end: cursor + 1 };
+    }
+    value += char;
+    cursor += 1;
+  }
+  return null;
+}
+
+function findMatchingPythonBrace(source, openIndex) {
+  let depth = 0;
+  let cursor = openIndex;
+  while (cursor < source.length) {
+    const char = source[cursor];
+    if (char === '"' || char === "'") {
+      const quoted = readPythonQuotedString(source, cursor);
+      cursor = quoted ? quoted.end : cursor + 1;
+      continue;
+    }
+    if (char === "#") {
+      while (cursor < source.length && source[cursor] !== "\n") cursor += 1;
+      continue;
+    }
+    if (char === "{") depth += 1;
+    if (char === "}") {
+      depth -= 1;
+      if (depth === 0) return cursor;
+    }
+    cursor += 1;
+  }
+  return -1;
+}
+
+function pythonDictKeys(dictLiteral) {
+  const keys = [];
+  let depth = 0;
+  let cursor = 0;
+  while (cursor < dictLiteral.length) {
+    const char = dictLiteral[cursor];
+    if (char === '"' || char === "'") {
+      const quoted = readPythonQuotedString(dictLiteral, cursor);
+      if (!quoted) {
+        cursor += 1;
+        continue;
+      }
+      let next = quoted.end;
+      while (/\s/.test(dictLiteral[next] || "")) next += 1;
+      if (depth === 1 && dictLiteral[next] === ":") {
+        keys.push(quoted.value);
+      }
+      cursor = quoted.end;
+      continue;
+    }
+    if (char === "#") {
+      while (cursor < dictLiteral.length && dictLiteral[cursor] !== "\n") cursor += 1;
+      continue;
+    }
+    if (char === "{") depth += 1;
+    if (char === "}") depth -= 1;
+    cursor += 1;
+  }
+  return keys;
+}
+
+function nestedPythonDictKeys(dictLiteral, parentKey) {
+  let depth = 0;
+  let cursor = 0;
+  while (cursor < dictLiteral.length) {
+    const char = dictLiteral[cursor];
+    if (char === '"' || char === "'") {
+      const quoted = readPythonQuotedString(dictLiteral, cursor);
+      if (!quoted) {
+        cursor += 1;
+        continue;
+      }
+      let next = quoted.end;
+      while (/\s/.test(dictLiteral[next] || "")) next += 1;
+      if (depth === 1 && quoted.value === parentKey && dictLiteral[next] === ":") {
+        next += 1;
+        while (/\s/.test(dictLiteral[next] || "")) next += 1;
+        if (dictLiteral[next] !== "{") return [];
+        const close = findMatchingPythonBrace(dictLiteral, next);
+        return close === -1 ? [] : pythonDictKeys(dictLiteral.slice(next, close + 1));
+      }
+      cursor = quoted.end;
+      continue;
+    }
+    if (char === "#") {
+      while (cursor < dictLiteral.length && dictLiteral[cursor] !== "\n") cursor += 1;
+      continue;
+    }
+    if (char === "{") depth += 1;
+    if (char === "}") depth -= 1;
+    cursor += 1;
+  }
+  return [];
+}
+
+function returnDictLiterals(source) {
+  const dicts = [];
+  const returnPattern = /\breturn\b/g;
+  let match;
+  while ((match = returnPattern.exec(source))) {
+    let cursor = match.index + match[0].length;
+    while (/\s/.test(source[cursor] || "")) cursor += 1;
+    if (source[cursor] !== "{") continue;
+    const close = findMatchingPythonBrace(source, cursor);
+    if (close !== -1) dicts.push(source.slice(cursor, close + 1));
+  }
+  return dicts;
+}
+
+function inferredNodeOutputs(node) {
+  if (!node || lockedNode(node)) return { dataKeys: [], customKeys: [] };
+  const dataKeys = new Set();
+  const customKeys = new Set();
+  const source = nodeMode(node) === "code" ? node.code || defaultCodeForNode(node) : "";
+  for (const dictLiteral of returnDictLiterals(source)) {
+    for (const key of nestedPythonDictKeys(dictLiteral, "data")) {
+      dataKeys.add(key);
+    }
+    for (const key of pythonDictKeys(dictLiteral)) {
+      if (!generatedStateKeys.has(key)) customKeys.add(key);
+    }
+  }
+  return {
+    dataKeys: [...dataKeys].sort((left, right) => left.localeCompare(right)),
+    customKeys: [...customKeys].sort((left, right) => left.localeCompare(right)),
+  };
+}
+
+function upstreamAccessSources(node) {
+  if (!node || lockedNode(node)) return [];
+  const nameById = pythonNamesByNodeId();
+  return state.edges
+    .filter((edge) => edge.to === node.id)
+    .map((edge) => {
+      const source = nodeById(edge.from);
+      const functionName = nameById.get(edge.from);
+      if (!source || !functionName) return null;
+      const inferred = inferredNodeOutputs(source);
+      const sourceVariable = sanitizeIdentifier(source.title, functionName);
+      const options = [
+        {
+          label: "Whole output",
+          expression: `state["artifacts"]["node_outputs"]["${functionName}"]`,
+          snippet: `${sourceVariable}_output = state.get("artifacts", {}).get("node_outputs", {}).get("${functionName}", {})`,
+        },
+      ];
+      for (const key of inferred.dataKeys) {
+        const variableName = sanitizeIdentifier(key, "value");
+        options.push({
+          label: key,
+          expression: `state["data"]["${key}"]`,
+          snippet: `${variableName} = state.get("data", {}).get("${key}")`,
+        });
+      }
+      for (const key of inferred.customKeys) {
+        const variableName = sanitizeIdentifier(key, "value");
+        options.push({
+          label: `${key} from ${functionName}`,
+          expression: `state["data"]["${functionName}"]["${key}"]`,
+          snippet: `${variableName} = state.get("data", {}).get("${functionName}", {}).get("${key}")`,
+        });
+      }
+      return {
+        edge,
+        source,
+        functionName,
+        inferred,
+        options,
+      };
+    })
+    .filter(Boolean);
+}
+
+function renderUpstreamValues(node, mode) {
+  const sources = upstreamAccessSources(node);
+  if (!sources.length) return "";
+  const canInsert = mode === "code";
+  return `
+    <section class="panel-section upstream-values">
+      <h2>Upstream values</h2>
+      <p class="upstream-intro">Connected parents run first. Their returns are merged into state; use these accessors in this node.</p>
+      ${sources
+        .map((source) => {
+          const inferredCount = source.inferred.dataKeys.length + source.inferred.customKeys.length;
+          return `
+            <article class="upstream-card">
+              <div class="upstream-source">
+                <strong>${escapeHtml(source.source.title)}</strong>
+                <span>${escapeHtml(source.edge.label)} edge -> <code>${escapeHtml(source.functionName)}</code></span>
+              </div>
+              <div class="upstream-options">
+                ${source.options
+                  .map(
+                    (option) => `
+                      <div class="upstream-option">
+                        <code>${escapeHtml(option.expression)}</code>
+                        ${
+                          canInsert
+                            ? `<button class="upstream-insert" type="button" data-upstream-snippet="${escapeHtml(option.snippet)}">Insert ${escapeHtml(option.label)}</button>`
+                            : ""
+                        }
+                      </div>
+                    `,
+                  )
+                  .join("")}
+              </div>
+              ${
+                inferredCount
+                  ? '<p class="upstream-hint">For simple outputs, return <code>{"data": {"name": value}}</code> upstream to expose a direct <code>state["data"]["name"]</code> accessor.</p>'
+                  : '<p class="upstream-hint">No named return keys were detected. Insert the whole output, or return <code>{"data": {"name": value}}</code> upstream for key-level suggestions.</p>'
+              }
+            </article>
+          `;
+        })
+        .join("")}
+      ${canInsert ? "" : '<p class="upstream-hint">Switch this node to Python code to insert access lines automatically.</p>'}
+    </section>
+  `;
+}
+
+function insertSnippetIntoCodeEditor(textarea, snippet) {
+  if (!textarea || !snippet) return;
+  const value = textarea.value;
+  const start = Number.isFinite(textarea.selectionStart) ? textarea.selectionStart : value.length;
+  const end = Number.isFinite(textarea.selectionEnd) ? textarea.selectionEnd : start;
+  const prefix = start > 0 && value[start - 1] !== "\n" ? "\n" : "";
+  const suffix = end < value.length && value[end] !== "\n" ? "\n" : "";
+  const inserted = `${prefix}${snippet}${suffix}`;
+  textarea.value = `${value.slice(0, start)}${inserted}${value.slice(end)}`;
+  const cursor = start + inserted.length;
+  textarea.focus();
+  textarea.setSelectionRange(cursor, cursor);
+  textarea.dispatchEvent(new Event("input", { bubbles: true }));
+}
+
+function attachUpstreamValueHandlers() {
+  els.inspector.querySelectorAll("[data-upstream-snippet]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const textarea = els.inspector.querySelector('textarea[data-node-field="code"]');
+      insertSnippetIntoCodeEditor(textarea, button.dataset.upstreamSnippet);
+      savePersistentState();
+    });
+  });
+}
+
 function renderConnectionEditor(node) {
   const parents = state.nodes.filter((candidate) => candidate.id !== node.id && candidate.kind !== "end");
   const children = state.nodes.filter((candidate) => candidate.id !== node.id && candidate.kind !== "start");
@@ -1669,19 +2233,13 @@ function attachConnectionEditorHandlers(node) {
   els.inspector.querySelector("[data-connect-parent]")?.addEventListener("change", (event) => {
     const parentId = event.target.value;
     if (!parentId) return;
-    addEdge(parentId, node.id);
-    state.selectedNodeId = node.id;
-    state.selectedEdgeId = null;
-    render();
+    addEdge(parentId, node.id, "", { select: "target" });
   });
   els.inspector.querySelector("[data-connect-child]")?.addEventListener("change", (event) => {
     const childId = event.target.value;
     if (!childId) return;
     const branch = els.inspector.querySelector("[data-connect-branch]")?.value || "";
-    addEdge(node.id, childId, branch);
-    state.selectedNodeId = node.id;
-    state.selectedEdgeId = null;
-    render();
+    addEdge(node.id, childId, branch, { select: "source" });
   });
 }
 
@@ -1751,11 +2309,8 @@ function renderInspector() {
           </label>
         `
         : `
-          <label>
-            Python code
-            <textarea class="python-editor" data-node-field="code" spellcheck="false">${escapeHtml(node.code || defaultCodeForNode(node))}</textarea>
-          </label>
-          <button class="console-button" type="button" data-check-code>Check code</button>
+          ${renderPythonEditor(node.code || defaultCodeForNode(node))}
+          <button class="console-button check-code-button" type="button" data-check-code>Check code</button>
           ${renderPythonCheckList(validatePythonBlock(node.code || defaultCodeForNode(node), node))}
         `;
   const inspectorTitle = nodeKinds[node.kind].label === "Node" ? "Node" : `${nodeKinds[node.kind].label} node`;
@@ -1791,6 +2346,7 @@ function renderInspector() {
       ${nodeEditor}
     </section>
     ${renderConnectionEditor(node)}
+    ${locked ? "" : renderUpstreamValues(node, mode)}
     ${
       isAiNode(node)
         ? `
@@ -1844,11 +2400,13 @@ function renderInspector() {
       renderCode();
       renderValidation();
       if (field.dataset.nodeField === "code") {
+        syncPythonEditorHighlight(field);
         const checkList = els.inspector.querySelector(".code-check-list");
         if (checkList) {
           checkList.outerHTML = renderPythonCheckList(validatePythonBlock(field.value, node));
         }
       }
+      savePersistentState();
     });
   });
 
@@ -1880,6 +2438,8 @@ function renderInspector() {
 
   els.inspector.querySelector("[data-delete-selected]")?.addEventListener("click", removeSelected);
   attachConnectionEditorHandlers(node);
+  attachUpstreamValueHandlers();
+  setupPythonEditorHighlights(els.inspector);
   renderInspectorTools(node);
 }
 
@@ -2395,14 +2955,124 @@ function pythonEndpoint(nodeId, nameById) {
 }
 
 function renderCode() {
-  els.codePreview.textContent = generatePython();
+  els.codePreview.innerHTML = highlightPython(generatePython());
 }
 
 function renderPanelState() {
   els.shell?.classList.toggle("is-sidebar-collapsed", state.sidebarCollapsed);
   els.shell?.classList.toggle("is-inspector-collapsed", state.inspectorCollapsed);
+  els.shell?.style.setProperty("--sidebar-width", `${state.sidebarWidth}px`);
+  els.shell?.style.setProperty("--inspector-width", `${state.inspectorWidth}px`);
+  els.shell?.style.setProperty("--code-panel-height", `${state.codePanelHeight}px`);
   els.sidebarToggle?.setAttribute("aria-pressed", String(state.sidebarCollapsed));
   els.inspectorToggle?.setAttribute("aria-pressed", String(state.inspectorCollapsed));
+  const leftPanelLabel = state.sidebarCollapsed ? "Show left inspector and tools" : "Hide left inspector and tools";
+  const rightPanelLabel = state.inspectorCollapsed ? "Show right code panel" : "Hide right code panel";
+  els.sidebarToggle?.setAttribute("title", leftPanelLabel);
+  els.sidebarToggle?.setAttribute("aria-label", leftPanelLabel);
+  els.sidebarToggle?.setAttribute("data-tooltip", state.sidebarCollapsed ? "Show left" : "Hide left");
+  els.inspectorToggle?.setAttribute("title", rightPanelLabel);
+  els.inspectorToggle?.setAttribute("aria-label", rightPanelLabel);
+  els.inspectorToggle?.setAttribute("data-tooltip", state.inspectorCollapsed ? "Show code" : "Hide code");
+}
+
+function panelResizeLimit(kind) {
+  if (kind === "codePanelHeight") {
+    const shellHeight = els.canvasShell?.getBoundingClientRect().height || 760;
+    const toolbarHeight = els.canvasShell?.querySelector(".canvas-toolbar")?.getBoundingClientRect().height || 56;
+    const dynamicMax = Math.max(panelSizeLimits.codePanelHeight.min, shellHeight - toolbarHeight - 8 - 240);
+    return {
+      min: panelSizeLimits.codePanelHeight.min,
+      max: Math.min(panelSizeLimits.codePanelHeight.max, dynamicMax),
+    };
+  }
+  const workbenchWidth = els.shell?.getBoundingClientRect().width || window.innerWidth || 1200;
+  if (kind === "sidebarWidth") {
+    const dynamicMax = Math.max(panelSizeLimits.sidebarWidth.min, workbenchWidth - state.inspectorWidth - 420);
+    return {
+      min: panelSizeLimits.sidebarWidth.min,
+      max: Math.min(panelSizeLimits.sidebarWidth.max, dynamicMax),
+    };
+  }
+  const dynamicMax = Math.max(panelSizeLimits.inspectorWidth.min, workbenchWidth - state.sidebarWidth - 420);
+  return {
+    min: panelSizeLimits.inspectorWidth.min,
+    max: Math.min(panelSizeLimits.inspectorWidth.max, dynamicMax),
+  };
+}
+
+function resizePanel(kind, value) {
+  const limits = panelResizeLimit(kind);
+  state[kind] = Math.round(clamp(value, limits.min, limits.max));
+  renderPanelState();
+  savePersistentState();
+}
+
+function resetPanelSize(kind) {
+  resizePanel(kind, panelSizeDefaults[kind]);
+}
+
+function startPanelResize(kind, event) {
+  if (event.button !== 0) return;
+  event.preventDefault();
+  const keyByKind = {
+    sidebar: "sidebarWidth",
+    inspector: "inspectorWidth",
+    code: "codePanelHeight",
+  };
+  const key = keyByKind[kind];
+  const startX = event.clientX;
+  const startY = event.clientY;
+  const startValue = state[key];
+  const handle = event.currentTarget;
+  document.body.classList.add("is-resizing-panel");
+  handle?.setPointerCapture?.(event.pointerId);
+
+  function handleMove(moveEvent) {
+    if (kind === "sidebar") {
+      resizePanel(key, startValue + moveEvent.clientX - startX);
+      return;
+    }
+    if (kind === "inspector") {
+      resizePanel(key, startValue - (moveEvent.clientX - startX));
+      return;
+    }
+    resizePanel(key, startValue - (moveEvent.clientY - startY));
+  }
+
+  function handleEnd(endEvent) {
+    document.body.classList.remove("is-resizing-panel");
+    handle?.releasePointerCapture?.(endEvent.pointerId);
+    window.removeEventListener("pointermove", handleMove);
+    window.removeEventListener("pointerup", handleEnd);
+    window.removeEventListener("pointercancel", handleEnd);
+  }
+
+  window.addEventListener("pointermove", handleMove);
+  window.addEventListener("pointerup", handleEnd);
+  window.addEventListener("pointercancel", handleEnd);
+}
+
+function setCodeFullscreen(enabled) {
+  document.body.classList.toggle("is-code-fullscreen", enabled);
+  els.codeFullscreenToggle?.setAttribute("aria-pressed", String(enabled));
+  els.codeFullscreenToggle?.setAttribute(
+    "title",
+    enabled ? "Exit code full screen" : "View code full screen",
+  );
+  els.codeFullscreenToggle?.setAttribute(
+    "aria-label",
+    enabled ? "Exit code full screen" : "View code full screen",
+  );
+}
+
+function toggleCodeFullscreen() {
+  setCodeFullscreen(!document.body.classList.contains("is-code-fullscreen"));
+}
+
+function openGeneratedCodeTab() {
+  savePersistentState();
+  window.open("/agent-console/?code-view=generated", "_blank", "noopener");
 }
 
 function downloadPython() {
@@ -2419,9 +3089,15 @@ function downloadPython() {
 
 function copyPython() {
   navigator.clipboard.writeText(generatePython()).then(() => {
-    els.copyButton.textContent = "Copied";
+    els.copyButton?.setAttribute("data-tooltip", "Copied");
+    els.copyButton?.setAttribute("title", "Copied");
+    els.copyButton?.setAttribute("aria-label", "Copied generated Python");
+    if (els.status) els.status.textContent = "Code copied";
     window.setTimeout(() => {
-      els.copyButton.textContent = "Copy";
+      els.copyButton?.setAttribute("data-tooltip", "Copy code");
+      els.copyButton?.setAttribute("title", "Copy generated Python");
+      els.copyButton?.setAttribute("aria-label", "Copy generated Python");
+      renderValidation();
     }, 1200);
   });
 }
@@ -2664,6 +3340,7 @@ async function loadToolCatalog() {
 }
 
 async function initToolCodePage(toolId) {
+  document.body.dataset.consolePage = "tool-code";
   document.body.innerHTML = `
     <main class="tool-code-page">
       <header>
@@ -2696,13 +3373,42 @@ async function initToolCodePage(toolId) {
       <h1>${escapeHtml(freshTool.name)} Python tool</h1>
       <p>${escapeHtml(freshTool.description || "Generated tool-pack boundary.")}</p>
     </header>
-    <pre><code>${escapeHtml(toolPythonSnippet(freshTool))}</code></pre>
+    <pre><code>${highlightPython(toolPythonSnippet(freshTool))}</code></pre>
+  `;
+}
+
+async function initGeneratedCodePage() {
+  document.body.dataset.consolePage = "tool-code";
+  document.body.innerHTML = `
+    <main class="tool-code-page">
+      <header>
+        <a href="/agent-console/">LangGraph Agent Console</a>
+        <h1>Generated LangGraph Python</h1>
+        <p>Loading generated graph code...</p>
+      </header>
+      <pre><code></code></pre>
+    </main>
+  `;
+  restorePersistentState();
+  await loadToolCatalog();
+  await ensureSelectedToolPacks();
+  const source = generatePython();
+  document.title = "Generated LangGraph Python | AI Tutorial Lab";
+  const page = document.querySelector(".tool-code-page");
+  page.innerHTML = `
+    <header>
+      <a href="/agent-console/">LangGraph Agent Console</a>
+      <h1>Generated LangGraph Python</h1>
+      <p>Read-only code view for the current saved graph.</p>
+    </header>
+    <pre><code>${highlightPython(source)}</code></pre>
   `;
 }
 
 function init() {
   Object.assign(els, {
     shell: document.querySelector(".console-shell"),
+    canvasShell: document.querySelector(".canvas-shell"),
     canvas: byId("graph-canvas"),
     graphScale: byId("graph-scale"),
     canvasFrame: byId("canvas-frame"),
@@ -2720,10 +3426,16 @@ function init() {
     validation: byId("validation-list"),
     status: byId("status-pill"),
     zoomLabel: byId("zoom-label"),
+    codeDrawer: document.querySelector(".code-drawer"),
     codePreview: byId("code-preview"),
     copyButton: byId("copy-code"),
     sidebarToggle: byId("toggle-sidebar"),
     inspectorToggle: byId("toggle-inspector"),
+    codeFullscreenToggle: byId("fullscreen-code"),
+    codeOpenTab: byId("open-code-tab"),
+    sidebarResize: byId("resize-sidebar"),
+    inspectorResize: byId("resize-inspector"),
+    codePanelResize: byId("resize-code-panel"),
   });
 
   document.querySelectorAll("[data-add-node]").forEach((button) => {
@@ -2771,6 +3483,8 @@ function init() {
   byId("zoom-reset").addEventListener("click", () => setZoom(1));
   byId("download-code").addEventListener("click", downloadPython);
   byId("copy-code").addEventListener("click", copyPython);
+  els.codeFullscreenToggle?.addEventListener("click", toggleCodeFullscreen);
+  els.codeOpenTab?.addEventListener("click", openGeneratedCodeTab);
   byId("toggle-sidebar").addEventListener("click", () => {
     state.sidebarCollapsed = !state.sidebarCollapsed;
     renderPanelState();
@@ -2781,6 +3495,12 @@ function init() {
     renderPanelState();
     savePersistentState();
   });
+  els.sidebarResize?.addEventListener("pointerdown", (event) => startPanelResize("sidebar", event));
+  els.inspectorResize?.addEventListener("pointerdown", (event) => startPanelResize("inspector", event));
+  els.codePanelResize?.addEventListener("pointerdown", (event) => startPanelResize("code", event));
+  els.sidebarResize?.addEventListener("dblclick", () => resetPanelSize("sidebarWidth"));
+  els.inspectorResize?.addEventListener("dblclick", () => resetPanelSize("inspectorWidth"));
+  els.codePanelResize?.addEventListener("dblclick", () => resetPanelSize("codePanelHeight"));
   byId("connect-mode").addEventListener("click", () => {
     if (state.selectedNodeId) {
       state.connectSourceId = state.selectedNodeId;
@@ -2799,6 +3519,11 @@ function init() {
   });
 
   document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && document.body.classList.contains("is-code-fullscreen")) {
+      event.preventDefault();
+      setCodeFullscreen(false);
+      return;
+    }
     const shortcutKey = event.key.toLowerCase();
     const modifierPressed = event.metaKey || event.ctrlKey;
     if (modifierPressed && !event.altKey && !isEditableTarget(event.target)) {
@@ -2833,8 +3558,11 @@ function init() {
 }
 
 const toolCodeParam = new URLSearchParams(window.location.search).get("tool-code");
+const codeViewParam = new URLSearchParams(window.location.search).get("code-view");
 if (toolCodeParam) {
   initToolCodePage(toolCodeParam);
+} else if (codeViewParam === "generated") {
+  initGeneratedCodePage();
 } else {
   init();
 }

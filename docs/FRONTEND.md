@@ -64,20 +64,34 @@ when a pack is selected or present in a loaded sample, supports search and
 category filtering, and emits selected provider packs into the downloaded
 LangGraph Python as subprocess-backed tool boundaries with explicit approval
 checks for mutating operations. The pack files are static assets hosted with
-the S3-backed app origin.
+the S3-backed app origin. API-only provider packs, such as Reddit and
+Twitter/X, use `curl` command templates with bearer-token placeholders rather
+than assuming a local provider-specific CLI.
 
 Every editable console node has an execution mode. AI-enabled nodes show a
 prompt editor and may attach provider packs. Python-code nodes hide provider
 packs, show a Python block editor, and run the browser-local embeddable-block
 check before export. The palette exposes one generic node button; the node's
 mode is selected in the inspector. Nodes can be resized from the inspector or
-with the card resize handle.
+with the card resize handle. The left sidebar separates the selected
+node/connector inspector from workspace-library actions such as samples,
+provider packs, custom tools, and graph checks with distinct collapsible
+top-level groups; samples remain behind a nested disclosure so they do not read
+as part of node editing. Python-code editors use the same local syntax
+highlighter as generated Python previews.
 
 Generated LangGraph code wraps Python-code node bodies so their return values
 are merged into state and recorded under `artifacts["node_outputs"]`. Dict
 returns update declared state keys, custom keys are also copied into `data`,
 and conditional nodes may return either a branch string or a dict containing
 `route`.
+
+When an editable console node has incoming connectors, the inspector shows
+upstream value accessors for those parent nodes. Python-code nodes can insert
+the generated `state.get(...)` lines directly into their editor; inferred
+key-level accessors come from simple upstream returns such as
+`{"data": {"name": value}}`, with a whole-output fallback under
+`artifacts["node_outputs"]`.
 
 Provider-pack chips include a code view action that opens a separate browser
 tab with generated LangChain-compatible `@tool` functions for every command in
