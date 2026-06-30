@@ -61,6 +61,9 @@ Reference:
 - `site/assets/`: browser JS, CSS, and project-owned visual assets.
 - `site/agent-console/`: isolated LangGraph agent console CSS, browser JS, and
   static tool catalog.
+- `MacApp/`: standalone SwiftUI macOS app project for designing and operating
+  agent workflows. It has its own `AGENTS.md`, docs, SwiftPM package, and
+  validation harness.
 - `app-scripts/build-site.mjs`: static generator for app shell, SEO pages, content
   JSON, manifest, sitemap, and pipeline artifact.
 - `app-scripts/check-site.mjs`: mechanical generated-site checks.

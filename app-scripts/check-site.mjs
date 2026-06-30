@@ -246,6 +246,10 @@ async function main() {
   assert(agentConsole.includes("/agent-console/console.js"), "Agent console JS is missing.");
   assert(!agentConsole.includes("/assets/app.js"), "Agent console must not load the tutorial app bundle.");
   assert(!agentConsole.includes("/assets/styles.css"), "Agent console must not load the tutorial stylesheet.");
+  const agentConsoleJs = await readText(path.join(appDir, "agent-console", "console.js"));
+  for (const token of ["OPENAI_API_KEY", "OPENAI_BASE_URL", "OPENAI_MODEL", "_run_ai_node", "/responses"]) {
+    assert(agentConsoleJs.includes(token), `Agent console generated Python is missing ${token}.`);
+  }
   assert(!JSON.stringify(manifest).includes("agent-console"), "Agent console must stay out of content manifest.");
   assert(!JSON.stringify(search).includes("agent-console"), "Agent console must stay out of search index.");
   const agentToolCatalog = await readJson(path.join(appDir, "agent-console", "tools", "catalog.json"));

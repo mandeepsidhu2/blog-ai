@@ -3266,24 +3266,23 @@ function emitAiNodeBody(lines, node, functionName) {
     prompt: node.prompt || defaultPromptForNode(node),
     branches: node.kind === "condition" ? node.branches : [],
   };
-  lines.push("    artifacts = dict(state.get(\"artifacts\") or {})");
-  lines.push("    prompts = dict(artifacts.get(\"prompts\") or {})");
-  lines.push(`    prompts[${pythonString(functionName)}] = ${pythonLiteral(promptRecord)}`);
-  lines.push("    artifacts[\"prompts\"] = prompts");
+  lines.push("    tool_results: dict[str, Any] = {}");
   if (node.tools?.length) {
-    lines.push("    tool_results = dict(artifacts.get(\"tool_results\") or {})");
     for (const toolId of node.tools) {
       const tool = toolById(toolId);
       if (!tool) continue;
       lines.push(`    tool_results[${pythonString(tool.id)}] = run_${sanitizeIdentifier(tool.id, "tool")}(state)`);
     }
-    lines.push("    artifacts[\"tool_results\"] = tool_results");
   }
+  const branchesLiteral = node.kind === "condition" ? pythonLiteral(node.branches || []) : "None";
+  lines.push(`    output = _run_ai_node(state, ${pythonString(functionName)}, ${pythonLiteral(promptRecord)}, tool_results, ${branchesLiteral})`);
   if (node.kind === "condition") {
-    lines.push(`    return _state_update(state, ${pythonString(functionName)}, {"artifacts": artifacts, "route": ${pythonString(node.branches[0] || "next")}})`);
+    lines.push("    if \"route\" not in output:");
+    lines.push(`        output["route"] = ${pythonString(node.branches[0] || "next")}`);
   } else {
-    lines.push(`    return _state_update(state, ${pythonString(functionName)}, {"artifacts": artifacts})`);
+    lines.push("    output.pop(\"route\", None)");
   }
+  lines.push(`    return _state_update(state, ${pythonString(functionName)}, output)`);
 }
 
 function generatePython() {
@@ -3297,6 +3296,7 @@ function generatePython() {
   const selectedTools = [...new Set(regularNodes.filter(isAiNode).flatMap((node) => node.tools))]
     .map(toolById)
     .filter(Boolean);
+  const hasAiNodes = regularNodes.some(isAiNode);
   const commandTools = selectedTools.filter((tool) => tool.command.length);
   const packTools = selectedTools.filter((tool) => tool.pack);
   const stubTools = selectedTools.filter((tool) => !tool.command.length && !tool.pack);
@@ -3341,6 +3341,12 @@ function generatePython() {
   );
 
   const lines = ["from typing import Any, Literal, TypedDict"];
+  if (hasAiNodes) {
+    lines.push("import json");
+    lines.push("import os");
+    lines.push("import urllib.error");
+    lines.push("import urllib.request");
+  }
   if (commandTools.length || packTools.length) lines.push("import subprocess");
   if (packTools.length) lines.push("import shlex");
   lines.push(
@@ -3370,6 +3376,17 @@ function generatePython() {
     "",
     "STATE_KEYS = {\"messages\", \"artifacts\", \"data\", \"cwd\", \"tool_args\", \"approvals\", \"route\"}",
     "",
+  );
+  if (hasAiNodes) {
+    lines.push(
+      "OPENAI_API_KEY = os.getenv(\"OPENAI_API_KEY\", \"YOUR_OPENAI_API_KEY\")",
+      "OPENAI_BASE_URL = os.getenv(\"OPENAI_BASE_URL\", \"https://api.openai.com/v1\")",
+      "OPENAI_MODEL = os.getenv(\"OPENAI_MODEL\", \"gpt-5.5\")",
+      "OPENAI_TIMEOUT_SECONDS = int(os.getenv(\"OPENAI_TIMEOUT_SECONDS\", \"60\"))",
+      "",
+    );
+  }
+  lines.push(
     "",
     "def _state_update(state: AgentState, node_name: str, output: Any) -> dict[str, Any]:",
     "    if output is None:",
@@ -3393,6 +3410,143 @@ function generatePython() {
     "    return update",
     "",
   );
+
+  if (hasAiNodes) {
+    lines.push(
+      "",
+      "def _json_safe(value: Any) -> Any:",
+      "    try:",
+      "        return json.loads(json.dumps(value, default=str))",
+      "    except (TypeError, ValueError):",
+      "        return str(value)",
+      "",
+      "",
+      "def _openai_responses_url() -> str:",
+      "    return f\"{OPENAI_BASE_URL.rstrip('/')}/responses\"",
+      "",
+      "",
+      "def _extract_openai_text(response: dict[str, Any]) -> str:",
+      "    if isinstance(response.get(\"output_text\"), str):",
+      "        return response[\"output_text\"]",
+      "    parts: list[str] = []",
+      "    for item in response.get(\"output\") or []:",
+      "        if not isinstance(item, dict):",
+      "            continue",
+      "        for content in item.get(\"content\") or []:",
+      "            if not isinstance(content, dict):",
+      "                continue",
+      "            text = content.get(\"text\") or content.get(\"output_text\")",
+      "            if isinstance(text, str):",
+      "                parts.append(text)",
+      "    for choice in response.get(\"choices\") or []:",
+      "        if not isinstance(choice, dict):",
+      "            continue",
+      "        message = choice.get(\"message\") or {}",
+      "        content = message.get(\"content\")",
+      "        if isinstance(content, str):",
+      "            parts.append(content)",
+      "    return \"\\n\".join(part for part in parts if part).strip()",
+      "",
+      "",
+      "def _parse_json_object(text: str) -> dict[str, Any] | None:",
+      "    candidate = text.strip()",
+      "    if candidate.startswith(\"```\"):",
+      "        candidate = candidate.strip(\"`\").strip()",
+      "        if candidate.startswith(\"json\"):",
+      "            candidate = candidate[4:].strip()",
+      "    try:",
+      "        parsed = json.loads(candidate)",
+      "    except json.JSONDecodeError:",
+      "        return None",
+      "    return parsed if isinstance(parsed, dict) else None",
+      "",
+      "",
+      "def _call_openai_response(input_text: str) -> dict[str, Any]:",
+      "    if not OPENAI_API_KEY or OPENAI_API_KEY == \"YOUR_OPENAI_API_KEY\":",
+      "        raise RuntimeError(\"Set OPENAI_API_KEY before running AI-enabled nodes.\")",
+      "    payload = {\"model\": OPENAI_MODEL, \"input\": input_text}",
+      "    request = urllib.request.Request(",
+      "        _openai_responses_url(),",
+      "        data=json.dumps(payload).encode(\"utf-8\"),",
+      "        headers={",
+      "            \"Authorization\": f\"Bearer {OPENAI_API_KEY}\",",
+      "            \"Content-Type\": \"application/json\",",
+      "        },",
+      "        method=\"POST\",",
+      "    )",
+      "    try:",
+      "        with urllib.request.urlopen(request, timeout=OPENAI_TIMEOUT_SECONDS) as response:",
+      "            body = response.read().decode(\"utf-8\")",
+      "    except urllib.error.HTTPError as exc:",
+      "        error_body = exc.read().decode(\"utf-8\", errors=\"replace\")",
+      "        raise RuntimeError(f\"OpenAI API request failed with HTTP {exc.code}: {error_body}\") from exc",
+      "    return json.loads(body)",
+      "",
+      "",
+      "def _build_ai_prompt(",
+      "    state: AgentState,",
+      "    node_name: str,",
+      "    prompt_record: dict[str, Any],",
+      "    tool_results: dict[str, Any],",
+      "    branches: list[str] | None = None,",
+      ") -> str:",
+      "    instructions = [",
+      "        \"You are an AI-enabled LangGraph node.\",",
+      "        \"Use the node prompt, current state, and tool results to produce the next state update.\",",
+      "        \"Return only a JSON object. Valid top-level keys are messages, data, artifacts, cwd, tool_args, approvals, and route.\",",
+      "        \"Use route only when this node is conditional.\",",
+      "    ]",
+      "    if branches:",
+      "        instructions.append(f\"Allowed route values: {branches}\")",
+      "    return \"\\n\\n\".join(",
+      "        [",
+      "            \"\\n\".join(instructions),",
+      "            f\"Node name: {node_name}\",",
+      "            f\"Node title: {prompt_record.get('title', node_name)}\",",
+      "            f\"Node prompt:\\n{prompt_record.get('prompt', '')}\",",
+      "            \"Current state JSON:\\n\" + json.dumps(_json_safe(state), indent=2, sort_keys=True),",
+      "            \"Tool results JSON:\\n\" + json.dumps(_json_safe(tool_results), indent=2, sort_keys=True),",
+      "        ]",
+      "    )",
+      "",
+      "",
+      "def _run_ai_node(",
+      "    state: AgentState,",
+      "    node_name: str,",
+      "    prompt_record: dict[str, Any],",
+      "    tool_results: dict[str, Any] | None = None,",
+      "    branches: list[str] | None = None,",
+      ") -> dict[str, Any]:",
+      "    tool_results = tool_results or {}",
+      "    raw_response = _call_openai_response(_build_ai_prompt(state, node_name, prompt_record, tool_results, branches))",
+      "    response_text = _extract_openai_text(raw_response)",
+      "    parsed = _parse_json_object(response_text)",
+      "    output: dict[str, Any] = dict(parsed) if parsed else {\"data\": {node_name: {\"response_text\": response_text}}}",
+      "    artifacts = dict(state.get(\"artifacts\") or {})",
+      "    if isinstance(output.get(\"artifacts\"), dict):",
+      "        artifacts.update(output[\"artifacts\"])",
+      "    prompts = dict(artifacts.get(\"prompts\") or {})",
+      "    prompts[node_name] = prompt_record",
+      "    artifacts[\"prompts\"] = prompts",
+      "    if tool_results:",
+      "        all_tool_results = dict(artifacts.get(\"tool_results\") or {})",
+      "        all_tool_results.update(tool_results)",
+      "        artifacts[\"tool_results\"] = all_tool_results",
+      "    llm_responses = dict(artifacts.get(\"llm_responses\") or {})",
+      "    llm_responses[node_name] = {\"text\": response_text, \"raw\": raw_response}",
+      "    artifacts[\"llm_responses\"] = llm_responses",
+      "    output[\"artifacts\"] = artifacts",
+      "    if response_text and \"messages\" not in output:",
+      "        messages = list(state.get(\"messages\") or [])",
+      "        messages.append(response_text)",
+      "        output[\"messages\"] = messages",
+      "    if branches and \"route\" not in output:",
+      "        route_text = response_text.strip()",
+      "        output[\"route\"] = route_text if route_text in branches else branches[0]",
+      "    return output",
+      "",
+    );
+  }
 
   if (commandTools.length || packTools.length) {
     lines.push(`TOOL_REGISTRY: dict[str, dict[str, Any]] = ${pythonLiteral(toolRegistry)}`);

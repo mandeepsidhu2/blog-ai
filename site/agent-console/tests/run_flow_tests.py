@@ -119,6 +119,38 @@ def assert_equal(actual: Any, expected: Any, label: str) -> None:
         raise AssertionError(f"{label}: expected {expected!r}, got {actual!r}")
 
 
+def simulated_ai_output(
+    state: dict[str, Any],
+    node_name: str,
+    response_text: str,
+    parsed: dict[str, Any] | None = None,
+    branches: list[str] | None = None,
+    tool_results: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Mirror the generated AI-node output merge without a network call."""
+
+    output = dict(parsed) if parsed is not None else {"data": {node_name: {"response_text": response_text}}}
+    artifacts = dict(state.get("artifacts") or {})
+    prompts = dict(artifacts.get("prompts") or {})
+    prompts[node_name] = {"title": node_name, "prompt": "dummy prompt", "branches": branches or []}
+    artifacts["prompts"] = prompts
+    if tool_results:
+        all_tool_results = dict(artifacts.get("tool_results") or {})
+        all_tool_results.update(tool_results)
+        artifacts["tool_results"] = all_tool_results
+    llm_responses = dict(artifacts.get("llm_responses") or {})
+    llm_responses[node_name] = {"text": response_text, "raw": {"id": f"resp_{node_name}"}}
+    artifacts["llm_responses"] = llm_responses
+    output["artifacts"] = artifacts
+    if response_text and "messages" not in output:
+        messages = list(state.get("messages") or [])
+        messages.append(response_text)
+        output["messages"] = messages
+    if branches and "route" not in output:
+        output["route"] = response_text.strip() if response_text.strip() in branches else branches[0]
+    return output
+
+
 def cases() -> list[FlowCase]:
     return [
         FlowCase(
@@ -359,6 +391,61 @@ def cases() -> list[FlowCase]:
             assert_state=lambda state, order: (
                 assert_equal(state["data"]["value_after_noop"], 10, "noop preserved data"),
                 assert_equal(state["artifacts"]["node_outputs"]["noop"], {}, "noop recorded as empty output"),
+            ),
+        ),
+        FlowCase(
+            name="ai_node_json_response_updates_state_and_records_llm_artifact",
+            nodes=[
+                FlowNode("seed", lambda state: {"data": {"topic": "infra"}}),
+                FlowNode(
+                    "ai_writer",
+                    lambda state: simulated_ai_output(
+                        state,
+                        "ai_writer",
+                        '{"data": {"draft": "infra summary"}}',
+                        parsed={"data": {"draft": "infra summary"}},
+                        tool_results={"python": {"stdout": "ok"}},
+                    ),
+                    kind="ai",
+                ),
+                FlowNode("reader", lambda state: {"data": {"seen": state["data"]["draft"]}}),
+            ],
+            edges=[FlowEdge(START, "seed"), FlowEdge("seed", "ai_writer"), FlowEdge("ai_writer", "reader"), FlowEdge("reader", END)],
+            assert_state=lambda state, order: (
+                assert_equal(state["data"]["seen"], "infra summary", "AI JSON data"),
+                assert_equal(state["artifacts"]["llm_responses"]["ai_writer"]["raw"]["id"], "resp_ai_writer", "AI raw response artifact"),
+                assert_equal(state["artifacts"]["tool_results"]["python"]["stdout"], "ok", "AI tool result artifact"),
+            ),
+        ),
+        FlowCase(
+            name="ai_node_text_response_falls_back_to_node_scoped_data_and_messages",
+            nodes=[
+                FlowNode("ai_notes", lambda state: simulated_ai_output(state, "ai_notes", "plain model answer"), kind="ai"),
+                FlowNode("reader", lambda state: {"data": {"text": state["data"]["ai_notes"]["response_text"]}}),
+            ],
+            edges=[FlowEdge(START, "ai_notes"), FlowEdge("ai_notes", "reader"), FlowEdge("reader", END)],
+            assert_state=lambda state, order: (
+                assert_equal(state["data"]["text"], "plain model answer", "AI text fallback"),
+                assert_equal(state["messages"], ["plain model answer"], "AI text appended to messages"),
+            ),
+        ),
+        FlowCase(
+            name="ai_condition_text_response_selects_matching_branch",
+            nodes=[
+                FlowNode("ai_gate", lambda state: simulated_ai_output(state, "ai_gate", "approved", branches=["approved", "rejected"]), kind="condition"),
+                FlowNode("approve", lambda state: {"data": {"decision": "ship"}}),
+                FlowNode("reject", lambda state: {"data": {"decision": "hold"}}),
+            ],
+            edges=[
+                FlowEdge(START, "ai_gate"),
+                FlowEdge("ai_gate", "approve", "approved"),
+                FlowEdge("ai_gate", "reject", "rejected"),
+                FlowEdge("approve", END),
+                FlowEdge("reject", END),
+            ],
+            assert_state=lambda state, order: (
+                assert_equal(state["data"]["decision"], "ship", "AI route decision"),
+                assert_equal("reject" in order, False, "AI inactive route skipped"),
             ),
         ),
     ]

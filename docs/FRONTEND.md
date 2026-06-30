@@ -69,11 +69,17 @@ Twitter/X, use `curl` command templates with bearer-token placeholders rather
 than assuming a local provider-specific CLI.
 
 Every editable console node has an execution mode. AI-enabled nodes show a
-prompt editor and may attach provider packs. Python-code nodes hide provider
-packs, show a Python block editor, and run the browser-local embeddable-block
-check before export. The palette exposes one generic node button; the node's
-mode is selected in the inspector. Nodes can be resized from the inspector or
-with the card resize handle. The left sidebar separates the selected
+prompt editor and may attach provider packs. Generated LangGraph Python for
+AI-enabled nodes calls an OpenAI-compatible Responses endpoint using
+`OPENAI_API_KEY`, `OPENAI_BASE_URL`, `OPENAI_MODEL`, and
+`OPENAI_TIMEOUT_SECONDS` environment variables, with placeholder defaults in
+the generated file. The model is asked to return JSON state updates, and the
+raw model response is recorded in `artifacts["llm_responses"]`. Python-code
+nodes hide provider packs, show a Python block editor, and run the
+browser-local embeddable-block check before export. The palette exposes one
+generic node button; the node's mode is selected in the inspector. Nodes can be
+resized from the inspector or with the card resize handle. The left sidebar
+separates the selected
 node/connector inspector from workspace-library actions such as samples,
 provider packs, custom tools, and graph checks with distinct collapsible
 top-level groups whose headers stay visible while oversized group bodies scroll
@@ -99,11 +105,13 @@ active connection values and can replace or clear those node-level connections.
 Generated LangGraph code wraps Python-code node bodies so their return values
 are merged into state and recorded under `artifacts["node_outputs"]`. Dict
 returns update declared state keys, custom keys are also copied into `data`,
-and conditional nodes may return either a branch string or a dict containing
-`route`. The isolated console data-flow tests in
+AI-node model JSON output follows the same merge path, raw text falls back to
+node-scoped `data`, and conditional nodes may return either a branch string or
+a dict containing `route`. The isolated console data-flow tests in
 `site/agent-console/tests/run_flow_tests.py` mirror this state-update contract
 with sample agentic flows that cover linear execution, branches, fan-out joins,
-custom return keys, raw-output accessors, and non-dict returns.
+custom return keys, AI-node response merges, raw-output accessors, and non-dict
+returns.
 
 When an editable console node has incoming connectors, the inspector shows
 upstream value accessors for those parent nodes. Python-code nodes can insert
