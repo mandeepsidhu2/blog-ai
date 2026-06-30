@@ -1046,6 +1046,63 @@ function selectedNodeForConnectionChange(previousNodeId, sourceId, targetId) {
   return targetId;
 }
 
+function draftEdgeForSummary() {
+  const draft = state.connectionDraft;
+  if (!draft?.targetId || draft.from === draft.targetId) return null;
+  const source = nodeById(draft.from);
+  const target = nodeById(draft.targetId);
+  if (!source || !target || target.kind === "start") return null;
+  const rewireEdge = draft.rewireEdgeId ? edgeById(draft.rewireEdgeId) : null;
+  return {
+    id: draft.rewireEdgeId || `draft-${draft.from}-${draft.targetId}`,
+    from: draft.from,
+    to: draft.targetId,
+    label: rewireEdge?.label || (source.kind === "condition" ? firstUnusedBranch(source) : "next"),
+    draft: true,
+  };
+}
+
+function effectiveEdgesForSummary() {
+  const draftEdge = draftEdgeForSummary();
+  if (!draftEdge) return state.edges;
+  const edges = state.connectionDraft?.rewireEdgeId
+    ? state.edges.map((edge) => (edge.id === state.connectionDraft.rewireEdgeId ? draftEdge : edge))
+    : [...state.edges, draftEdge];
+  const seen = new Set();
+  return edges.filter((edge) => {
+    const key = `${edge.from}::${edge.to}::${edge.label}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function connectionSummaryMarkup(node, edges = effectiveEdgesForSummary()) {
+  const incoming = edges
+    .filter((edge) => edge.to === node.id)
+    .map((edge) => nodeById(edge.from)?.title || edge.from)
+    .join(", ");
+  const outgoing = edges
+    .filter((edge) => edge.from === node.id)
+    .map((edge) => {
+      const target = nodeById(edge.to)?.title || edge.to;
+      return node.kind === "condition" ? `${edge.label} -> ${target}` : target;
+    })
+    .join(", ");
+
+  return `
+    <span><strong>Parents</strong>${incoming ? escapeHtml(incoming) : "None"}</span>
+    <span><strong>Children</strong>${outgoing ? escapeHtml(outgoing) : "None"}</span>
+  `;
+}
+
+function syncSelectedConnectionSummary() {
+  const node = nodeById(state.selectedNodeId);
+  const summary = els.inspector?.querySelector?.(".connection-summary");
+  if (!node || !summary) return;
+  summary.innerHTML = connectionSummaryMarkup(node);
+}
+
 function nextPosition() {
   const count = state.nodes.filter((node) => !["start", "end"].includes(node.kind)).length;
   return {
@@ -1773,6 +1830,7 @@ function renderEdges() {
       selectEdge(handle.dataset.edgeId);
     });
   });
+  syncSelectedConnectionSummary();
 }
 
 function renderDraftEdge() {
@@ -2414,17 +2472,6 @@ function attachUpstreamValueHandlers() {
 function renderConnectionEditor(node) {
   const parents = state.nodes.filter((candidate) => candidate.id !== node.id && candidate.kind !== "end");
   const children = state.nodes.filter((candidate) => candidate.id !== node.id && candidate.kind !== "start");
-  const incoming = state.edges
-    .filter((edge) => edge.to === node.id)
-    .map((edge) => nodeById(edge.from)?.title || edge.from)
-    .join(", ");
-  const outgoing = state.edges
-    .filter((edge) => edge.from === node.id)
-    .map((edge) => {
-      const target = nodeById(edge.to)?.title || edge.to;
-      return node.kind === "condition" ? `${edge.label} -> ${target}` : target;
-    })
-    .join(", ");
   const branchSelector =
     node.kind === "condition"
       ? `
@@ -2441,8 +2488,7 @@ function renderConnectionEditor(node) {
     <section class="panel-section">
       <h2>Connections</h2>
       <div class="connection-summary">
-        <span><strong>Parents</strong>${incoming ? escapeHtml(incoming) : "None"}</span>
-        <span><strong>Children</strong>${outgoing ? escapeHtml(outgoing) : "None"}</span>
+        ${connectionSummaryMarkup(node)}
       </div>
       <div class="connection-grid">
         <label>

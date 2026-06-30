@@ -87,7 +87,8 @@ highlights the target card before release. Existing connectors expose a small
 arrow-end handle that can be dragged to another node to retarget that edge
 without deleting and recreating it. Connection edits keep the relevant node
 inspector active when possible so the Parents and Children summary updates
-immediately after the graph edge list changes.
+from the same effective edge list as the canvas, including the connector being
+dragged or retargeted.
 
 Generated LangGraph code wraps Python-code node bodies so their return values
 are merged into state and recorded under `artifacts["node_outputs"]`. Dict
