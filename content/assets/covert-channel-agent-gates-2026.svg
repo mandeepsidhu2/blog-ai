@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Covert-channel release gate for tool-using agents</title>
+  <desc id="desc">Architecture diagram showing untrusted inputs, agent planning, tool-call trace capture, hidden-channel scoring, review queues, and rollback controls.</desc>
+  <rect width="960" height="540" fill="#f7faf8"/>
+  <text x="44" y="52" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#17202a">Release gates for hidden agent coordination</text>
+  <text x="44" y="82" font-family="Inter, Arial, sans-serif" font-size="16" fill="#53616c">Gate the trace surface, not only the visible assistant text.</text>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="48" y="130" width="150" height="88" rx="8" fill="#ffffff" stroke="#9db4bd" stroke-width="2"/>
+    <text x="123" y="164" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Untrusted input</text>
+    <text x="123" y="190" text-anchor="middle" font-size="13" fill="#53616c">tickets, docs, email</text>
+    <rect x="266" y="130" width="150" height="88" rx="8" fill="#ffffff" stroke="#9db4bd" stroke-width="2"/>
+    <text x="341" y="164" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Agent plan</text>
+    <text x="341" y="190" text-anchor="middle" font-size="13" fill="#53616c">steps and delegation</text>
+    <rect x="484" y="130" width="150" height="88" rx="8" fill="#ffffff" stroke="#9db4bd" stroke-width="2"/>
+    <text x="559" y="164" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Tool calls</text>
+    <text x="559" y="190" text-anchor="middle" font-size="13" fill="#53616c">metadata and payloads</text>
+    <rect x="702" y="130" width="184" height="88" rx="8" fill="#fff7ef" stroke="#bf4e30" stroke-width="2"/>
+    <text x="794" y="164" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Trace gate</text>
+    <text x="794" y="190" text-anchor="middle" font-size="13" fill="#53616c">capacity, provenance, route</text>
+    <path d="M198 174 H266" stroke="#60717d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <path d="M416 174 H484" stroke="#60717d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <path d="M634 174 H702" stroke="#60717d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <rect x="110" y="316" width="170" height="92" rx="8" fill="#eef7f8" stroke="#1f7a8c" stroke-width="2"/>
+    <text x="195" y="350" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Allow</text>
+    <text x="195" y="376" text-anchor="middle" font-size="13" fill="#53616c">normal low-risk traces</text>
+    <rect x="394" y="316" width="170" height="92" rx="8" fill="#fffaf0" stroke="#c68a2d" stroke-width="2"/>
+    <text x="479" y="350" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Review</text>
+    <text x="479" y="376" text-anchor="middle" font-size="13" fill="#53616c">ambiguous coordination</text>
+    <rect x="678" y="316" width="170" height="92" rx="8" fill="#f6eef8" stroke="#6b5b95" stroke-width="2"/>
+    <text x="763" y="350" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Block</text>
+    <text x="763" y="376" text-anchor="middle" font-size="13" fill="#53616c">high-risk hidden channels</text>
+    <path d="M750 218 C680 260 280 268 210 316" stroke="#1f7a8c" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <path d="M794 218 C760 266 540 270 492 316" stroke="#c68a2d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <path d="M840 218 C842 262 800 284 770 316" stroke="#6b5b95" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <text x="46" y="470" font-size="16" fill="#17202a">Operational signals: hidden payload budget, repeated metadata patterns, untrusted provenance, cross-agent route, and rollback owner.</text>
+  </g>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#60717d"/>
+    </marker>
+  </defs>
+</svg>

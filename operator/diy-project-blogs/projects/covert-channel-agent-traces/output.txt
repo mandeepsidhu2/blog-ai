@@ -1,0 +1,5 @@
+Covert-channel trace gate experiment
+events=12
+contentOnly: accuracy=0.25 mean_score=0.417 blocked=0 reviewed=4 allowed=8 false_negatives=4 false_positives=0
+toolBoundary: accuracy=0.917 mean_score=0.958 blocked=3 reviewed=6 allowed=3 false_negatives=1 false_positives=0
+traceBudget: accuracy=1 mean_score=1 blocked=4 reviewed=5 allowed=3 false_negatives=0 false_positives=0
