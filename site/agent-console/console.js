@@ -822,6 +822,44 @@ function canvasPointFromClient(clientX, clientY) {
   };
 }
 
+function nodeContainsPoint(node, point, padding = 0) {
+  const bounds = nodeBounds(node);
+  return (
+    point.x >= bounds.x - padding &&
+    point.x <= bounds.x + bounds.width + padding &&
+    point.y >= bounds.y - padding &&
+    point.y <= bounds.y + bounds.height + padding
+  );
+}
+
+function connectionTargetIdAtClientPoint(clientX, clientY, sourceId) {
+  const point = canvasPointFromClient(clientX, clientY);
+  const candidates = state.nodes
+    .filter((node) => node.id !== sourceId && node.kind !== "start")
+    .slice()
+    .reverse();
+  return (
+    candidates.find((node) => nodeContainsPoint(node, point, 0))?.id ||
+    candidates.find((node) => nodeContainsPoint(node, point, 34))?.id ||
+    null
+  );
+}
+
+function setConnectionDropTarget(targetId) {
+  if (state.connectionDraft) {
+    state.connectionDraft.targetId = targetId || null;
+  }
+  document.querySelectorAll(".node-card").forEach((card) => {
+    card.classList.toggle("is-connect-target", Boolean(targetId) && card.dataset.id === targetId);
+  });
+}
+
+function clearConnectionDropTarget() {
+  document.querySelectorAll(".node-card.is-connect-target").forEach((card) => {
+    card.classList.remove("is-connect-target");
+  });
+}
+
 function createInitialNodes() {
   return [
     {
@@ -1231,6 +1269,7 @@ function renderNodes() {
     element.style.height = `${node.height || nodeFallbackSize.height}px`;
     if (state.selectedNodeId === node.id) element.classList.add("is-selected");
     if (state.connectSourceId === node.id) element.classList.add("is-connect-source");
+    if (state.connectionDraft?.targetId === node.id) element.classList.add("is-connect-target");
     const tools = lockedNode(node)
       ? ""
       : isAiNode(node)
@@ -1439,6 +1478,7 @@ function startConnectionDrag(node, handle, event) {
     from: node.id,
     x: start.x,
     y: start.y,
+    targetId: null,
   };
   state.connectSourceId = node.id;
   state.selectedNodeId = node.id;
@@ -1454,11 +1494,14 @@ function startConnectionDrag(node, handle, event) {
       moved = true;
     }
     const point = canvasPointFromClient(moveEvent.clientX, moveEvent.clientY);
+    const targetId = connectionTargetIdAtClientPoint(moveEvent.clientX, moveEvent.clientY, node.id);
     state.connectionDraft = {
       from: node.id,
       x: point.x,
       y: point.y,
+      targetId,
     };
+    setConnectionDropTarget(targetId);
     renderEdges();
   }
 
@@ -1478,11 +1521,11 @@ function startConnectionDrag(node, handle, event) {
     if (finished) return;
     finished = true;
     cleanup(upEvent.pointerId);
-    const targetNode = document.elementFromPoint(upEvent.clientX, upEvent.clientY)?.closest(".node-card");
-    const targetId = targetNode?.dataset.id;
+    const targetId = connectionTargetIdAtClientPoint(upEvent.clientX, upEvent.clientY, node.id) || state.connectionDraft?.targetId;
     state.connectionDraft = null;
     state.connectSourceId = null;
     state.suppressNextPortClick = moved;
+    clearConnectionDropTarget();
     if (targetId && targetId !== node.id) {
       addEdge(node.id, targetId, "", { select: "target" });
     } else {
@@ -1499,6 +1542,7 @@ function startConnectionDrag(node, handle, event) {
     cleanup(cancelEvent.pointerId);
     state.connectionDraft = null;
     state.connectSourceId = null;
+    clearConnectionDropTarget();
     render();
   }
 
@@ -1548,8 +1592,13 @@ function renderDraftEdge() {
   if (!state.connectionDraft) return "";
   const from = nodeById(state.connectionDraft.from);
   if (!from) return "";
-  const end = { x: state.connectionDraft.x, y: state.connectionDraft.y };
-  const start = anchorPoint(from, end);
+  const target = state.connectionDraft.targetId ? nodeById(state.connectionDraft.targetId) : null;
+  const { start, end } = target
+    ? edgeAnchors(from, target)
+    : {
+        start: anchorPoint(from, { x: state.connectionDraft.x, y: state.connectionDraft.y }),
+        end: { x: state.connectionDraft.x, y: state.connectionDraft.y },
+      };
   const curve = edgeCurve(start, end);
   return `<path class="edge-path is-draft" d="${curve.path}" marker-end="url(#arrow-head)"></path>`;
 }
@@ -3405,6 +3454,18 @@ async function initGeneratedCodePage() {
   `;
 }
 
+function setupSidebarGroupToggles() {
+  document.querySelectorAll("[data-sidebar-toggle]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const group = button.closest(".sidebar-group");
+      if (!group) return;
+      const open = !group.classList.contains("is-open");
+      group.classList.toggle("is-open", open);
+      button.setAttribute("aria-expanded", String(open));
+    });
+  });
+}
+
 function init() {
   Object.assign(els, {
     shell: document.querySelector(".console-shell"),
@@ -3437,6 +3498,8 @@ function init() {
     inspectorResize: byId("resize-inspector"),
     codePanelResize: byId("resize-code-panel"),
   });
+
+  setupSidebarGroupToggles();
 
   document.querySelectorAll("[data-add-node]").forEach((button) => {
     setupNativePaletteDrag(button);

@@ -781,19 +781,19 @@ function renderAgentConsolePage() {
 
     <main class="console-workbench">
       <aside class="console-sidebar" aria-label="Graph inspector and tools">
-        <details class="sidebar-group sidebar-group-selected" aria-labelledby="selected-item-heading" open>
-          <summary class="sidebar-group-header">
+        <section class="sidebar-group sidebar-group-selected is-open" aria-labelledby="selected-item-heading">
+          <button class="sidebar-group-header" type="button" data-sidebar-toggle aria-expanded="true">
             <span class="sidebar-group-title" id="selected-item-heading">Selected item</span>
             <span class="sidebar-group-description">Edit the active node or connector.</span>
-          </summary>
+          </button>
           <div class="sidebar-group-body inspector-region" id="inspector" aria-label="Inspector"></div>
-        </details>
+        </section>
 
-        <details class="sidebar-group sidebar-group-library" aria-labelledby="workspace-library-heading" open>
-          <summary class="sidebar-group-header">
+        <section class="sidebar-group sidebar-group-library is-open" aria-labelledby="workspace-library-heading">
+          <button class="sidebar-group-header" type="button" data-sidebar-toggle aria-expanded="true">
             <span class="sidebar-group-title" id="workspace-library-heading">Workspace library</span>
             <span class="sidebar-group-description">Load examples, attach provider packs, and inspect graph checks.</span>
-          </summary>
+          </button>
           <div class="sidebar-group-body workspace-library-body">
 
           <details class="panel-disclosure library-disclosure">
@@ -808,7 +808,7 @@ function renderAgentConsolePage() {
             </div>
           </details>
 
-          <details class="panel-disclosure library-disclosure" open>
+          <details class="panel-disclosure library-disclosure">
             <summary>Provider packs</summary>
             <div class="library-disclosure-body">
               <div class="tool-library-controls">
@@ -841,7 +841,7 @@ function renderAgentConsolePage() {
             </div>
           </details>
           </div>
-        </details>
+        </section>
       </aside>
 
       <button class="panel-resize-handle panel-resize-handle-left" type="button" id="resize-sidebar" title="Resize left panel" aria-label="Resize left panel"></button>

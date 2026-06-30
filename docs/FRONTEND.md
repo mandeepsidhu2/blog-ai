@@ -76,9 +76,14 @@ mode is selected in the inspector. Nodes can be resized from the inspector or
 with the card resize handle. The left sidebar separates the selected
 node/connector inspector from workspace-library actions such as samples,
 provider packs, custom tools, and graph checks with distinct collapsible
-top-level groups; samples remain behind a nested disclosure so they do not read
-as part of node editing. Python-code editors use the same local syntax
-highlighter as generated Python previews.
+top-level groups whose headers stay visible while oversized group bodies scroll
+internally; samples remain behind a nested disclosure so they do not read as
+part of node editing. Python-code editors use the same local syntax highlighter
+as generated Python previews.
+
+Connector drags from output ports accept the full destination node card, not
+only the small input port. The draft edge snaps to the hovered node edge and
+highlights the target card before release.
 
 Generated LangGraph code wraps Python-code node bodies so their return values
 are merged into state and recorded under `artifacts["node_outputs"]`. Dict
