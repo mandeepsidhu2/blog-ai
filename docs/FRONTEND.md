@@ -82,20 +82,28 @@ part of node editing. Python-code editors use the same local syntax highlighter
 as generated Python previews.
 
 Connector drags from output ports accept the full destination node card, not
-only the small input port. The draft edge snaps to the hovered node edge and
-highlights the target card before release. Existing connectors expose a small
-arrow-end handle that can be dragged to another node to retarget that edge
-without deleting and recreating it. Connection edits keep the relevant node
-inspector active when possible so the Parents and Children summary updates
-from the same effective edge list as the canvas, including the connector being
-dragged or retargeted. The parent and child selects reflect the active
-connection values and can replace or clear those node-level connections.
+only the small input port. New and retargeted connectors persist the explicit
+source side and destination side chosen by the user, so dragging from a bottom
+output to a left, top, right, or bottom destination area keeps that visual
+endpoint instead of recomputing from node centers. The draft edge snaps to the
+hovered node edge and highlights the target card before release. Existing
+connectors expose transparent, padded terminal hit zones at both the arrow
+start and arrow end; either terminal can be dragged to another node to retarget
+that side without deleting and recreating the connector, and the handle should
+not render as a visible endpoint blob when idle. Connection edits keep the
+relevant node inspector active when possible so the Parents and Children
+summary updates from the same effective edge list as the canvas, including the
+connector being dragged or retargeted. The parent and child selects reflect the
+active connection values and can replace or clear those node-level connections.
 
 Generated LangGraph code wraps Python-code node bodies so their return values
 are merged into state and recorded under `artifacts["node_outputs"]`. Dict
 returns update declared state keys, custom keys are also copied into `data`,
 and conditional nodes may return either a branch string or a dict containing
-`route`.
+`route`. The isolated console data-flow tests in
+`site/agent-console/tests/run_flow_tests.py` mirror this state-update contract
+with sample agentic flows that cover linear execution, branches, fan-out joins,
+custom return keys, raw-output accessors, and non-dict returns.
 
 When an editable console node has incoming connectors, the inspector shows
 upstream value accessors for those parent nodes. Python-code nodes can insert

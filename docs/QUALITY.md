@@ -17,6 +17,12 @@ node operator/scripts/check-public-content.mjs
 node app-scripts/check-site.mjs
 ```
 
+Agent-console data-flow tests:
+
+```sh
+npm run test:agent-console
+```
+
 Preview:
 
 ```sh
@@ -122,10 +128,14 @@ For visual or interaction changes:
 
 1. Build.
 2. Check.
-3. Preview.
-4. Browser-review desktop and mobile. For `/agent-console/`, verify connector
-   drag creation, arrow-end retargeting, selected-node Parents/Children
-   summaries, and parent/child select values stay synchronized.
+3. Run `npm run test:agent-console` when generated LangGraph state handling,
+   connector rewiring, node return semantics, or upstream accessors change.
+4. Preview.
+5. Browser-review desktop and mobile. For `/agent-console/`, verify connector
+   drag creation, arrow-start and arrow-end retargeting through the padded
+   transparent terminal hit zones, absence of idle endpoint blobs,
+   selected-node Parents/Children summaries, and parent/child select values stay
+   synchronized.
 
 For infrastructure changes:
 

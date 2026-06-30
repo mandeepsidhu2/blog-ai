@@ -12,6 +12,7 @@
     "build": "node app-scripts/build-site.mjs",
     "check": "node operator/scripts/check-public-content.mjs && node app-scripts/check-site.mjs",
     "check:content": "node operator/scripts/check-public-content.mjs",
+    "test:agent-console": "python3 site/agent-console/tests/run_flow_tests.py",
     "preview": "node app-scripts/serve-dist.mjs"
   },
   "engines": {
