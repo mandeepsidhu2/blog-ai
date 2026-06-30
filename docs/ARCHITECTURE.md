@@ -98,6 +98,10 @@ The generator intentionally has no external package dependencies.
 - Sample flow definitions, custom-tool stub generation, and browser-local
   persistence are console-only behavior. They must not depend on tutorial app
   state or content payloads.
+- Agent-console graph editing owns connector creation, connector retargeting,
+  node parent/child selectors, and generated LangGraph preview updates as one
+  browser-local workflow. Those controls should stay in `site/agent-console/`
+  and remain independent of the tutorial app shell.
 - Edit generation behavior in `app-scripts/build-site.mjs`.
 - Edit validation in `app-scripts/check-site.mjs`.
 - Put operator-only publishing tools in `operator/scripts`.

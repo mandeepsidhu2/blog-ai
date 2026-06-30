@@ -123,7 +123,9 @@ For visual or interaction changes:
 1. Build.
 2. Check.
 3. Preview.
-4. Browser-review desktop and mobile.
+4. Browser-review desktop and mobile. For `/agent-console/`, verify connector
+   drag creation, arrow-end retargeting, selected-node Parents/Children
+   summaries, and parent/child select values stay synchronized.
 
 For infrastructure changes:
 
