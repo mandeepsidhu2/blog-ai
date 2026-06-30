@@ -93,7 +93,8 @@ final class WorkspaceStore: ObservableObject {
     }
 
     func createAgent() {
-        let agent = AgentDefinition.blank(number: workspace.agents.count + 1)
+        var agent = AgentDefinition.blank(number: workspace.agents.count + 1)
+        agent.llmModelConfigID = workspace.llmModels.first?.id
         workspace.agents.append(agent)
         selectAgent(agent.id)
     }
@@ -386,6 +387,10 @@ final class WorkspaceStore: ObservableObject {
             for sample in AgentWorkspace.sample.agents where !existingNames.contains(sample.name) {
                 result.agents.append(sample)
             }
+        }
+        let finalModelIDs = Set(result.llmModels.map(\.id))
+        for index in result.agents.indices where result.agents[index].llmModelConfigID == nil || !finalModelIDs.contains(result.agents[index].llmModelConfigID!) {
+            result.agents[index].llmModelConfigID = result.llmModels.first?.id
         }
         return result
     }
