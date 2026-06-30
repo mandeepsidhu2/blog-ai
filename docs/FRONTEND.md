@@ -83,7 +83,11 @@ as generated Python previews.
 
 Connector drags from output ports accept the full destination node card, not
 only the small input port. The draft edge snaps to the hovered node edge and
-highlights the target card before release.
+highlights the target card before release. Existing connectors expose a small
+arrow-end handle that can be dragged to another node to retarget that edge
+without deleting and recreating it. Connection edits keep the relevant node
+inspector active when possible so the Parents and Children summary updates
+immediately after the graph edge list changes.
 
 Generated LangGraph code wraps Python-code node bodies so their return values
 are merged into state and recorded under `artifacts["node_outputs"]`. Dict

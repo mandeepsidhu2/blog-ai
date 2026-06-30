@@ -117,6 +117,7 @@ const state = {
   zoom: 1,
   suppressNextPaletteClick: false,
   suppressNextPortClick: false,
+  suppressNextEdgeHandleClick: false,
   suppressMouseUntil: 0,
   nextNodeNumber: 1,
   history: {
@@ -810,6 +811,14 @@ function edgeCurve(start, end) {
   };
 }
 
+function endpointHandlePoint(anchor, offset = 16) {
+  if (anchor.side === "top") return { x: anchor.x, y: anchor.y - offset };
+  if (anchor.side === "bottom") return { x: anchor.x, y: anchor.y + offset };
+  if (anchor.side === "left") return { x: anchor.x - offset, y: anchor.y };
+  if (anchor.side === "right") return { x: anchor.x + offset, y: anchor.y };
+  return { x: anchor.x, y: anchor.y };
+}
+
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
@@ -1030,6 +1039,13 @@ function selectEdge(id) {
   render();
 }
 
+function selectedNodeForConnectionChange(previousNodeId, sourceId, targetId) {
+  if (previousNodeId && [sourceId, targetId].includes(previousNodeId)) {
+    return previousNodeId;
+  }
+  return targetId;
+}
+
 function nextPosition() {
   const count = state.nodes.filter((node) => !["start", "end"].includes(node.kind)).length;
   return {
@@ -1134,6 +1150,49 @@ function updateEdge(id, patch) {
   pushHistorySnapshot();
   Object.assign(edge, patch);
   render();
+}
+
+function applyConnectionSelection(edge, targetId, options = {}) {
+  const selection = options.select || "edge";
+  if (selection === "source") {
+    selectNode(edge.from);
+    return;
+  }
+  if (selection === "target") {
+    selectNode(targetId);
+    return;
+  }
+  if (selection === "node" && nodeById(options.nodeId)) {
+    selectNode(options.nodeId);
+    return;
+  }
+  selectEdge(edge.id);
+}
+
+function retargetEdge(edgeId, targetId, snapshot = graphSnapshot(), options = {}) {
+  const edge = edgeById(edgeId);
+  const target = nodeById(targetId);
+  if (!edge || !target || target.kind === "start" || edge.from === targetId) return false;
+  if (edge.to === targetId) {
+    applyConnectionSelection(edge, targetId, options);
+    return true;
+  }
+  pushHistorySnapshot(snapshot);
+  const duplicate = state.edges.find(
+    (candidate) =>
+      candidate.id !== edge.id &&
+      candidate.from === edge.from &&
+      candidate.to === targetId &&
+      candidate.label === edge.label,
+  );
+  if (duplicate) {
+    state.edges = state.edges.filter((candidate) => candidate.id !== edge.id);
+    applyConnectionSelection(duplicate, targetId, options);
+    return true;
+  }
+  edge.to = targetId;
+  applyConnectionSelection(edge, targetId, options);
+  return true;
 }
 
 function addCustomTool(name, description) {
@@ -1320,7 +1379,8 @@ function attachNodeEvents(element, node) {
     if (event.button !== 0) return;
     event.preventDefault();
     if (state.connectSourceId && state.connectSourceId !== node.id) {
-      addEdge(state.connectSourceId, node.id, "", { select: "target" });
+      const selectNodeId = selectedNodeForConnectionChange(state.selectedNodeId, state.connectSourceId, node.id);
+      addEdge(state.connectSourceId, node.id, "", { select: selectNodeId === state.connectSourceId ? "source" : "target" });
       return;
     }
 
@@ -1409,13 +1469,15 @@ function attachNodeEvents(element, node) {
       if (event.button !== 0 || !state.connectSourceId || state.connectSourceId === node.id) return;
       event.preventDefault();
       event.stopPropagation();
-      addEdge(state.connectSourceId, node.id, "", { select: "target" });
+      const selectNodeId = selectedNodeForConnectionChange(state.selectedNodeId, state.connectSourceId, node.id);
+      addEdge(state.connectSourceId, node.id, "", { select: selectNodeId === state.connectSourceId ? "source" : "target" });
     });
     inputPort.addEventListener("click", (event) => {
       if (!state.connectSourceId || state.connectSourceId === node.id) return;
       event.preventDefault();
       event.stopPropagation();
-      addEdge(state.connectSourceId, node.id, "", { select: "target" });
+      const selectNodeId = selectedNodeForConnectionChange(state.selectedNodeId, state.connectSourceId, node.id);
+      addEdge(state.connectSourceId, node.id, "", { select: selectNodeId === state.connectSourceId ? "source" : "target" });
     });
   });
 }
@@ -1470,6 +1532,7 @@ function startNodeResize(node, element, handle, event) {
 
 function startConnectionDrag(node, handle, event) {
   handle.setPointerCapture(event.pointerId);
+  const selectedNodeBeforeDrag = state.selectedNodeId;
   const initialPoint = canvasPointFromClient(event.clientX, event.clientY);
   const start = anchorPoint(node, initialPoint);
   const origin = { x: event.clientX, y: event.clientY };
@@ -1527,12 +1590,114 @@ function startConnectionDrag(node, handle, event) {
     state.suppressNextPortClick = moved;
     clearConnectionDropTarget();
     if (targetId && targetId !== node.id) {
-      addEdge(node.id, targetId, "", { select: "target" });
+      const selectNodeId = selectedNodeForConnectionChange(selectedNodeBeforeDrag, node.id, targetId);
+      addEdge(node.id, targetId, "", { select: selectNodeId === node.id ? "source" : "target" });
     } else {
       render();
     }
     window.setTimeout(() => {
       state.suppressNextPortClick = false;
+    }, 0);
+  }
+
+  function onCancel(cancelEvent) {
+    if (finished) return;
+    finished = true;
+    cleanup(cancelEvent.pointerId);
+    state.connectionDraft = null;
+    state.connectSourceId = null;
+    clearConnectionDropTarget();
+    render();
+  }
+
+  handle.addEventListener("pointermove", onMove);
+  handle.addEventListener("pointerup", onUp);
+  handle.addEventListener("pointercancel", onCancel);
+  window.addEventListener("pointermove", onMove, true);
+  window.addEventListener("pointerup", onUp, true);
+  window.addEventListener("pointercancel", onCancel, true);
+}
+
+function startEdgeRetargetDrag(edge, handle, event) {
+  if (event.button !== 0) return;
+  const source = nodeById(edge.from);
+  if (!source) return;
+  event.preventDefault();
+  event.stopPropagation();
+  handle.setPointerCapture?.(event.pointerId);
+  const beforeRetarget = graphSnapshot();
+  const selectedNodeBeforeDrag = state.selectedNodeId;
+  const originalTargetId = edge.to;
+  const origin = { x: event.clientX, y: event.clientY };
+  const point = canvasPointFromClient(event.clientX, event.clientY);
+  let moved = false;
+  let finished = false;
+  state.connectionDraft = {
+    from: edge.from,
+    x: point.x,
+    y: point.y,
+    targetId: edge.to,
+    rewireEdgeId: edge.id,
+  };
+  state.connectSourceId = edge.from;
+  if (!selectedNodeBeforeDrag) {
+    state.selectedEdgeId = edge.id;
+    state.selectedNodeId = null;
+  }
+  setConnectionDropTarget(edge.to);
+  renderEdges();
+  renderInspector();
+  renderTools();
+
+  function onMove(moveEvent) {
+    if (!moved && Math.hypot(moveEvent.clientX - origin.x, moveEvent.clientY - origin.y) > 4) {
+      moved = true;
+    }
+    const nextPoint = canvasPointFromClient(moveEvent.clientX, moveEvent.clientY);
+    const targetId = connectionTargetIdAtClientPoint(moveEvent.clientX, moveEvent.clientY, edge.from);
+    state.connectionDraft = {
+      from: edge.from,
+      x: nextPoint.x,
+      y: nextPoint.y,
+      targetId,
+      rewireEdgeId: edge.id,
+    };
+    setConnectionDropTarget(targetId);
+    renderEdges();
+  }
+
+  function cleanup(pointerId) {
+    handle.removeEventListener("pointermove", onMove);
+    handle.removeEventListener("pointerup", onUp);
+    handle.removeEventListener("pointercancel", onCancel);
+    window.removeEventListener("pointermove", onMove, true);
+    window.removeEventListener("pointerup", onUp, true);
+    window.removeEventListener("pointercancel", onCancel, true);
+    if (handle.hasPointerCapture?.(pointerId)) {
+      handle.releasePointerCapture(pointerId);
+    }
+  }
+
+  function onUp(upEvent) {
+    if (finished) return;
+    finished = true;
+    cleanup(upEvent.pointerId);
+    const targetId = connectionTargetIdAtClientPoint(upEvent.clientX, upEvent.clientY, edge.from) || state.connectionDraft?.targetId;
+    state.connectionDraft = null;
+    state.connectSourceId = null;
+    state.suppressNextEdgeHandleClick = moved;
+    clearConnectionDropTarget();
+    if (moved && targetId) {
+      const selectedNodeId =
+        selectedNodeBeforeDrag && [edge.from, originalTargetId, targetId].includes(selectedNodeBeforeDrag)
+          ? selectedNodeBeforeDrag
+          : targetId;
+      retargetEdge(edge.id, targetId, beforeRetarget, { select: "node", nodeId: selectedNodeId });
+    } else {
+      selectEdge(edge.id);
+    }
+    window.setTimeout(() => {
+      state.suppressNextEdgeHandleClick = false;
     }, 0);
   }
 
@@ -1563,16 +1728,21 @@ function renderEdges() {
     </defs>`;
   const edges = state.edges
     .map((edge) => {
+      if (state.connectionDraft?.rewireEdgeId === edge.id) return "";
       const from = nodeById(edge.from);
       const to = nodeById(edge.to);
       if (!from || !to) return "";
       const { start, end } = edgeAnchors(from, to);
       const curve = edgeCurve(start, end);
+      const handlePoint = endpointHandlePoint(end);
       const selected = state.selectedEdgeId === edge.id ? " is-selected" : "";
       const conditional = from.kind === "condition" ? " is-conditional" : "";
       return `
         <path class="edge-hit-area" data-edge-id="${escapeHtml(edge.id)}" d="${curve.path}"></path>
         <path class="edge-path${selected}${conditional}" data-edge-id="${escapeHtml(edge.id)}" d="${curve.path}" marker-end="url(#arrow-head)"></path>
+        <circle class="edge-end-handle" data-edge-id="${escapeHtml(edge.id)}" data-edge-handle="target" cx="${handlePoint.x}" cy="${handlePoint.y}" r="11">
+          <title>Drag arrow end to reconnect</title>
+        </circle>
         <text class="edge-label" data-edge-id="${escapeHtml(edge.id)}" x="${curve.labelX}" y="${curve.labelY}" text-anchor="middle">${escapeHtml(edge.label)}</text>
       `;
     })
@@ -1580,10 +1750,27 @@ function renderEdges() {
   const draft = renderDraftEdge();
   els.edgeLayer.innerHTML = `${defs}${edges}${draft}`;
   els.edgeLayer.querySelectorAll("[data-edge-id]").forEach((edgeElement) => {
+    if (edgeElement.classList.contains("edge-end-handle")) return;
     edgeElement.style.pointerEvents = edgeElement.classList.contains("edge-hit-area") ? "stroke" : "auto";
     edgeElement.addEventListener("click", (event) => {
       event.stopPropagation();
       selectEdge(edgeElement.dataset.edgeId);
+    });
+  });
+  els.edgeLayer.querySelectorAll(".edge-end-handle").forEach((handle) => {
+    handle.style.pointerEvents = "all";
+    handle.addEventListener("pointerdown", (event) => {
+      const edge = edgeById(handle.dataset.edgeId);
+      if (!edge) return;
+      startEdgeRetargetDrag(edge, handle, event);
+    });
+    handle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (state.suppressNextEdgeHandleClick) {
+        state.suppressNextEdgeHandleClick = false;
+        return;
+      }
+      selectEdge(handle.dataset.edgeId);
     });
   });
 }
