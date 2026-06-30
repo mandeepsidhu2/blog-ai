@@ -88,7 +88,8 @@ arrow-end handle that can be dragged to another node to retarget that edge
 without deleting and recreating it. Connection edits keep the relevant node
 inspector active when possible so the Parents and Children summary updates
 from the same effective edge list as the canvas, including the connector being
-dragged or retargeted.
+dragged or retargeted. The parent and child selects reflect the active
+connection values and can replace or clear those node-level connections.
 
 Generated LangGraph code wraps Python-code node bodies so their return values
 are merged into state and recorded under `artifacts["node_outputs"]`. Dict

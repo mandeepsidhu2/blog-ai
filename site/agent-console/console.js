@@ -1176,7 +1176,7 @@ function addEdge(from, to, labelOverride = "", options = {}) {
     return;
   }
   pushHistorySnapshot();
-  const id = `edge-${from}-${to}-${Date.now().toString(36)}`;
+  const id = edgeId(from, to);
   state.edges.push({ id, from, to, label });
   state.connectSourceId = null;
   if (selection === "edge") {
@@ -1186,6 +1186,57 @@ function addEdge(from, to, labelOverride = "", options = {}) {
   } else {
     selectNode(to);
   }
+}
+
+function edgeId(from, to) {
+  return `edge-${from}-${to}-${Date.now().toString(36)}`;
+}
+
+function setNodeParent(nodeId, parentId) {
+  const node = nodeById(nodeId);
+  const parent = parentId ? nodeById(parentId) : null;
+  if (!node || (parentId && (!parent || parent.kind === "end" || parentId === nodeId))) return;
+  const incoming = state.edges.filter((edge) => edge.to === nodeId);
+  if (
+    (parentId && incoming.length === 1 && incoming[0].from === parentId) ||
+    (!parentId && incoming.length === 0)
+  ) {
+    renderInspector();
+    return;
+  }
+  pushHistorySnapshot();
+  state.edges = state.edges.filter((edge) => edge.to !== nodeId);
+  if (parentId) {
+    const label = parent.kind === "condition" ? firstUnusedBranch(parent) : "next";
+    state.edges.push({ id: edgeId(parentId, nodeId), from: parentId, to: nodeId, label });
+  }
+  selectNode(nodeId);
+}
+
+function setNodeChild(nodeId, childId, branchLabel = "") {
+  const node = nodeById(nodeId);
+  const child = childId ? nodeById(childId) : null;
+  if (!node || (childId && (!child || child.kind === "start" || childId === nodeId))) return;
+  const branch = node.kind === "condition" ? branchLabel || node.branches[0] || "next" : "";
+  const shouldReplaceEdge = (edge) => {
+    if (edge.from !== nodeId) return false;
+    return node.kind !== "condition" || !branch || edge.label === branch;
+  };
+  const existing = state.edges.filter(shouldReplaceEdge);
+  if (
+    (childId && existing.length === 1 && existing[0].to === childId && (node.kind !== "condition" || existing[0].label === branch)) ||
+    (!childId && existing.length === 0)
+  ) {
+    renderInspector();
+    return;
+  }
+  pushHistorySnapshot();
+  state.edges = state.edges.filter((edge) => !shouldReplaceEdge(edge));
+  if (childId) {
+    const label = node.kind === "condition" ? branch : "next";
+    state.edges.push({ id: edgeId(nodeId, childId), from: nodeId, to: childId, label });
+  }
+  selectNode(nodeId);
 }
 
 function firstUnusedBranch(node) {
@@ -2470,6 +2521,16 @@ function attachUpstreamValueHandlers() {
 }
 
 function renderConnectionEditor(node) {
+  const edges = effectiveEdgesForSummary();
+  const incomingEdges = edges.filter((edge) => edge.to === node.id);
+  const outgoingEdges = edges.filter((edge) => edge.from === node.id);
+  const currentParentId = incomingEdges[0]?.from || "";
+  const currentBranch = outgoingEdges[0]?.label || node.branches[0] || "next";
+  const currentChildId =
+    (node.kind === "condition"
+      ? outgoingEdges.find((edge) => edge.label === currentBranch) || outgoingEdges[0]
+      : outgoingEdges[0]
+    )?.to || "";
   const parents = state.nodes.filter((candidate) => candidate.id !== node.id && candidate.kind !== "end");
   const children = state.nodes.filter((candidate) => candidate.id !== node.id && candidate.kind !== "start");
   const branchSelector =
@@ -2478,7 +2539,7 @@ function renderConnectionEditor(node) {
         <label>
           Branch
           <select data-connect-branch>
-            ${node.branches.map((branch) => `<option value="${escapeHtml(branch)}">${escapeHtml(branch)}</option>`).join("")}
+            ${node.branches.map((branch) => `<option value="${escapeHtml(branch)}" ${branch === currentBranch ? "selected" : ""}>${escapeHtml(branch)}</option>`).join("")}
           </select>
         </label>
       `
@@ -2492,18 +2553,18 @@ function renderConnectionEditor(node) {
       </div>
       <div class="connection-grid">
         <label>
-          Add parent
+          Parent
           <select data-connect-parent>
-            <option value="">Choose node...</option>
-            ${parents.map((candidate) => `<option value="${escapeHtml(candidate.id)}">${escapeHtml(candidate.title)}</option>`).join("")}
+            <option value="">No parent</option>
+            ${parents.map((candidate) => `<option value="${escapeHtml(candidate.id)}" ${candidate.id === currentParentId ? "selected" : ""}>${escapeHtml(candidate.title)}</option>`).join("")}
           </select>
         </label>
         ${branchSelector}
         <label>
-          Add child
+          Child
           <select data-connect-child>
-            <option value="">Choose node...</option>
-            ${children.map((candidate) => `<option value="${escapeHtml(candidate.id)}">${escapeHtml(candidate.title)}</option>`).join("")}
+            <option value="">No child</option>
+            ${children.map((candidate) => `<option value="${escapeHtml(candidate.id)}" ${candidate.id === currentChildId ? "selected" : ""}>${escapeHtml(candidate.title)}</option>`).join("")}
           </select>
         </label>
       </div>
@@ -2514,14 +2575,18 @@ function renderConnectionEditor(node) {
 function attachConnectionEditorHandlers(node) {
   els.inspector.querySelector("[data-connect-parent]")?.addEventListener("change", (event) => {
     const parentId = event.target.value;
-    if (!parentId) return;
-    addEdge(parentId, node.id, "", { select: "target" });
+    setNodeParent(node.id, parentId);
+  });
+  els.inspector.querySelector("[data-connect-branch]")?.addEventListener("change", (event) => {
+    const childSelect = els.inspector.querySelector("[data-connect-child]");
+    if (!childSelect) return;
+    const branchEdge = state.edges.find((edge) => edge.from === node.id && edge.label === event.target.value);
+    childSelect.value = branchEdge?.to || "";
   });
   els.inspector.querySelector("[data-connect-child]")?.addEventListener("change", (event) => {
     const childId = event.target.value;
-    if (!childId) return;
     const branch = els.inspector.querySelector("[data-connect-branch]")?.value || "";
-    addEdge(node.id, childId, branch, { select: "source" });
+    setNodeChild(node.id, childId, branch);
   });
 }
 
