@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="520" viewBox="0 0 940 520" role="img" aria-labelledby="title desc">
+  <title id="title">Agent concurrency budget policy scorecard</title>
+  <desc id="desc">Bar chart comparing pass rate, normalized token load, and combined review or quality misses for three agent concurrency policies.</desc>
+  <rect width="940" height="520" fill="#f7fafc"/>
+  <rect x="36" y="32" width="868" height="456" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="72" y="72" font-size="25" font-weight="700" fill="#0f172a">Agent concurrency budget gates</text>
+  <text x="72" y="102" font-size="15" fill="#475569">Higher pass is better; token load is normalized; review and quality misses should stay at zero.</text>
+  <line x1="72" y1="378" x2="842" y2="378" stroke="#94a3b8"/>
+  <line x1="72" y1="92" x2="72" y2="378" stroke="#94a3b8"/>
+  <text x="48" y="100" font-size="13" fill="#64748b">1.0</text>
+  <text x="56" y="382" font-size="13" fill="#64748b">0</text>
+  
+      <g>
+        <rect x="96" y="235" width="48" height="143" rx="4" fill="#19766f"/>
+        <rect x="162" y="92" width="48" height="286" rx="4" fill="#7457c8"/>
+        <rect x="228" y="92" width="48" height="286" rx="4" fill="#c43b3b"/>
+        <text x="120" y="406" text-anchor="middle" font-size="14" fill="#1f2937">pass</text>
+        <text x="186" y="406" text-anchor="middle" font-size="14" fill="#1f2937">tokens</text>
+        <text x="252" y="406" text-anchor="middle" font-size="14" fill="#1f2937">miss</text>
+        <text x="186" y="436" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">parallel default</text>
+      </g>
+      <g>
+        <rect x="344" y="211.262" width="48" height="166.738" rx="4" fill="#19766f"/>
+        <rect x="410" y="113.94452041652329" width="48" height="264.0554795834767" rx="4" fill="#7457c8"/>
+        <rect x="476" y="235" width="48" height="143" rx="4" fill="#c43b3b"/>
+        <text x="368" y="406" text-anchor="middle" font-size="14" fill="#1f2937">pass</text>
+        <text x="434" y="406" text-anchor="middle" font-size="14" fill="#1f2937">tokens</text>
+        <text x="500" y="406" text-anchor="middle" font-size="14" fill="#1f2937">miss</text>
+        <text x="434" y="436" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">write aware</text>
+      </g>
+      <g>
+        <rect x="592" y="92" width="48" height="286" rx="4" fill="#19766f"/>
+        <rect x="658" y="171.17814318824867" width="48" height="206.82185681175133" rx="4" fill="#7457c8"/>
+        <rect x="724" y="378" width="48" height="0" rx="4" fill="#c43b3b"/>
+        <text x="616" y="406" text-anchor="middle" font-size="14" fill="#1f2937">pass</text>
+        <text x="682" y="406" text-anchor="middle" font-size="14" fill="#1f2937">tokens</text>
+        <text x="748" y="406" text-anchor="middle" font-size="14" fill="#1f2937">miss</text>
+        <text x="682" y="436" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">budgeted gate</text>
+      </g>
+  <g transform="translate(72 456)">
+    <rect width="14" height="14" fill="#19766f"/><text x="22" y="12" font-size="14" fill="#334155">Pass rate</text>
+    <rect x="116" width="14" height="14" fill="#7457c8"/><text x="138" y="12" font-size="14" fill="#334155">Normalized token load</text>
+    <rect x="314" width="14" height="14" fill="#c43b3b"/><text x="336" y="12" font-size="14" fill="#334155">Review or quality misses</text>
+  </g>
+</svg>

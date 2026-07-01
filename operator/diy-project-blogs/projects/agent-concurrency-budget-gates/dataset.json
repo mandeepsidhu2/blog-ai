@@ -1,0 +1,134 @@
+[
+  {
+    "id": "parallel-security-review",
+    "workType": "repository-review",
+    "risk": "high",
+    "subagents": 3,
+    "estimatedMinutes": 42,
+    "promptTokens": 6800,
+    "approvalRequests": 4,
+    "writeOperations": 1,
+    "expectedLane": "serial-reviewed"
+  },
+  {
+    "id": "read-only-doc-sweep",
+    "workType": "documentation-analysis",
+    "risk": "low",
+    "subagents": 4,
+    "estimatedMinutes": 34,
+    "promptTokens": 5200,
+    "approvalRequests": 0,
+    "writeOperations": 0,
+    "expectedLane": "parallel-read"
+  },
+  {
+    "id": "schema-migration-plan",
+    "workType": "migration-planning",
+    "risk": "high",
+    "subagents": 2,
+    "estimatedMinutes": 55,
+    "promptTokens": 9200,
+    "approvalRequests": 3,
+    "writeOperations": 0,
+    "expectedLane": "serial-reviewed"
+  },
+  {
+    "id": "test-log-triage",
+    "workType": "test-analysis",
+    "risk": "medium",
+    "subagents": 3,
+    "estimatedMinutes": 28,
+    "promptTokens": 4300,
+    "approvalRequests": 0,
+    "writeOperations": 0,
+    "expectedLane": "parallel-read"
+  },
+  {
+    "id": "feature-branch-implementation",
+    "workType": "code-change",
+    "risk": "medium",
+    "subagents": 3,
+    "estimatedMinutes": 67,
+    "promptTokens": 7800,
+    "approvalRequests": 2,
+    "writeOperations": 8,
+    "expectedLane": "bounded-write"
+  },
+  {
+    "id": "dependency-upgrade",
+    "workType": "package-change",
+    "risk": "high",
+    "subagents": 2,
+    "estimatedMinutes": 38,
+    "promptTokens": 6100,
+    "approvalRequests": 5,
+    "writeOperations": 6,
+    "expectedLane": "serial-reviewed"
+  },
+  {
+    "id": "api-reference-indexing",
+    "workType": "retrieval-prep",
+    "risk": "low",
+    "subagents": 5,
+    "estimatedMinutes": 49,
+    "promptTokens": 11200,
+    "approvalRequests": 0,
+    "writeOperations": 0,
+    "expectedLane": "parallel-read"
+  },
+  {
+    "id": "customer-data-export-fix",
+    "workType": "data-path-change",
+    "risk": "high",
+    "subagents": 2,
+    "estimatedMinutes": 44,
+    "promptTokens": 7000,
+    "approvalRequests": 4,
+    "writeOperations": 4,
+    "expectedLane": "serial-reviewed"
+  },
+  {
+    "id": "ui-copy-polish",
+    "workType": "small-edit",
+    "risk": "low",
+    "subagents": 1,
+    "estimatedMinutes": 12,
+    "promptTokens": 1400,
+    "approvalRequests": 0,
+    "writeOperations": 2,
+    "expectedLane": "bounded-write"
+  },
+  {
+    "id": "incident-retrospective",
+    "workType": "operations-analysis",
+    "risk": "medium",
+    "subagents": 4,
+    "estimatedMinutes": 58,
+    "promptTokens": 12600,
+    "approvalRequests": 1,
+    "writeOperations": 0,
+    "expectedLane": "parallel-read"
+  },
+  {
+    "id": "auth-policy-refactor",
+    "workType": "security-code-change",
+    "risk": "high",
+    "subagents": 3,
+    "estimatedMinutes": 72,
+    "promptTokens": 9800,
+    "approvalRequests": 6,
+    "writeOperations": 9,
+    "expectedLane": "serial-reviewed"
+  },
+  {
+    "id": "release-note-drafting",
+    "workType": "summarization",
+    "risk": "low",
+    "subagents": 2,
+    "estimatedMinutes": 20,
+    "promptTokens": 2600,
+    "approvalRequests": 0,
+    "writeOperations": 1,
+    "expectedLane": "parallel-read"
+  }
+]

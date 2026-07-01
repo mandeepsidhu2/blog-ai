@@ -1,0 +1,493 @@
+{
+  "tasks": 12,
+  "lanes": {
+    "parallel-read": {
+      "maxSubagents": 5,
+      "concurrencyMultiplier": 0.48,
+      "tokenMultiplier": 1.08,
+      "approvalPenalty": 0,
+      "writeRiskPenalty": 0
+    },
+    "bounded-write": {
+      "maxSubagents": 2,
+      "concurrencyMultiplier": 0.72,
+      "tokenMultiplier": 1.18,
+      "approvalPenalty": 0.08,
+      "writeRiskPenalty": 0.14
+    },
+    "serial-reviewed": {
+      "maxSubagents": 1,
+      "concurrencyMultiplier": 1.12,
+      "tokenMultiplier": 1.02,
+      "approvalPenalty": 0.2,
+      "writeRiskPenalty": 0.08
+    }
+  },
+  "results": [
+    {
+      "name": "parallelDefault",
+      "passRate": 0.5,
+      "expectedMatchRate": 0.5,
+      "totalMinutes": 254,
+      "totalTokens": 328337,
+      "qualityMisses": 6,
+      "reviewMisses": 6,
+      "decisions": [
+        {
+          "id": "parallel-security-review",
+          "expectedLane": "serial-reviewed",
+          "lane": "parallel-read",
+          "minutes": 20,
+          "tokenUnits": 26218,
+          "activeSubagents": 3,
+          "qualityOk": false,
+          "reviewLoadOk": false,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "read-only-doc-sweep",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 16,
+          "tokenUnits": 22464,
+          "activeSubagents": 4,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "schema-migration-plan",
+          "expectedLane": "serial-reviewed",
+          "lane": "parallel-read",
+          "minutes": 26,
+          "tokenUnits": 22257,
+          "activeSubagents": 2,
+          "qualityOk": false,
+          "reviewLoadOk": false,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "test-log-triage",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 13,
+          "tokenUnits": 13932,
+          "activeSubagents": 3,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "feature-branch-implementation",
+          "expectedLane": "bounded-write",
+          "lane": "parallel-read",
+          "minutes": 32,
+          "tokenUnits": 33359,
+          "activeSubagents": 3,
+          "qualityOk": false,
+          "reviewLoadOk": false,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "dependency-upgrade",
+          "expectedLane": "serial-reviewed",
+          "lane": "parallel-read",
+          "minutes": 18,
+          "tokenUnits": 18183,
+          "activeSubagents": 2,
+          "qualityOk": false,
+          "reviewLoadOk": false,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "api-reference-indexing",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 24,
+          "tokenUnits": 60480,
+          "activeSubagents": 5,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "customer-data-export-fix",
+          "expectedLane": "serial-reviewed",
+          "lane": "parallel-read",
+          "minutes": 21,
+          "tokenUnits": 19354,
+          "activeSubagents": 2,
+          "qualityOk": false,
+          "reviewLoadOk": false,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "ui-copy-polish",
+          "expectedLane": "bounded-write",
+          "lane": "bounded-write",
+          "minutes": 11,
+          "tokenUnits": 1751,
+          "activeSubagents": 1,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "incident-retrospective",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 28,
+          "tokenUnits": 56609,
+          "activeSubagents": 4,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "auth-policy-refactor",
+          "expectedLane": "serial-reviewed",
+          "lane": "parallel-read",
+          "minutes": 35,
+          "tokenUnits": 47946,
+          "activeSubagents": 3,
+          "qualityOk": false,
+          "reviewLoadOk": false,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "release-note-drafting",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 10,
+          "tokenUnits": 5784,
+          "activeSubagents": 2,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "name": "writeAware",
+      "passRate": 0.583,
+      "expectedMatchRate": 0.5,
+      "totalMinutes": 597,
+      "totalTokens": 303144,
+      "qualityMisses": 5,
+      "reviewMisses": 1,
+      "decisions": [
+        {
+          "id": "parallel-security-review",
+          "expectedLane": "serial-reviewed",
+          "lane": "bounded-write",
+          "minutes": 66,
+          "tokenUnits": 19097,
+          "activeSubagents": 2,
+          "qualityOk": false,
+          "reviewLoadOk": true,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "read-only-doc-sweep",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 16,
+          "tokenUnits": 22464,
+          "activeSubagents": 4,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "schema-migration-plan",
+          "expectedLane": "serial-reviewed",
+          "lane": "parallel-read",
+          "minutes": 26,
+          "tokenUnits": 22257,
+          "activeSubagents": 2,
+          "qualityOk": false,
+          "reviewLoadOk": false,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "test-log-triage",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 13,
+          "tokenUnits": 13932,
+          "activeSubagents": 3,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "feature-branch-implementation",
+          "expectedLane": "bounded-write",
+          "lane": "bounded-write",
+          "minutes": 124,
+          "tokenUnits": 24299,
+          "activeSubagents": 2,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "dependency-upgrade",
+          "expectedLane": "serial-reviewed",
+          "lane": "bounded-write",
+          "minutes": 54,
+          "tokenUnits": 19866,
+          "activeSubagents": 2,
+          "qualityOk": false,
+          "reviewLoadOk": true,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "api-reference-indexing",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 24,
+          "tokenUnits": 60480,
+          "activeSubagents": 5,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "customer-data-export-fix",
+          "expectedLane": "serial-reviewed",
+          "lane": "bounded-write",
+          "minutes": 60,
+          "tokenUnits": 21146,
+          "activeSubagents": 2,
+          "qualityOk": false,
+          "reviewLoadOk": true,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "ui-copy-polish",
+          "expectedLane": "bounded-write",
+          "lane": "bounded-write",
+          "minutes": 11,
+          "tokenUnits": 1751,
+          "activeSubagents": 1,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "incident-retrospective",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 28,
+          "tokenUnits": 56609,
+          "activeSubagents": 4,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "auth-policy-refactor",
+          "expectedLane": "serial-reviewed",
+          "lane": "bounded-write",
+          "minutes": 159,
+          "tokenUnits": 34923,
+          "activeSubagents": 2,
+          "qualityOk": false,
+          "reviewLoadOk": true,
+          "expectedMatch": false,
+          "pass": false
+        },
+        {
+          "id": "release-note-drafting",
+          "expectedLane": "parallel-read",
+          "lane": "bounded-write",
+          "minutes": 16,
+          "tokenUnits": 6320,
+          "activeSubagents": 2,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": false,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "name": "budgetedGate",
+      "passRate": 1,
+      "expectedMatchRate": 0.917,
+      "totalMinutes": 1710,
+      "totalTokens": 237438,
+      "qualityMisses": 0,
+      "reviewMisses": 0,
+      "decisions": [
+        {
+          "id": "parallel-security-review",
+          "expectedLane": "serial-reviewed",
+          "lane": "serial-reviewed",
+          "minutes": 265,
+          "tokenUnits": 8254,
+          "activeSubagents": 1,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "read-only-doc-sweep",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 16,
+          "tokenUnits": 22464,
+          "activeSubagents": 4,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "schema-migration-plan",
+          "expectedLane": "serial-reviewed",
+          "lane": "serial-reviewed",
+          "minutes": 197,
+          "tokenUnits": 10510,
+          "activeSubagents": 1,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "test-log-triage",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 13,
+          "tokenUnits": 13932,
+          "activeSubagents": 3,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "feature-branch-implementation",
+          "expectedLane": "bounded-write",
+          "lane": "bounded-write",
+          "minutes": 124,
+          "tokenUnits": 24299,
+          "activeSubagents": 2,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "dependency-upgrade",
+          "expectedLane": "serial-reviewed",
+          "lane": "serial-reviewed",
+          "minutes": 197,
+          "tokenUnits": 8586,
+          "activeSubagents": 1,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "api-reference-indexing",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 24,
+          "tokenUnits": 60480,
+          "activeSubagents": 5,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "customer-data-export-fix",
+          "expectedLane": "serial-reviewed",
+          "lane": "serial-reviewed",
+          "minutes": 209,
+          "tokenUnits": 9139,
+          "activeSubagents": 1,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "ui-copy-polish",
+          "expectedLane": "bounded-write",
+          "lane": "bounded-write",
+          "minutes": 11,
+          "tokenUnits": 1751,
+          "activeSubagents": 1,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "incident-retrospective",
+          "expectedLane": "parallel-read",
+          "lane": "parallel-read",
+          "minutes": 28,
+          "tokenUnits": 56609,
+          "activeSubagents": 4,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "auth-policy-refactor",
+          "expectedLane": "serial-reviewed",
+          "lane": "serial-reviewed",
+          "minutes": 610,
+          "tokenUnits": 15094,
+          "activeSubagents": 1,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": true,
+          "pass": true
+        },
+        {
+          "id": "release-note-drafting",
+          "expectedLane": "parallel-read",
+          "lane": "bounded-write",
+          "minutes": 16,
+          "tokenUnits": 6320,
+          "activeSubagents": 2,
+          "qualityOk": true,
+          "reviewLoadOk": true,
+          "expectedMatch": false,
+          "pass": true
+        }
+      ]
+    }
+  ]
+}

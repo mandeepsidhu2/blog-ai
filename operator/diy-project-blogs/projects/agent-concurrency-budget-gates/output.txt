@@ -1,0 +1,5 @@
+Agent concurrency budget experiment
+tasks=12
+parallelDefault: pass_rate=0.5 expected_match=0.5 total_minutes=254 token_units=328337 quality_misses=6 review_misses=6
+writeAware: pass_rate=0.583 expected_match=0.5 total_minutes=597 token_units=303144 quality_misses=5 review_misses=1
+budgetedGate: pass_rate=1 expected_match=0.917 total_minutes=1710 token_units=237438 quality_misses=0 review_misses=0
