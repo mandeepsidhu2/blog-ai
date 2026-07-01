@@ -12,6 +12,10 @@ static tutorial site in the repository root.
 - Keep product behavior covered by `MacAgentFlowChecks`.
 - Keep docs short and current. Add a mechanical check when a rule can be
   verified by code.
+- Generated Python must remain portable. Do not embed the Swift coding harness,
+  repo indexer, semantic reranker, or app-only run loop in exported source; AI
+  nodes should export only small built-in file tools plus selected workspace
+  tools.
 
 ## Start Here
 

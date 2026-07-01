@@ -9,14 +9,23 @@ struct ContentView: View {
             AppTopBar()
             Divider()
             HStack(spacing: 0) {
-                AgentSidebarView()
-                    .frame(width: 250)
+                WorkspaceSidebarView()
+                    .frame(width: 280)
                 Divider()
-                AgentDesignerView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                Divider()
-                InspectorView()
-                    .frame(width: 340)
+                switch store.appPage {
+                case .console:
+                    HStack(spacing: 0) {
+                        AgentDesignerView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        Divider()
+                        InspectorView()
+                            .frame(width: 340)
+                    }
+                case .tools:
+                    ToolsManagementPage()
+                case .models:
+                    ModelsManagementPage()
+                }
             }
         }
         .background(Color(nsColor: .windowBackgroundColor))
@@ -37,7 +46,7 @@ struct AppTopBar: View {
                 VStack(alignment: .leading, spacing: 1) {
                     Text("Mac Agent Flow")
                         .font(.headline)
-                    Text("Agent operations console")
+                    Text(store.appPage == .console ? "Agent operations console" : "\(store.appPage.rawValue) workspace")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -48,12 +57,9 @@ struct AppTopBar: View {
 
             if let agent = store.selectedAgent {
                 VStack(alignment: .leading, spacing: 2) {
-                    TextField("Agent name", text: Binding(
-                        get: { agent.name },
-                        set: { store.renameSelectedAgent($0) }
-                    ))
-                    .textFieldStyle(.plain)
-                    .font(.subheadline.weight(.semibold))
+                    Text(agent.name)
+                        .font(.subheadline.weight(.semibold))
+                        .lineLimit(1)
                     Text(agent.summary)
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -64,60 +70,71 @@ struct AppTopBar: View {
 
             Spacer()
 
-            HStack(spacing: 8) {
+            if store.appPage == .console {
                 Button {
-                    store.copySelection()
+                    store.inspectorSection = .source
                 } label: {
-                    Image(systemName: "doc.on.doc")
+                    Label("Source", systemImage: "curlybraces")
                 }
-                .disabled(!store.canCopySelection)
-                .help("Copy selected node (Command-C)")
+                .help("View generated LangGraph Python source")
+
+                Menu {
+                    Button("AI Node") { store.addNode(kind: .ai) }
+                    Button("Python Node") { store.addNode(kind: .code) }
+                    Button("Tool Node") { store.addNode(kind: .tool) }
+                    Button("Conditional") { store.addNode(kind: .condition) }
+                } label: {
+                    Label("Add Node", systemImage: "plus")
+                }
 
                 Button {
-                    store.pasteSelection()
+                    store.triggerRun()
                 } label: {
-                    Image(systemName: "doc.on.clipboard")
+                    Label("Run Agent", systemImage: "play.fill")
                 }
-                .disabled(!store.canPasteSelection)
-                .help("Paste copied node (Command-V)")
+                .keyboardShortcut("r", modifiers: [.command])
 
-                Button(role: .destructive) {
-                    store.deleteSelection()
+                Button {
+                    store.addSchedule()
                 } label: {
-                    Image(systemName: "trash")
+                    Label("Schedule", systemImage: "calendar.badge.clock")
                 }
-                .disabled(!store.canDeleteSelection)
-                .help("Delete selected node or connector")
-            }
-            .buttonStyle(.bordered)
-
-            Button {
-                store.inspectorSection = .models
-            } label: {
-                Label("Models", systemImage: "brain.head.profile")
-            }
-            .help("Manage LLM model configs")
-
-            Menu {
-                Button("AI Node") { store.addNode(kind: .ai) }
-                Button("Python Node") { store.addNode(kind: .code) }
-                Button("Tool Node") { store.addNode(kind: .tool) }
-                Button("Conditional") { store.addNode(kind: .condition) }
-            } label: {
-                Label("Node", systemImage: "plus")
             }
 
-            Button {
-                store.triggerRun()
-            } label: {
-                Label("Run", systemImage: "play.fill")
-            }
-            .keyboardShortcut("r", modifiers: [.command])
+            if store.appPage == .console,
+               store.canCopySelection || store.canPasteSelection || store.canDeleteSelection {
+                Divider()
+                    .frame(height: 24)
 
-            Button {
-                store.addSchedule()
-            } label: {
-                Label("Schedule", systemImage: "calendar.badge.clock")
+                HStack(spacing: 6) {
+                    if store.canCopySelection {
+                        Button {
+                            store.copySelection()
+                        } label: {
+                            Label("Copy", systemImage: "doc.on.doc")
+                        }
+                        .help("Copy selected node (Command-C)")
+                    }
+
+                    if store.canPasteSelection {
+                        Button {
+                            store.pasteSelection()
+                        } label: {
+                            Label("Paste", systemImage: "doc.on.clipboard")
+                        }
+                        .help("Paste copied node (Command-V)")
+                    }
+
+                    if store.canDeleteSelection {
+                        Button(role: .destructive) {
+                            store.deleteSelection()
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                        .help("Delete selected node or connector")
+                    }
+                }
+                .buttonStyle(.bordered)
             }
         }
         .padding(.horizontal, 16)
@@ -127,7 +144,88 @@ struct AppTopBar: View {
     }
 }
 
-struct AgentSidebarView: View {
+struct WorkspaceSidebarView: View {
+    @EnvironmentObject private var store: WorkspaceStore
+
+    var body: some View {
+        VStack(spacing: 0) {
+            SidebarPrimaryNavigation()
+                .padding(.horizontal, 12)
+                .padding(.top, 12)
+                .padding(.bottom, 10)
+
+            Divider()
+
+            switch store.appPage {
+            case .console:
+                AgentSidebarContent()
+            case .tools:
+                ToolLibrarySidebar()
+            case .models:
+                ModelLibrarySidebar()
+            }
+        }
+        .background(Color(nsColor: .controlBackgroundColor))
+    }
+}
+
+struct SidebarPrimaryNavigation: View {
+    @EnvironmentObject private var store: WorkspaceStore
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            SidebarNavRow(
+                title: "Console",
+                systemImage: "rectangle.3.group",
+                isSelected: store.appPage == .console
+            ) {
+                store.openConsole()
+            }
+            SidebarNavRow(
+                title: "Tools",
+                systemImage: "wrench.and.screwdriver",
+                isSelected: store.appPage == .tools
+            ) {
+                store.openToolsPage()
+            }
+            SidebarNavRow(
+                title: "Models",
+                systemImage: "brain.head.profile",
+                isSelected: store.appPage == .models
+            ) {
+                store.openModelsPage()
+            }
+        }
+    }
+}
+
+struct SidebarNavRow: View {
+    let title: String
+    let systemImage: String
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Label(title, systemImage: systemImage)
+                .font(.system(size: 15, weight: isSelected ? .semibold : .regular))
+                .foregroundStyle(.primary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 8)
+                .background(
+                    isSelected
+                        ? AnyShapeStyle(Color.secondary.opacity(0.14))
+                        : AnyShapeStyle(Color.clear),
+                    in: RoundedRectangle(cornerRadius: 8)
+                )
+        }
+        .buttonStyle(.plain)
+        .help(title)
+    }
+}
+
+struct AgentSidebarContent: View {
     @EnvironmentObject private var store: WorkspaceStore
 
     var body: some View {
@@ -139,48 +237,47 @@ struct AgentSidebarView: View {
                 Button {
                     store.createAgent()
                 } label: {
-                    Image(systemName: "plus")
+                    Label("New", systemImage: "plus")
                 }
                 .buttonStyle(.borderless)
                 .help("Create agent")
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 12)
-            .background(Color(nsColor: .controlBackgroundColor))
 
-            List(selection: Binding(get: {
-                store.workspace.selectedAgentID
-            }, set: { newValue in
-                if let newValue {
-                    store.selectAgent(newValue)
+            ScrollView {
+                LazyVStack(spacing: 6) {
+                    ForEach(store.workspace.agents) { agent in
+                        Button {
+                            store.selectAgent(agent.id)
+                        } label: {
+                            AgentRow(agent: agent, isSelected: agent.id == store.workspace.selectedAgentID)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
-            })) {
-                ForEach(store.workspace.agents) { agent in
-                    AgentRow(agent: agent)
-                        .tag(agent.id)
-                }
+                .padding(10)
             }
-            .listStyle(.sidebar)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
 
             Divider()
 
             VStack(alignment: .leading, spacing: 8) {
-                Label("Run Center", systemImage: "clock.arrow.circlepath")
+                Label("Selected agent", systemImage: "point.3.connected.trianglepath.dotted")
                     .font(.subheadline.weight(.semibold))
-                Text("Agents can be edited, triggered manually, or scheduled with cron-style rules.")
+                Text(store.selectedAgent?.name ?? "No agent")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(14)
-            .background(Color(nsColor: .controlBackgroundColor))
         }
-        .background(Color(nsColor: .controlBackgroundColor))
     }
 }
 
 struct AgentRow: View {
     let agent: AgentDefinition
+    let isSelected: Bool
 
     var lastRun: AgentRun? {
         agent.runs.sorted { $0.number > $1.number }.first
@@ -190,21 +287,35 @@ struct AgentRow: View {
         VStack(alignment: .leading, spacing: 5) {
             HStack(spacing: 8) {
                 Image(systemName: "point.3.connected.trianglepath.dotted")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(isSelected ? Color.accentColor : Color.secondary)
                 Text(agent.name)
+                    .font(.subheadline.weight(isSelected ? .semibold : .regular))
                     .lineLimit(1)
             }
             HStack(spacing: 8) {
                 Text("\(agent.nodes.count) nodes")
                 Text("\(agent.schedules.filter(\.isEnabled).count) schedules")
                 if let lastRun {
-                    Text("#\(lastRun.number) \(lastRun.status.rawValue)")
+                    Text("last #\(lastRun.number) \(lastRun.status.rawValue)")
                 }
             }
             .font(.caption)
             .foregroundStyle(.secondary)
         }
-        .padding(.vertical, 4)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 9)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(RoundedRectangle(cornerRadius: 8))
+        .background(
+            isSelected
+                ? AnyShapeStyle(Color.accentColor.opacity(0.12))
+                : AnyShapeStyle(Color.clear),
+            in: RoundedRectangle(cornerRadius: 8)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(isSelected ? Color.accentColor.opacity(0.22) : Color.clear)
+        )
     }
 }
 

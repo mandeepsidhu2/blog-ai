@@ -1,31 +1,36 @@
+import AppKit
 import MacAgentFlowCore
 import SwiftUI
 
 struct InspectorView: View {
     @EnvironmentObject private var store: WorkspaceStore
+    @State private var selectedItemMode: SelectedItemMode = .details
 
     var body: some View {
         VStack(spacing: 0) {
-            Picker("", selection: $store.inspectorSection) {
-                ForEach(InspectorSection.allCases) { section in
-                    Text(section.rawValue).tag(section)
-                }
+            SelectedItemPanel(mode: $selectedItemMode)
+                .padding(12)
+
+            Divider()
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Agent & Workspace")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal, 12)
+                InspectorTabBar(selection: $store.inspectorSection)
             }
-            .pickerStyle(.segmented)
-            .labelsHidden()
-            .padding(12)
+            .padding(.top, 10)
 
             Divider()
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     switch store.inspectorSection {
-                    case .configuration:
-                        ConfigurationSection()
-                    case .models:
-                        LLMModelsSection()
-                    case .tools:
-                        ToolsSection()
+                    case .source:
+                        GraphSourceSection()
+                    case .agent:
+                        AgentSettingsSection()
                     case .runs:
                         RunsSection()
                     case .schedules:
@@ -41,8 +46,101 @@ struct InspectorView: View {
     }
 }
 
-struct ConfigurationSection: View {
+enum SelectedItemMode: String, CaseIterable, Identifiable {
+    case details = "Details"
+    case tools = "Tools"
+
+    var id: String { rawValue }
+}
+
+struct InspectorTabBar: View {
+    @Binding var selection: InspectorSection
+    private let columns = [
+        GridItem(.adaptive(minimum: 72), spacing: 6, alignment: .leading)
+    ]
+
+    var body: some View {
+        LazyVGrid(columns: columns, alignment: .leading, spacing: 6) {
+            ForEach(InspectorSection.allCases) { section in
+                Button {
+                    selection = section
+                } label: {
+                    Text(section.rawValue)
+                        .font(.caption.weight(.semibold))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 6)
+                        .frame(maxWidth: .infinity)
+                        .foregroundStyle(selection == section ? Color.white : Color.primary)
+                        .background(
+                            selection == section
+                                ? AnyShapeStyle(Color.accentColor)
+                                : AnyShapeStyle(Color.secondary.opacity(0.12)),
+                            in: RoundedRectangle(cornerRadius: 7)
+                        )
+                }
+                .buttonStyle(.plain)
+                .help(section.rawValue)
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.bottom, 10)
+    }
+}
+
+struct SelectedItemPanel: View {
     @EnvironmentObject private var store: WorkspaceStore
+    @Binding var mode: SelectedItemMode
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            if let edge = store.selectedEdge {
+                SelectedConnectorSection(edge: edge)
+            } else if let node = store.selectedNode {
+                HStack(alignment: .center) {
+                    SectionHeader(title: "Selected Node", systemImage: "slider.horizontal.3")
+                    Spacer()
+                    Label(node.kind.title, systemImage: node.kind.symbolName)
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Color.accentColor)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.accentColor.opacity(0.10), in: Capsule())
+                }
+
+                Picker("Selected node mode", selection: $mode) {
+                    ForEach(SelectedItemMode.allCases) { itemMode in
+                        Text(itemMode.rawValue).tag(itemMode)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+
+                switch mode {
+                case .details:
+                    SelectedNodeDetailsSection(node: node)
+                case .tools:
+                    SelectedNodeToolsSection(node: node)
+                }
+            } else {
+                VStack(alignment: .leading, spacing: 6) {
+                    SectionHeader(title: "Selected Item", systemImage: "cursorarrow.click")
+                    Text("Select a node or connector on the canvas to edit it here.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        .padding(12)
+        .background(Color.accentColor.opacity(0.05), in: RoundedRectangle(cornerRadius: 10))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.accentColor.opacity(0.22)))
+    }
+}
+
+struct AgentSettingsSection: View {
+    @EnvironmentObject private var store: WorkspaceStore
+    @State private var showsModelDetails = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -57,39 +155,48 @@ struct ConfigurationSection: View {
                     set: { value in store.updateSelectedAgent { $0.summary = value } }
                 ))
                 VStack(alignment: .leading, spacing: 8) {
-                    Picker("LLM model", selection: Binding<UUID?>(
-                        get: { agent.llmModelConfigID },
-                        set: { store.setSelectedAgentLLMModel($0) }
-                    )) {
-                        Text("No model").tag(UUID?.none)
-                        ForEach(store.workspace.llmModels) { model in
-                            Text(model.displayName).tag(Optional(model.id))
+                    if let fallbackModelID = store.workspace.llmModels.first?.id {
+                        Picker("LLM model", selection: Binding<UUID>(
+                            get: { agent.llmModelConfigID ?? fallbackModelID },
+                            set: { store.setSelectedAgentLLMModel($0) }
+                        )) {
+                            ForEach(store.workspace.llmModels) { model in
+                                Text(model.displayName).tag(model.id)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                    } else {
+                        Button("Add model") {
+                            store.addLLMModel()
                         }
                     }
-                    .pickerStyle(.menu)
 
                     if let model = store.selectedAgentLLMModel {
-                        ModelSummaryCard(model: model)
+                        DisclosureGroup(isExpanded: $showsModelDetails) {
+                            ModelSummaryCard(model: model)
+                                .padding(.top, 6)
+                        } label: {
+                            HStack {
+                                Text(model.displayName)
+                                    .font(.caption.weight(.semibold))
+                                Spacer()
+                                Text(model.backend.rawValue)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .padding(8)
+                        .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
                     } else {
-                        Text("Choose a model for AI and conditional nodes, or add one in Models.")
+                        Text("Add a model for AI and conditional nodes.")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
 
                     Button("Manage models") {
-                        store.inspectorSection = .models
+                        store.openModelsPage(selecting: agent.llmModelConfigID)
                     }
                 }
-            }
-
-            Divider()
-            if let edge = store.selectedEdge {
-                SelectedConnectorSection(edge: edge)
-            } else if let node = store.selectedNode {
-                SelectedNodeSection(node: node)
-            } else {
-                Text("Select a node on the canvas to edit it.")
-                    .foregroundStyle(.secondary)
             }
 
             Divider()
@@ -127,13 +234,12 @@ struct ModelSummaryCard: View {
     }
 }
 
-struct SelectedNodeSection: View {
+struct SelectedNodeDetailsSection: View {
     @EnvironmentObject private var store: WorkspaceStore
     let node: AgentNode
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Selected Node", systemImage: "slider.horizontal.3")
             TextField("Title", text: Binding(
                 get: { node.title },
                 set: { value in store.updateSelectedNode { $0.title = value } }
@@ -142,10 +248,6 @@ struct SelectedNodeSection: View {
                 get: { node.note },
                 set: { value in store.updateSelectedNode { $0.note = value } }
             ))
-
-            LabeledContent("Kind") {
-                Label(node.kind.title, systemImage: node.kind.symbolName)
-            }
 
             if node.kind == .ai || node.kind == .condition {
                 VStack(alignment: .leading, spacing: 6) {
@@ -166,14 +268,13 @@ struct SelectedNodeSection: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("Python code")
                         .font(.caption.weight(.semibold))
-                    TextEditor(text: Binding(
+                    PythonCodeEditor(text: Binding(
                         get: { node.pythonCode },
                         set: { value in store.updateSelectedNode { $0.pythonCode = value } }
-                    ))
-                    .font(.system(.body, design: .monospaced))
-                    .frame(minHeight: 140)
-                    .scrollContentBackground(.hidden)
-                    .background(Color(nsColor: .textBackgroundColor), in: RoundedRectangle(cornerRadius: 6))
+                    ), isEditable: true)
+                    .frame(height: 180)
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
+                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.secondary.opacity(0.18)))
                 }
             }
 
@@ -189,22 +290,126 @@ struct SelectedNodeSection: View {
                 .help("Comma-separated branch labels")
             }
 
-            HStack {
-                Button("Copy") {
-                    store.copySelection()
+            if ![AgentNodeKind.start, .end].contains(node.kind) || store.canPasteSelection {
+                HStack {
+                    if ![AgentNodeKind.start, .end].contains(node.kind) {
+                        Button("Copy") {
+                            store.copySelection()
+                        }
+                        Button("Delete node", role: .destructive) {
+                            store.deleteSelectedNode()
+                        }
+                    }
+                    if store.canPasteSelection {
+                        Button("Paste") {
+                            store.pasteSelection()
+                        }
+                    }
+                    Spacer()
                 }
-                .disabled(!store.canCopySelection)
-                Button("Paste") {
-                    store.pasteSelection()
-                }
-                .disabled(!store.canPasteSelection)
-                Button("Delete node", role: .destructive) {
-                    store.deleteSelectedNode()
-                }
-                .disabled([AgentNodeKind.start, .end].contains(node.kind))
-                Spacer()
+            } else {
+                Text("\(node.kind.title) is a fixed system node.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
         }
+    }
+}
+
+struct SelectedNodeToolsSection: View {
+    @EnvironmentObject private var store: WorkspaceStore
+    let node: AgentNode
+
+    private var selectedTools: [ToolDefinition] {
+        store.workspace.toolCatalog.filter { node.selectedToolIDs.contains($0.id) }
+    }
+
+    private var availableTools: [ToolDefinition] {
+        store.workspace.toolCatalog.filter { !node.selectedToolIDs.contains($0.id) }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            if [AgentNodeKind.start, .end].contains(node.kind) {
+                Text("\(node.kind.title) is a fixed system node and cannot attach tools.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                HStack {
+                    Menu {
+                        ForEach(availableTools) { tool in
+                            Button(tool.name) {
+                                store.toggleTool(tool.id, for: node.id)
+                            }
+                        }
+                    } label: {
+                        Label("Add Tool", systemImage: "plus")
+                    }
+                    .disabled(availableTools.isEmpty)
+
+                    Spacer()
+
+                    Button {
+                        store.openToolsPage()
+                    } label: {
+                        Label("Tools Page", systemImage: "arrow.up.right.square")
+                    }
+                }
+
+                if selectedTools.isEmpty {
+                    Text("No tools attached to this node.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                } else {
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(selectedTools) { tool in
+                            SelectedToolChipRow(tool: tool, node: node)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct SelectedToolChipRow: View {
+    @EnvironmentObject private var store: WorkspaceStore
+    let tool: ToolDefinition
+    let node: AgentNode
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Image(systemName: tool.isMutating ? "exclamationmark.triangle.fill" : "checkmark.shield.fill")
+                .foregroundStyle(tool.isMutating ? Color.orange : Color.green)
+                .frame(width: 16)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(tool.name)
+                    .font(.caption.weight(.semibold))
+                    .lineLimit(1)
+                Text(tool.summary)
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+            }
+            Spacer()
+            Button {
+                store.openToolsPage(selecting: tool.id)
+            } label: {
+                Image(systemName: "pencil")
+            }
+            .buttonStyle(.borderless)
+            .help("Edit \(tool.name) on the Tools page")
+            Button {
+                store.toggleTool(tool.id, for: node.id)
+            } label: {
+                Image(systemName: "xmark")
+            }
+            .buttonStyle(.borderless)
+            .help("Remove from this node")
+        }
+        .padding(8)
+        .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 7))
     }
 }
 
@@ -243,129 +448,39 @@ struct SelectedConnectorSection: View {
     }
 }
 
-struct LLMModelsSection: View {
+struct GraphSourceSection: View {
     @EnvironmentObject private var store: WorkspaceStore
+    @State private var didCopy = false
+
+    private var source: String {
+        guard let agent = store.selectedAgent else { return "" }
+        return AgentPythonSourceRenderer.render(agent: agent, model: store.selectedAgentLLMModel, tools: store.workspace.toolCatalog)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                SectionHeader(title: "LLM Models", systemImage: "brain.head.profile")
+                SectionHeader(title: "Python Source", systemImage: "curlybraces")
                 Spacer()
-                Button("Add") {
-                    store.addLLMModel()
-                }
-            }
-
-            ForEach(store.workspace.llmModels) { model in
-                LLMModelEditor(model: model)
-            }
-        }
-    }
-}
-
-struct LLMModelEditor: View {
-    @EnvironmentObject private var store: WorkspaceStore
-    let model: LLMModelConfig
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 9) {
-            HStack {
-                TextField("Nickname", text: Binding(
-                    get: { model.nickname },
-                    set: { value in store.updateLLMModel(model.id) { $0.nickname = value } }
-                ))
-                Button(role: .destructive) {
-                    store.deleteLLMModel(model.id)
+                Button {
+                    NSPasteboard.general.clearContents()
+                    NSPasteboard.general.setString(source, forType: .string)
+                    didCopy = true
                 } label: {
-                    Image(systemName: "trash")
+                    Label(didCopy ? "Copied" : "Copy", systemImage: "doc.on.doc")
                 }
-                .buttonStyle(.borderless)
-                .disabled(store.workspace.llmModels.count <= 1)
-                .help(store.workspace.llmModels.count <= 1 ? "At least one model config is required" : "Delete model config")
+                .disabled(source.isEmpty)
             }
 
-            Picker("Backend", selection: Binding(
-                get: { model.backend },
-                set: { backend in
-                    store.updateLLMModel(model.id) {
-                        $0.backend = backend
-                        if $0.baseURL.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                            $0.baseURL = backend.defaultBaseURL
-                        }
-                    }
-                }
-            )) {
-                ForEach(LLMBackend.allCases) { backend in
-                    Text(backend.rawValue).tag(backend)
-                }
-            }
-            .pickerStyle(.menu)
-
-            TextField("Base URL", text: Binding(
-                get: { model.baseURL },
-                set: { value in store.updateLLMModel(model.id) { $0.baseURL = value } }
-            ))
-            TextField("Model name", text: Binding(
-                get: { model.modelName },
-                set: { value in store.updateLLMModel(model.id) { $0.modelName = value } }
-            ))
-            SecureField("API key", text: Binding(
-                get: { model.apiKey },
-                set: { value in store.updateLLMModel(model.id) { $0.apiKey = value } }
-            ))
-
-            Text(model.details.isEmpty ? "Complete this model config before assigning it to production agents." : model.details)
+            Text("Generated from the current canvas topology, model config, prompts, Python nodes, tools, branches, and connector labels.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
-        }
-        .padding(10)
-        .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
-    }
-}
 
-struct ToolsSection: View {
-    @EnvironmentObject private var store: WorkspaceStore
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Tools", systemImage: "wrench.and.screwdriver")
-            if let node = store.selectedNode, node.kind != .start && node.kind != .end {
-                ForEach(store.workspace.toolCatalog) { tool in
-                    Button {
-                        store.toggleTool(tool.id, for: node.id)
-                    } label: {
-                        HStack(alignment: .top, spacing: 10) {
-                            Image(systemName: node.selectedToolIDs.contains(tool.id) ? "checkmark.circle.fill" : "circle")
-                                .foregroundStyle(node.selectedToolIDs.contains(tool.id) ? Color.accentColor : Color.secondary)
-                            VStack(alignment: .leading, spacing: 3) {
-                                HStack {
-                                    Text(tool.name)
-                                        .font(.subheadline.weight(.semibold))
-                                    if tool.isMutating {
-                                        Text("approval")
-                                            .font(.caption2.weight(.semibold))
-                                            .padding(.horizontal, 6)
-                                            .padding(.vertical, 2)
-                                            .background(Color.orange.opacity(0.12), in: Capsule())
-                                    }
-                                }
-                                Text("\(tool.category) · \(tool.summary)")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
-                            Spacer()
-                        }
-                        .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
-                    Divider()
-                }
-            } else {
-                Text("Select an editable node to attach tools.")
-                    .foregroundStyle(.secondary)
-            }
+            PythonCodeEditor(text: .constant(source), isEditable: false)
+                .frame(height: 560)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.secondary.opacity(0.18)))
         }
     }
 }

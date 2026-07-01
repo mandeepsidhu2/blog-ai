@@ -160,9 +160,9 @@ public struct AgentDefinition: Identifiable, Codable, Equatable, Sendable {
         let collect = AgentNode(
             kind: .tool,
             title: "Collect Signals",
-            note: "Read local git status and queued release notes.",
+            note: "Read starter tool signals from AWS and social sources.",
             position: CanvasPoint(x: 252, y: 112),
-            selectedToolIDs: ["git", "github"]
+            selectedToolIDs: ["aws", "reddit", "twitter"]
         )
         let plan = AgentNode(
             kind: .ai,
@@ -670,28 +670,286 @@ public struct ToolDefinition: Identifiable, Codable, Equatable, Sendable {
     public var category: String
     public var summary: String
     public var isMutating: Bool
+    public var pythonCode: String
 
-    public init(id: String, name: String, category: String, summary: String, isMutating: Bool = false) {
+    public init(
+        id: String,
+        name: String,
+        category: String,
+        summary: String,
+        isMutating: Bool = false,
+        pythonCode: String
+    ) {
         self.id = id
         self.name = name
         self.category = category
         self.summary = summary
         self.isMutating = isMutating
+        self.pythonCode = pythonCode
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case category
+        case summary
+        case isMutating
+        case pythonCode
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        category = try container.decode(String.self, forKey: .category)
+        summary = try container.decode(String.self, forKey: .summary)
+        isMutating = try container.decodeIfPresent(Bool.self, forKey: .isMutating) ?? false
+        pythonCode = try container.decodeIfPresent(String.self, forKey: .pythonCode) ?? Self.defaultPythonCode(for: id)
     }
 
     public static let defaultCatalog: [ToolDefinition] = [
-        ToolDefinition(id: "openai", name: "OpenAI", category: "LLM", summary: "Call OpenAI-compatible Responses APIs."),
-        ToolDefinition(id: "python", name: "Python", category: "Runtime", summary: "Run local Python blocks and validation."),
-        ToolDefinition(id: "git", name: "Git", category: "Source control", summary: "Inspect local repository state."),
-        ToolDefinition(id: "github", name: "GitHub", category: "Source control", summary: "Create issues and pull request artifacts.", isMutating: true),
-        ToolDefinition(id: "gitlab", name: "GitLab", category: "Source control", summary: "Create merge request or issue artifacts.", isMutating: true),
-        ToolDefinition(id: "terraform", name: "Terraform", category: "Infrastructure", summary: "Plan and inspect Terraform workspaces.", isMutating: true),
-        ToolDefinition(id: "tofu", name: "Tofu", category: "Infrastructure", summary: "Plan and inspect OpenTofu workspaces.", isMutating: true),
-        ToolDefinition(id: "aws", name: "AWS", category: "Cloud", summary: "Inspect AWS state through approved commands.", isMutating: true),
-        ToolDefinition(id: "kubernetes", name: "Kubernetes", category: "Cloud", summary: "Inspect Kubernetes resources.", isMutating: true),
-        ToolDefinition(id: "reddit", name: "Reddit", category: "Social", summary: "Read and draft Reddit workflow actions.", isMutating: true),
-        ToolDefinition(id: "twitter", name: "Twitter / X", category: "Social", summary: "Read and draft Twitter/X workflow actions.", isMutating: true)
+        ToolDefinition(
+            id: "reddit",
+            name: "Reddit",
+            category: "Social",
+            summary: "Prepare Reddit search, thread fetch, and draft-post tool calls.",
+            isMutating: true,
+            pythonCode: """
+from typing import Any
+
+
+def run(state: dict[str, Any], **kwargs: Any) -> dict[str, Any]:
+    query = kwargs.get("query") or state.get("data", {}).get("query", "")
+    subreddit = kwargs.get("subreddit") or state.get("data", {}).get("subreddit", "all")
+    return {
+        "data": {
+            "reddit": {
+                "query": query,
+                "subreddit": subreddit,
+                "operations": [
+                    {"name": "search_posts", "method": "GET", "path": f"/r/{subreddit}/search", "params": {"q": query}},
+                    {"name": "fetch_thread", "method": "GET", "path": "/comments/{post_id}"},
+                    {"name": "draft_post", "method": "POST", "path": f"/r/{subreddit}/submit", "requires_approval": True},
+                ],
+            }
+        }
+    }
+"""
+        ),
+        ToolDefinition(
+            id: "twitter",
+            name: "Twitter / X",
+            category: "Social",
+            summary: "Prepare X search, thread fetch, profile lookup, and draft-post tool calls.",
+            isMutating: true,
+            pythonCode: """
+from typing import Any
+
+
+def run(state: dict[str, Any], **kwargs: Any) -> dict[str, Any]:
+    query = kwargs.get("query") or state.get("data", {}).get("query", "")
+    username = kwargs.get("username") or state.get("data", {}).get("username", "")
+    return {
+        "data": {
+            "twitter": {
+                "query": query,
+                "username": username,
+                "operations": [
+                    {"name": "search_recent", "method": "GET", "path": "/2/tweets/search/recent", "params": {"query": query}},
+                    {"name": "fetch_thread", "method": "GET", "path": "/2/tweets/{tweet_id}"},
+                    {"name": "lookup_user", "method": "GET", "path": f"/2/users/by/username/{username}"},
+                    {"name": "draft_post", "method": "POST", "path": "/2/tweets", "requires_approval": True},
+                ],
+            }
+        }
+    }
+"""
+        ),
+        ToolDefinition(
+            id: "aws",
+            name: "AWS Read-Only",
+            category: "Cloud",
+            summary: "Read-only AWS inventory calls for identity, S3, EC2, RDS, CloudWatch, and IAM.",
+            isMutating: false,
+            pythonCode: """
+from typing import Any
+
+
+def run(state: dict[str, Any], **kwargs: Any) -> dict[str, Any]:
+    region = kwargs.get("region") or state.get("data", {}).get("aws_region", "us-east-1")
+    return {
+        "data": {
+            "aws_read_only": {
+                "region": region,
+                "operations": [
+                    {"name": "get_caller_identity", "service": "sts", "method": "get_caller_identity"},
+                    {"name": "list_s3_buckets", "service": "s3", "method": "list_buckets"},
+                    {"name": "describe_ec2_instances", "service": "ec2", "method": "describe_instances", "region": region},
+                    {"name": "describe_rds_instances", "service": "rds", "method": "describe_db_instances", "region": region},
+                    {"name": "list_cloudwatch_alarms", "service": "cloudwatch", "method": "describe_alarms", "region": region},
+                    {"name": "list_iam_roles", "service": "iam", "method": "list_roles"},
+                ],
+                "read_only": True,
+            }
+        }
+    }
+"""
+        )
     ]
+
+    public static func starterTool(id: String) -> ToolDefinition? {
+        defaultCatalog.first { $0.id == id }
+    }
+
+    public static func defaultPythonCode(for id: String) -> String {
+        starterTool(id: id)?.pythonCode ?? """
+from typing import Any
+
+
+def run(state: dict[str, Any], **kwargs: Any) -> dict[str, Any]:
+    return {"data": {"tool_result": {}}}
+"""
+    }
+}
+
+public struct PythonValidationResult: Codable, Equatable, Sendable {
+    public var isValid: Bool
+    public var message: String
+
+    public init(isValid: Bool, message: String) {
+        self.isValid = isValid
+        self.message = message
+    }
+}
+
+public enum PythonToolValidator {
+    public static func validate(_ code: String) -> PythonValidationResult {
+        let trimmed = code.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty {
+            return PythonValidationResult(isValid: false, message: "Python code is empty.")
+        }
+
+        if let result = pythonASTValidation(trimmed) {
+            return result
+        }
+
+        let lines = trimmed.split(separator: "\n", omittingEmptySubsequences: false)
+        let hasRun = lines.contains { line in
+            let value = line.trimmingCharacters(in: .whitespaces)
+            return value.hasPrefix("def run(") || value.hasPrefix("async def run(")
+        }
+        if !hasRun {
+            return PythonValidationResult(isValid: false, message: "Tool code must define run(state, **kwargs).")
+        }
+
+        if let message = balanceError(in: trimmed) {
+            return PythonValidationResult(isValid: false, message: message)
+        }
+
+        return PythonValidationResult(isValid: true, message: "Static Python tool check passed.")
+    }
+
+    private static func pythonASTValidation(_ code: String) -> PythonValidationResult? {
+        let pythonPath = "/usr/bin/python3"
+        guard FileManager.default.isExecutableFile(atPath: pythonPath) else { return nil }
+
+        let script = """
+import ast
+import sys
+
+code = sys.stdin.read()
+try:
+    tree = ast.parse(code)
+except SyntaxError as exc:
+    print(f"Python syntax error on line {exc.lineno}: {exc.msg}", file=sys.stderr)
+    sys.exit(1)
+
+has_run = any(
+    isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name == "run"
+    for node in tree.body
+)
+if not has_run:
+    print("Tool code must define run(state, **kwargs).", file=sys.stderr)
+    sys.exit(1)
+"""
+
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: pythonPath)
+        process.arguments = ["-c", script]
+
+        let input = Pipe()
+        let error = Pipe()
+        process.standardInput = input
+        process.standardError = error
+
+        do {
+            try process.run()
+            if let data = code.data(using: .utf8) {
+                input.fileHandleForWriting.write(data)
+            }
+            try? input.fileHandleForWriting.close()
+            process.waitUntilExit()
+        } catch {
+            return nil
+        }
+
+        if process.terminationStatus == 0 {
+            return PythonValidationResult(isValid: true, message: "Python syntax and tool entrypoint check passed.")
+        }
+
+        let errorData = error.fileHandleForReading.readDataToEndOfFile()
+        let message = String(data: errorData, encoding: .utf8)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        return PythonValidationResult(isValid: false, message: message?.isEmpty == false ? message! : "Python tool validation failed.")
+    }
+
+    private static func balanceError(in code: String) -> String? {
+        var stack: [Character] = []
+        var quote: Character?
+        var escaped = false
+        var inComment = false
+        let pairs: [Character: Character] = [")": "(", "]": "[", "}": "{"]
+        let openers = Set<Character>(["(", "[", "{"])
+
+        for character in code {
+            if inComment {
+                if character == "\n" {
+                    inComment = false
+                }
+                continue
+            }
+            if let activeQuote = quote {
+                if escaped {
+                    escaped = false
+                } else if character == "\\" {
+                    escaped = true
+                } else if character == activeQuote {
+                    quote = nil
+                }
+                continue
+            }
+            if character == "#" {
+                inComment = true
+            } else if character == "\"" || character == "'" {
+                quote = character
+            } else if openers.contains(character) {
+                stack.append(character)
+            } else if let expected = pairs[character] {
+                guard stack.popLast() == expected else {
+                    return "Python delimiters are not balanced."
+                }
+            }
+        }
+
+        if quote != nil {
+            return "Python string literal is not closed."
+        }
+        if !stack.isEmpty {
+            return "Python delimiters are not balanced."
+        }
+        return nil
+    }
+
 }
 
 public struct HarnessSkill: Identifiable, Codable, Equatable, Sendable {

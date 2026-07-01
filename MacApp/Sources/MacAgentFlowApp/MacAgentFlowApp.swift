@@ -19,6 +19,20 @@ struct MacAgentFlowApp: App {
                 .frame(minWidth: 1260, minHeight: 780)
         }
         .commands {
+            CommandGroup(replacing: .undoRedo) {
+                Button("Undo") {
+                    store.undo()
+                }
+                .keyboardShortcut("z", modifiers: [.command])
+                .disabled(!store.canUndo)
+
+                Button("Redo") {
+                    store.redo()
+                }
+                .keyboardShortcut("z", modifiers: [.command, .shift])
+                .disabled(!store.canRedo)
+            }
+
             CommandMenu("Agent") {
                 Button("New Agent") {
                     store.createAgent()

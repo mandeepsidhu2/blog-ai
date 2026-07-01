@@ -8,10 +8,18 @@ final class WorkspaceStore: ObservableObject {
     @Published var selectedNodeID: UUID?
     @Published var selectedEdgeID: UUID?
     @Published var selectedRunID: UUID?
-    @Published var inspectorSection: InspectorSection = .configuration
+    @Published var appPage: AppPage = .console
+    @Published var inspectorSection: InspectorSection = .source
+    @Published var selectedToolID: String?
+    @Published var selectedModelConfigID: UUID?
+    @Published private(set) var canUndo = false
+    @Published private(set) var canRedo = false
 
     private let persistenceURL: URL
     @Published private var copiedNode: AgentNode?
+    private var undoStack: [AgentWorkspace] = []
+    private var redoStack: [AgentWorkspace] = []
+    private let maxHistoryDepth = 80
 
     init(workspace: AgentWorkspace = .sample, persistenceURL: URL? = nil) {
         self.persistenceURL = persistenceURL ?? Self.defaultPersistenceURL()
@@ -25,8 +33,10 @@ final class WorkspaceStore: ObservableObject {
             self.workspace = workspace
         }
         selectedNodeID = selectedAgent?.nodes.first(where: { $0.kind == .start })?.id
-        selectedRunID = selectedAgent?.runs.sorted(by: { $0.number > $1.number }).first?.id
-        inspectorSection = selectedRunID == nil ? .configuration : .runs
+        selectedRunID = nil
+        selectedToolID = self.workspace.toolCatalog.first?.id
+        selectedModelConfigID = self.workspace.llmModels.first?.id
+        inspectorSection = .source
         if shouldPersistNormalizedWorkspace {
             persist()
         }
@@ -52,8 +62,28 @@ final class WorkspaceStore: ObservableObject {
     }
 
     var selectedAgentLLMModel: LLMModelConfig? {
-        guard let modelID = selectedAgent?.llmModelConfigID else { return nil }
-        return workspace.llmModels.first { $0.id == modelID }
+        guard let agent = selectedAgent else { return nil }
+        if let modelID = agent.llmModelConfigID,
+           let model = workspace.llmModels.first(where: { $0.id == modelID }) {
+            return model
+        }
+        return workspace.llmModels.first
+    }
+
+    var selectedTool: ToolDefinition? {
+        if let selectedToolID,
+           let tool = workspace.toolCatalog.first(where: { $0.id == selectedToolID }) {
+            return tool
+        }
+        return workspace.toolCatalog.first
+    }
+
+    var selectedModelConfig: LLMModelConfig? {
+        if let selectedModelConfigID,
+           let model = workspace.llmModels.first(where: { $0.id == selectedModelConfigID }) {
+            return model
+        }
+        return workspace.llmModels.first
     }
 
     var canDeleteSelection: Bool {
@@ -71,32 +101,60 @@ final class WorkspaceStore: ObservableObject {
         copiedNode != nil && selectedAgent != nil
     }
 
+    func openConsole() {
+        appPage = .console
+    }
+
+    func openToolsPage(selecting toolID: String? = nil) {
+        if let toolID, workspace.toolCatalog.contains(where: { $0.id == toolID }) {
+            selectedToolID = toolID
+        } else if selectedTool == nil {
+            selectedToolID = workspace.toolCatalog.first?.id
+        }
+        appPage = .tools
+    }
+
+    func openModelsPage(selecting modelID: UUID? = nil) {
+        if let modelID, workspace.llmModels.contains(where: { $0.id == modelID }) {
+            selectedModelConfigID = modelID
+        } else if selectedModelConfig == nil {
+            selectedModelConfigID = workspace.llmModels.first?.id
+        }
+        appPage = .models
+    }
+
     func selectAgent(_ id: UUID) {
         workspace.selectedAgentID = id
         selectedNodeID = selectedAgent?.nodes.first(where: { $0.kind == .start })?.id
         selectedEdgeID = nil
-        selectedRunID = selectedAgent?.runs.sorted(by: { $0.number > $1.number }).first?.id
-        inspectorSection = selectedRunID == nil ? .configuration : .runs
+        selectedRunID = nil
+        inspectorSection = .source
         persist()
     }
 
     func selectNode(_ id: UUID) {
         selectedNodeID = id
         selectedEdgeID = nil
-        inspectorSection = .configuration
+        inspectorSection = .source
     }
 
     func selectEdge(_ id: UUID) {
         selectedEdgeID = id
         selectedNodeID = nil
-        inspectorSection = .configuration
+        inspectorSection = .source
     }
 
     func createAgent() {
+        let before = workspace
         var agent = AgentDefinition.blank(number: workspace.agents.count + 1)
         agent.llmModelConfigID = workspace.llmModels.first?.id
         workspace.agents.append(agent)
-        selectAgent(agent.id)
+        workspace.selectedAgentID = agent.id
+        selectedNodeID = agent.nodes.first(where: { $0.kind == .start })?.id
+        selectedEdgeID = nil
+        selectedRunID = nil
+        inspectorSection = .source
+        commitWorkspaceChange(from: before)
     }
 
     func renameSelectedAgent(_ name: String) {
@@ -111,11 +169,17 @@ final class WorkspaceStore: ObservableObject {
         }
     }
 
-    func updateSelectedAgent(persistChanges: Bool = true, _ mutate: (inout AgentDefinition) -> Void) {
+    func updateSelectedAgent(persistChanges: Bool = true, recordsUndo: Bool = true, _ mutate: (inout AgentDefinition) -> Void) {
         guard let index = workspace.agents.firstIndex(where: { $0.id == workspace.selectedAgentID }) else { return }
+        let beforeWorkspace = workspace
+        let beforeAgent = workspace.agents[index]
         mutate(&workspace.agents[index])
-        workspace.agents[index].updatedAt = Date()
-        if persistChanges {
+        if workspace.agents[index] != beforeAgent {
+            workspace.agents[index].updatedAt = Date()
+        }
+        if recordsUndo {
+            commitWorkspaceChange(from: beforeWorkspace, persistChanges: persistChanges)
+        } else if persistChanges {
             persist()
         }
     }
@@ -170,7 +234,7 @@ final class WorkspaceStore: ObservableObject {
             }
             selectedNodeID = node.id
             selectedEdgeID = nil
-            inspectorSection = .configuration
+            inspectorSection = .source
         }
     }
 
@@ -202,13 +266,13 @@ final class WorkspaceStore: ObservableObject {
             guard let copy = AgentGraphEditor.duplicateNode(copiedNode, in: &agent) else { return }
             self.selectedNodeID = copy.id
             self.selectedEdgeID = nil
-            self.inspectorSection = .configuration
+            self.inspectorSection = .source
             self.copiedNode = copy
         }
     }
 
     func moveNode(_ nodeID: UUID, by translation: CGSize) {
-        updateSelectedAgent(persistChanges: false) { agent in
+        updateSelectedAgent(persistChanges: false, recordsUndo: false) { agent in
             guard let index = agent.nodes.firstIndex(where: { $0.id == nodeID }) else { return }
             agent.nodes[index].position.x = max(24, agent.nodes[index].position.x + translation.width)
             agent.nodes[index].position.y = max(24, agent.nodes[index].position.y + translation.height)
@@ -239,7 +303,7 @@ final class WorkspaceStore: ObservableObject {
             agent.edges.append(edge)
             self.selectedNodeID = nil
             self.selectedEdgeID = edge.id
-            self.inspectorSection = .configuration
+            self.inspectorSection = .source
         }
     }
 
@@ -269,7 +333,7 @@ final class WorkspaceStore: ObservableObject {
             }
             self.selectedNodeID = nil
             self.selectedEdgeID = edgeID
-            self.inspectorSection = .configuration
+            self.inspectorSection = .source
         }
     }
 
@@ -283,31 +347,39 @@ final class WorkspaceStore: ObservableObject {
     }
 
     func addLLMModel() {
+        let before = workspace
         let count = workspace.llmModels.count + 1
-        workspace.llmModels.append(LLMModelConfig(
+        let model = LLMModelConfig(
             nickname: "Model \(count)",
             backend: .openAI,
             baseURL: LLMBackend.openAI.defaultBaseURL,
             modelName: "gpt-4.1"
-        ))
-        inspectorSection = .models
-        persist()
+        )
+        workspace.llmModels.append(model)
+        selectedModelConfigID = model.id
+        appPage = .models
+        commitWorkspaceChange(from: before)
     }
 
     func updateLLMModel(_ modelID: UUID, mutate: (inout LLMModelConfig) -> Void) {
+        let before = workspace
         guard let index = workspace.llmModels.firstIndex(where: { $0.id == modelID }) else { return }
         mutate(&workspace.llmModels[index])
-        persist()
+        commitWorkspaceChange(from: before)
     }
 
     func deleteLLMModel(_ modelID: UUID) {
         guard workspace.llmModels.count > 1 else { return }
+        let before = workspace
         workspace.llmModels.removeAll { $0.id == modelID }
         let fallbackID = workspace.llmModels.first?.id
+        if selectedModelConfigID == modelID {
+            selectedModelConfigID = fallbackID
+        }
         for index in workspace.agents.indices where workspace.agents[index].llmModelConfigID == modelID {
             workspace.agents[index].llmModelConfigID = fallbackID
         }
-        persist()
+        commitWorkspaceChange(from: before)
     }
 
     func toggleTool(_ toolID: String, for nodeID: UUID) {
@@ -321,9 +393,70 @@ final class WorkspaceStore: ObservableObject {
         }
     }
 
+    func addTool() {
+        let before = workspace
+        let number = workspace.toolCatalog.count + 1
+        let id = availableToolID(base: "custom_tool")
+        let tool = ToolDefinition(
+            id: id,
+            name: "Custom Tool \(number)",
+            category: "Custom",
+            summary: "Paste Python code for a reusable workspace tool.",
+            isMutating: false,
+            pythonCode: ToolDefinition.defaultPythonCode(for: id)
+        )
+        workspace.toolCatalog.append(tool)
+        selectedToolID = tool.id
+        appPage = .tools
+        commitWorkspaceChange(from: before)
+    }
+
+    @discardableResult
+    func saveTool(_ tool: ToolDefinition) -> PythonValidationResult {
+        let cleanName = tool.name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !cleanName.isEmpty else {
+            return PythonValidationResult(isValid: false, message: "Tool name is required.")
+        }
+        let validation = PythonToolValidator.validate(tool.pythonCode)
+        guard validation.isValid else { return validation }
+
+        let before = workspace
+        guard let index = workspace.toolCatalog.firstIndex(where: { $0.id == tool.id }) else {
+            return PythonValidationResult(isValid: false, message: "Tool no longer exists.")
+        }
+        var saved = tool
+        saved.name = cleanName
+        workspace.toolCatalog[index] = saved
+        selectedToolID = saved.id
+        commitWorkspaceChange(from: before)
+        return PythonValidationResult(isValid: true, message: "Tool saved.")
+    }
+
+    func deleteTool(_ toolID: String) {
+        let before = workspace
+        workspace.toolCatalog.removeAll { $0.id == toolID }
+        if selectedToolID == toolID {
+            selectedToolID = workspace.toolCatalog.first?.id
+        }
+        for agentIndex in workspace.agents.indices {
+            for nodeIndex in workspace.agents[agentIndex].nodes.indices {
+                workspace.agents[agentIndex].nodes[nodeIndex].selectedToolIDs.removeAll { $0 == toolID }
+            }
+        }
+        commitWorkspaceChange(from: before)
+    }
+
     func triggerRun(trigger: AgentRunTrigger = .manual) {
+        let model = selectedAgentLLMModel
+        let tools = workspace.toolCatalog
         updateSelectedAgent { agent in
-            let run = AgentRunEngine.trigger(agent: agent, trigger: trigger)
+            let run = AgentRunEngine.trigger(
+                agent: agent,
+                trigger: trigger,
+                model: model,
+                tools: tools,
+                runtime: .liveCodingHarness
+            )
             agent.runs.insert(run, at: 0)
             selectedRunID = run.id
             inspectorSection = .runs
@@ -360,6 +493,90 @@ final class WorkspaceStore: ObservableObject {
         }
     }
 
+    func undo() {
+        guard let previous = undoStack.popLast() else { return }
+        redoStack.append(workspace)
+        workspace = previous
+        reconcileSelectionAfterWorkspaceChange()
+        syncHistoryAvailability()
+        persist()
+    }
+
+    func redo() {
+        guard let next = redoStack.popLast() else { return }
+        undoStack.append(workspace)
+        workspace = next
+        reconcileSelectionAfterWorkspaceChange()
+        syncHistoryAvailability()
+        persist()
+    }
+
+    private func commitWorkspaceChange(from before: AgentWorkspace, persistChanges: Bool = true) {
+        guard workspace != before else {
+            if persistChanges {
+                persist()
+            }
+            return
+        }
+        undoStack.append(before)
+        if undoStack.count > maxHistoryDepth {
+            undoStack.removeFirst(undoStack.count - maxHistoryDepth)
+        }
+        redoStack.removeAll()
+        syncHistoryAvailability()
+        reconcileSelectionAfterWorkspaceChange()
+        if persistChanges {
+            persist()
+        }
+    }
+
+    private func syncHistoryAvailability() {
+        canUndo = !undoStack.isEmpty
+        canRedo = !redoStack.isEmpty
+    }
+
+    private func availableToolID(base: String) -> String {
+        let existing = Set(workspace.toolCatalog.map(\.id))
+        if !existing.contains(base) {
+            return base
+        }
+        var index = 2
+        while existing.contains("\(base)_\(index)") {
+            index += 1
+        }
+        return "\(base)_\(index)"
+    }
+
+    private func reconcileSelectionAfterWorkspaceChange() {
+        if let selectedAgentID = workspace.selectedAgentID,
+           !workspace.agents.contains(where: { $0.id == selectedAgentID }) {
+            workspace.selectedAgentID = workspace.agents.first?.id
+        }
+        if workspace.selectedAgentID == nil {
+            workspace.selectedAgentID = workspace.agents.first?.id
+        }
+
+        guard let agent = selectedAgent else {
+            selectedNodeID = nil
+            selectedEdgeID = nil
+            selectedRunID = nil
+            return
+        }
+
+        if let selectedNodeID, !agent.nodes.contains(where: { $0.id == selectedNodeID }) {
+            self.selectedNodeID = agent.nodes.first(where: { $0.kind == .start })?.id ?? agent.nodes.first?.id
+        }
+        if selectedNodeID == nil, selectedEdgeID == nil {
+            selectedNodeID = agent.nodes.first(where: { $0.kind == .start })?.id ?? agent.nodes.first?.id
+        }
+        if let selectedEdgeID, !agent.edges.contains(where: { $0.id == selectedEdgeID }) {
+            self.selectedEdgeID = nil
+        }
+        if let selectedRunID, !agent.runs.contains(where: { $0.id == selectedRunID }) {
+            self.selectedRunID = agent.runs.sorted(by: { $0.number > $1.number }).first?.id
+        }
+    }
+
     private static func defaultPersistenceURL() -> URL {
         let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
             ?? URL(fileURLWithPath: NSTemporaryDirectory())
@@ -371,6 +588,7 @@ final class WorkspaceStore: ObservableObject {
         if result.llmModels.isEmpty {
             result.llmModels = LLMModelConfig.defaultConfigs
         }
+        result.toolCatalog = normalizedToolCatalog(result.toolCatalog)
         let modelIDs = Set(result.llmModels.map(\.id))
         for index in result.agents.indices {
             if let compacted = compactedStockAgent(result.agents[index]) {
@@ -393,6 +611,28 @@ final class WorkspaceStore: ObservableObject {
             result.agents[index].llmModelConfigID = result.llmModels.first?.id
         }
         return result
+    }
+
+    private static func normalizedToolCatalog(_ tools: [ToolDefinition]) -> [ToolDefinition] {
+        if tools.isEmpty {
+            return ToolDefinition.defaultCatalog
+        }
+
+        let legacyIDs: Set<String> = [
+            "openai", "python", "git", "github", "gitlab", "terraform",
+            "tofu", "aws", "kubernetes", "reddit", "twitter"
+        ]
+        let ids = Set(tools.map(\.id))
+        if ids == legacyIDs {
+            return ToolDefinition.defaultCatalog
+        }
+
+        var seen: Set<String> = []
+        return tools.compactMap { tool in
+            guard !seen.contains(tool.id) else { return nil }
+            seen.insert(tool.id)
+            return tool
+        }
     }
 
     private static func isKnownStockAgent(_ agent: AgentDefinition) -> Bool {
@@ -487,10 +727,17 @@ enum ConnectionEndpoint: Equatable {
     case target
 }
 
-enum InspectorSection: String, CaseIterable, Identifiable {
-    case configuration = "Config"
-    case models = "Models"
+enum AppPage: String, CaseIterable, Identifiable {
+    case console = "Console"
     case tools = "Tools"
+    case models = "Models"
+
+    var id: String { rawValue }
+}
+
+enum InspectorSection: String, CaseIterable, Identifiable {
+    case source = "Source"
+    case agent = "Agent"
     case runs = "Runs"
     case schedules = "Schedule"
     case harness = "Harness"

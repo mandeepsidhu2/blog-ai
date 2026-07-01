@@ -4,6 +4,7 @@ import SwiftUI
 struct AgentCanvasView: View {
     @EnvironmentObject private var store: WorkspaceStore
     @State private var connectionDrag: ConnectionDrag?
+    @State private var nodeDragOffsets: [UUID: CGSize] = [:]
 
     private var canvasSize: CGSize {
         guard let agent = store.selectedAgent else { return CGSize(width: 1100, height: 660) }
@@ -17,9 +18,10 @@ struct AgentCanvasView: View {
             ZStack(alignment: .topLeading) {
                 GridBackground(size: canvasSize)
                 if let agent = store.selectedAgent {
+                    let renderedAgent = displayedAgent(agent)
                     let highlight = highlightedPath(for: agent)
-                    let nodesByID = Dictionary(uniqueKeysWithValues: agent.nodes.map { ($0.id, $0) })
-                    EdgeLayer(agent: agent, highlightedEdgeIDs: highlight.edgeIDs, selectedEdgeID: store.selectedEdgeID)
+                    let nodesByID = Dictionary(uniqueKeysWithValues: renderedAgent.nodes.map { ($0.id, $0) })
+                    EdgeLayer(agent: renderedAgent, highlightedEdgeIDs: highlight.edgeIDs, selectedEdgeID: store.selectedEdgeID)
                     if let connectionDrag {
                         ConnectionPreviewLayer(drag: connectionDrag)
                             .frame(width: canvasSize.width, height: canvasSize.height)
@@ -28,11 +30,26 @@ struct AgentCanvasView: View {
                         NodeCard(
                             node: node,
                             isSelected: store.selectedNodeID == node.id,
-                            isRunHighlighted: highlight.nodeIDs.contains(node.id)
+                            isRunHighlighted: highlight.nodeIDs.contains(node.id),
+                            dragOffset: nodeDragOffsets[node.id] ?? .zero,
+                            onDragChanged: { nodeID, translation in
+                                nodeDragOffsets[nodeID] = translation
+                            },
+                            onDragEnded: { nodeID, translation in
+                                store.setNodePosition(
+                                    nodeID,
+                                    position: CanvasPoint(
+                                        x: node.position.x + translation.width,
+                                        y: node.position.y + translation.height
+                                    )
+                                )
+                                nodeDragOffsets[nodeID] = nil
+                                store.persist()
+                            }
                         )
                             .position(x: node.position.x + node.width / 2, y: node.position.y + node.height / 2)
                     }
-                    ForEach(agent.nodes) { node in
+                    ForEach(renderedAgent.nodes) { node in
                         ForEach(NodePort.allCases) { port in
                             ConnectionPortHandle(
                                 nodeID: node.id,
@@ -44,7 +61,7 @@ struct AgentCanvasView: View {
                             )
                         }
                     }
-                    ForEach(agent.edges) { edge in
+                    ForEach(renderedAgent.edges) { edge in
                         if let geometry = edgeGeometry(for: edge, nodesByID: nodesByID) {
                             EdgeMidpointHandle(
                                 edgeID: edge.id,
@@ -82,6 +99,16 @@ struct AgentCanvasView: View {
             .frame(width: canvasSize.width, height: canvasSize.height)
         }
         .background(Color(nsColor: .textBackgroundColor))
+    }
+
+    private func displayedAgent(_ agent: AgentDefinition) -> AgentDefinition {
+        var rendered = agent
+        for index in rendered.nodes.indices {
+            guard let offset = nodeDragOffsets[rendered.nodes[index].id] else { continue }
+            rendered.nodes[index].position.x += offset.width
+            rendered.nodes[index].position.y += offset.height
+        }
+        return rendered
     }
 
     private func highlightedPath(for agent: AgentDefinition) -> HighlightedPath {
@@ -368,7 +395,9 @@ struct NodeCard: View {
     let node: AgentNode
     let isSelected: Bool
     let isRunHighlighted: Bool
-    @GestureState private var dragOffset: CGSize = .zero
+    let dragOffset: CGSize
+    let onDragChanged: (UUID, CGSize) -> Void
+    let onDragEnded: (UUID, CGSize) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -444,18 +473,11 @@ struct NodeCard: View {
         }
         .highPriorityGesture(
             DragGesture(minimumDistance: 3)
-                .updating($dragOffset) { value, state, _ in
-                    state = value.translation
+                .onChanged { value in
+                    onDragChanged(node.id, value.translation)
                 }
                 .onEnded { value in
-                    store.setNodePosition(
-                        node.id,
-                        position: CanvasPoint(
-                            x: node.position.x + value.translation.width,
-                            y: node.position.y + value.translation.height
-                        )
-                    )
-                    store.persist()
+                    onDragEnded(node.id, value.translation)
                 }
         )
     }
