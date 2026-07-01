@@ -1,0 +1,775 @@
+{
+  "dataset": [
+    {
+      "id": "ticket-search-exact-resource",
+      "resource": "https://mcp.support.example.com",
+      "tokenAudience": [
+        "https://mcp.support.example.com"
+      ],
+      "issuer": "https://auth.support.example.com",
+      "expectedIssuer": "https://auth.support.example.com",
+      "scopes": [
+        "tickets.read"
+      ],
+      "requiredScopes": [
+        "tickets.read"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "low",
+      "expectedDisposition": "allow"
+    },
+    {
+      "id": "crm-write-with-missing-scope",
+      "resource": "https://mcp.crm.example.com",
+      "tokenAudience": [
+        "https://mcp.crm.example.com"
+      ],
+      "issuer": "https://auth.crm.example.com",
+      "expectedIssuer": "https://auth.crm.example.com",
+      "scopes": [
+        "customers.read"
+      ],
+      "requiredScopes": [
+        "customers.write"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "high",
+      "expectedDisposition": "block"
+    },
+    {
+      "id": "calendar-read-needs-review",
+      "resource": "https://mcp.calendar.example.com",
+      "tokenAudience": [
+        "https://mcp.calendar.example.com"
+      ],
+      "issuer": "https://auth.calendar.example.com",
+      "expectedIssuer": "https://auth.calendar.example.com",
+      "scopes": [
+        "calendar.read",
+        "calendar.freebusy"
+      ],
+      "requiredScopes": [
+        "calendar.read"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "medium",
+      "expectedDisposition": "review"
+    },
+    {
+      "id": "support-token-reused-at-crm",
+      "resource": "https://mcp.crm.example.com",
+      "tokenAudience": [
+        "https://mcp.support.example.com"
+      ],
+      "issuer": "https://auth.support.example.com",
+      "expectedIssuer": "https://auth.crm.example.com",
+      "scopes": [
+        "customers.write"
+      ],
+      "requiredScopes": [
+        "customers.write"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "high",
+      "expectedDisposition": "block"
+    },
+    {
+      "id": "multi-audience-legacy-token",
+      "resource": "https://mcp.files.example.com",
+      "tokenAudience": [
+        "https://mcp.files.example.com",
+        "https://api.files.example.com"
+      ],
+      "issuer": "https://auth.files.example.com",
+      "expectedIssuer": "https://auth.files.example.com",
+      "scopes": [
+        "files.read"
+      ],
+      "requiredScopes": [
+        "files.read"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "medium",
+      "expectedDisposition": "review"
+    },
+    {
+      "id": "query-string-token",
+      "resource": "https://mcp.docs.example.com",
+      "tokenAudience": [
+        "https://mcp.docs.example.com"
+      ],
+      "issuer": "https://auth.docs.example.com",
+      "expectedIssuer": "https://auth.docs.example.com",
+      "scopes": [
+        "docs.read"
+      ],
+      "requiredScopes": [
+        "docs.read"
+      ],
+      "transport": "query-string",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "high",
+      "expectedDisposition": "block"
+    },
+    {
+      "id": "downstream-passthrough-to-sheets",
+      "resource": "https://mcp.docs.example.com",
+      "tokenAudience": [
+        "https://mcp.docs.example.com"
+      ],
+      "issuer": "https://auth.docs.example.com",
+      "expectedIssuer": "https://auth.docs.example.com",
+      "scopes": [
+        "docs.read"
+      ],
+      "requiredScopes": [
+        "docs.read"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": true,
+      "downstreamResource": "https://sheets.googleapis.com",
+      "promptRequestedResource": "",
+      "risk": "high",
+      "expectedDisposition": "block"
+    },
+    {
+      "id": "metadata-discovery-mismatch",
+      "resource": "https://mcp.analytics.example.com",
+      "tokenAudience": [
+        "https://mcp.analytics.example.com"
+      ],
+      "issuer": "https://auth.analytics.example.com",
+      "expectedIssuer": "https://auth.analytics.example.com",
+      "scopes": [
+        "reports.read"
+      ],
+      "requiredScopes": [
+        "reports.read"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": false,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "high",
+      "expectedDisposition": "block"
+    },
+    {
+      "id": "prompt-injected-resource",
+      "resource": "https://mcp.payments.example.com",
+      "tokenAudience": [
+        "https://mcp.payments.example.com"
+      ],
+      "issuer": "https://auth.payments.example.com",
+      "expectedIssuer": "https://auth.payments.example.com",
+      "scopes": [
+        "payments.refund"
+      ],
+      "requiredScopes": [
+        "payments.refund"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "https://mcp.attacker.example.net",
+      "risk": "high",
+      "expectedDisposition": "block"
+    },
+    {
+      "id": "read-only-extra-scope",
+      "resource": "https://mcp.knowledge.example.com",
+      "tokenAudience": [
+        "https://mcp.knowledge.example.com"
+      ],
+      "issuer": "https://auth.knowledge.example.com",
+      "expectedIssuer": "https://auth.knowledge.example.com",
+      "scopes": [
+        "knowledge.read",
+        "knowledge.summarize"
+      ],
+      "requiredScopes": [
+        "knowledge.read"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "medium",
+      "expectedDisposition": "review"
+    },
+    {
+      "id": "write-token-from-wrong-issuer",
+      "resource": "https://mcp.repo.example.com",
+      "tokenAudience": [
+        "https://mcp.repo.example.com"
+      ],
+      "issuer": "https://auth.sandbox.example.com",
+      "expectedIssuer": "https://auth.repo.example.com",
+      "scopes": [
+        "repo.comment"
+      ],
+      "requiredScopes": [
+        "repo.comment"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "high",
+      "expectedDisposition": "block"
+    },
+    {
+      "id": "single-resource-reissue-needed",
+      "resource": "https://mcp.mail.example.com",
+      "tokenAudience": [
+        "https://mcp.mail.example.com",
+        "https://mcp.calendar.example.com"
+      ],
+      "issuer": "https://auth.mail.example.com",
+      "expectedIssuer": "https://auth.mail.example.com",
+      "scopes": [
+        "mail.send"
+      ],
+      "requiredScopes": [
+        "mail.send"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "high",
+      "expectedDisposition": "review"
+    },
+    {
+      "id": "stale-resource-canonicalization",
+      "resource": "https://mcp.billing.example.com",
+      "tokenAudience": [
+        "https://mcp.billing.example.com/"
+      ],
+      "issuer": "https://auth.billing.example.com",
+      "expectedIssuer": "https://auth.billing.example.com",
+      "scopes": [
+        "billing.read"
+      ],
+      "requiredScopes": [
+        "billing.read"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "medium",
+      "expectedDisposition": "review"
+    },
+    {
+      "id": "tool-refresh-token-presented",
+      "resource": "https://mcp.project.example.com",
+      "tokenAudience": [
+        "https://mcp.project.example.com"
+      ],
+      "issuer": "https://auth.project.example.com",
+      "expectedIssuer": "https://auth.project.example.com",
+      "scopes": [
+        "project.read"
+      ],
+      "requiredScopes": [
+        "project.read"
+      ],
+      "transport": "authorization-header",
+      "protectedResourceMetadataMatched": true,
+      "passthroughAttempt": false,
+      "downstreamResource": "",
+      "promptRequestedResource": "",
+      "risk": "high",
+      "tokenType": "refresh",
+      "expectedDisposition": "block"
+    }
+  ],
+  "policyResults": [
+    {
+      "policy": "scopeOnly",
+      "accuracy": 0.5,
+      "meanScore": 0.75,
+      "blocked": 1,
+      "reviewed": 12,
+      "allowed": 1,
+      "falseNegatives": 7,
+      "falsePositives": 0,
+      "cases": [
+        {
+          "id": "ticket-search-exact-resource",
+          "expected": "allow",
+          "actual": "allow",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "crm-write-with-missing-scope",
+          "expected": "block",
+          "actual": "block",
+          "audienceMatch": true,
+          "scopeMatch": false,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "calendar-read-needs-review",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "support-token-reused-at-crm",
+          "expected": "block",
+          "actual": "review",
+          "audienceMatch": false,
+          "scopeMatch": true,
+          "score": 0.5,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "multi-audience-legacy-token",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "query-string-token",
+          "expected": "block",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0.5,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "downstream-passthrough-to-sheets",
+          "expected": "block",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0.5,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "metadata-discovery-mismatch",
+          "expected": "block",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0.5,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "prompt-injected-resource",
+          "expected": "block",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0.5,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "read-only-extra-scope",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "write-token-from-wrong-issuer",
+          "expected": "block",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0.5,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "single-resource-reissue-needed",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "stale-resource-canonicalization",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "tool-refresh-token-presented",
+          "expected": "block",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0.5,
+          "falseNegative": true,
+          "falsePositive": false
+        }
+      ]
+    },
+    {
+      "policy": "audienceOnly",
+      "accuracy": 0.571,
+      "meanScore": 0.571,
+      "blocked": 2,
+      "reviewed": 5,
+      "allowed": 7,
+      "falseNegatives": 6,
+      "falsePositives": 0,
+      "cases": [
+        {
+          "id": "ticket-search-exact-resource",
+          "expected": "allow",
+          "actual": "allow",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "crm-write-with-missing-scope",
+          "expected": "block",
+          "actual": "block",
+          "audienceMatch": true,
+          "scopeMatch": false,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "calendar-read-needs-review",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "support-token-reused-at-crm",
+          "expected": "block",
+          "actual": "block",
+          "audienceMatch": false,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "multi-audience-legacy-token",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "query-string-token",
+          "expected": "block",
+          "actual": "allow",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "downstream-passthrough-to-sheets",
+          "expected": "block",
+          "actual": "allow",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "metadata-discovery-mismatch",
+          "expected": "block",
+          "actual": "allow",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "prompt-injected-resource",
+          "expected": "block",
+          "actual": "allow",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "read-only-extra-scope",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "write-token-from-wrong-issuer",
+          "expected": "block",
+          "actual": "allow",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "single-resource-reissue-needed",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "stale-resource-canonicalization",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "tool-refresh-token-presented",
+          "expected": "block",
+          "actual": "allow",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        }
+      ]
+    },
+    {
+      "policy": "resourceBound",
+      "accuracy": 1,
+      "meanScore": 1,
+      "blocked": 8,
+      "reviewed": 5,
+      "allowed": 1,
+      "falseNegatives": 0,
+      "falsePositives": 0,
+      "cases": [
+        {
+          "id": "ticket-search-exact-resource",
+          "expected": "allow",
+          "actual": "allow",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "crm-write-with-missing-scope",
+          "expected": "block",
+          "actual": "block",
+          "audienceMatch": true,
+          "scopeMatch": false,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "calendar-read-needs-review",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "support-token-reused-at-crm",
+          "expected": "block",
+          "actual": "block",
+          "audienceMatch": false,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "multi-audience-legacy-token",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "query-string-token",
+          "expected": "block",
+          "actual": "block",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "downstream-passthrough-to-sheets",
+          "expected": "block",
+          "actual": "block",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "metadata-discovery-mismatch",
+          "expected": "block",
+          "actual": "block",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "prompt-injected-resource",
+          "expected": "block",
+          "actual": "block",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "read-only-extra-scope",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "write-token-from-wrong-issuer",
+          "expected": "block",
+          "actual": "block",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "single-resource-reissue-needed",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "stale-resource-canonicalization",
+          "expected": "review",
+          "actual": "review",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "tool-refresh-token-presented",
+          "expected": "block",
+          "actual": "block",
+          "audienceMatch": true,
+          "scopeMatch": true,
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        }
+      ]
+    }
+  ]
+}

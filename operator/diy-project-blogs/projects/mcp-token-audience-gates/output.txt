@@ -1,0 +1,5 @@
+MCP token audience gate experiment
+cases=14
+scopeOnly: accuracy=0.5 mean_score=0.75 blocked=1 reviewed=12 allowed=1 false_negatives=7 false_positives=0
+audienceOnly: accuracy=0.571 mean_score=0.571 blocked=2 reviewed=5 allowed=7 false_negatives=6 false_positives=0
+resourceBound: accuracy=1 mean_score=1 blocked=8 reviewed=5 allowed=1 false_negatives=0 false_positives=0
