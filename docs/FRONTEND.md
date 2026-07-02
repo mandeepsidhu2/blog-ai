@@ -2,10 +2,6 @@
 
 The frontend is a static, editorial tutorial interface.
 
-The LangGraph agent console is a separate static tool at `/agent-console/`.
-Its CSS and JavaScript live under `site/agent-console/` and must not depend on
-the tutorial app bundle in `site/assets/app.js`.
-
 ## Design Goals
 
 - fast first load.
@@ -51,92 +47,9 @@ Browser behavior lives in `site/assets/app.js`:
 
 CSS lives in `site/assets/styles.css`.
 
-Agent-console behavior lives in `site/agent-console/console.js`, with styling
-in `site/agent-console/console.css`. Keep its graph state, code generation,
-dragging, tool list, and download behavior isolated from tutorial search and
-article interactions.
-
-The built-in console tool library is static JSON. Provider-level metadata lives
-in `site/agent-console/tools/catalog.json`, and command packs live in
-`site/agent-console/tools/packs/*.json`. The browser loads the catalog from
-`/agent-console/tools/catalog.json`, fetches same-origin command packs only
-when a pack is selected or present in a loaded sample, supports search and
-category filtering, and emits selected provider packs into the downloaded
-LangGraph Python as subprocess-backed tool boundaries with explicit approval
-checks for mutating operations. The pack files are static assets hosted with
-the S3-backed app origin. API-only provider packs, such as Reddit and
-Twitter/X, use `curl` command templates with bearer-token placeholders rather
-than assuming a local provider-specific CLI.
-
-Every editable console node has an execution mode. AI-enabled nodes show a
-prompt editor and may attach provider packs. Generated LangGraph Python for
-AI-enabled nodes calls an OpenAI-compatible Responses endpoint using
-`OPENAI_API_KEY`, `OPENAI_BASE_URL`, `OPENAI_MODEL`, and
-`OPENAI_TIMEOUT_SECONDS` environment variables, with placeholder defaults in
-the generated file. The model is asked to return JSON state updates, and the
-raw model response is recorded in `artifacts["llm_responses"]`. Python-code
-nodes hide provider packs, show a Python block editor, and run the
-browser-local embeddable-block check before export. The palette exposes one
-generic node button; the node's mode is selected in the inspector. Nodes can be
-resized from the inspector or with the card resize handle. The left sidebar
-separates the selected
-node/connector inspector from workspace-library actions such as samples,
-provider packs, custom tools, and graph checks with distinct collapsible
-top-level groups whose headers stay visible while oversized group bodies scroll
-internally; samples remain behind a nested disclosure so they do not read as
-part of node editing. Python-code editors use the same local syntax highlighter
-as generated Python previews.
-
-Connector drags from output ports accept the full destination node card, not
-only the small input port. New and retargeted connectors persist the explicit
-source side and destination side chosen by the user, so dragging from a bottom
-output to a left, top, right, or bottom destination area keeps that visual
-endpoint instead of recomputing from node centers. The draft edge snaps to the
-hovered node edge and highlights the target card before release. Existing
-connectors expose transparent, padded terminal hit zones at both the arrow
-start and arrow end; either terminal can be dragged to another node to retarget
-that side without deleting and recreating the connector, and the handle should
-not render as a visible endpoint blob when idle. Connection edits keep the
-relevant node inspector active when possible so the Parents and Children
-summary updates from the same effective edge list as the canvas, including the
-connector being dragged or retargeted. The parent and child selects reflect the
-active connection values and can replace or clear those node-level connections.
-
-Generated LangGraph code wraps Python-code node bodies so their return values
-are merged into state and recorded under `artifacts["node_outputs"]`. Dict
-returns update declared state keys, custom keys are also copied into `data`,
-AI-node model JSON output follows the same merge path, raw text falls back to
-node-scoped `data`, and conditional nodes may return either a branch string or
-a dict containing `route`. The isolated console data-flow tests in
-`site/agent-console/tests/run_flow_tests.py` mirror this state-update contract
-with sample agentic flows that cover linear execution, branches, fan-out joins,
-custom return keys, AI-node response merges, raw-output accessors, and non-dict
-returns.
-
-When an editable console node has incoming connectors, the inspector shows
-upstream value accessors for those parent nodes. Python-code nodes can insert
-the generated `state.get(...)` lines directly into their editor; inferred
-key-level accessors come from simple upstream returns such as
-`{"data": {"name": value}}`, with a whole-output fallback under
-`artifacts["node_outputs"]`.
-
-Provider-pack chips include a code view action that opens a separate browser
-tab with generated LangChain-compatible `@tool` functions for every command in
-that pack. Mutating command functions require an explicit approval argument.
-
-The canvas keeps a live generated LangGraph Python preview visible while graph
-edits are made. The graph library and inspector can collapse from the canvas
-toolbar so larger graphs and the code preview have more room.
-
-Custom console tools are browser-local stubs for AI-enabled nodes: users
-provide a name and description, and the Python export includes an empty function
-for later implementation. Console graph state, custom tools, filters, zoom, and
-selected sample flow persist in browser local storage across refreshes.
-
-The console also ships loadable sample flows for research, coding, cloud
-infrastructure, product feedback, and marketing launch workflows. Keep sample
-logic in the isolated console bundle, not in tutorial search or article
-rendering code.
+Agent workflow tools, including the former browser-local console, live in the
+sibling `../agent-flow-studio` project. Blog AI should remain an editorial
+tutorial site.
 
 ## Visual Review
 
@@ -151,8 +64,6 @@ Inspect at least:
 - desktop home.
 - desktop home discovery sections.
 - mobile home.
-- desktop `/agent-console/`.
-- mobile `/agent-console/`.
 - one article page.
 - search dialog.
 - code and output blocks.

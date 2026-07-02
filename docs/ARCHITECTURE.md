@@ -10,7 +10,6 @@ Source:
 ```text
 content/articles/*.md
 site/assets/*
-site/agent-console/*
 app-scripts/*.mjs
 operator/scripts/*.mjs
 operator/diy-project-blogs/
@@ -29,7 +28,6 @@ dist/pipeline-artifact/
 
 - home page with bounded editorial discovery modules.
 - topic pages.
-- isolated LangGraph agent console under `/agent-console/`.
 - CSS and browser JavaScript.
 - hero/OG visual asset.
 - favicon, manifest, robots, sitemap.
@@ -51,10 +49,6 @@ objects when needed:
 ```text
 /assets/app.js
 /assets/styles.css
-/agent-console/console.js
-/agent-console/console.css
-/agent-console/tools/catalog.json
-/agent-console/tools/packs/*.json
 /content/v1/manifest.json
 /content/v1/search-index.json
 /content/v1/articles/<slug>/index.json
@@ -74,9 +68,6 @@ crawler-visible HTML page under `/tutorials/*`.
 - emits content JSON payloads.
 - emits a curated home page, topic pages, sitemap, robots, manifest, and
   pipeline artifact.
-- emits the isolated `/agent-console/` app route and copies its separate assets,
-  including the static provider catalog and deferred command-pack files consumed
-  by the console.
 
 The generator intentionally has no external package dependencies.
 
@@ -88,20 +79,11 @@ The generator intentionally has no external package dependencies.
   bounded set of top/recent articles plus topic, tag, and search discovery.
   Full article discovery belongs in search, topic pages, the content manifest,
   and generated SEO article pages.
-- Edit the LangGraph agent console in `site/agent-console`, not `dist/app`.
-  Its browser logic must stay separate from tutorial search, article rendering,
-  and content payload logic.
-- Edit the console's built-in provider catalog in
-  `site/agent-console/tools/catalog.json` and command packs in
-  `site/agent-console/tools/packs/*.json`. The static generator copies them as
-  app assets; they are not article content and must stay out of content JSON.
-- Sample flow definitions, custom-tool stub generation, and browser-local
-  persistence are console-only behavior. They must not depend on tutorial app
-  state or content payloads.
-- Agent-console graph editing owns connector creation, connector retargeting,
-  node parent/child selectors, and generated LangGraph preview updates as one
-  browser-local workflow. Those controls should stay in `site/agent-console/`
-  and remain independent of the tutorial app shell.
+- Agent workflow tools, including the former `/agent-console/` route and the
+  Mac app, now live in the sibling `../agent-flow-studio` project. Do not add
+  those surfaces back into Blog AI.
+- Provider command packs, browser-local graph samples, generated Python console
+  behavior, and console data-flow tests also belong to Agent Flow Studio.
 - Edit generation behavior in `app-scripts/build-site.mjs`.
 - Edit validation in `app-scripts/check-site.mjs`.
 - Put operator-only publishing tools in `operator/scripts`.

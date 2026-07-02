@@ -1,7 +1,8 @@
 # Harness Engineering
 
-Blog AI should be easy for an agent to inspect, change, validate, and recover.
-This doc adapts OpenAI's harness-engineering guidance to this repo.
+Blog AI should be easy for an agent to inspect, change, validate, and recover
+as a focused article/tutorial site. This doc adapts OpenAI's
+harness-engineering guidance to this repo.
 
 Reference: https://openai.com/index/harness-engineering/
 
@@ -24,6 +25,7 @@ Reference: https://openai.com/index/harness-engineering/
 - Quality harness: `app-scripts/check-site.mjs`
 - Preview harness: `app-scripts/serve-dist.mjs`
 - Deployment harness: `pipeline/*.yml` plus `../infrastructure/blog-ai-frontend`
+- Agent workflow tooling: sibling `../agent-flow-studio`
 
 ## Feedback Loop
 
@@ -34,7 +36,26 @@ For every non-trivial change:
 3. Build the generated app and content outputs.
 4. Run generated-site checks.
 5. Visually inspect when layout, reading experience, or interaction changes.
-6. Promote repeated review comments into `docs/` or `app-scripts/check-site.mjs`.
+6. Promote repeated review comments into `docs/` or
+   `app-scripts/check-site.mjs`.
+
+## Split Boundary
+
+Blog AI no longer owns the Mac workflow app, the browser-local agent console,
+provider command packs, generated LangGraph/Python console code, or console
+data-flow tests. Those moved to `../agent-flow-studio`.
+
+Keep this repo focused on:
+
+- public AI tutorial articles.
+- SEO-visible tutorial HTML.
+- selectively loadable content JSON.
+- article search, topic pages, and reading experience.
+- operator-only article-production evidence and publishing gates.
+
+If future work needs graph editing, agent workflow design, provider command
+packs, model profile UI, Mac app behavior, or browser-console generated code,
+make that change in Agent Flow Studio instead of reintroducing it here.
 
 ## What To Encode
 
@@ -44,6 +65,7 @@ Encode a rule in docs when it guides judgment:
 - visual tone.
 - infrastructure ownership.
 - SEO constraints.
+- boundary with Agent Flow Studio.
 
 Encode a rule in scripts when it is objective:
 
@@ -63,5 +85,6 @@ Agents copy existing patterns. Keep the patterns worth copying:
 - keep tutorial metadata consistent.
 - avoid duplicate deployment paths.
 - keep docs short enough to stay maintained.
+- keep removed workflow-app and browser-console concepts out of Blog AI.
 - prefer explicit app-specific infrastructure over clever shared abstractions
   unless there is proven repeated complexity.

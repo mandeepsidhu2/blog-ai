@@ -14,6 +14,15 @@ git@github.com:mandeepsidhu2/blog-ai.git
 
 Do not add Blog AI resources to the retired shared `frontend-apps` stack.
 
+Agent Flow Studio is deployed separately from the `agent` repository through:
+
+```text
+../infrastructure/agent-flow-studio-frontend
+```
+
+Do not host Agent Flow Studio website or browser-console assets from the Blog AI
+frontend buckets.
+
 ## CloudFront And S3 Shape
 
 The intended production shape is:
@@ -55,5 +64,7 @@ Terraform injects:
 - Infrastructure edits must be reviewable as code.
 - Existing resources from the retired shared stack need state migration or
   import before applying the app-specific stack.
+- Agent Flow Studio infrastructure belongs in
+  `../infrastructure/agent-flow-studio-frontend`, not this stack.
 - Route 53 and ACM custom-domain resources are intentionally not enabled while
   the AWS account remains on the Free plan.

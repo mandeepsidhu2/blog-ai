@@ -17,12 +17,6 @@ node operator/scripts/check-public-content.mjs
 node app-scripts/check-site.mjs
 ```
 
-Agent-console data-flow tests:
-
-```sh
-npm run test:agent-console
-```
-
 Preview:
 
 ```sh
@@ -62,20 +56,6 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
 
 - at least one approved tutorial article.
 - search index count matches manifest count.
-- isolated agent console route exists under `/agent-console/`, uses its own
-  console assets, and does not load tutorial app CSS or JavaScript.
-- agent console static provider catalog is copied under
-  `/agent-console/tools/catalog.json`, local command packs are copied under
-  `/agent-console/tools/packs/*.json`, and the combined pack commands cover Git,
-  GitHub, GitLab, AWS, Terraform, Tofu, NPM, Docker, Kubernetes, Python, and
-  Make with at least 120 static command entries.
-- agent console search must find matching tools globally even when a category
-  filter is selected. AI-enabled nodes must expose prompts and provider packs;
-  generated Python for AI-enabled nodes must include OpenAI-compatible
-  Responses API placeholders and LLM response state merging; Python-code nodes
-  must expose the embeddable-block check and hide packs. Custom tools must
-  export as fill-in Python stubs, and browser-local graph state should survive
-  refresh.
 - topic groups exist.
 - home page has SEO metadata, a visual asset, curated discovery modules, topic
   and tag discovery, and a bounded number of article links.
@@ -130,20 +110,16 @@ For visual or interaction changes:
 
 1. Build.
 2. Check.
-3. Run `npm run test:agent-console` when generated LangGraph state handling,
-   connector rewiring, node return semantics, or upstream accessors change.
-4. Preview.
-5. Browser-review desktop and mobile. For `/agent-console/`, verify connector
-   drag creation, arrow-start and arrow-end retargeting through the padded
-   transparent terminal hit zones, absence of idle endpoint blobs,
-   selected-node Parents/Children summaries, and parent/child select values stay
-   synchronized.
+3. Preview.
+4. Browser-review desktop and mobile.
 
 For infrastructure changes:
 
 1. Inspect Terraform text.
 2. Do not run Terraform/OpenTofu/AWS commands from this repo.
 3. Verify docs still point to `../infrastructure/blog-ai-frontend`.
+4. Keep Agent Flow Studio deployment checks in the sibling repo and
+   `../infrastructure/agent-flow-studio-frontend`.
 
 ## Documentation Checks
 
@@ -155,3 +131,5 @@ When behavior changes, update docs in the same patch:
 - validation commands/checks: `QUALITY.md`.
 - deployment or Terraform boundary: `INFRASTRUCTURE.md`.
 - agent workflow: `HARNESS.md` or `AGENTS.md`.
+- Agent Flow Studio website, console, and Mac app behavior:
+  `../agent-flow-studio/docs/` or `../agent-flow-studio/MacApp/docs/`.

@@ -240,73 +240,12 @@ async function main() {
   );
   assert(!home.includes("undefined"), "Home page contains undefined output.");
 
-  const agentConsole = await readText(path.join(appDir, "agent-console", "index.html"));
-  assert(agentConsole.includes("LangGraph Agent Console"), "Agent console page title is missing.");
-  assert(agentConsole.includes("/agent-console/console.css"), "Agent console CSS is missing.");
-  assert(agentConsole.includes("/agent-console/console.js"), "Agent console JS is missing.");
-  assert(!agentConsole.includes("/assets/app.js"), "Agent console must not load the tutorial app bundle.");
-  assert(!agentConsole.includes("/assets/styles.css"), "Agent console must not load the tutorial stylesheet.");
-  const agentConsoleJs = await readText(path.join(appDir, "agent-console", "console.js"));
-  for (const token of ["OPENAI_API_KEY", "OPENAI_BASE_URL", "OPENAI_MODEL", "_run_ai_node", "/responses"]) {
-    assert(agentConsoleJs.includes(token), `Agent console generated Python is missing ${token}.`);
-  }
   assert(!JSON.stringify(manifest).includes("agent-console"), "Agent console must stay out of content manifest.");
   assert(!JSON.stringify(search).includes("agent-console"), "Agent console must stay out of search index.");
-  const agentToolCatalog = await readJson(path.join(appDir, "agent-console", "tools", "catalog.json"));
-  assert(Array.isArray(agentToolCatalog.tools), "Agent console tool catalog must contain a tools array.");
-  assert(
-    agentToolCatalog.tools.length >= 8 && agentToolCatalog.tools.length <= 20,
-    "Agent console tool catalog must contain provider-level tool packs.",
-  );
-  for (const id of [
-    "git",
-    "github",
-    "gitlab",
-    "aws",
-    "terraform",
-    "tofu",
-    "npm",
-    "docker",
-    "kubernetes",
-    "python",
-    "make",
-    "twitter",
-    "reddit",
-  ]) {
-    assert(
-      agentToolCatalog.tools.some((tool) => tool.id === id && tool.pack && tool.commandPackUrl),
-      `Agent console tool catalog missing ${id} provider pack.`,
-    );
-  }
-  const packCommandCounts = [];
-  for (const tool of agentToolCatalog.tools.filter((entry) => entry.pack)) {
-    assert(
-      tool.commandPackUrl?.startsWith("/agent-console/tools/packs/"),
-      `Agent console provider pack ${tool.id} must use a local pack URL.`,
-    );
-    assert(
-      tool.storage?.kind === "s3-object" && tool.storage.key?.startsWith("agent-console/tools/packs/"),
-      `Agent console provider pack ${tool.id} must record its S3 object location.`,
-    );
-    const packPath = path.join(appDir, tool.commandPackUrl.replace(/^\/+/, ""));
-    assert(await exists(packPath), `Missing agent console command pack for ${tool.id}.`);
-    const pack = await readJson(packPath);
-    assert(Array.isArray(pack.commands) && pack.commands.length > 0, `Command pack ${tool.id} must contain commands.`);
-    for (const command of pack.commands) {
-      assert(Array.isArray(command.command) && command.command.length > 0, `Command pack ${tool.id} has an empty command.`);
-      assert(typeof command.id === "string" && command.id.length > 0, `Command pack ${tool.id} has a command without id.`);
-    }
-    packCommandCounts.push(pack.commands.length);
-  }
-  const totalPackedCommands = packCommandCounts.reduce((sum, count) => sum + count, 0);
-  assert(
-    totalPackedCommands >= 260 && totalPackedCommands <= 360,
-    `Agent console provider packs must expose 260 to 360 commands; found ${totalPackedCommands}.`,
-  );
 
   const sitemap = await readText(path.join(appDir, "sitemap.xml"));
   assert(sitemap.includes("<urlset"), "Sitemap is not valid XML sitemap output.");
-  assert(sitemap.includes("/agent-console/"), "Sitemap missing agent console route.");
+  assert(!sitemap.includes("/agent-console/"), "Sitemap must not include the moved agent console route.");
 
   for (const article of manifest.articles) {
     const articleHtmlPath = path.join(contentDir, article.url, "index.html");
@@ -365,12 +304,8 @@ async function main() {
     path.join(appDir, "assets", "styles.css"),
     path.join(appDir, "assets", "app.js"),
     path.join(appDir, "assets", "hero-ai-workspace.png"),
-    path.join(appDir, "agent-console", "console.css"),
-    path.join(appDir, "agent-console", "console.js"),
-    path.join(appDir, "agent-console", "tools", "catalog.json"),
     path.join(appDir, "robots.txt"),
     path.join(distDir, "pipeline-artifact", "app", "index.html"),
-    path.join(distDir, "pipeline-artifact", "app", "agent-console", "index.html"),
     path.join(distDir, "pipeline-artifact", "content", "content", "v1", "manifest.json"),
   ];
 

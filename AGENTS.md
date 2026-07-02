@@ -59,11 +59,6 @@ Reference:
 
 - `content/articles/`: Markdown tutorial source of truth.
 - `site/assets/`: browser JS, CSS, and project-owned visual assets.
-- `site/agent-console/`: isolated LangGraph agent console CSS, browser JS, and
-  static tool catalog.
-- `MacApp/`: standalone SwiftUI macOS app project for designing and operating
-  agent workflows. It has its own `AGENTS.md`, docs, SwiftPM package, and
-  validation harness.
 - `app-scripts/build-site.mjs`: static generator for app shell, SEO pages, content
   JSON, manifest, sitemap, and pipeline artifact.
 - `app-scripts/check-site.mjs`: mechanical generated-site checks.
@@ -98,7 +93,6 @@ node app-scripts/serve-dist.mjs
 Then inspect:
 
 - Home: `http://127.0.0.1:4173/`
-- Agent console: `http://127.0.0.1:4173/agent-console/`
 - Article: `http://127.0.0.1:4173/tutorials/llm-context-boundary-evaluation/`
 - Content JSON: `http://127.0.0.1:4173/content/v1/manifest.json`
 
@@ -115,15 +109,6 @@ Then inspect:
 - SEO article pages under `/tutorials/*` must be crawler-visible HTML.
 - Content payloads under `/content/v1/*` must stay selectively loadable.
 - Code and output snippets must remain readable on mobile and desktop.
-- The `/agent-console/` route is a separate tool surface. Keep its logic and
-  assets isolated from tutorial search, article rendering, and content payloads.
-- Agent-console provider metadata lives in `site/agent-console/tools/catalog.json`;
-  command packs live in `site/agent-console/tools/packs/*.json`. Both must stay
-  static and browser-loadable, and selected provider packs may be emitted into
-  downloaded LangGraph Python.
-- The console includes loadable sample agent flows, custom tool stubs, and
-  local browser persistence. Keep those behaviors isolated to
-  `site/agent-console/`.
 - The left-side article table of contents is generated from `h2` and `h3`.
 - Do not introduce client-side-only article rendering as the only SEO surface.
 - Public content is for customers learning AI systems. It should teach a useful
@@ -131,6 +116,8 @@ Then inspect:
   failures or workstation state.
 - Public article pages must not expose our internal source distinction. Strategy
   articles and evidence-backed coding articles both render as normal tutorials.
+- Agent workflow tools, including the Mac app and browser-local agent console,
+  live in the sibling `../agent-flow-studio` project, not in this blog repo.
 - Publishing is allowed only after `operator/scripts/check-public-content.mjs`,
   `app-scripts/build-site.mjs`, and `app-scripts/check-site.mjs` pass. If any
   article fails, do not publish the batch; report the failing article and reason.

@@ -14,7 +14,7 @@ single file into a catch-all manual.
 - `CONTENT.md`: article format, metadata, code/output snippets, and review
   rules for tutorials.
 - `FRONTEND.md`: visual design, responsive behavior, article reading patterns,
-  isolated agent-console interactions, and browser review.
+  search interactions, and browser review.
 - `QUALITY.md`: build, check, preview, browser review, and documentation review
   checklist.
 - `INFRASTRUCTURE.md`: CloudFront/S3 split, pipeline buildspecs, and Terraform
@@ -37,8 +37,7 @@ single file into a catch-all manual.
   https://openai.com/index/harness-engineering/
 - App generator: `app-scripts/build-site.mjs`
 - Generated-site checks: `app-scripts/check-site.mjs`
-- Agent console source, sample flows, and static tool catalog:
-  `site/agent-console/`
+- Agent workflow tools moved to the sibling `../agent-flow-studio` project.
 - Operator publishing helpers: `operator/scripts/`
 - Internal article evidence workspace: `operator/diy-project-blogs/`
 - App-specific infrastructure: `../infrastructure/blog-ai-frontend`
