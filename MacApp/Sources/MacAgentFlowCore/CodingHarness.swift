@@ -11,7 +11,7 @@ public struct CodingHarnessRequest: Equatable, Sendable {
     public var enableSymbolIndex: Bool
     public var enableSemanticIndex: Bool
     public var enableMultiPassRetrieval: Bool
-    public var embeddingModelName: String?
+    public var embeddingModel: EmbeddingModelConfig?
 
     public init(
         prompt: String,
@@ -24,7 +24,7 @@ public struct CodingHarnessRequest: Equatable, Sendable {
         enableSymbolIndex: Bool = true,
         enableSemanticIndex: Bool = true,
         enableMultiPassRetrieval: Bool = true,
-        embeddingModelName: String? = nil
+        embeddingModel: EmbeddingModelConfig? = nil
     ) {
         self.prompt = prompt
         self.repositoryURL = repositoryURL
@@ -36,7 +36,7 @@ public struct CodingHarnessRequest: Equatable, Sendable {
         self.enableSymbolIndex = enableSymbolIndex
         self.enableSemanticIndex = enableSemanticIndex
         self.enableMultiPassRetrieval = enableMultiPassRetrieval
-        self.embeddingModelName = embeddingModelName
+        self.embeddingModel = embeddingModel
     }
 }
 
@@ -87,8 +87,7 @@ public enum CodingHarnessEngine {
         let effectiveTestCommand = request.testCommand ?? directives.testCommand
         logs.append("Coding harness: indexing \(root.path)")
         let retrievalOptions = RepositoryRetrievalOptions(
-            semanticModel: request.enableSemanticIndex ? request.model : nil,
-            embeddingModelName: request.embeddingModelName,
+            embeddingModel: request.enableSemanticIndex ? request.embeddingModel : nil,
             forcedPaths: [],
             extraSearchTerms: [],
             includeSymbols: request.enableSymbolIndex
@@ -100,7 +99,7 @@ public enum CodingHarnessEngine {
             options: retrievalOptions
         )
         logs.append(contentsOf: context.retrievalNotes.map { "Coding harness retrieval: \($0)" })
-        logs.append("Coding harness: selected \(context.selectedFiles.count) files, estimated \(context.estimatedTokens) tokens")
+        appendContextSelectionLog(context, label: "selected", logs: &logs)
 
         let research = request.allowInternetResearch
             ? InternetResearcher.research(for: request.prompt, explicitURLs: directives.urls)
@@ -125,15 +124,14 @@ public enum CodingHarnessEngine {
                     query: request.prompt,
                     maxContextTokens: request.maxContextTokens,
                     options: RepositoryRetrievalOptions(
-                        semanticModel: request.enableSemanticIndex ? request.model : nil,
-                        embeddingModelName: request.embeddingModelName,
+                        embeddingModel: request.enableSemanticIndex ? request.embeddingModel : nil,
                         forcedPaths: suggestion.paths,
                         extraSearchTerms: suggestion.searchTerms,
                         includeSymbols: request.enableSymbolIndex
                     )
                 )
                 logs.append(contentsOf: context.retrievalNotes.map { "Coding harness retrieval: \($0)" })
-                logs.append("Coding harness: planner selected \(context.selectedFiles.count) files, estimated \(context.estimatedTokens) tokens")
+                appendContextSelectionLog(context, label: "planner selected", logs: &logs)
             }
         }
 
@@ -186,19 +184,41 @@ public enum CodingHarnessEngine {
             }
 
             lastSummary = plan.summary.isEmpty ? lastSummary : plan.summary
-            let applied = FileEditApplier.apply(plan.fileEdits, rootURL: root)
+            let applied = FileEditApplier.apply(textEdits: plan.textEdits, fileEdits: plan.fileEdits, rootURL: root)
             logs.append(contentsOf: applied.logLines)
             changedFiles.append(contentsOf: applied.changedFiles)
             changedFiles = Array(Set(changedFiles)).sorted()
 
             if let error = applied.errorMessage {
-                return CodingHarnessResult(
-                    status: .failed,
-                    summary: error,
-                    changedFiles: changedFiles,
-                    logLines: logs,
-                    finalTestOutput: lastTestOutput
+                logs.append("Coding harness: edit application failed: \(error)")
+                if iteration == request.maxIterations {
+                    return CodingHarnessResult(
+                        status: .failed,
+                        summary: error,
+                        changedFiles: changedFiles,
+                        logLines: logs,
+                        finalTestOutput: lastTestOutput
+                    )
+                }
+                previousFailure = """
+                The previous edit could not be applied.
+                Error: \(error)
+                Use exact text copied from the selected context, or use file_edits with complete file content.
+                """
+                context = RepositoryIndexer.context(
+                    rootURL: root,
+                    query: request.prompt + "\n" + (previousFailure ?? ""),
+                    maxContextTokens: request.maxContextTokens,
+                    options: RepositoryRetrievalOptions(
+                        embeddingModel: request.enableSemanticIndex ? request.embeddingModel : nil,
+                        forcedPaths: Array(Set(plan.textEdits.map(\.path) + plan.fileEdits.map(\.path))),
+                        extraSearchTerms: [],
+                        includeSymbols: request.enableSymbolIndex
+                    )
                 )
+                logs.append(contentsOf: context.retrievalNotes.map { "Coding harness retrieval: \($0)" })
+                appendContextSelectionLog(context, label: "retry selected", logs: &logs)
+                continue
             }
 
             guard let command = plan.testCommand ?? effectiveTestCommand,
@@ -241,14 +261,14 @@ public enum CodingHarnessEngine {
                 query: request.prompt + "\n" + (previousFailure ?? ""),
                 maxContextTokens: request.maxContextTokens,
                 options: RepositoryRetrievalOptions(
-                    semanticModel: request.enableSemanticIndex ? request.model : nil,
-                    embeddingModelName: request.embeddingModelName,
+                    embeddingModel: request.enableSemanticIndex ? request.embeddingModel : nil,
                     forcedPaths: plan.fileEdits.map(\.path),
                     extraSearchTerms: [],
                     includeSymbols: request.enableSymbolIndex
                 )
             )
             logs.append(contentsOf: context.retrievalNotes.map { "Coding harness retrieval: \($0)" })
+            appendContextSelectionLog(context, label: "retry selected", logs: &logs)
         }
 
         return CodingHarnessResult(
@@ -257,6 +277,14 @@ public enum CodingHarnessEngine {
             changedFiles: changedFiles,
             logLines: logs,
             finalTestOutput: lastTestOutput
+        )
+    }
+
+    private static func appendContextSelectionLog(_ context: RepositoryContext, label: String, logs: inout [String]) {
+        let preview = context.selectedFiles.prefix(12).joined(separator: ", ")
+        let suffix = context.selectedFiles.count > 12 ? ", ..." : ""
+        logs.append(
+            "Coding harness: \(label) \(context.selectedFiles.count) files, estimated \(context.estimatedTokens) tokens: \(preview)\(suffix)"
         )
     }
 }

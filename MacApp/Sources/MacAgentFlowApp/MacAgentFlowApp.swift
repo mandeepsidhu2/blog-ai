@@ -40,23 +40,22 @@ struct MacAgentFlowApp: App {
                 .keyboardShortcut("n", modifiers: [.command])
 
                 Button("Trigger Run") {
-                    store.triggerRun()
+                    store.triggerManualRun()
                 }
                 .keyboardShortcut("r", modifiers: [.command])
+                .disabled(store.isManualRunPreflightInProgress)
             }
 
             CommandMenu("Selection") {
                 Button("Copy Node") {
-                    store.copySelection()
+                    performCopyCommand()
                 }
                 .keyboardShortcut("c", modifiers: [.command])
-                .disabled(!store.canCopySelection)
 
                 Button("Paste Node") {
-                    store.pasteSelection()
+                    performPasteCommand()
                 }
                 .keyboardShortcut("v", modifiers: [.command])
-                .disabled(!store.canPasteSelection)
 
                 Button("Delete Selection") {
                     store.deleteSelection()
@@ -65,5 +64,20 @@ struct MacAgentFlowApp: App {
                 .disabled(!store.canDeleteSelection)
             }
         }
+    }
+
+    private func performCopyCommand() {
+        if Self.forwardTextCommand(#selector(NSText.copy(_:))) { return }
+        store.copySelection()
+    }
+
+    private func performPasteCommand() {
+        if Self.forwardTextCommand(#selector(NSText.paste(_:))) { return }
+        store.pasteSelection()
+    }
+
+    private static func forwardTextCommand(_ selector: Selector) -> Bool {
+        guard NSApp.keyWindow?.firstResponder is NSTextView else { return false }
+        return NSApp.sendAction(selector, to: nil, from: nil)
     }
 }

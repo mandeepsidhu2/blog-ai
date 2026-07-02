@@ -99,6 +99,7 @@ struct ToolLibraryRow: View {
         }
         .padding(10)
         .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(RoundedRectangle(cornerRadius: 8))
         .background(
             isSelected
                 ? AnyShapeStyle(Color.accentColor.opacity(0.12))
@@ -241,6 +242,9 @@ struct ModelsManagementPage: View {
             if store.selectedModelConfig == nil {
                 store.selectedModelConfigID = store.workspace.llmModels.first?.id
             }
+            if store.selectedEmbeddingModelConfig == nil {
+                store.selectedEmbeddingModelConfigID = store.workspace.activeEmbeddingModelID ?? store.workspace.embeddingModels.first?.id
+            }
         }
     }
 }
@@ -254,13 +258,18 @@ struct ModelLibrarySidebar: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Text("Models")
                         .font(.title3.weight(.semibold))
-                    Text("LLM connection profiles")
+                    Text("Chat and embedding profiles")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
-                Button {
-                    store.addLLMModel()
+                Menu {
+                    Button("Chat model") {
+                        store.addLLMModel()
+                    }
+                    Button("Embedding model") {
+                        store.addEmbeddingModel()
+                    }
                 } label: {
                     Label("Add", systemImage: "plus")
                 }
@@ -270,14 +279,73 @@ struct ModelLibrarySidebar: View {
             Divider()
 
             ScrollView {
-                LazyVStack(spacing: 6) {
+                LazyVStack(alignment: .leading, spacing: 8) {
+                    Text("Chat models")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 6)
                     ForEach(store.workspace.llmModels) { model in
                         Button {
+                            store.selectedModelConfigKind = .chat
                             store.selectedModelConfigID = model.id
                         } label: {
-                            ModelLibraryRow(model: model, isSelected: store.selectedModelConfigID == model.id)
+                            ModelLibraryRow(
+                                model: model,
+                                isSelected: store.selectedModelConfigKind == .chat && store.selectedModelConfigID == model.id
+                            )
                         }
                         .buttonStyle(.plain)
+                    }
+
+                    Divider()
+                        .padding(.vertical, 4)
+
+                    HStack {
+                        Text("Embedding models")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        if store.workspace.activeEmbeddingModelID != nil {
+                            Button("Disable") {
+                                store.setActiveEmbeddingModel(nil)
+                            }
+                            .font(.caption)
+                            .buttonStyle(.borderless)
+                            .help("Do not use embeddings for repository retrieval")
+                        }
+                    }
+                    .padding(.horizontal, 6)
+
+                    Text("Optional and shared across all agents. Enables semantic retrieval for coding nodes; if none is enabled, embeddings are not used.")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.horizontal, 6)
+
+                    if store.workspace.embeddingModels.isEmpty {
+                        Button {
+                            store.addEmbeddingModel()
+                        } label: {
+                            Label("Add embedding model", systemImage: "plus.circle")
+                                .font(.caption)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(10)
+                        }
+                        .buttonStyle(.plain)
+                    } else {
+                        ForEach(store.workspace.embeddingModels) { model in
+                            Button {
+                                store.selectedModelConfigKind = .embedding
+                                store.selectedEmbeddingModelConfigID = model.id
+                            } label: {
+                                EmbeddingModelLibraryRow(
+                                    model: model,
+                                    isSelected: store.selectedModelConfigKind == .embedding && store.selectedEmbeddingModelConfigID == model.id,
+                                    isActive: store.workspace.activeEmbeddingModelID == model.id
+                                )
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
                 }
                 .padding(10)
@@ -307,6 +375,50 @@ struct ModelLibraryRow: View {
         }
         .padding(10)
         .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(RoundedRectangle(cornerRadius: 8))
+        .background(
+            isSelected
+                ? AnyShapeStyle(Color.accentColor.opacity(0.12))
+                : AnyShapeStyle(Color.clear),
+            in: RoundedRectangle(cornerRadius: 8)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(isSelected ? Color.accentColor.opacity(0.22) : Color.clear)
+        )
+    }
+}
+
+struct EmbeddingModelLibraryRow: View {
+    let model: EmbeddingModelConfig
+    let isSelected: Bool
+    let isActive: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            HStack(spacing: 7) {
+                Image(systemName: "text.magnifyingglass")
+                    .foregroundStyle(isActive ? Color.green : Color.accentColor)
+                Text(model.displayName)
+                    .font(.subheadline.weight(isSelected ? .semibold : .regular))
+                    .lineLimit(1)
+                if isActive {
+                    Text("Active")
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.green)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.green.opacity(0.12), in: Capsule())
+                }
+            }
+            Text(model.details.isEmpty ? "Embedding endpoint not configured" : model.details)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .lineLimit(2)
+        }
+        .padding(10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(RoundedRectangle(cornerRadius: 8))
         .background(
             isSelected
                 ? AnyShapeStyle(Color.accentColor.opacity(0.12))
@@ -324,6 +436,21 @@ struct ModelDetailPane: View {
     @EnvironmentObject private var store: WorkspaceStore
 
     var body: some View {
+        switch store.selectedModelConfigKind {
+        case .chat:
+            ChatModelDetailPane()
+        case .embedding:
+            EmbeddingModelDetailPane()
+        }
+    }
+}
+
+struct ChatModelDetailPane: View {
+    @EnvironmentObject private var store: WorkspaceStore
+    @State private var isTestingModel = false
+    @State private var modelTestResult: LLMModelTestResult?
+
+    var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 PageTitle(
@@ -332,6 +459,12 @@ struct ModelDetailPane: View {
                     systemImage: "brain.head.profile"
                 )
                 Spacer()
+                Button {
+                    testSelectedModel()
+                } label: {
+                    Label(isTestingModel ? "Testing" : "Test", systemImage: isTestingModel ? "hourglass" : "checkmark.circle")
+                }
+                .disabled(store.selectedModelConfig == nil || isTestingModel)
                 Button {
                     store.addLLMModel()
                 } label: {
@@ -388,6 +521,13 @@ struct ModelDetailPane: View {
                 .padding(14)
                 .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
 
+                if let modelTestResult {
+                    Label(modelTestResult.message, systemImage: modelTestResult.isConnected ? "checkmark.circle.fill" : "xmark.octagon")
+                        .font(.caption)
+                        .foregroundStyle(modelTestResult.isConnected ? .green : .red)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
                 AgentModelUsage(modelID: model.id)
             } else {
                 ContentUnavailableView("No Model Selected", systemImage: "brain.head.profile")
@@ -397,6 +537,27 @@ struct ModelDetailPane: View {
             Spacer()
         }
         .padding(18)
+        .onChange(of: store.selectedModelConfigID) { _, _ in
+            modelTestResult = nil
+            isTestingModel = false
+        }
+    }
+
+    private func testSelectedModel() {
+        guard let model = store.selectedModelConfig else { return }
+        isTestingModel = true
+        modelTestResult = nil
+        Task {
+            let result = await Task.detached(priority: .utility) {
+                LLMModelConnectionTester.test(model)
+            }.value
+            await MainActor.run {
+                if store.selectedModelConfig?.id == model.id {
+                    modelTestResult = result
+                }
+                isTestingModel = false
+            }
+        }
     }
 }
 
@@ -421,6 +582,139 @@ struct AgentModelUsage: View {
         }
         .padding(14)
         .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
+    }
+}
+
+struct EmbeddingModelDetailPane: View {
+    @EnvironmentObject private var store: WorkspaceStore
+    @State private var isTestingModel = false
+    @State private var modelTestResult: LLMModelTestResult?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                PageTitle(
+                    title: store.selectedEmbeddingModelConfig?.displayName ?? "No Embedding Model Selected",
+                    subtitle: "Optional workspace-wide semantic retrieval for coding nodes.",
+                    systemImage: "text.magnifyingglass"
+                )
+                Spacer()
+                Button {
+                    testSelectedModel()
+                } label: {
+                    Label(isTestingModel ? "Testing" : "Test", systemImage: isTestingModel ? "hourglass" : "checkmark.circle")
+                }
+                .disabled(store.selectedEmbeddingModelConfig == nil || isTestingModel)
+                Button {
+                    store.addEmbeddingModel()
+                } label: {
+                    Label("Add Embedding", systemImage: "plus")
+                }
+                Button(role: .destructive) {
+                    guard let id = store.selectedEmbeddingModelConfig?.id else { return }
+                    store.deleteEmbeddingModel(id)
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+                .disabled(store.selectedEmbeddingModelConfig == nil)
+            }
+
+            Text("Embedding models are shared across all agents. They can improve coding-harness repository retrieval by semantically ranking candidate files. If no embedding model is enabled, the app does not call embeddings and falls back to lexical and symbol retrieval.")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            if let model = store.selectedEmbeddingModelConfig {
+                VStack(alignment: .leading, spacing: 12) {
+                    TextField("Nickname", text: Binding(
+                        get: { model.nickname },
+                        set: { value in store.updateEmbeddingModel(model.id) { $0.nickname = value } }
+                    ))
+                    Picker("Backend", selection: Binding(
+                        get: { model.backend },
+                        set: { backend in
+                            store.updateEmbeddingModel(model.id) {
+                                $0.backend = backend
+                                if $0.baseURL.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                    $0.baseURL = backend.defaultBaseURL
+                                }
+                            }
+                        }
+                    )) {
+                        ForEach(LLMBackend.allCases) { backend in
+                            Text(backend.rawValue).tag(backend)
+                        }
+                    }
+                    .pickerStyle(.menu)
+
+                    TextField("Base URL", text: Binding(
+                        get: { model.baseURL },
+                        set: { value in store.updateEmbeddingModel(model.id) { $0.baseURL = value } }
+                    ))
+                    TextField("Embedding model name", text: Binding(
+                        get: { model.modelName },
+                        set: { value in store.updateEmbeddingModel(model.id) { $0.modelName = value } }
+                    ))
+                    SecureField("API key", text: Binding(
+                        get: { model.apiKey },
+                        set: { value in store.updateEmbeddingModel(model.id) { $0.apiKey = value } }
+                    ))
+
+                    HStack {
+                        if store.workspace.activeEmbeddingModelID == model.id {
+                            Label("Enabled for all agents", systemImage: "checkmark.circle.fill")
+                                .foregroundStyle(.green)
+                            Button("Disable embeddings") {
+                                store.setActiveEmbeddingModel(nil)
+                            }
+                        } else {
+                            Text("Not currently used.")
+                                .foregroundStyle(.secondary)
+                            Button("Use for retrieval") {
+                                store.setActiveEmbeddingModel(model.id)
+                            }
+                        }
+                    }
+                    .font(.caption)
+                }
+                .padding(14)
+                .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
+
+                if let modelTestResult {
+                    Label(modelTestResult.message, systemImage: modelTestResult.isConnected ? "checkmark.circle.fill" : "xmark.octagon")
+                        .font(.caption)
+                        .foregroundStyle(modelTestResult.isConnected ? .green : .red)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            } else {
+                ContentUnavailableView("No Embedding Model", systemImage: "text.magnifyingglass", description: Text("Add an embedding model only when you want semantic retrieval for coding nodes. Otherwise the app will not use embeddings."))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+
+            Spacer()
+        }
+        .padding(18)
+        .onChange(of: store.selectedEmbeddingModelConfigID) { _, _ in
+            modelTestResult = nil
+            isTestingModel = false
+        }
+    }
+
+    private func testSelectedModel() {
+        guard let model = store.selectedEmbeddingModelConfig else { return }
+        isTestingModel = true
+        modelTestResult = nil
+        Task {
+            let result = await Task.detached(priority: .utility) {
+                EmbeddingModelConnectionTester.test(model)
+            }.value
+            await MainActor.run {
+                if store.selectedEmbeddingModelConfig?.id == model.id {
+                    modelTestResult = result
+                }
+                isTestingModel = false
+            }
+        }
     }
 }
 

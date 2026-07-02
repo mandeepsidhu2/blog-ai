@@ -46,7 +46,7 @@ struct PythonCodeEditor: NSViewRepresentable {
 
         scrollView.documentView = textView
         context.coordinator.textView = textView
-        context.coordinator.applyHighlighting(to: textView)
+        context.coordinator.scheduleHighlighting(to: textView)
         return scrollView
     }
 
@@ -56,17 +56,60 @@ struct PythonCodeEditor: NSViewRepresentable {
         textView.isEditable = isEditable
         if textView.string != text {
             textView.string = text
-            context.coordinator.applyHighlighting(to: textView)
+            context.coordinator.scheduleHighlighting(to: textView)
         }
     }
 
     private static let baseFont = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+    private static let semiboldFont = NSFont.monospacedSystemFont(ofSize: 12, weight: .semibold)
+
+    private struct HighlightRule {
+        var regex: NSRegularExpression
+        var color: NSColor
+        var fontWeight: NSFont.Weight
+        var captureGroup: Int?
+    }
+
+    private static let highlightRules: [HighlightRule] = [
+        HighlightRule(regex: regex(#"\b\d+(?:\.\d+)?\b"#), color: .systemPink, fontWeight: .regular, captureGroup: nil),
+        HighlightRule(
+            regex: regex(#"\b(async|await|def|class|return|if|elif|else|for|while|in|try|except|finally|with|as|import|from|pass|break|continue|True|False|None|and|or|not|is|lambda|yield|raise|global|nonlocal|assert|del)\b"#),
+            color: .systemPurple,
+            fontWeight: .semibold,
+            captureGroup: nil
+        ),
+        HighlightRule(
+            regex: regex(#"\b(dict|list|set|tuple|str|int|float|bool|Any|TypedDict|StateGraph|AgentState)\b"#),
+            color: .systemTeal,
+            fontWeight: .regular,
+            captureGroup: nil
+        ),
+        HighlightRule(regex: regex(#"\bdef\s+([A-Za-z_][A-Za-z0-9_]*)"#), color: .systemBlue, fontWeight: .semibold, captureGroup: 1),
+        HighlightRule(regex: regex(#"@[A-Za-z_][A-Za-z0-9_\.]*"#), color: .systemIndigo, fontWeight: .regular, captureGroup: nil),
+        HighlightRule(
+            regex: regex(#"("""[\s\S]*?"""|'''[\s\S]*?'''|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')"#),
+            color: .systemOrange,
+            fontWeight: .regular,
+            captureGroup: nil
+        ),
+        HighlightRule(regex: regex(#"#.*$"#, options: [.anchorsMatchLines]), color: .systemGreen, fontWeight: .regular, captureGroup: nil)
+    ]
+
+    private static func regex(_ pattern: String, options: NSRegularExpression.Options = []) -> NSRegularExpression {
+        do {
+            return try NSRegularExpression(pattern: pattern, options: options)
+        } catch {
+            assertionFailure("Invalid Python syntax highlight regex: \(error)")
+            return try! NSRegularExpression(pattern: #"a\A"#)
+        }
+    }
 
     @MainActor
     final class Coordinator: NSObject, NSTextViewDelegate {
         var parent: PythonCodeEditor
         weak var textView: NSTextView?
         private var isApplyingHighlighting = false
+        private var highlightWorkItem: DispatchWorkItem?
 
         init(_ parent: PythonCodeEditor) {
             self.parent = parent
@@ -75,7 +118,17 @@ struct PythonCodeEditor: NSViewRepresentable {
         func textDidChange(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView else { return }
             parent.text = textView.string
-            applyHighlighting(to: textView)
+            scheduleHighlighting(to: textView)
+        }
+
+        func scheduleHighlighting(to textView: NSTextView) {
+            highlightWorkItem?.cancel()
+            let item = DispatchWorkItem { [weak self, weak textView] in
+                guard let self, let textView else { return }
+                self.applyHighlighting(to: textView)
+            }
+            highlightWorkItem = item
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.035, execute: item)
         }
 
         func applyHighlighting(to textView: NSTextView) {
@@ -93,29 +146,9 @@ struct PythonCodeEditor: NSViewRepresentable {
                 .foregroundColor: NSColor.labelColor
             ], range: fullRange)
 
-            apply(pattern: #"\b\d+(?:\.\d+)?\b"#, color: .systemPink, in: storage, range: fullRange)
-            apply(
-                pattern: #"\b(async|await|def|class|return|if|elif|else|for|while|in|try|except|finally|with|as|import|from|pass|break|continue|True|False|None|and|or|not|is|lambda|yield|raise|global|nonlocal|assert|del)\b"#,
-                color: .systemPurple,
-                fontWeight: .semibold,
-                in: storage,
-                range: fullRange
-            )
-            apply(
-                pattern: #"\b(dict|list|set|tuple|str|int|float|bool|Any|TypedDict|StateGraph|AgentState)\b"#,
-                color: .systemTeal,
-                in: storage,
-                range: fullRange
-            )
-            applyGroup(pattern: #"\bdef\s+([A-Za-z_][A-Za-z0-9_]*)"#, group: 1, color: .systemBlue, fontWeight: .semibold, in: storage, range: fullRange)
-            apply(pattern: #"@[A-Za-z_][A-Za-z0-9_\.]*"#, color: .systemIndigo, in: storage, range: fullRange)
-            apply(
-                pattern: #"("""[\s\S]*?"""|'''[\s\S]*?'''|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')"#,
-                color: .systemOrange,
-                in: storage,
-                range: fullRange
-            )
-            apply(pattern: #"#.*$"#, color: .systemGreen, options: [.anchorsMatchLines], in: storage, range: fullRange)
+            for rule in PythonCodeEditor.highlightRules {
+                apply(rule: rule, in: storage, range: fullRange)
+            }
 
             storage.endEditing()
 
@@ -125,38 +158,20 @@ struct PythonCodeEditor: NSViewRepresentable {
             }
         }
 
-        private func apply(
-            pattern: String,
-            color: NSColor,
-            fontWeight: NSFont.Weight = .regular,
-            options: NSRegularExpression.Options = [],
-            in storage: NSTextStorage,
-            range: NSRange
-        ) {
-            guard let regex = try? NSRegularExpression(pattern: pattern, options: options) else { return }
-            for match in regex.matches(in: storage.string, options: [], range: range) {
-                storage.addAttribute(.foregroundColor, value: color, range: match.range)
-                if fontWeight != .regular {
-                    storage.addAttribute(.font, value: NSFont.monospacedSystemFont(ofSize: 12, weight: fontWeight), range: match.range)
+        private func apply(rule: PythonCodeEditor.HighlightRule, in storage: NSTextStorage, range: NSRange) {
+            for match in rule.regex.matches(in: storage.string, options: [], range: range) {
+                let highlightRange: NSRange
+                if let captureGroup = rule.captureGroup {
+                    guard match.numberOfRanges > captureGroup else { continue }
+                    let groupRange = match.range(at: captureGroup)
+                    guard groupRange.location != NSNotFound else { continue }
+                    highlightRange = groupRange
+                } else {
+                    highlightRange = match.range
                 }
-            }
-        }
-
-        private func applyGroup(
-            pattern: String,
-            group: Int,
-            color: NSColor,
-            fontWeight: NSFont.Weight = .regular,
-            in storage: NSTextStorage,
-            range: NSRange
-        ) {
-            guard let regex = try? NSRegularExpression(pattern: pattern) else { return }
-            for match in regex.matches(in: storage.string, options: [], range: range) where match.numberOfRanges > group {
-                let groupRange = match.range(at: group)
-                guard groupRange.location != NSNotFound else { continue }
-                storage.addAttribute(.foregroundColor, value: color, range: groupRange)
-                if fontWeight != .regular {
-                    storage.addAttribute(.font, value: NSFont.monospacedSystemFont(ofSize: 12, weight: fontWeight), range: groupRange)
+                storage.addAttribute(.foregroundColor, value: rule.color, range: highlightRange)
+                if rule.fontWeight != .regular {
+                    storage.addAttribute(.font, value: PythonCodeEditor.semiboldFont, range: highlightRange)
                 }
             }
         }

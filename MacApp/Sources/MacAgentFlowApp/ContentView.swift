@@ -8,27 +8,84 @@ struct ContentView: View {
         VStack(spacing: 0) {
             AppTopBar()
             Divider()
-            HStack(spacing: 0) {
-                WorkspaceSidebarView()
-                    .frame(width: 280)
-                Divider()
-                switch store.appPage {
-                case .console:
-                    HStack(spacing: 0) {
-                        AgentDesignerView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        Divider()
-                        InspectorView()
-                            .frame(width: 340)
+            if store.appPage == .runs {
+                RunsHistoryPage()
+                    .frame(minWidth: 720, maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                HSplitView {
+                    if store.isWorkspaceSidebarCollapsed {
+                        CollapsedSidebarRail()
+                            .frame(width: 44)
+                    } else {
+                        WorkspaceSidebarView()
+                            .frame(minWidth: 220, idealWidth: 280, maxWidth: 460)
                     }
-                case .tools:
-                    ToolsManagementPage()
-                case .models:
-                    ModelsManagementPage()
+
+                    switch store.appPage {
+                    case .console:
+                        ConsoleSplitView()
+                    case .runs:
+                        EmptyView()
+                    case .tools:
+                        ToolsManagementPage()
+                            .frame(minWidth: 720, maxWidth: .infinity, maxHeight: .infinity)
+                    case .models:
+                        ModelsManagementPage()
+                            .frame(minWidth: 720, maxWidth: .infinity, maxHeight: .infinity)
+                    }
                 }
             }
         }
         .background(Color(nsColor: .windowBackgroundColor))
+        .alert("Run blocked", isPresented: Binding(
+            get: { store.runPreflightMessage != nil },
+            set: { isPresented in
+                if !isPresented {
+                    store.runPreflightMessage = nil
+                }
+            }
+        )) {
+            Button("OK") {
+                store.runPreflightMessage = nil
+            }
+        } message: {
+            Text(store.runPreflightMessage ?? "")
+        }
+        .alert("Delete agent?", isPresented: Binding(
+            get: { store.pendingAgentDeletionID != nil },
+            set: { isPresented in
+                if !isPresented {
+                    store.cancelPendingAgentDeletion()
+                }
+            }
+        )) {
+            Button("Delete", role: .destructive) {
+                store.confirmPendingAgentDeletion()
+            }
+            Button("Cancel", role: .cancel) {
+                store.cancelPendingAgentDeletion()
+            }
+        } message: {
+            Text("Delete \(store.pendingAgentDeletionName), including its graph, schedules, and run history.")
+        }
+    }
+}
+
+struct ConsoleSplitView: View {
+    @EnvironmentObject private var store: WorkspaceStore
+
+    var body: some View {
+        HSplitView {
+            AgentDesignerView()
+                .frame(minWidth: 520, maxWidth: .infinity, maxHeight: .infinity)
+            if store.isRightPanelCollapsed {
+                CollapsedRightRail(title: "Inspector")
+                    .frame(width: 44)
+            } else {
+                InspectorView()
+                    .frame(minWidth: 300, idealWidth: 380, maxWidth: 680, maxHeight: .infinity)
+            }
+        }
     }
 }
 
@@ -37,6 +94,31 @@ struct AppTopBar: View {
 
     var body: some View {
         HStack(spacing: 14) {
+            if store.appPage == .runs {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.16)) {
+                        store.isWorkspaceSidebarCollapsed = false
+                        store.openConsole()
+                    }
+                } label: {
+                    Label("Agents", systemImage: "chevron.left")
+                        .frame(minWidth: 78, alignment: .leading)
+                }
+                .buttonStyle(.bordered)
+                .help("Back to agent editor and main agent menu")
+            } else {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.16)) {
+                        store.isWorkspaceSidebarCollapsed.toggle()
+                    }
+                } label: {
+                    Image(systemName: store.isWorkspaceSidebarCollapsed ? "sidebar.leading" : "sidebar.left")
+                        .frame(width: 24, height: 24)
+                }
+                .buttonStyle(.borderless)
+                .help(store.isWorkspaceSidebarCollapsed ? "Show left menu" : "Collapse left menu")
+            }
+
             HStack(spacing: 9) {
                 Image(systemName: "point.3.connected.trianglepath.dotted")
                     .font(.system(size: 15, weight: .semibold))
@@ -70,14 +152,20 @@ struct AppTopBar: View {
 
             Spacer()
 
-            if store.appPage == .console {
+            if store.appPage == .console || store.appPage == .runs {
                 Button {
-                    store.inspectorSection = .source
+                    withAnimation(.easeInOut(duration: 0.16)) {
+                        store.isRightPanelCollapsed.toggle()
+                    }
                 } label: {
-                    Label("Source", systemImage: "curlybraces")
+                    Image(systemName: store.isRightPanelCollapsed ? "sidebar.trailing" : "sidebar.right")
+                        .frame(width: 24, height: 24)
                 }
-                .help("View generated LangGraph Python source")
+                .buttonStyle(.borderless)
+                .help(store.isRightPanelCollapsed ? "Show right panel" : "Collapse right panel")
+            }
 
+            if store.appPage == .console {
                 Menu {
                     Button("AI Node") { store.addNode(kind: .ai) }
                     Button("Python Node") { store.addNode(kind: .code) }
@@ -87,17 +175,22 @@ struct AppTopBar: View {
                     Label("Add Node", systemImage: "plus")
                 }
 
-                Button {
-                    store.triggerRun()
-                } label: {
-                    Label("Run Agent", systemImage: "play.fill")
-                }
-                .keyboardShortcut("r", modifiers: [.command])
+                RunAgentToolbarButton()
 
                 Button {
                     store.addSchedule()
                 } label: {
-                    Label("Schedule", systemImage: "calendar.badge.clock")
+                    Label("Add Schedule", systemImage: "calendar.badge.clock")
+                }
+            }
+
+            if store.appPage == .runs {
+                RunAgentToolbarButton()
+
+                Button {
+                    store.addSchedule()
+                } label: {
+                    Label("Add Schedule", systemImage: "calendar.badge.clock")
                 }
             }
 
@@ -144,6 +237,72 @@ struct AppTopBar: View {
     }
 }
 
+struct RunAgentToolbarButton: View {
+    @EnvironmentObject private var store: WorkspaceStore
+
+    var body: some View {
+        Button {
+            store.triggerManualRun()
+        } label: {
+            Label(store.isManualRunPreflightInProgress ? "Checking" : "Run Agent", systemImage: store.isManualRunPreflightInProgress ? "hourglass" : "play.fill")
+        }
+        .buttonStyle(.borderedProminent)
+        .tint(.green)
+        .keyboardShortcut("r", modifiers: [.command])
+        .disabled(store.isManualRunPreflightInProgress)
+        .help("Run the selected agent now")
+    }
+}
+
+struct CollapsedSidebarRail: View {
+    @EnvironmentObject private var store: WorkspaceStore
+
+    var body: some View {
+        VStack {
+            Button {
+                withAnimation(.easeInOut(duration: 0.16)) {
+                    store.isWorkspaceSidebarCollapsed = false
+                }
+            } label: {
+                Image(systemName: "chevron.right")
+                    .frame(width: 28, height: 28)
+            }
+            .buttonStyle(.borderless)
+            .help("Show left menu")
+
+            Spacer()
+        }
+        .padding(.top, 12)
+        .frame(maxHeight: .infinity)
+        .background(Color(nsColor: .controlBackgroundColor))
+    }
+}
+
+struct CollapsedRightRail: View {
+    @EnvironmentObject private var store: WorkspaceStore
+    let title: String
+
+    var body: some View {
+        VStack {
+            Button {
+                withAnimation(.easeInOut(duration: 0.16)) {
+                    store.isRightPanelCollapsed = false
+                }
+            } label: {
+                Image(systemName: "chevron.left")
+                    .frame(width: 28, height: 28)
+            }
+            .buttonStyle(.borderless)
+            .help("Show \(title.lowercased())")
+
+            Spacer()
+        }
+        .padding(.top, 12)
+        .frame(maxHeight: .infinity)
+        .background(Color(nsColor: .windowBackgroundColor))
+    }
+}
+
 struct WorkspaceSidebarView: View {
     @EnvironmentObject private var store: WorkspaceStore
 
@@ -157,7 +316,7 @@ struct WorkspaceSidebarView: View {
             Divider()
 
             switch store.appPage {
-            case .console:
+            case .console, .runs:
                 AgentSidebarContent()
             case .tools:
                 ToolLibrarySidebar()
@@ -213,6 +372,7 @@ struct SidebarNavRow: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 8)
+                .contentShape(RoundedRectangle(cornerRadius: 8))
                 .background(
                     isSelected
                         ? AnyShapeStyle(Color.secondary.opacity(0.14))
@@ -248,12 +408,39 @@ struct AgentSidebarContent: View {
             ScrollView {
                 LazyVStack(spacing: 6) {
                     ForEach(store.workspace.agents) { agent in
+                        let isSelected = agent.id == store.workspace.selectedAgentID
                         Button {
-                            store.selectAgent(agent.id)
+                            store.selectAgent(agent.id, openConsole: true)
                         } label: {
-                            AgentRow(agent: agent, isSelected: agent.id == store.workspace.selectedAgentID)
+                            AgentRow(agent: agent, isSelected: isSelected)
                         }
                         .buttonStyle(.plain)
+                        .help("Edit \(agent.name)")
+                        .contextMenu {
+                            Button {
+                                store.selectAgent(agent.id, openConsole: true)
+                            } label: {
+                                Label("Edit Agent", systemImage: "slider.horizontal.3")
+                            }
+
+                            Button {
+                                store.openRunsPage(for: agent.id)
+                            } label: {
+                                Label("View Runs", systemImage: "clock.arrow.circlepath")
+                            }
+
+                            Divider()
+
+                            Button(role: .destructive) {
+                                store.requestDeleteAgent(agent.id)
+                            } label: {
+                                Label("Delete Agent", systemImage: "trash")
+                            }
+                        }
+
+                        if isSelected {
+                            SelectedAgentSubmenu(agent: agent)
+                        }
                     }
                 }
                 .padding(10)
@@ -279,28 +466,16 @@ struct AgentRow: View {
     let agent: AgentDefinition
     let isSelected: Bool
 
-    var lastRun: AgentRun? {
-        agent.runs.sorted { $0.number > $1.number }.first
-    }
-
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
+        HStack(spacing: 8) {
+            Image(systemName: "point.3.connected.trianglepath.dotted")
+                .foregroundStyle(isSelected ? Color.accentColor : Color.secondary)
             HStack(spacing: 8) {
-                Image(systemName: "point.3.connected.trianglepath.dotted")
-                    .foregroundStyle(isSelected ? Color.accentColor : Color.secondary)
                 Text(agent.name)
                     .font(.subheadline.weight(isSelected ? .semibold : .regular))
                     .lineLimit(1)
+                Spacer()
             }
-            HStack(spacing: 8) {
-                Text("\(agent.nodes.count) nodes")
-                Text("\(agent.schedules.filter(\.isEnabled).count) schedules")
-                if let lastRun {
-                    Text("last #\(lastRun.number) \(lastRun.status.rawValue)")
-                }
-            }
-            .font(.caption)
-            .foregroundStyle(.secondary)
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 9)
@@ -316,6 +491,79 @@ struct AgentRow: View {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(isSelected ? Color.accentColor.opacity(0.22) : Color.clear)
         )
+    }
+}
+
+struct SelectedAgentSubmenu: View {
+    @EnvironmentObject private var store: WorkspaceStore
+    let agent: AgentDefinition
+
+    private var lastRun: AgentRun? {
+        agent.runs.sorted { $0.number > $1.number }.first
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            SidebarSubmenuRow(
+                title: "Edit",
+                subtitle: "Canvas and settings",
+                systemImage: "slider.horizontal.3",
+                isSelected: store.appPage == .console
+            ) {
+                store.selectAgent(agent.id, openConsole: true)
+            }
+            SidebarSubmenuRow(
+                title: "Runs",
+                subtitle: lastRun.map { "#\($0.number) \($0.status.rawValue)" } ?? "No runs yet",
+                systemImage: "clock.arrow.circlepath",
+                isSelected: store.appPage == .runs
+            ) {
+                store.openRunsPage()
+            }
+        }
+        .padding(.leading, 24)
+        .padding(.trailing, 4)
+        .padding(.bottom, 4)
+    }
+}
+
+struct SidebarSubmenuRow: View {
+    let title: String
+    let subtitle: String
+    let systemImage: String
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Image(systemName: systemImage)
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(isSelected ? Color.accentColor : Color.secondary)
+                    .frame(width: 18)
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(title)
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.primary)
+                    Text(subtitle)
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 9)
+            .padding(.vertical, 7)
+            .background(
+                isSelected
+                    ? AnyShapeStyle(Color.accentColor.opacity(0.10))
+                    : AnyShapeStyle(Color.clear),
+                in: RoundedRectangle(cornerRadius: 7)
+            )
+            .contentShape(RoundedRectangle(cornerRadius: 7))
+        }
+        .buttonStyle(.plain)
+        .help(title)
     }
 }
 

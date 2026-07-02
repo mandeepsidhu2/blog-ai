@@ -4,6 +4,8 @@ public struct AgentWorkspace: Codable, Equatable, Sendable {
     public var agents: [AgentDefinition]
     public var selectedAgentID: UUID?
     public var llmModels: [LLMModelConfig]
+    public var embeddingModels: [EmbeddingModelConfig]
+    public var activeEmbeddingModelID: UUID?
     public var toolCatalog: [ToolDefinition]
     public var harnessSkills: [HarnessSkill]
 
@@ -11,12 +13,16 @@ public struct AgentWorkspace: Codable, Equatable, Sendable {
         agents: [AgentDefinition] = [],
         selectedAgentID: UUID? = nil,
         llmModels: [LLMModelConfig] = LLMModelConfig.defaultConfigs,
+        embeddingModels: [EmbeddingModelConfig] = [],
+        activeEmbeddingModelID: UUID? = nil,
         toolCatalog: [ToolDefinition] = ToolDefinition.defaultCatalog,
         harnessSkills: [HarnessSkill] = HarnessSkill.recommended
     ) {
         self.agents = agents
         self.selectedAgentID = selectedAgentID ?? agents.first?.id
         self.llmModels = llmModels
+        self.embeddingModels = embeddingModels
+        self.activeEmbeddingModelID = activeEmbeddingModelID
         self.toolCatalog = toolCatalog
         self.harnessSkills = harnessSkills
     }
@@ -25,6 +31,8 @@ public struct AgentWorkspace: Codable, Equatable, Sendable {
         case agents
         case selectedAgentID
         case llmModels
+        case embeddingModels
+        case activeEmbeddingModelID
         case toolCatalog
         case harnessSkills
     }
@@ -35,6 +43,12 @@ public struct AgentWorkspace: Codable, Equatable, Sendable {
         selectedAgentID = try container.decodeIfPresent(UUID.self, forKey: .selectedAgentID) ?? agents.first?.id
         let decodedModels = try container.decodeIfPresent([LLMModelConfig].self, forKey: .llmModels)
         llmModels = decodedModels?.isEmpty == false ? decodedModels! : LLMModelConfig.defaultConfigs
+        embeddingModels = try container.decodeIfPresent([EmbeddingModelConfig].self, forKey: .embeddingModels) ?? []
+        activeEmbeddingModelID = try container.decodeIfPresent(UUID.self, forKey: .activeEmbeddingModelID)
+        if let activeEmbeddingModelID,
+           !embeddingModels.contains(where: { $0.id == activeEmbeddingModelID }) {
+            self.activeEmbeddingModelID = nil
+        }
         toolCatalog = try container.decodeIfPresent([ToolDefinition].self, forKey: .toolCatalog) ?? ToolDefinition.defaultCatalog
         harnessSkills = try container.decodeIfPresent([HarnessSkill].self, forKey: .harnessSkills) ?? HarnessSkill.recommended
     }
@@ -44,6 +58,8 @@ public struct AgentWorkspace: Codable, Equatable, Sendable {
         try container.encode(agents, forKey: .agents)
         try container.encodeIfPresent(selectedAgentID, forKey: .selectedAgentID)
         try container.encode(llmModels, forKey: .llmModels)
+        try container.encode(embeddingModels, forKey: .embeddingModels)
+        try container.encodeIfPresent(activeEmbeddingModelID, forKey: .activeEmbeddingModelID)
         try container.encode(toolCatalog, forKey: .toolCatalog)
         try container.encode(harnessSkills, forKey: .harnessSkills)
     }
@@ -462,6 +478,8 @@ public struct AgentNode: Identifiable, Codable, Equatable, Sendable {
     public var height: Double
     public var prompt: String
     public var pythonCode: String
+    public var repositoryPath: String?
+    public var validationCommand: String?
     public var selectedToolIDs: [String]
     public var branches: [String]
 
@@ -475,6 +493,8 @@ public struct AgentNode: Identifiable, Codable, Equatable, Sendable {
         height: Double = 96,
         prompt: String = "Use the current state and return a JSON state update.",
         pythonCode: String = "return {}",
+        repositoryPath: String? = nil,
+        validationCommand: String? = nil,
         selectedToolIDs: [String] = [],
         branches: [String] = ["next"]
     ) {
@@ -487,6 +507,8 @@ public struct AgentNode: Identifiable, Codable, Equatable, Sendable {
         self.height = height
         self.prompt = prompt
         self.pythonCode = pythonCode
+        self.repositoryPath = repositoryPath
+        self.validationCommand = validationCommand
         self.selectedToolIDs = selectedToolIDs
         self.branches = branches
     }
@@ -535,6 +557,24 @@ public enum AgentRunTrigger: String, CaseIterable, Codable, Equatable, Identifia
     public var id: String { rawValue }
 }
 
+public struct AgentRunSnapshot: Codable, Equatable, Sendable {
+    public var agentName: String
+    public var agentSummary: String
+    public var nodes: [AgentNode]
+    public var edges: [AgentEdge]
+
+    public init(agentName: String, agentSummary: String, nodes: [AgentNode], edges: [AgentEdge]) {
+        self.agentName = agentName
+        self.agentSummary = agentSummary
+        self.nodes = nodes
+        self.edges = edges
+    }
+
+    public init(agent: AgentDefinition) {
+        self.init(agentName: agent.name, agentSummary: agent.summary, nodes: agent.nodes, edges: agent.edges)
+    }
+}
+
 public struct AgentRun: Identifiable, Codable, Equatable, Sendable {
     public var id: UUID
     public var number: Int
@@ -544,6 +584,7 @@ public struct AgentRun: Identifiable, Codable, Equatable, Sendable {
     public var finishedAt: Date?
     public var logLines: [String]
     public var stateSummary: String
+    public var snapshot: AgentRunSnapshot?
 
     public init(
         id: UUID = UUID(),
@@ -553,7 +594,8 @@ public struct AgentRun: Identifiable, Codable, Equatable, Sendable {
         startedAt: Date = Date(),
         finishedAt: Date? = nil,
         logLines: [String] = [],
-        stateSummary: String = ""
+        stateSummary: String = "",
+        snapshot: AgentRunSnapshot? = nil
     ) {
         self.id = id
         self.number = number
@@ -563,6 +605,7 @@ public struct AgentRun: Identifiable, Codable, Equatable, Sendable {
         self.finishedAt = finishedAt
         self.logLines = logLines
         self.stateSummary = stateSummary
+        self.snapshot = snapshot
     }
 }
 
@@ -652,16 +695,63 @@ public struct LLMModelConfig: Identifiable, Codable, Equatable, Sendable {
             .joined(separator: " · ")
     }
 
-    public static let defaultModelID = UUID(uuidString: "5B00E8B7-2758-4451-B91D-4F8857D407DA")!
+    public static let localQwenModelID = UUID(uuidString: "B1F7F61C-4565-47DE-9385-9307A8523E25")!
+    public static let openAIProductionModelID = UUID(uuidString: "5B00E8B7-2758-4451-B91D-4F8857D407DA")!
+    public static let defaultModelID = localQwenModelID
     public static let defaultConfigs: [LLMModelConfig] = [
         LLMModelConfig(
-            id: defaultModelID,
+            id: localQwenModelID,
+            nickname: "Local Qwen 35B",
+            backend: .localOpenAICompatible,
+            baseURL: LLMBackend.localOpenAICompatible.defaultBaseURL,
+            apiKey: "local",
+            modelName: "qwen/qwen3.6-35b-a3b"
+        ),
+        LLMModelConfig(
+            id: openAIProductionModelID,
             nickname: "OpenAI Production",
             backend: .openAI,
             baseURL: LLMBackend.openAI.defaultBaseURL,
             modelName: "gpt-4.1"
         )
     ]
+}
+
+public struct EmbeddingModelConfig: Identifiable, Codable, Equatable, Sendable {
+    public var id: UUID
+    public var nickname: String
+    public var backend: LLMBackend
+    public var baseURL: String
+    public var apiKey: String
+    public var modelName: String
+
+    public init(
+        id: UUID = UUID(),
+        nickname: String,
+        backend: LLMBackend,
+        baseURL: String,
+        apiKey: String = "",
+        modelName: String
+    ) {
+        self.id = id
+        self.nickname = nickname
+        self.backend = backend
+        self.baseURL = baseURL
+        self.apiKey = apiKey
+        self.modelName = modelName
+    }
+
+    public var displayName: String {
+        let cleanNickname = nickname.trimmingCharacters(in: .whitespacesAndNewlines)
+        return cleanNickname.isEmpty ? modelName : cleanNickname
+    }
+
+    public var details: String {
+        [backend.rawValue, modelName, baseURL]
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+            .joined(separator: " · ")
+    }
 }
 
 public struct ToolDefinition: Identifiable, Codable, Equatable, Sendable {

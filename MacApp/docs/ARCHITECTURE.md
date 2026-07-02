@@ -19,6 +19,7 @@ The core model is Codable and Sendable:
 - `AgentNode`
 - `AgentEdge`
 - `AgentRun`
+- `AgentRunSnapshot`
 - `AgentSchedule`
 - `LLMModelConfig`
 - `ToolDefinition`
@@ -35,15 +36,31 @@ Source: `Sources/MacAgentFlowCore/Services.swift`
 The default run engine remains deterministic for sample flows and product
 checks. It validates the graph, walks from Start to End, follows the first
 matching conditional branch, and emits a Jenkins-style `AgentRun` with logs and
-a state summary.
+a state summary. New run records also include an `AgentRunSnapshot` containing
+the node and connector topology that executed, so historical run views do not
+drift when the editable agent graph changes later.
+
+Manual toolbar runs are preflighted in `WorkspaceStore`: if the selected agent
+contains AI nodes, the app requires the agent's selected model profile and calls
+`LLMModelConnectionTester` before creating a run record. Scheduled runs do not
+perform this interactive preflight; they enter the normal run engine and record
+any failure in history.
 
 Manual app runs use the live coding-harness runtime. AI nodes stay
-deterministic unless their prompt contains an explicit repository directive
-such as `repo: /path/to/project`, `cwd: /path/to/project`, or
-`repository: /path/to/project`. When a repo is supplied, the AI node indexes the
-codebase, packs a bounded context window, calls the selected
-OpenAI-compatible model, applies returned file edits, and optionally runs the
-`test:` command from the node prompt.
+deterministic unless the node prompt mentions a resolvable local folder, the
+node has a saved access override, or an older saved prompt still contains an
+explicit repository directive such as `repo`, `cwd`, or `repository`. Prompt
+paths are checked before saved folder overrides, so stale manual selections do
+not silently redirect a coding run. Paths can be absolute, home-relative, or
+common user paths such as `Desktop/code/...`; the resolver also performs a
+bounded fuzzy lookup under the mentioned parent folder for approximate folder
+names and promotes matched package folders to a nearby project root when a
+marker such as `.git`, `pyproject.toml`, `package.json`, or `Package.swift` is
+found. When a workspace is
+resolved, the AI node indexes the codebase, packs a bounded context window,
+calls the selected OpenAI-compatible model, applies returned file edits, and
+optionally runs the node's validation command. Legacy `test` prompt directives
+remain supported only for backward compatibility.
 
 ## Coding Harness
 
@@ -61,22 +78,27 @@ AI nodes a Codex-style code-editing loop:
   active model window.
 - high-signal file ranking from repo maps, manifests, docs, paths, query terms,
   and local symbol hits.
-- syntax-pattern symbol extraction for Python, Swift, JavaScript, and
-  TypeScript source files.
-- optional local semantic reranking through an OpenAI-compatible localhost
-  `/embeddings` endpoint. The harness discovers an embedding model from the
-  local `/models` list and falls back to lexical/symbol retrieval if embeddings
-  are unavailable.
+- app-owned generic source scanning that extracts likely symbols and dependency
+  references from source-like text files without invoking a language runtime.
+- related-file expansion for local references, reverse references, and common
+  test/source filename pairs.
+- optional semantic reranking through an explicitly enabled workspace embedding
+  profile. If no embedding profile is enabled, the harness does not call
+  `/embeddings` and falls back to lexical/symbol retrieval.
 - multi-pass retrieval through the selected chat model. The planner can request
   additional repository paths and search terms before the edit prompt is built.
 - optional internet snippets from explicit URLs or lightweight search-oriented
   prompts.
 - OpenAI-compatible `/chat/completions` calls, including local model servers.
-- complete-file edit application with path safety checks.
+- exact text-edit application for localized changes and complete-file
+  replacement for new files or broad rewrites, both with path safety checks.
 - validation iteration through a local test command.
 
-The semantic reranker is local-only by default. Remote embedding calls are not
-made implicitly.
+The semantic reranker is opt-in. Remote or local embedding calls are not made
+unless the operator enables an embedding profile in Models.
+
+The repository index is intentionally in-memory and per run. There is no
+SQLite, FAISS, LanceDB, background indexer, or persistent cache.
 
 The harness blocks cloud-mutating command names in validation commands
 (`aws`, `terraform`, `tofu`, `kubectl`, and `helm`) to honor this repo's
@@ -107,7 +129,9 @@ Those tools are rooted at `AGENT_WORKSPACE_ROOT`, which defaults to the current
 working directory. An exported AI node can request them by returning JSON
 `tool_calls`; results are stored under `artifacts["portable_file_tools"]`.
 Inside the Mac app, the same AI node may use the stronger Swift coding harness
-when its prompt contains an explicit repo/cwd directive.
+when the prompt resolves to a local workspace or the app-only node
+configuration stores a folder access override. Repository paths and validation
+commands are not emitted into exported Python.
 
 Selected tool definitions are exported in `TOOL_SOURCES`, and tool nodes call
 them through `_run_selected_tools`. Each tool source must define
@@ -123,10 +147,12 @@ starter catalog is Reddit, Twitter/X, and AWS Read-Only. The AWS starter tool is
 non-mutating and only describes read-only inventory calls.
 
 `PythonToolValidator` performs the local non-executing save gate for pasted
-tool code. When `/usr/bin/python3` is available, it parses the source with
-Python's AST parser without executing it. The code must be non-empty, syntactic
-Python, and must define a `run(state, **kwargs)` entrypoint. If Python is not
-available, the app falls back to a lightweight delimiter/string check.
+tool code. This validation exists because workspace tools are currently authored
+as Python source. It is separate from repository indexing: the coding harness
+does not depend on local Python to read or rank a repo. Tool code must be
+non-empty, syntactic Python when a parser is available, and must define a
+`run(state, **kwargs)` entrypoint. If Python is not available, the app falls
+back to a lightweight delimiter/string check.
 
 ## LLM Models
 
@@ -136,6 +162,19 @@ LLM model configs live at the workspace level and agents reference them by ID.
 The stored fields are nickname, backend, base URL, API key, and model name.
 `AgentWorkspace` and `AgentDefinition` decode older workspace JSON by filling
 default model config values when those fields are missing.
+
+Embedding model configs also live at the workspace level, but they are shared
+across all agents instead of being attached to individual agents. At most one
+embedding model is active for coding-harness retrieval, and a missing active
+embedding model means embeddings are disabled.
+
+The default config list starts with the local OpenAI-compatible Qwen model:
+`http://127.0.0.1:1234/v1` and `qwen/qwen3.6-35b-a3b`. `WorkspaceStore`
+normalization inserts that config into older saved workspaces when missing and
+migrates agents that still point at the built-in OpenAI default to the local
+model. The Models page Test action uses the same `/chat/completions` path as
+the coding harness, with enough completion budget for reasoning models that
+emit final content only after internal reasoning.
 
 ## Schedules
 
@@ -159,20 +198,29 @@ The app persists workspace JSON under Application Support:
 
 The sample workspace is used when no saved workspace exists.
 
+Workspace saves are dispatched to a serial utility queue after the in-memory
+state is updated. UI actions should not wait for JSON encoding or disk writes.
+
 ## UI Shape
 
 Source: `Sources/MacAgentFlowApp/`
 
 - `ContentView.swift`: app toolbar, persistent top-left page navigation,
-  console shell, and top-level page routing.
+  console shell, top-level page routing, and global left/right collapse rails.
 - `AgentCanvasView.swift`: grid, four-port connectors, connector selection, and
   selectable draggable nodes.
-- `InspectorView.swift`: selected node/connector editing, selected-node tool
-  attachment, generated source, agent settings, runs, schedules, and harness.
+- `InspectorView.swift`: right-side inspector modes for selected
+  node/connector editing, selected-node tool attachment, cached generated code,
+  model selection, and schedules.
+- `RunHistoryPage.swift`: focused selected-agent run history page with a single
+  run-list column, static historical graph snapshot, arranged/original snapshot
+  views, Split/Graph/Logs focus modes, traversed-path highlighting, and
+  node-filtered logs.
 - `ManagementPages.swift`: full-window Tools and Models pages for reusable
   Python tool source, model credentials, and model detail editing.
 - `PythonCodeView.swift`: syntax-colored Python editor and read-only source
-  viewer backed by `NSTextView`.
+  viewer backed by `NSTextView`. Highlighting is scheduled after text updates so
+  large generated source views do not block page-navigation clicks.
 - `WorkspaceStore.swift`: app state and mutations.
 - `MacAgentFlowCore/Services.swift`: graph validation, deterministic and live
   run modes, and testable graph edit operations for delete and duplicate

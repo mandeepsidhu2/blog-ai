@@ -19,11 +19,19 @@ func require<T>(_ value: T?, _ message: String) throws -> T {
     return value
 }
 
+func elapsedSeconds(_ work: () throws -> Void) rethrows -> TimeInterval {
+    let startedAt = Date()
+    try work()
+    return Date().timeIntervalSince(startedAt)
+}
+
 let checks: [(String, () throws -> Void)] = [
     ("sample workspace covers end-to-end product loop", {
         let workspace = AgentWorkspace.sample
         try expect(workspace.agents.count >= 3, "sample should create several selected test agents")
         try expect(!workspace.llmModels.isEmpty, "sample should include at least one LLM model config")
+        try expect(workspace.embeddingModels.isEmpty, "sample should not enable embedding models by default")
+        try expect(workspace.activeEmbeddingModelID == nil, "embeddings should be disabled until configured")
         try expect(workspace.toolCatalog.count == 3, "starter tool catalog should include exactly three tools")
         try expect(Set(workspace.toolCatalog.map(\.id)) == Set(["reddit", "twitter", "aws"]), "starter tools should be Reddit, Twitter/X, and AWS")
         try expect(workspace.harnessSkills.count >= 6, "harness skills should be present")
@@ -37,6 +45,11 @@ let checks: [(String, () throws -> Void)] = [
     ("LLM model configs are workspace-level and agent-selectable", {
         let workspace = AgentWorkspace.sample
         let modelIDs = Set(workspace.llmModels.map(\.id))
+        let localModel = try require(workspace.llmModels.first, "sample workspace should expose a default model")
+        try expect(localModel.id == LLMModelConfig.localQwenModelID, "Local Qwen should be the first/default model")
+        try expect(localModel.backend == .localOpenAICompatible, "default model should use the local OpenAI-compatible backend")
+        try expect(localModel.baseURL == "http://127.0.0.1:1234/v1", "default model should point at the localhost server")
+        try expect(localModel.modelName == "qwen/qwen3.6-35b-a3b", "default model should use the loaded Qwen model")
         try expect(workspace.llmModels.allSatisfy { !$0.nickname.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }, "models should have nicknames")
         try expect(workspace.llmModels.allSatisfy { !$0.modelName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }, "models should have model names")
         try expect(workspace.agents.allSatisfy { agent in
@@ -73,7 +86,37 @@ let checks: [(String, () throws -> Void)] = [
         let decoded = try JSONDecoder().decode(AgentWorkspace.self, from: legacyData)
         let modelIDs = Set(decoded.llmModels.map(\.id))
         try expect(!decoded.llmModels.isEmpty, "legacy workspace should gain default model configs")
+        try expect(decoded.embeddingModels.isEmpty, "legacy workspace should not gain implicit embedding configs")
+        try expect(decoded.activeEmbeddingModelID == nil, "legacy workspace should keep embeddings disabled")
+        try expect(decoded.llmModels.first?.id == LLMModelConfig.localQwenModelID, "legacy workspace should gain Local Qwen as the default model")
         try expect(decoded.agents.allSatisfy { $0.llmModelConfigID.map { modelIDs.contains($0) } ?? false }, "legacy agents should gain a valid model selection")
+    }),
+    ("AI coding nodes persist optional workspace overrides", {
+        let root = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("macagentflow-configured-workspace-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+
+        var agent = AgentDefinition.blank(number: 22)
+        let aiIndex = try require(agent.nodes.firstIndex { $0.kind == .ai }, "blank agent should include an AI node")
+        agent.nodes[aiIndex].repositoryPath = root.path
+        agent.nodes[aiIndex].validationCommand = "swift test"
+
+        let data = try JSONEncoder().encode(agent)
+        let decoded = try JSONDecoder().decode(AgentDefinition.self, from: data)
+        let decodedAI = try require(decoded.nodes.first { $0.kind == .ai }, "decoded agent should include an AI node")
+        try expect(decodedAI.repositoryPath == root.path, "AI node should persist selected repository path")
+        try expect(decodedAI.validationCommand == "swift test", "AI node should persist validation command")
+
+        let run = AgentRunEngine.trigger(
+            agent: agent,
+            trigger: .manual,
+            model: nil,
+            tools: [],
+            runtime: .liveCodingHarness,
+            now: Date(timeIntervalSince1970: 250)
+        )
+        try expect(run.status == .failed, "live harness should request a model once a repository is configured")
+        try expect(run.logLines.contains { $0.contains("no LLM model selected") }, "structured repository config should reach the live harness path")
     }),
     ("all built-in sample agents run without network dependencies", {
         let workspace = AgentWorkspace.sample
@@ -166,6 +209,24 @@ let checks: [(String, () throws -> Void)] = [
         try expect(!run.logLines.isEmpty, "run should include logs")
         try expect(run.logLines.contains { $0.contains("Start") }, "run logs should include start")
         try expect(run.stateSummary.contains("finished=true"), "state summary should include finished flag")
+        let snapshot = try require(run.snapshot, "run should include the graph snapshot that executed")
+        try expect(snapshot.agentName == agent.name, "run snapshot should preserve agent name")
+        try expect(snapshot.nodes.map(\.id) == agent.nodes.map(\.id), "run snapshot should preserve node identities and order")
+        try expect(snapshot.edges.map(\.id) == agent.edges.map(\.id), "run snapshot should preserve connector identities and order")
+    }),
+    ("source and run-history workloads stay within responsiveness budget", {
+        let workspace = AgentWorkspace.sample
+        let agent = try require(workspace.selectedAgent, "sample workspace should have a selected agent")
+        let model = try require(workspace.llmModels.first, "sample workspace should have a model")
+        let elapsed = elapsedSeconds {
+            for _ in 0..<35 {
+                _ = AgentGraphValidator.validate(agent)
+                _ = AgentRunEngine.executionOrder(for: agent)
+                _ = AgentRunEngine.trigger(agent: agent, trigger: .manual, now: Date(timeIntervalSince1970: 100))
+                _ = AgentPythonSourceRenderer.render(agent: agent, model: model, tools: workspace.toolCatalog)
+            }
+        }
+        try expect(elapsed < 2.5, "core navigation workloads should stay responsive; took \(String(format: "%.3f", elapsed))s")
     }),
     ("invalid graph fails before execution", {
         var agent = AgentDefinition.blank(number: 1)
@@ -197,7 +258,9 @@ let checks: [(String, () throws -> Void)] = [
         guard let aiIndex = agent.nodes.firstIndex(where: { $0.kind == .ai }) else {
             throw CheckFailure(description: "blank agent should include an AI node")
         }
-        agent.nodes[aiIndex].prompt = "repo: ./example\nInspect code and update state."
+        agent.nodes[aiIndex].prompt = "Inspect code and update state."
+        agent.nodes[aiIndex].repositoryPath = "/tmp/example-repo"
+        agent.nodes[aiIndex].validationCommand = "swift test"
 
         let source = AgentPythonSourceRenderer.render(agent: agent, model: workspace.llmModels.first, tools: workspace.toolCatalog)
         try expect(source.contains("PORTABLE_FILE_TOOLS"), "source should declare portable AI-node file tools")
@@ -211,6 +274,8 @@ let checks: [(String, () throws -> Void)] = [
         try expect(!source.contains("CodingHarnessEngine"), "source should not embed the Swift coding harness")
         try expect(!source.contains("RepositoryIndexer"), "source should not embed repo indexing internals")
         try expect(!source.contains("SemanticFileRanker"), "source should not embed semantic retrieval internals")
+        try expect(!source.contains("/tmp/example-repo"), "source should not emit app-only repository selection")
+        try expect(!source.contains("swift test"), "source should not emit app-only validation commands")
     }),
     ("generated Python source tracks selected-node tool assignments", {
         let workspace = AgentWorkspace.sample
@@ -260,7 +325,7 @@ let checks: [(String, () throws -> Void)] = [
         )
         try expect(!context.selectedFiles.contains { $0.contains("node_modules") }, "context should skip dependency folders")
     }),
-    ("live coding harness mode requires an explicit repo before AI nodes edit", {
+    ("live coding harness mode requires a resolvable local workspace before AI nodes edit", {
         let agent = AgentDefinition.blank(number: 4)
         let run = AgentRunEngine.trigger(
             agent: agent,
@@ -272,6 +337,76 @@ let checks: [(String, () throws -> Void)] = [
         )
         try expect(run.status == .succeeded, "live mode without repo directive should preserve deterministic AI behavior")
         try expect(run.stateSummary.contains("ai-output"), "AI node should be recorded without invoking the coding harness")
+    }),
+    ("AI coding nodes infer local workspaces from natural prompt paths", {
+        let root = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("macagentflow-natural-workspace-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        try "hello\n".write(to: root.appendingPathComponent("README.md"), atomically: true, encoding: .utf8)
+
+        let resolution = CodingWorkspaceResolver.resolve(
+            configuredPath: nil,
+            prompt: "Add a code review node in \(root.path)"
+        )
+        try expect(resolution.url?.path == root.path, "natural absolute paths in prompts should resolve to local folders")
+        try expect(resolution.source == "prompt", "natural path resolution should not require a repo directive")
+
+        var agent = AgentDefinition.blank(number: 5)
+        let aiIndex = try require(agent.nodes.firstIndex { $0.kind == .ai }, "blank agent should include an AI node")
+        agent.nodes[aiIndex].prompt = "Inspect local code at \(root.path) and make a small change."
+        let run = AgentRunEngine.trigger(
+            agent: agent,
+            trigger: .manual,
+            model: nil,
+            tools: [],
+            runtime: .liveCodingHarness,
+            now: Date(timeIntervalSince1970: 510)
+        )
+        try expect(run.status == .failed, "a naturally resolved workspace should enter the live harness path")
+        try expect(run.logLines.contains { $0.contains("Detected local folder from prompt") }, "run logs should explain prompt-based workspace detection")
+    }),
+    ("workspace resolver fuzzily matches estimated folder names", {
+        let base = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("macagentflow-fuzzy-workspace-\(UUID().uuidString)")
+        let target = base.appendingPathComponent("Desktop/code/agent/ecosystem-coding-agent")
+        defer { try? FileManager.default.removeItem(at: base) }
+        try FileManager.default.createDirectory(at: target, withIntermediateDirectories: true)
+
+        let resolution = CodingWorkspaceResolver.resolve(
+            configuredPath: nil,
+            prompt: "Please update \(base.path)/Desktop/code/agent/ecosystem coding agent"
+        )
+        try expect(resolution.url?.path == target.path, "estimated folder names should resolve by bounded fuzzy matching")
+    }),
+    ("workspace resolver prefers prompt paths over stale chosen folders", {
+        let base = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("macagentflow-stale-override-\(UUID().uuidString)")
+        let repo = base.appendingPathComponent("Desktop/code/cloud-project/agent")
+        let package = repo.appendingPathComponent("ecosystem_coding_agent")
+        let stale = base.appendingPathComponent("Desktop/code/unrelated-agent")
+        defer { try? FileManager.default.removeItem(at: base) }
+        try FileManager.default.createDirectory(at: package, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: stale, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: repo.appendingPathComponent(".git"), withIntermediateDirectories: true)
+        try "name = \"agent\"\n".write(to: repo.appendingPathComponent("pyproject.toml"), atomically: true, encoding: .utf8)
+
+        let resolution = CodingWorkspaceResolver.resolve(
+            configuredPath: stale.path,
+            prompt: "Add a code review node in \(base.path)/Desktop/code/agent/ecosystem coding agent"
+        )
+        try expect(
+            resolution.url?.standardizedFileURL.path == repo.standardizedFileURL.path,
+            "prompt-detected workspaces should override stale chosen folders, got \(resolution.url?.path ?? "nil")"
+        )
+        try expect(resolution.source == "prompt", "prompt path should remain the source when it can be resolved")
+    }),
+    ("LLM model connection tester rejects incomplete configs without network", {
+        let result = LLMModelConnectionTester.test(LLMModelConfig(
+            nickname: "Incomplete",
+            backend: .localOpenAICompatible,
+            baseURL: "",
+            modelName: "qwen"
+        ))
+        try expect(!result.isConnected, "missing base URL should fail model test")
+        try expect(result.message.contains("Base URL"), "model test should explain missing base URL")
     }),
     ("coding harness directives read repo and validation lines", {
         let prompt = """
@@ -312,6 +447,66 @@ let checks: [(String, () throws -> Void)] = [
             options: RepositoryRetrievalOptions(forcedPaths: ["lib/edge_case.py"], includeSymbols: true)
         )
         try expect(forcedContext.selectedFiles.contains("lib/edge_case.py"), "planner-forced paths should enter context even when lexical score is low")
+    }),
+    ("coding harness expands generic source references and test/source neighbors", {
+        let root = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("macagentflow-related-context-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root.appendingPathComponent("src").appendingPathComponent("orders"), withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: root.appendingPathComponent("src").appendingPathComponent("web"), withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: root.appendingPathComponent("Sources").appendingPathComponent("Billing"), withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: root.appendingPathComponent("tests"), withIntermediateDirectories: true)
+        try """
+        from .pricing import calculate_total
+
+        def pipeline_total(items):
+            return calculate_total(items)
+        """.write(to: root.appendingPathComponent("src/orders/pipeline.py"), atomically: true, encoding: .utf8)
+        try """
+        class Money:
+            pass
+
+        def calculate_total(items):
+            return sum(items)
+        """.write(to: root.appendingPathComponent("src/orders/pricing.py"), atomically: true, encoding: .utf8)
+        try """
+        from orders.pipeline import pipeline_total
+
+        def test_pipeline_total_rounding():
+            assert pipeline_total([1, 2]) == 3
+        """.write(to: root.appendingPathComponent("tests/test_pipeline.py"), atomically: true, encoding: .utf8)
+        try """
+        import { formatTotal } from "./formatters"
+
+        export function renderInvoice(value) {
+            return formatTotal(value)
+        }
+        """.write(to: root.appendingPathComponent("src/web/invoice.ts"), atomically: true, encoding: .utf8)
+        try """
+        export function formatTotal(value) {
+            return String(value)
+        }
+        """.write(to: root.appendingPathComponent("src/web/formatters.ts"), atomically: true, encoding: .utf8)
+        try """
+        import Foundation
+
+        struct InvoiceSummary {
+            let total: Int
+        }
+        """.write(to: root.appendingPathComponent("Sources/Billing/InvoiceSummary.swift"), atomically: true, encoding: .utf8)
+
+        let context = RepositoryIndexer.context(
+            rootURL: root,
+            query: "fix pipeline rounding behavior from failing test_pipeline and inspect renderInvoice",
+            maxContextTokens: 1_200,
+            options: RepositoryRetrievalOptions(includeSymbols: true)
+        )
+        try expect(context.retrievalNotes.contains { $0.contains("generic source scan") }, "generic source scan should be logged: \(context.retrievalNotes)")
+        try expect(context.text.contains("class Money"), "generic symbol extraction should include class-like declarations")
+        try expect(context.text.contains("renderInvoice"), "generic symbol extraction should include function-like declarations")
+        try expect(context.retrievalNotes.contains { $0.contains("related-file expansion") }, "related-file expansion should be logged: \(context.retrievalNotes)")
+        try expect(context.selectedFiles.contains("src/orders/pipeline.py"), "test/source pairing should keep pipeline source in context")
+        try expect(context.selectedFiles.contains("src/orders/pricing.py"), "reference expansion should keep related pricing source in context")
+        try expect(context.selectedFiles.contains("src/web/formatters.ts"), "reference expansion should keep related TypeScript source in context")
     })
 ]
 
@@ -429,7 +624,7 @@ let liveHarnessChecks: [(String, () throws -> Void)] = [
         try expect(run.status == .succeeded, "multi-file AI-node harness run should succeed: \(run.logLines.joined(separator: "\n"))")
         try expect(updated.contains("re") || updated.contains("isalnum"), "slugify implementation should contain real normalization logic: \(updated)")
     }),
-    ("local semantic index is used when localhost embeddings are available", {
+    ("local semantic index is opt-in when localhost embeddings are configured", {
         let root = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("macagentflow-semantic-context-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: root) }
         try FileManager.default.createDirectory(at: root.appendingPathComponent("src"), withIntermediateDirectories: true)
@@ -446,10 +641,24 @@ let liveHarnessChecks: [(String, () throws -> Void)] = [
             rootURL: root,
             query: "make customer names canonical before showing them",
             maxContextTokens: 1_200,
-            options: RepositoryRetrievalOptions(semanticModel: localQwenModelConfig(), includeSymbols: true)
+            options: RepositoryRetrievalOptions(includeSymbols: true)
         )
-        try expect(context.retrievalNotes.contains { $0.contains("semantic rerank used") }, "local embedding rerank should be used: \(context.retrievalNotes)")
-        try expect(context.selectedFiles.contains("src/names.py"), "semantic/symbol retrieval should keep the names implementation in context")
+        try expect(context.retrievalNotes.contains("semantic rerank skipped"), "semantic rerank should be skipped without an embedding model: \(context.retrievalNotes)")
+
+        guard let embeddingModelName = ProcessInfo.processInfo.environment["MAC_AGENT_FLOW_LIVE_EMBEDDING_MODEL"],
+              !embeddingModelName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            try expect(context.selectedFiles.contains("src/names.py"), "symbol retrieval should keep the names implementation in context")
+            return
+        }
+
+        let semanticContext = RepositoryIndexer.context(
+            rootURL: root,
+            query: "make customer names canonical before showing them",
+            maxContextTokens: 1_200,
+            options: RepositoryRetrievalOptions(embeddingModel: localEmbeddingModelConfig(modelName: embeddingModelName), includeSymbols: true)
+        )
+        try expect(semanticContext.retrievalNotes.contains { $0.contains("semantic rerank used") }, "configured local embedding rerank should be used: \(semanticContext.retrievalNotes)")
+        try expect(semanticContext.selectedFiles.contains("src/names.py"), "semantic/symbol retrieval should keep the names implementation in context")
     })
 ]
 
@@ -460,6 +669,16 @@ func localQwenModelConfig() -> LLMModelConfig {
         baseURL: "http://127.0.0.1:1234/v1",
         apiKey: "local",
         modelName: "qwen/qwen3.6-35b-a3b"
+    )
+}
+
+func localEmbeddingModelConfig(modelName: String) -> EmbeddingModelConfig {
+    EmbeddingModelConfig(
+        nickname: "Local Embeddings",
+        backend: .localOpenAICompatible,
+        baseURL: "http://127.0.0.1:1234/v1",
+        apiKey: "local",
+        modelName: modelName
     )
 }
 

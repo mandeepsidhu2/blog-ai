@@ -8,35 +8,23 @@ struct InspectorView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            SelectedItemPanel(mode: $selectedItemMode)
-                .padding(12)
-
-            Divider()
-
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Agent & Workspace")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.secondary)
-                    .padding(.horizontal, 12)
-                InspectorTabBar(selection: $store.inspectorSection)
-            }
-            .padding(.top, 10)
+            InspectorModeBar(selection: $store.inspectorSection)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 10)
 
             Divider()
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     switch store.inspectorSection {
+                    case .selection:
+                        SelectedItemPanel(mode: $selectedItemMode)
                     case .source:
                         GraphSourceSection()
-                    case .agent:
-                        AgentSettingsSection()
-                    case .runs:
-                        RunsSection()
+                    case .model:
+                        ModelSettingsSection()
                     case .schedules:
                         SchedulesSection()
-                    case .harness:
-                        HarnessSection()
                     }
                 }
                 .padding(12)
@@ -53,24 +41,21 @@ enum SelectedItemMode: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-struct InspectorTabBar: View {
+struct InspectorModeBar: View {
     @Binding var selection: InspectorSection
-    private let columns = [
-        GridItem(.adaptive(minimum: 72), spacing: 6, alignment: .leading)
-    ]
 
     var body: some View {
-        LazyVGrid(columns: columns, alignment: .leading, spacing: 6) {
-            ForEach(InspectorSection.allCases) { section in
+        HStack(spacing: 8) {
+            ForEach(InspectorSection.workspaceSections) { section in
                 Button {
                     selection = section
                 } label: {
-                    Text(section.rawValue)
+                    Label(section.rawValue, systemImage: section.systemImage)
                         .font(.caption.weight(.semibold))
                         .lineLimit(1)
                         .minimumScaleFactor(0.8)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 6)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 7)
                         .frame(maxWidth: .infinity)
                         .foregroundStyle(selection == section ? Color.white : Color.primary)
                         .background(
@@ -84,8 +69,6 @@ struct InspectorTabBar: View {
                 .help(section.rawValue)
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.bottom, 10)
     }
 }
 
@@ -95,12 +78,10 @@ struct SelectedItemPanel: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            if let edge = store.selectedEdge {
-                SelectedConnectorSection(edge: edge)
-            } else if let node = store.selectedNode {
-                HStack(alignment: .center) {
-                    SectionHeader(title: "Selected Node", systemImage: "slider.horizontal.3")
-                    Spacer()
+            HStack(alignment: .center) {
+                SectionHeader(title: headerTitle, systemImage: headerIcon)
+                Spacer()
+                if let node = store.selectedNode {
                     Label(node.kind.title, systemImage: node.kind.symbolName)
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(Color.accentColor)
@@ -108,7 +89,11 @@ struct SelectedItemPanel: View {
                         .padding(.vertical, 4)
                         .background(Color.accentColor.opacity(0.10), in: Capsule())
                 }
+            }
 
+            if let edge = store.selectedEdge {
+                SelectedConnectorSection(edge: edge)
+            } else if let node = store.selectedNode {
                 Picker("Selected node mode", selection: $mode) {
                     ForEach(SelectedItemMode.allCases) { itemMode in
                         Text(itemMode.rawValue).tag(itemMode)
@@ -124,36 +109,47 @@ struct SelectedItemPanel: View {
                     SelectedNodeToolsSection(node: node)
                 }
             } else {
-                VStack(alignment: .leading, spacing: 6) {
-                    SectionHeader(title: "Selected Item", systemImage: "cursorarrow.click")
-                    Text("Select a node or connector on the canvas to edit it here.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+                Text("Select a node or connector on the canvas to edit it here.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
         }
         .padding(12)
         .background(Color.accentColor.opacity(0.05), in: RoundedRectangle(cornerRadius: 10))
         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.accentColor.opacity(0.22)))
     }
+
+    private var headerTitle: String {
+        if store.selectedEdge != nil {
+            return "Selected Connector"
+        }
+        if store.selectedNode != nil {
+            return "Selected Node"
+        }
+        return "Selected Item"
+    }
+
+    private var headerIcon: String {
+        if store.selectedEdge != nil {
+            return "point.topleft.down.curvedto.point.bottomright.up"
+        }
+        if store.selectedNode != nil {
+            return "slider.horizontal.3"
+        }
+        return "cursorarrow.click"
+    }
+
 }
 
-struct AgentSettingsSection: View {
+struct ModelSettingsSection: View {
     @EnvironmentObject private var store: WorkspaceStore
     @State private var showsModelDetails = false
+    @State private var showsAgentMetadata = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            SectionHeader(title: "Agent", systemImage: "point.3.connected.trianglepath.dotted")
+            SectionHeader(title: "Model", systemImage: "brain.head.profile")
             if let agent = store.selectedAgent {
-                TextField("Name", text: Binding(
-                    get: { agent.name },
-                    set: { store.renameSelectedAgent($0) }
-                ))
-                TextField("Summary", text: Binding(
-                    get: { agent.summary },
-                    set: { value in store.updateSelectedAgent { $0.summary = value } }
-                ))
                 VStack(alignment: .leading, spacing: 8) {
                     if let fallbackModelID = store.workspace.llmModels.first?.id {
                         Picker("LLM model", selection: Binding<UUID>(
@@ -197,6 +193,25 @@ struct AgentSettingsSection: View {
                         store.openModelsPage(selecting: agent.llmModelConfigID)
                     }
                 }
+
+                DisclosureGroup(isExpanded: $showsAgentMetadata) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        TextField("Name", text: Binding(
+                            get: { agent.name },
+                            set: { store.renameSelectedAgent($0) }
+                        ))
+                        TextField("Summary", text: Binding(
+                            get: { agent.summary },
+                            set: { value in store.updateSelectedAgent { $0.summary = value } }
+                        ))
+                    }
+                    .padding(.top, 6)
+                } label: {
+                    Text("Agent metadata")
+                        .font(.caption.weight(.semibold))
+                }
+                .padding(8)
+                .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
             }
 
             Divider()
@@ -250,6 +265,10 @@ struct SelectedNodeDetailsSection: View {
             ))
 
             if node.kind == .ai || node.kind == .condition {
+                if node.kind == .ai {
+                    CodingRepositorySection(node: node)
+                }
+
                 VStack(alignment: .leading, spacing: 6) {
                     Text(node.kind == .condition ? "Router prompt" : "Prompt")
                         .font(.caption.weight(.semibold))
@@ -313,6 +332,86 @@ struct SelectedNodeDetailsSection: View {
                     .foregroundStyle(.secondary)
             }
         }
+    }
+}
+
+struct CodingRepositorySection: View {
+    @EnvironmentObject private var store: WorkspaceStore
+    let node: AgentNode
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Workspace")
+                .font(.caption.weight(.semibold))
+
+            Label(resolution.message, systemImage: resolutionIcon)
+                .font(.caption)
+                .foregroundStyle(resolutionColor)
+                .lineLimit(2)
+                .truncationMode(.middle)
+
+            Text("Mention a local folder naturally in the prompt. Choose a folder only when macOS needs access or the path is ambiguous.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            if resolution.needsPermission || resolution.source == "chosen" {
+                HStack {
+                    Button(resolution.needsPermission ? "Grant Access" : "Change Folder") {
+                        chooseWorkspace()
+                    }
+                    if normalizedOptional(node.repositoryPath) != nil {
+                        Button("Forget Folder") {
+                            store.updateSelectedNode { $0.repositoryPath = nil }
+                        }
+                    }
+                    Spacer()
+                }
+            }
+
+            TextField("Validation command", text: Binding(
+                get: { node.validationCommand ?? "" },
+                set: { value in
+                    store.updateSelectedNode {
+                        $0.validationCommand = normalizedOptional(value)
+                    }
+                }
+            ))
+            .help("Optional local command run after code edits")
+        }
+        .padding(10)
+        .background(Color.accentColor.opacity(0.06), in: RoundedRectangle(cornerRadius: 8))
+        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.accentColor.opacity(0.14)))
+    }
+
+    private var resolution: CodingWorkspaceResolution {
+        CodingWorkspaceResolver.resolve(configuredPath: node.repositoryPath, prompt: node.prompt)
+    }
+
+    private var resolutionIcon: String {
+        if resolution.url != nil { return "checkmark.circle.fill" }
+        return resolution.needsPermission ? "exclamationmark.triangle.fill" : "sparkles"
+    }
+
+    private var resolutionColor: Color {
+        if resolution.url != nil { return .green }
+        return resolution.needsPermission ? .orange : .secondary
+    }
+
+    private func chooseWorkspace() {
+        let panel = NSOpenPanel()
+        panel.title = "Grant Workspace Access"
+        panel.message = "Choose the local folder this AI node is allowed to inspect and edit."
+        panel.prompt = "Select"
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = false
+        panel.allowsMultipleSelection = false
+        panel.resolvesAliases = true
+        if let path = normalizedOptional(node.repositoryPath) {
+            panel.directoryURL = URL(fileURLWithPath: NSString(string: path).expandingTildeInPath)
+        }
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        store.updateSelectedNode { $0.repositoryPath = url.path }
     }
 }
 
@@ -419,7 +518,6 @@ struct SelectedConnectorSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Selected Connector", systemImage: "point.topleft.down.curvedto.point.bottomright.up")
             TextField("Label", text: Binding(
                 get: { edge.label },
                 set: { value in store.updateSelectedEdge { $0.label = value } }
@@ -451,244 +549,78 @@ struct SelectedConnectorSection: View {
 struct GraphSourceSection: View {
     @EnvironmentObject private var store: WorkspaceStore
     @State private var didCopy = false
-
-    private var source: String {
-        guard let agent = store.selectedAgent else { return "" }
-        return AgentPythonSourceRenderer.render(agent: agent, model: store.selectedAgentLLMModel, tools: store.workspace.toolCatalog)
-    }
+    @State private var renderedSource = ""
+    @State private var renderedKey = GraphSourceRenderKey.empty
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                SectionHeader(title: "Python Source", systemImage: "curlybraces")
+                SectionHeader(title: "Code", systemImage: "chevron.left.forwardslash.chevron.right")
                 Spacer()
                 Button {
                     NSPasteboard.general.clearContents()
-                    NSPasteboard.general.setString(source, forType: .string)
+                    NSPasteboard.general.setString(renderedSource, forType: .string)
                     didCopy = true
                 } label: {
                     Label(didCopy ? "Copied" : "Copy", systemImage: "doc.on.doc")
                 }
-                .disabled(source.isEmpty)
+                .disabled(renderedSource.isEmpty)
             }
 
-            Text("Generated from the current canvas topology, model config, prompts, Python nodes, tools, branches, and connector labels.")
+            Text("Generated LangGraph Python for the current topology, model config, prompts, Python nodes, tools, branches, and connector labels.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
 
-            PythonCodeEditor(text: .constant(source), isEditable: false)
+            PythonCodeEditor(text: .constant(renderedSource), isEditable: false)
                 .frame(height: 560)
                 .clipShape(RoundedRectangle(cornerRadius: 6))
                 .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.secondary.opacity(0.18)))
         }
+        .onAppear(perform: refreshSourceIfNeeded)
+        .onChange(of: currentRenderKey) { _, _ in
+            refreshSourceIfNeeded()
+        }
+    }
+
+    private var currentRenderKey: GraphSourceRenderKey {
+        guard let agent = store.selectedAgent else { return .empty }
+        let selectedToolIDs = Set(agent.nodes.flatMap(\.selectedToolIDs))
+        let toolFingerprints = store.workspace.toolCatalog
+            .filter { selectedToolIDs.contains($0.id) }
+            .sorted { $0.id < $1.id }
+            .map { tool in
+                "\(tool.id)|\(tool.name)|\(tool.category)|\(tool.summary)|\(tool.isMutating)|\(tool.pythonCode.hashValue)"
+            }
+        let model = store.selectedAgentLLMModel
+        return GraphSourceRenderKey(
+            agentID: agent.id,
+            agentUpdatedAt: agent.updatedAt,
+            modelFingerprint: model.map { "\($0.id)|\($0.nickname)|\($0.backend.rawValue)|\($0.baseURL)|\($0.modelName)" } ?? "",
+            toolFingerprints: toolFingerprints
+        )
+    }
+
+    private func refreshSourceIfNeeded() {
+        let key = currentRenderKey
+        guard key != renderedKey else { return }
+        renderedKey = key
+        didCopy = false
+        guard let agent = store.selectedAgent else {
+            renderedSource = ""
+            return
+        }
+        renderedSource = AgentPythonSourceRenderer.render(agent: agent, model: store.selectedAgentLLMModel, tools: store.workspace.toolCatalog)
     }
 }
 
-struct RunsSection: View {
-    @EnvironmentObject private var store: WorkspaceStore
+private struct GraphSourceRenderKey: Equatable {
+    var agentID: UUID?
+    var agentUpdatedAt: Date?
+    var modelFingerprint: String
+    var toolFingerprints: [String]
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                SectionHeader(title: "Runs", systemImage: "clock.arrow.circlepath")
-                Spacer()
-                Button("Trigger") {
-                    store.triggerRun()
-                }
-            }
-
-            if let agent = store.selectedAgent {
-                ForEach(agent.runs.sorted(by: { $0.number > $1.number })) { run in
-                    RunCard(run: run, isSelected: run.id == store.selectedRunID)
-                        .onTapGesture {
-                            store.selectedRunID = run.id
-                        }
-                }
-
-                if agent.runs.isEmpty {
-                    Text("No runs yet. Trigger a run to create history.")
-                        .foregroundStyle(.secondary)
-                }
-            }
-        }
-    }
-}
-
-struct RunCard: View {
-    let run: AgentRun
-    let isSelected: Bool
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Text("#\(run.number)")
-                    .font(.headline)
-                StatusBadge(status: run.status)
-                Spacer()
-                Text(run.trigger.rawValue)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-            Text(run.startedAt.formatted(date: .abbreviated, time: .shortened))
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            if isSelected {
-                Divider()
-                RunStateSummary(summary: run.stateSummary)
-                RunTimeline(steps: RunTimelineStep.steps(from: run))
-            } else {
-                Text("\(RunTimelineStep.steps(from: run).count) steps")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .padding(10)
-        .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
-        .overlay(RoundedRectangle(cornerRadius: 8).stroke(isSelected ? Color.accentColor : Color.secondary.opacity(0.16)))
-    }
-}
-
-struct RunStateSummary: View {
-    let summary: String
-
-    var values: [String] {
-        summary
-            .split(separator: ",")
-            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .filter { !$0.isEmpty }
-    }
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("State")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(.secondary)
-            if values.isEmpty {
-                Text("No state summary")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            } else {
-                FlowLayout(spacing: 6) {
-                    ForEach(values, id: \.self) { value in
-                        Text(value)
-                            .font(.caption2.monospaced())
-                            .lineLimit(1)
-                            .padding(.horizontal, 7)
-                            .padding(.vertical, 3)
-                            .background(Color.secondary.opacity(0.10), in: Capsule())
-                    }
-                }
-            }
-        }
-    }
-}
-
-struct RunTimeline: View {
-    let steps: [RunTimelineStep]
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Path")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(.secondary)
-            VStack(alignment: .leading, spacing: 0) {
-                ForEach(Array(steps.enumerated()), id: \.element.id) { index, step in
-                    RunTimelineRow(step: step, isLast: index == steps.count - 1)
-                }
-            }
-        }
-    }
-}
-
-struct RunTimelineRow: View {
-    let step: RunTimelineStep
-    let isLast: Bool
-
-    var body: some View {
-        HStack(alignment: .top, spacing: 9) {
-            VStack(spacing: 0) {
-                Image(systemName: step.symbolName)
-                    .font(.system(size: 11, weight: .bold))
-                    .foregroundStyle(.white)
-                    .frame(width: 22, height: 22)
-                    .background(step.color, in: Circle())
-                if !isLast {
-                    Rectangle()
-                        .fill(step.color.opacity(0.28))
-                        .frame(width: 2, height: 24)
-                }
-            }
-            VStack(alignment: .leading, spacing: 2) {
-                Text(step.title)
-                    .font(.caption.weight(.semibold))
-                Text(step.detail)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            Spacer(minLength: 0)
-        }
-    }
-}
-
-struct RunTimelineStep: Identifiable, Equatable {
-    let id: Int
-    let title: String
-    let detail: String
-
-    var symbolName: String {
-        switch title {
-        case "Start":
-            return "play.fill"
-        case "End":
-            return "checkmark"
-        default:
-            if title.localizedCaseInsensitiveContains("Gate") { return "arrow.triangle.branch" }
-            if detail.localizedCaseInsensitiveContains("tool") { return "wrench.and.screwdriver" }
-            if detail.localizedCaseInsensitiveContains("prompt") || detail.localizedCaseInsensitiveContains("JSON") { return "sparkles" }
-            if detail.localizedCaseInsensitiveContains("Python") || detail.localizedCaseInsensitiveContains("code") { return "curlybraces" }
-            return "circle.fill"
-        }
-    }
-
-    var color: Color {
-        switch title {
-        case "Start", "End":
-            return .green
-        default:
-            if title.localizedCaseInsensitiveContains("Gate") { return .orange }
-            if detail.localizedCaseInsensitiveContains("tool") { return .teal }
-            if detail.localizedCaseInsensitiveContains("prompt") || detail.localizedCaseInsensitiveContains("JSON") { return .purple }
-            if detail.localizedCaseInsensitiveContains("Python") || detail.localizedCaseInsensitiveContains("code") { return .blue }
-            return .accentColor
-        }
-    }
-
-    static func steps(from run: AgentRun) -> [RunTimelineStep] {
-        run.logLines.enumerated().map { index, line in
-            let parts = line.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: false)
-            let title = parts.first.map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) } ?? "Step"
-            let detail = parts.dropFirst().first.map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) } ?? line
-            return RunTimelineStep(id: index, title: title, detail: detail)
-        }
-    }
-}
-
-struct FlowLayout<Content: View>: View {
-    let spacing: CGFloat
-    @ViewBuilder var content: Content
-
-    var body: some View {
-        ViewThatFits(in: .horizontal) {
-            HStack(spacing: spacing) {
-                content
-            }
-            VStack(alignment: .leading, spacing: spacing) {
-                content
-            }
-        }
-    }
+    static let empty = GraphSourceRenderKey(agentID: nil, agentUpdatedAt: nil, modelFingerprint: "", toolFingerprints: [])
 }
 
 struct SchedulesSection: View {
@@ -697,7 +629,7 @@ struct SchedulesSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                SectionHeader(title: "Schedules", systemImage: "calendar.badge.clock")
+                SectionHeader(title: "Schedule", systemImage: "alarm")
                 Spacer()
                 Button("Add") {
                     store.addSchedule()
@@ -753,34 +685,6 @@ struct ScheduleEditor: View {
     }
 }
 
-struct HarnessSection: View {
-    @EnvironmentObject private var store: WorkspaceStore
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Harness Skills", systemImage: "checklist")
-            Text("These are the local harness skills that make the Mac app maintainable by agents.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            ForEach(store.workspace.harnessSkills) { skill in
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(skill.name)
-                        .font(.subheadline.weight(.semibold))
-                    Text(skill.purpose)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    LabeledContent("Artifact", value: skill.artifactPath)
-                        .font(.caption)
-                    LabeledContent("Gate", value: skill.qualityGate)
-                        .font(.caption)
-                }
-                .padding(10)
-                .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
-            }
-        }
-    }
-}
-
 struct GraphChecksSection: View {
     @EnvironmentObject private var store: WorkspaceStore
 
@@ -833,4 +737,10 @@ struct StatusBadge: View {
         case .cancelled: .orange
         }
     }
+}
+
+private func normalizedOptional(_ value: String?) -> String? {
+    guard let value else { return nil }
+    let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+    return trimmed.isEmpty ? nil : trimmed
 }

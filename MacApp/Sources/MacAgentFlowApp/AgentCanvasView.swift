@@ -117,8 +117,9 @@ struct AgentCanvasView: View {
             guard let title = line.split(separator: ":", maxSplits: 1).first else { return nil }
             return String(title).trimmingCharacters(in: .whitespacesAndNewlines)
         }
-        let nodesByTitle = Dictionary(uniqueKeysWithValues: agent.nodes.map { ($0.title, $0) })
-        let nodeIDs = titles.compactMap { nodesByTitle[$0]?.id }
+        let nodeIDs = titles.compactMap { title in
+            agent.nodes.first { $0.title == title }?.id
+        }
         var edgeIDs: Set<UUID> = []
         for index in nodeIDs.indices.dropLast() {
             let from = nodeIDs[index]

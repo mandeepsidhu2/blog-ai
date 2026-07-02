@@ -1,3 +1,4 @@
+import AppKit
 import Foundation
 import MacAgentFlowCore
 import SwiftUI
@@ -9,9 +10,16 @@ final class WorkspaceStore: ObservableObject {
     @Published var selectedEdgeID: UUID?
     @Published var selectedRunID: UUID?
     @Published var appPage: AppPage = .console
-    @Published var inspectorSection: InspectorSection = .source
+    @Published var inspectorSection: InspectorSection = .selection
     @Published var selectedToolID: String?
     @Published var selectedModelConfigID: UUID?
+    @Published var selectedModelConfigKind: ModelConfigKind = .chat
+    @Published var selectedEmbeddingModelConfigID: UUID?
+    @Published var runPreflightMessage: String?
+    @Published var pendingAgentDeletionID: UUID?
+    @Published var isManualRunPreflightInProgress = false
+    @Published var isWorkspaceSidebarCollapsed = false
+    @Published var isRightPanelCollapsed = false
     @Published private(set) var canUndo = false
     @Published private(set) var canRedo = false
 
@@ -20,6 +28,7 @@ final class WorkspaceStore: ObservableObject {
     private var undoStack: [AgentWorkspace] = []
     private var redoStack: [AgentWorkspace] = []
     private let maxHistoryDepth = 80
+    private static let persistenceQueue = DispatchQueue(label: "MacAgentFlow.workspace.persistence", qos: .utility)
 
     init(workspace: AgentWorkspace = .sample, persistenceURL: URL? = nil) {
         self.persistenceURL = persistenceURL ?? Self.defaultPersistenceURL()
@@ -36,7 +45,8 @@ final class WorkspaceStore: ObservableObject {
         selectedRunID = nil
         selectedToolID = self.workspace.toolCatalog.first?.id
         selectedModelConfigID = self.workspace.llmModels.first?.id
-        inspectorSection = .source
+        selectedEmbeddingModelConfigID = self.workspace.activeEmbeddingModelID ?? self.workspace.embeddingModels.first?.id
+        inspectorSection = .selection
         if shouldPersistNormalizedWorkspace {
             persist()
         }
@@ -86,6 +96,27 @@ final class WorkspaceStore: ObservableObject {
         return workspace.llmModels.first
     }
 
+    var selectedEmbeddingModelConfig: EmbeddingModelConfig? {
+        if let selectedEmbeddingModelConfigID,
+           let model = workspace.embeddingModels.first(where: { $0.id == selectedEmbeddingModelConfigID }) {
+            return model
+        }
+        return workspace.embeddingModels.first
+    }
+
+    var activeEmbeddingModelConfig: EmbeddingModelConfig? {
+        guard let activeEmbeddingModelID = workspace.activeEmbeddingModelID else { return nil }
+        return workspace.embeddingModels.first { $0.id == activeEmbeddingModelID }
+    }
+
+    var pendingAgentDeletionName: String {
+        guard let pendingAgentDeletionID,
+              let agent = workspace.agents.first(where: { $0.id == pendingAgentDeletionID }) else {
+            return "this agent"
+        }
+        return agent.name
+    }
+
     var canDeleteSelection: Bool {
         if selectedEdge != nil { return true }
         guard let selectedNode else { return false }
@@ -105,6 +136,20 @@ final class WorkspaceStore: ObservableObject {
         appPage = .console
     }
 
+    func openRunsPage(selecting runID: UUID? = nil) {
+        if let runID, selectedAgent?.runs.contains(where: { $0.id == runID }) == true {
+            selectedRunID = runID
+        } else if selectedRun == nil {
+            selectedRunID = selectedAgent?.runs.sorted(by: { $0.number > $1.number }).first?.id
+        }
+        appPage = .runs
+    }
+
+    func openRunsPage(for agentID: UUID) {
+        selectAgent(agentID)
+        openRunsPage()
+    }
+
     func openToolsPage(selecting toolID: String? = nil) {
         if let toolID, workspace.toolCatalog.contains(where: { $0.id == toolID }) {
             selectedToolID = toolID
@@ -120,28 +165,42 @@ final class WorkspaceStore: ObservableObject {
         } else if selectedModelConfig == nil {
             selectedModelConfigID = workspace.llmModels.first?.id
         }
+        selectedModelConfigKind = .chat
         appPage = .models
     }
 
-    func selectAgent(_ id: UUID) {
+    func openEmbeddingModelsPage(selecting modelID: UUID? = nil) {
+        if let modelID, workspace.embeddingModels.contains(where: { $0.id == modelID }) {
+            selectedEmbeddingModelConfigID = modelID
+        } else if selectedEmbeddingModelConfig == nil {
+            selectedEmbeddingModelConfigID = workspace.activeEmbeddingModelID ?? workspace.embeddingModels.first?.id
+        }
+        selectedModelConfigKind = .embedding
+        appPage = .models
+    }
+
+    func selectAgent(_ id: UUID, openConsole: Bool = false) {
         workspace.selectedAgentID = id
+        if openConsole {
+            appPage = .console
+        }
         selectedNodeID = selectedAgent?.nodes.first(where: { $0.kind == .start })?.id
         selectedEdgeID = nil
-        selectedRunID = nil
-        inspectorSection = .source
+        selectedRunID = appPage == .runs ? selectedAgent?.runs.sorted(by: { $0.number > $1.number }).first?.id : nil
+        inspectorSection = .selection
         persist()
     }
 
     func selectNode(_ id: UUID) {
         selectedNodeID = id
         selectedEdgeID = nil
-        inspectorSection = .source
+        inspectorSection = .selection
     }
 
     func selectEdge(_ id: UUID) {
         selectedEdgeID = id
         selectedNodeID = nil
-        inspectorSection = .source
+        inspectorSection = .selection
     }
 
     func createAgent() {
@@ -150,10 +209,56 @@ final class WorkspaceStore: ObservableObject {
         agent.llmModelConfigID = workspace.llmModels.first?.id
         workspace.agents.append(agent)
         workspace.selectedAgentID = agent.id
+        appPage = .console
         selectedNodeID = agent.nodes.first(where: { $0.kind == .start })?.id
         selectedEdgeID = nil
         selectedRunID = nil
-        inspectorSection = .source
+        inspectorSection = .selection
+        commitWorkspaceChange(from: before)
+    }
+
+    func requestDeleteAgent(_ id: UUID) {
+        guard workspace.agents.contains(where: { $0.id == id }) else { return }
+        pendingAgentDeletionID = id
+    }
+
+    func cancelPendingAgentDeletion() {
+        pendingAgentDeletionID = nil
+    }
+
+    func confirmPendingAgentDeletion() {
+        guard let pendingAgentDeletionID else { return }
+        deleteAgent(pendingAgentDeletionID)
+    }
+
+    private func deleteAgent(_ id: UUID) {
+        guard let index = workspace.agents.firstIndex(where: { $0.id == id }) else {
+            pendingAgentDeletionID = nil
+            return
+        }
+
+        let before = workspace
+        let deletingSelectedAgent = workspace.selectedAgentID == id
+        workspace.agents.remove(at: index)
+        pendingAgentDeletionID = nil
+
+        if deletingSelectedAgent {
+            workspace.selectedAgentID = workspace.agents.indices.contains(index)
+                ? workspace.agents[index].id
+                : workspace.agents.last?.id
+            selectedNodeID = selectedAgent?.nodes.first(where: { $0.kind == .start })?.id
+            selectedEdgeID = nil
+            selectedRunID = appPage == .runs ? selectedAgent?.runs.sorted(by: { $0.number > $1.number }).first?.id : nil
+        }
+
+        if workspace.agents.isEmpty {
+            workspace.selectedAgentID = nil
+            selectedNodeID = nil
+            selectedEdgeID = nil
+            selectedRunID = nil
+            appPage = .console
+        }
+
         commitWorkspaceChange(from: before)
     }
 
@@ -234,7 +339,7 @@ final class WorkspaceStore: ObservableObject {
             }
             selectedNodeID = node.id
             selectedEdgeID = nil
-            inspectorSection = .source
+            inspectorSection = .selection
         }
     }
 
@@ -266,7 +371,7 @@ final class WorkspaceStore: ObservableObject {
             guard let copy = AgentGraphEditor.duplicateNode(copiedNode, in: &agent) else { return }
             self.selectedNodeID = copy.id
             self.selectedEdgeID = nil
-            self.inspectorSection = .source
+            self.inspectorSection = .selection
             self.copiedNode = copy
         }
     }
@@ -303,7 +408,7 @@ final class WorkspaceStore: ObservableObject {
             agent.edges.append(edge)
             self.selectedNodeID = nil
             self.selectedEdgeID = edge.id
-            self.inspectorSection = .source
+            self.inspectorSection = .selection
         }
     }
 
@@ -333,7 +438,7 @@ final class WorkspaceStore: ObservableObject {
             }
             self.selectedNodeID = nil
             self.selectedEdgeID = edgeID
-            self.inspectorSection = .source
+            self.inspectorSection = .selection
         }
     }
 
@@ -379,6 +484,56 @@ final class WorkspaceStore: ObservableObject {
         for index in workspace.agents.indices where workspace.agents[index].llmModelConfigID == modelID {
             workspace.agents[index].llmModelConfigID = fallbackID
         }
+        commitWorkspaceChange(from: before)
+    }
+
+    func addEmbeddingModel() {
+        let before = workspace
+        let count = workspace.embeddingModels.count + 1
+        let model = EmbeddingModelConfig(
+            nickname: "Embedding Model \(count)",
+            backend: .localOpenAICompatible,
+            baseURL: LLMBackend.localOpenAICompatible.defaultBaseURL,
+            apiKey: "local",
+            modelName: ""
+        )
+        workspace.embeddingModels.append(model)
+        workspace.activeEmbeddingModelID = model.id
+        selectedEmbeddingModelConfigID = model.id
+        selectedModelConfigKind = .embedding
+        appPage = .models
+        commitWorkspaceChange(from: before)
+    }
+
+    func updateEmbeddingModel(_ modelID: UUID, mutate: (inout EmbeddingModelConfig) -> Void) {
+        let before = workspace
+        guard let index = workspace.embeddingModels.firstIndex(where: { $0.id == modelID }) else { return }
+        mutate(&workspace.embeddingModels[index])
+        commitWorkspaceChange(from: before)
+    }
+
+    func setActiveEmbeddingModel(_ modelID: UUID?) {
+        let before = workspace
+        if let modelID, workspace.embeddingModels.contains(where: { $0.id == modelID }) {
+            workspace.activeEmbeddingModelID = modelID
+            selectedEmbeddingModelConfigID = modelID
+        } else {
+            workspace.activeEmbeddingModelID = nil
+        }
+        selectedModelConfigKind = .embedding
+        commitWorkspaceChange(from: before)
+    }
+
+    func deleteEmbeddingModel(_ modelID: UUID) {
+        let before = workspace
+        workspace.embeddingModels.removeAll { $0.id == modelID }
+        if selectedEmbeddingModelConfigID == modelID {
+            selectedEmbeddingModelConfigID = workspace.embeddingModels.first?.id
+        }
+        if workspace.activeEmbeddingModelID == modelID {
+            workspace.activeEmbeddingModelID = nil
+        }
+        selectedModelConfigKind = .embedding
         commitWorkspaceChange(from: before)
     }
 
@@ -446,21 +601,88 @@ final class WorkspaceStore: ObservableObject {
         commitWorkspaceChange(from: before)
     }
 
+    func triggerManualRun() {
+        guard let agent = selectedAgent else { return }
+        runPreflightMessage = nil
+        guard agent.nodes.contains(where: { $0.kind == .ai }) else {
+            insertRun(trigger: .manual)
+            return
+        }
+        guard let modelID = agent.llmModelConfigID,
+              let model = workspace.llmModels.first(where: { $0.id == modelID }) else {
+            runPreflightMessage = "\(agent.name) has AI nodes but no LLM model is selected."
+            return
+        }
+        guard !isManualRunPreflightInProgress else { return }
+
+        isManualRunPreflightInProgress = true
+        let agentID = agent.id
+        Task {
+            let result = await Task.detached(priority: .utility) {
+                LLMModelConnectionTester.test(model)
+            }.value
+            await MainActor.run {
+                isManualRunPreflightInProgress = false
+                guard workspace.selectedAgentID == agentID else { return }
+                if result.isConnected {
+                    insertRun(trigger: .manual)
+                } else {
+                    runPreflightMessage = "Cannot run \(agent.name). Model \(model.displayName) is not connected: \(result.message)"
+                }
+            }
+        }
+    }
+
     func triggerRun(trigger: AgentRunTrigger = .manual) {
+        if trigger == .manual {
+            triggerManualRun()
+            return
+        }
+        insertRun(trigger: trigger)
+    }
+
+    private func insertRun(trigger: AgentRunTrigger) {
+        grantWorkspaceAccessIfNeeded()
         let model = selectedAgentLLMModel
+        let embeddingModel = activeEmbeddingModelConfig
         let tools = workspace.toolCatalog
         updateSelectedAgent { agent in
             let run = AgentRunEngine.trigger(
                 agent: agent,
                 trigger: trigger,
                 model: model,
+                embeddingModel: embeddingModel,
                 tools: tools,
                 runtime: .liveCodingHarness
             )
             agent.runs.insert(run, at: 0)
             selectedRunID = run.id
-            inspectorSection = .runs
+            appPage = .runs
         }
+    }
+
+    private func grantWorkspaceAccessIfNeeded() {
+        guard let agentIndex = workspace.agents.firstIndex(where: { $0.id == workspace.selectedAgentID }) else { return }
+        guard let nodeIndex = workspace.agents[agentIndex].nodes.firstIndex(where: { node in
+            guard node.kind == .ai else { return false }
+            let resolution = CodingWorkspaceResolver.resolve(configuredPath: node.repositoryPath, prompt: node.prompt)
+            return resolution.url == nil && resolution.needsPermission
+        }) else { return }
+
+        let panel = NSOpenPanel()
+        panel.title = "Grant Workspace Access"
+        panel.message = "The selected AI node mentions a local folder, but the app cannot access it. Choose the folder it should inspect and edit."
+        panel.prompt = "Grant Access"
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = false
+        panel.allowsMultipleSelection = false
+        panel.resolvesAliases = true
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+
+        let before = workspace
+        workspace.agents[agentIndex].nodes[nodeIndex].repositoryPath = url.path
+        workspace.agents[agentIndex].updatedAt = Date()
+        commitWorkspaceChange(from: before)
     }
 
     func addSchedule() {
@@ -484,12 +706,16 @@ final class WorkspaceStore: ObservableObject {
     }
 
     func persist() {
-        do {
-            try FileManager.default.createDirectory(at: persistenceURL.deletingLastPathComponent(), withIntermediateDirectories: true)
-            let data = try JSONEncoder.agentFlow.encode(workspace)
-            try data.write(to: persistenceURL, options: .atomic)
-        } catch {
-            assertionFailure("Unable to persist workspace: \(error)")
+        let snapshot = workspace
+        let url = persistenceURL
+        Self.persistenceQueue.async {
+            do {
+                try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+                let data = try JSONEncoder.agentFlow.encode(snapshot)
+                try data.write(to: url, options: .atomic)
+            } catch {
+                assertionFailure("Unable to persist workspace: \(error)")
+            }
         }
     }
 
@@ -587,6 +813,13 @@ final class WorkspaceStore: ObservableObject {
         var result = workspace
         if result.llmModels.isEmpty {
             result.llmModels = LLMModelConfig.defaultConfigs
+        } else {
+            result.llmModels = normalizedLLMModels(result.llmModels)
+        }
+        let embeddingIDs = Set(result.embeddingModels.map(\.id))
+        if let activeEmbeddingModelID = result.activeEmbeddingModelID,
+           !embeddingIDs.contains(activeEmbeddingModelID) {
+            result.activeEmbeddingModelID = nil
         }
         result.toolCatalog = normalizedToolCatalog(result.toolCatalog)
         let modelIDs = Set(result.llmModels.map(\.id))
@@ -595,6 +828,10 @@ final class WorkspaceStore: ObservableObject {
                 result.agents[index] = compacted
             } else if isDefaultBlankAgent(result.agents[index]) {
                 result.agents[index] = compactedBlankAgent(result.agents[index])
+            }
+            if result.agents[index].llmModelConfigID == LLMModelConfig.openAIProductionModelID,
+               result.llmModels.contains(where: { $0.id == LLMModelConfig.localQwenModelID }) {
+                result.agents[index].llmModelConfigID = LLMModelConfig.localQwenModelID
             }
             if result.agents[index].llmModelConfigID == nil || !modelIDs.contains(result.agents[index].llmModelConfigID!) {
                 result.agents[index].llmModelConfigID = result.llmModels.first?.id
@@ -611,6 +848,58 @@ final class WorkspaceStore: ObservableObject {
             result.agents[index].llmModelConfigID = result.llmModels.first?.id
         }
         return result
+    }
+
+    private static func normalizedLLMModels(_ models: [LLMModelConfig]) -> [LLMModelConfig] {
+        var result = models
+        for defaultModel in LLMModelConfig.defaultConfigs.reversed() where !containsEquivalentModel(defaultModel, in: result) {
+            result.insert(defaultModel, at: 0)
+        }
+        var seenIDs: Set<UUID> = []
+        var seenEndpoints: Set<String> = []
+        result = result.compactMap { rawModel in
+            let model = normalizedBuiltInModel(rawModel)
+            guard seenIDs.insert(model.id).inserted else { return nil }
+            let endpoint = modelEndpointKey(model)
+            guard seenEndpoints.insert(endpoint).inserted else { return nil }
+            return model
+        }
+        if let localIndex = result.firstIndex(where: { $0.id == LLMModelConfig.localQwenModelID }) {
+            let local = result.remove(at: localIndex)
+            result.insert(local, at: 0)
+        }
+        return result
+    }
+
+    private static func normalizedBuiltInModel(_ model: LLMModelConfig) -> LLMModelConfig {
+        var result = model
+        if result.id == LLMModelConfig.localQwenModelID {
+            let defaults = LLMModelConfig.defaultConfigs[0]
+            result.backend = defaults.backend
+            result.baseURL = defaults.baseURL
+            result.modelName = defaults.modelName
+            if result.apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                result.apiKey = defaults.apiKey
+            }
+        } else if result.id == LLMModelConfig.openAIProductionModelID,
+                  result.baseURL.trimmingCharacters(in: CharacterSet(charactersIn: "/ \n\t")) == "https://api.openai.com/v" {
+            result.baseURL = LLMBackend.openAI.defaultBaseURL
+        }
+        return result
+    }
+
+    private static func containsEquivalentModel(_ model: LLMModelConfig, in models: [LLMModelConfig]) -> Bool {
+        models.contains { candidate in
+            candidate.id == model.id || modelEndpointKey(candidate) == modelEndpointKey(model)
+        }
+    }
+
+    private static func modelEndpointKey(_ model: LLMModelConfig) -> String {
+        [
+            model.backend.rawValue,
+            model.baseURL.trimmingCharacters(in: CharacterSet(charactersIn: "/ \n\t")).lowercased(),
+            model.modelName.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        ].joined(separator: "|")
     }
 
     private static func normalizedToolCatalog(_ tools: [ToolDefinition]) -> [ToolDefinition] {
@@ -729,20 +1018,36 @@ enum ConnectionEndpoint: Equatable {
 
 enum AppPage: String, CaseIterable, Identifiable {
     case console = "Console"
+    case runs = "Runs"
     case tools = "Tools"
     case models = "Models"
 
     var id: String { rawValue }
 }
 
+enum ModelConfigKind: Equatable {
+    case chat
+    case embedding
+}
+
 enum InspectorSection: String, CaseIterable, Identifiable {
-    case source = "Source"
-    case agent = "Agent"
-    case runs = "Runs"
+    case selection = "Selection"
+    case source = "Code"
+    case model = "Model"
     case schedules = "Schedule"
-    case harness = "Harness"
 
     var id: String { rawValue }
+
+    static let workspaceSections: [InspectorSection] = [.source, .model, .schedules]
+
+    var systemImage: String {
+        switch self {
+        case .selection: "slider.horizontal.3"
+        case .source: "chevron.left.forwardslash.chevron.right"
+        case .model: "brain.head.profile"
+        case .schedules: "alarm"
+        }
+    }
 }
 
 private func defaultNote(for kind: AgentNodeKind) -> String {

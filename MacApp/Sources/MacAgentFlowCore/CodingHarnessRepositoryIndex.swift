@@ -1,21 +1,18 @@
 import Foundation
 
 public struct RepositoryRetrievalOptions: Equatable, Sendable {
-    public var semanticModel: LLMModelConfig?
-    public var embeddingModelName: String?
+    public var embeddingModel: EmbeddingModelConfig?
     public var forcedPaths: [String]
     public var extraSearchTerms: [String]
     public var includeSymbols: Bool
 
     public init(
-        semanticModel: LLMModelConfig? = nil,
-        embeddingModelName: String? = nil,
+        embeddingModel: EmbeddingModelConfig? = nil,
         forcedPaths: [String] = [],
         extraSearchTerms: [String] = [],
         includeSymbols: Bool = true
     ) {
-        self.semanticModel = semanticModel
-        self.embeddingModelName = embeddingModelName
+        self.embeddingModel = embeddingModel
         self.forcedPaths = forcedPaths
         self.extraSearchTerms = extraSearchTerms
         self.includeSymbols = includeSymbols
@@ -29,13 +26,25 @@ public struct RepositorySymbol: Equatable, Sendable {
     public var line: Int
 }
 
+fileprivate struct SourceFacts {
+    var symbols: [RepositorySymbol]
+    var references: [String]
+}
+
 public enum RepositoryIndexer {
     private struct IndexedFile {
         var path: String
         var text: String
         var byteCount: Int
         var symbols: [RepositorySymbol]
+        var references: [String]
         var score: Int
+    }
+
+    private struct RawFile {
+        var path: String
+        var text: String
+        var byteCount: Int
     }
 
     public static func context(
@@ -48,6 +57,7 @@ public enum RepositoryIndexer {
         let terms = queryTerms(query + "\n" + options.extraSearchTerms.joined(separator: " "))
         let forcedPathSet = Set(options.forcedPaths.map(normalizeRelativePath))
         let maxContextCharacters = max(8_000, maxContextTokens * 4)
+        var rawFiles: [RawFile] = []
         var files: [IndexedFile] = []
         var notes: [String] = []
 
@@ -79,23 +89,49 @@ public enum RepositoryIndexer {
             let byteCount = (try? normalizedFileURL.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
             guard byteCount > 0, byteCount <= 400_000 else { continue }
             guard let text = try? String(contentsOf: normalizedFileURL, encoding: .utf8) else { continue }
-            let symbols = options.includeSymbols ? SymbolExtractor.extract(path: relative, text: text) : []
-            let score = scoreFile(
-                path: relative,
-                text: text,
-                symbols: symbols,
-                terms: terms,
-                isForced: forcedPathSet.contains(normalizeRelativePath(relative))
-            )
-            files.append(IndexedFile(path: relative, text: text, byteCount: byteCount, symbols: symbols, score: score))
+            rawFiles.append(RawFile(path: relative, text: text, byteCount: byteCount))
         }
 
-        if let semanticModel = options.semanticModel {
+        if options.includeSymbols, !rawFiles.isEmpty {
+            notes.append("generic source scan analyzed \(rawFiles.count) files")
+        }
+
+        for rawFile in rawFiles {
+            let facts = options.includeSymbols
+                ? SourceAnalyzer.extract(path: rawFile.path, text: rawFile.text)
+                : SourceFacts(symbols: [], references: [])
+            let score = scoreFile(
+                path: rawFile.path,
+                text: rawFile.text,
+                symbols: facts.symbols,
+                terms: terms,
+                isForced: forcedPathSet.contains(normalizeRelativePath(rawFile.path))
+            )
+            files.append(IndexedFile(
+                path: rawFile.path,
+                text: rawFile.text,
+                byteCount: rawFile.byteCount,
+                symbols: facts.symbols,
+                references: facts.references,
+                score: score
+            ))
+        }
+
+        let expansion = expandRelatedFiles(files)
+        if !expansion.boosts.isEmpty {
+            files = files.map { file in
+                var file = file
+                file.score += expansion.boosts[file.path] ?? 0
+                return file
+            }
+            notes.append(expansion.note)
+        }
+
+        if let embeddingModel = options.embeddingModel {
             let semantic = SemanticFileRanker.score(
                 files: files.map { SemanticFileCandidate(path: $0.path, text: $0.text, symbols: $0.symbols, lexicalScore: $0.score) },
                 query: query,
-                model: semanticModel,
-                embeddingModelName: options.embeddingModelName
+                model: embeddingModel
             )
             if !semantic.scores.isEmpty {
                 notes.append("semantic rerank used \(semantic.embeddingModelName ?? "local embedding model") on \(semantic.scores.count) candidates")
@@ -197,6 +233,171 @@ public enum RepositoryIndexer {
         return score
     }
 
+    private static func expandRelatedFiles(_ files: [IndexedFile]) -> (boosts: [String: Int], note: String) {
+        let scored = files.filter { $0.score > 0 }
+        guard !scored.isEmpty else { return ([:], "") }
+
+        let referenceMap = referenceTargetMap(files)
+        var boosts: [String: Int] = [:]
+        var reasons: Set<String> = []
+
+        func boost(_ path: String, _ amount: Int, _ reason: String) {
+            boosts[path, default: 0] += amount
+            reasons.insert(reason)
+        }
+
+        let scoredPaths = Set(scored.map(\.path))
+        for file in scored {
+            for reference in file.references {
+                for target in targets(for: reference, importerPath: file.path, referenceMap: referenceMap) where target != file.path {
+                    boost(target, 900, "references")
+                }
+            }
+
+            let sourceStem = canonicalTestStem(file.path)
+            let fileIsTest = isTestPath(file.path)
+            for candidate in files where candidate.path != file.path {
+                if canonicalTestStem(candidate.path) == sourceStem,
+                   isTestPath(candidate.path) != fileIsTest {
+                    boost(candidate.path, 800, "test/source pairs")
+                }
+            }
+        }
+
+        for file in files where !scoredPaths.contains(file.path) {
+            let referencedTargets = file.references.flatMap { targets(for: $0, importerPath: file.path, referenceMap: referenceMap) }
+            if referencedTargets.contains(where: scoredPaths.contains) {
+                boost(file.path, 650, "reverse references")
+            }
+        }
+
+        let reasonText = reasons.sorted().joined(separator: ", ")
+        return (boosts, boosts.isEmpty ? "" : "related-file expansion boosted \(boosts.count) files via \(reasonText)")
+    }
+
+    private static func referenceTargetMap(_ files: [IndexedFile]) -> [String: [String]] {
+        var result: [String: Set<String>] = [:]
+        for file in files {
+            for key in referenceKeys(forPath: file.path) {
+                result[key, default: []].insert(file.path)
+            }
+        }
+        return result.mapValues { Array($0).sorted() }
+    }
+
+    private static func referenceKeys(forPath path: String) -> [String] {
+        let normalized = path.replacingOccurrences(of: "\\", with: "/").lowercased()
+        let withoutExtension = stripKnownExtension(normalized)
+        let components = withoutExtension.split(separator: "/").map(String.init)
+        let sourceRootNames = Set(["src", "source", "sources", "lib", "app", "apps", "package", "packages"])
+        var keys: Set<String> = [normalized, withoutExtension, withoutExtension.replacingOccurrences(of: "/", with: ".")]
+        if let filename = components.last {
+            keys.insert(filename)
+        }
+        for start in components.indices {
+            let suffix = components[start...].joined(separator: "/")
+            keys.insert(suffix)
+            keys.insert(suffix.replacingOccurrences(of: "/", with: "."))
+        }
+        if components.first.map(sourceRootNames.contains) == true, components.count > 1 {
+            let suffix = components.dropFirst().joined(separator: "/")
+            keys.insert(suffix)
+            keys.insert(suffix.replacingOccurrences(of: "/", with: "."))
+        }
+        return Array(keys.filter { !$0.isEmpty })
+    }
+
+    private static func targets(for reference: String, importerPath: String, referenceMap: [String: [String]]) -> [String] {
+        let names = resolvedReferenceKeys(reference, importerPath: importerPath)
+        var result: Set<String> = []
+        for name in names {
+            if let paths = referenceMap[name] {
+                result.formUnion(paths)
+            }
+            if let last = name.split(separator: ".").last,
+               let paths = referenceMap[String(last)] {
+                result.formUnion(paths)
+            }
+            if let last = name.split(separator: "/").last,
+               let paths = referenceMap[String(last)] {
+                result.formUnion(paths)
+            }
+        }
+        return Array(result).sorted()
+    }
+
+    private static func resolvedReferenceKeys(_ reference: String, importerPath: String) -> [String] {
+        let cleaned = normalizeReference(reference)
+        guard !cleaned.isEmpty else { return [] }
+        var keys: Set<String> = [cleaned, cleaned.replacingOccurrences(of: "/", with: ".")]
+        if cleaned.hasPrefix(".") {
+            let importerDirectory = (importerPath as NSString).deletingLastPathComponent
+            if cleaned.hasPrefix("./") || cleaned.hasPrefix("../") {
+                let relative = URL(fileURLWithPath: importerDirectory).appendingPathComponent(cleaned).standardized.path
+                let normalizedRelative = relative.trimmingCharacters(in: CharacterSet(charactersIn: "/")).lowercased()
+                keys.formUnion(referenceKeys(forPath: normalizedRelative))
+            } else {
+                let dotCount = cleaned.prefix { $0 == "." }.count
+                let suffix = String(cleaned.dropFirst(dotCount)).replacingOccurrences(of: ".", with: "/")
+                var directoryParts = importerDirectory.split(separator: "/").map(String.init)
+                if dotCount > 1 {
+                    directoryParts = Array(directoryParts.dropLast(min(dotCount - 1, directoryParts.count)))
+                }
+                let relative = (directoryParts + [suffix]).filter { !$0.isEmpty }.joined(separator: "/")
+                keys.formUnion(referenceKeys(forPath: relative))
+            }
+        }
+        if cleaned.hasPrefix("/") {
+            keys.formUnion(referenceKeys(forPath: cleaned))
+        }
+        if let last = cleaned.split(separator: "/").last {
+            keys.insert(String(last))
+        }
+        if let last = cleaned.split(separator: ".").last {
+            keys.insert(String(last))
+        }
+        return Array(keys)
+    }
+
+    private static func normalizeReference(_ value: String) -> String {
+        value
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .trimmingCharacters(in: CharacterSet(charactersIn: "\"'`;"))
+            .replacingOccurrences(of: "\\", with: "/")
+            .lowercased()
+    }
+
+    private static func stripKnownExtension(_ path: String) -> String {
+        let extensions = [
+            ".swift", ".py", ".js", ".ts", ".tsx", ".jsx", ".json", ".md", ".toml",
+            ".yaml", ".yml", ".sh", ".html", ".css", ".sql", ".txt", ".xml", ".go",
+            ".rs", ".java", ".kt", ".kts", ".rb", ".php", ".c", ".cc", ".cpp", ".h",
+            ".hpp", ".cs", ".scala", ".dart", ".ex", ".exs", ".erl", ".hrl", ".lua",
+            ".r", ".m", ".mm", ".fs", ".fsx", ".clj", ".cljs", ".zig", ".nix", ".tf"
+        ]
+        for ext in extensions where path.hasSuffix(ext) {
+            return String(path.dropLast(ext.count))
+        }
+        return path
+    }
+
+    private static func canonicalTestStem(_ path: String) -> String {
+        let base = ((path as NSString).lastPathComponent as NSString).deletingPathExtension.lowercased()
+        return base
+            .replacingOccurrences(of: "^test[_-]", with: "", options: .regularExpression)
+            .replacingOccurrences(of: "[_-]test$", with: "", options: .regularExpression)
+            .replacingOccurrences(of: "\\.test$", with: "", options: .regularExpression)
+            .replacingOccurrences(of: "tests$", with: "", options: .regularExpression)
+    }
+
+    private static func isTestPath(_ path: String) -> Bool {
+        let lower = path.lowercased()
+        let base = (lower as NSString).lastPathComponent
+        return lower.contains("/test") || base.hasPrefix("test_") || base.hasSuffix("_test.py") ||
+            base.hasSuffix(".test.ts") || base.hasSuffix(".test.js") || base.hasSuffix(".spec.ts") ||
+            base.hasSuffix(".spec.js") || base.hasSuffix("tests.swift")
+    }
+
     private static func queryTerms(_ query: String) -> [String] {
         let stop = Set([
             "the", "and", "for", "with", "that", "this", "from", "into", "have", "code",
@@ -241,7 +442,10 @@ public enum RepositoryIndexer {
         let lower = path.lowercased()
         let allowedExtensions = [
             ".swift", ".py", ".js", ".ts", ".tsx", ".jsx", ".json", ".md", ".toml",
-            ".yaml", ".yml", ".sh", ".html", ".css", ".sql", ".txt", ".xml"
+            ".yaml", ".yml", ".sh", ".html", ".css", ".sql", ".txt", ".xml", ".go",
+            ".rs", ".java", ".kt", ".kts", ".rb", ".php", ".c", ".cc", ".cpp", ".h",
+            ".hpp", ".cs", ".scala", ".dart", ".ex", ".exs", ".erl", ".hrl", ".lua",
+            ".r", ".m", ".mm", ".fs", ".fsx", ".clj", ".cljs", ".zig", ".nix", ".tf"
         ]
         let allowedNames = ["makefile", "dockerfile", "package.swift", "package.resolved"]
         return allowedExtensions.contains(where: lower.hasSuffix) || allowedNames.contains((lower as NSString).lastPathComponent)
@@ -249,7 +453,12 @@ public enum RepositoryIndexer {
 
     private static func isSourcePath(_ lowerPath: String) -> Bool {
         lowerPath.hasSuffix(".swift") || lowerPath.hasSuffix(".py") || lowerPath.hasSuffix(".js") ||
-            lowerPath.hasSuffix(".ts") || lowerPath.hasSuffix(".tsx") || lowerPath.hasSuffix(".jsx")
+            lowerPath.hasSuffix(".ts") || lowerPath.hasSuffix(".tsx") || lowerPath.hasSuffix(".jsx") ||
+            lowerPath.hasSuffix(".go") || lowerPath.hasSuffix(".rs") || lowerPath.hasSuffix(".java") ||
+            lowerPath.hasSuffix(".kt") || lowerPath.hasSuffix(".rb") || lowerPath.hasSuffix(".php") ||
+            lowerPath.hasSuffix(".c") || lowerPath.hasSuffix(".cc") || lowerPath.hasSuffix(".cpp") ||
+            lowerPath.hasSuffix(".cs") || lowerPath.hasSuffix(".scala") || lowerPath.hasSuffix(".dart") ||
+            lowerPath.hasSuffix(".ex") || lowerPath.hasSuffix(".exs") || lowerPath.hasSuffix(".tf")
     }
 
     private static func languageHint(for path: String) -> String {
@@ -309,61 +518,22 @@ public enum RepositoryIndexer {
     }
 }
 
-private enum SymbolExtractor {
-    static func extract(path: String, text: String) -> [RepositorySymbol] {
-        let lower = path.lowercased()
-        if lower.hasSuffix(".py") {
-            return extractPython(path: path, text: text)
-        }
-        if lower.hasSuffix(".swift") {
-            return extractSwift(path: path, text: text)
-        }
-        if lower.hasSuffix(".js") || lower.hasSuffix(".jsx") || lower.hasSuffix(".ts") || lower.hasSuffix(".tsx") {
-            return extractJavaScript(path: path, text: text)
-        }
-        return []
-    }
-
-    private static func extractPython(path: String, text: String) -> [RepositorySymbol] {
-        symbols(
-            path: path,
-            text: text,
-            patterns: [
-                #"^\s*(?:async\s+def|def)\s+([A-Za-z_][A-Za-z0-9_]*)\s*\("#: "function",
-                #"^\s*class\s+([A-Za-z_][A-Za-z0-9_]*)\s*[\(:]"#: "class"
-            ]
+private enum SourceAnalyzer {
+    static func extract(path: String, text: String) -> SourceFacts {
+        SourceFacts(
+            symbols: symbols(path: path, text: text),
+            references: references(text: text)
         )
     }
 
-    private static func extractSwift(path: String, text: String) -> [RepositorySymbol] {
-        symbols(
-            path: path,
-            text: text,
-            patterns: [
-                #"^\s*(?:(?:public|private|internal|open|final|static|mutating|nonmutating)\s+)*(?:func)\s+([A-Za-z_][A-Za-z0-9_]*)\b"#: "function",
-                #"^\s*(?:(?:public|private|internal|open|final)\s+)*(?:struct)\s+([A-Za-z_][A-Za-z0-9_]*)\b"#: "struct",
-                #"^\s*(?:(?:public|private|internal|open|final)\s+)*(?:class)\s+([A-Za-z_][A-Za-z0-9_]*)\b"#: "class",
-                #"^\s*(?:(?:public|private|internal|open)\s+)*(?:enum)\s+([A-Za-z_][A-Za-z0-9_]*)\b"#: "enum",
-                #"^\s*(?:(?:public|private|internal|open)\s+)*(?:protocol)\s+([A-Za-z_][A-Za-z0-9_]*)\b"#: "protocol",
-                #"^\s*(?:(?:public|private|internal|open)\s+)*(?:actor)\s+([A-Za-z_][A-Za-z0-9_]*)\b"#: "actor"
-            ]
-        )
-    }
-
-    private static func extractJavaScript(path: String, text: String) -> [RepositorySymbol] {
-        symbols(
-            path: path,
-            text: text,
-            patterns: [
-                #"^\s*(?:export\s+)?(?:async\s+)?function\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*\("#: "function",
-                #"^\s*(?:export\s+)?class\s+([A-Za-z_$][A-Za-z0-9_$]*)\b"#: "class",
-                #"^\s*(?:export\s+)?(?:const|let|var)\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=\s*(?:async\s*)?\("#: "function",
-                #"^\s*(?:export\s+)?(?:const|let|var)\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=\s*"#: "value"
-            ]
-        )
-    }
-
-    private static func symbols(path: String, text: String, patterns: [String: String]) -> [RepositorySymbol] {
+    private static func symbols(path: String, text: String) -> [RepositorySymbol] {
+        let patterns: [(pattern: String, kind: String)] = [
+            (#"^\s*(?:(?:public|private|internal|protected|export|open|final|static|async|mutating|nonmutating|override)\s+)*(?:func|function|def|fn|sub|proc|method)\s+([A-Za-z_$][A-Za-z0-9_$!?=]*)\b"#, "function"),
+            (#"^\s*func\s*(?:\([^)]+\)\s*)?([A-Za-z_][A-Za-z0-9_]*)\s*\("#, "function"),
+            (#"^\s*(?:(?:public|private|internal|protected|export|open|final|abstract|sealed)\s+)*(?:class|struct|enum|interface|protocol|trait|type|actor|module|namespace)\s+([A-Za-z_$][A-Za-z0-9_$]*)\b"#, "type"),
+            (#"^\s*(?:(?:public|private|internal|protected|export|static|const|let|var)\s+)*([A-Za-z_$][A-Za-z0-9_$]*)\s*=\s*(?:async\s*)?(?:function\b|\([^)]*\)\s*=>)"#, "function"),
+            (#"^\s*(?:(?:public|private|internal|protected|export|static|const|let|var)\s+)+([A-Za-z_$][A-Za-z0-9_$]*)\s*[:=]"#, "value")
+        ]
         let lines = text.split(separator: "\n", omittingEmptySubsequences: false).map(String.init)
         let compiled = patterns.compactMap { pattern, kind -> (NSRegularExpression, String)? in
             guard let regex = try? NSRegularExpression(pattern: pattern) else { return nil }
@@ -387,6 +557,37 @@ private enum SymbolExtractor {
         }
         return result
     }
+
+    private static func references(text: String) -> [String] {
+        let patterns: [(pattern: String, group: Int)] = [
+            (#"\b(?:from|import|require|include|include_once|require_once|load|source)\b[^\n"']*["']([^"']+)["']"#, 1),
+            (#"^\s*(?:import|from|use|mod|package)\s+([A-Za-z_@./][A-Za-z0-9_@./-]*)"#, 1),
+            (#"^\s*#\s*include\s+[<"]([^>"]+)[>"]"#, 1),
+            (#"^\s*@import\s+["']([^"']+)["']"#, 1)
+        ]
+        let lines = text.split(separator: "\n", omittingEmptySubsequences: false).map(String.init)
+        let compiled = patterns.compactMap { pattern, group -> (NSRegularExpression, Int)? in
+            guard let regex = try? NSRegularExpression(pattern: pattern) else { return nil }
+            return (regex, group)
+        }
+        var result: Set<String> = []
+        for line in lines {
+            let range = NSRange(line.startIndex..<line.endIndex, in: line)
+            for (regex, group) in compiled {
+                guard let match = regex.firstMatch(in: line, range: range),
+                      match.numberOfRanges > group,
+                      let valueRange = Range(match.range(at: group), in: line)
+                else { continue }
+                let value = String(line[valueRange])
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                    .trimmingCharacters(in: CharacterSet(charactersIn: "\"'`;"))
+                if !value.isEmpty {
+                    result.insert(value)
+                }
+            }
+        }
+        return Array(result).sorted()
+    }
 }
 
 private struct SemanticFileCandidate {
@@ -406,8 +607,7 @@ private enum SemanticFileRanker {
     static func score(
         files: [SemanticFileCandidate],
         query: String,
-        model: LLMModelConfig,
-        embeddingModelName: String?
+        model: EmbeddingModelConfig
     ) -> Result {
         guard isLocalBaseURL(model.baseURL) else {
             return Result(scores: [:], embeddingModelName: nil, note: "semantic rerank skipped for non-local model base URL")
@@ -419,10 +619,11 @@ private enum SemanticFileRanker {
         guard !candidates.isEmpty else {
             return Result(scores: [:], embeddingModelName: nil, note: "semantic rerank skipped because no lexical candidates were available")
         }
-        let client = LocalEmbeddingClient(baseURL: model.baseURL, apiKey: model.apiKey)
-        guard let embeddingModelName = embeddingModelName ?? client.discoverEmbeddingModelName() else {
-            return Result(scores: [:], embeddingModelName: nil, note: "semantic rerank skipped because no local embedding model was discovered")
+        let embeddingModelName = model.modelName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !embeddingModelName.isEmpty else {
+            return Result(scores: [:], embeddingModelName: nil, note: "semantic rerank skipped because the embedding model name is empty")
         }
+        let client = LocalEmbeddingClient(baseURL: model.baseURL, apiKey: model.apiKey)
         guard let queryVector = client.embedding(model: embeddingModelName, input: query) else {
             return Result(scores: [:], embeddingModelName: embeddingModelName, note: "semantic rerank skipped because query embedding failed")
         }
@@ -472,22 +673,6 @@ private final class LocalEmbeddingClient {
     init(baseURL: String, apiKey: String) {
         self.baseURL = baseURL.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         self.apiKey = apiKey
-    }
-
-    func discoverEmbeddingModelName() -> String? {
-        guard let url = URL(string: baseURL + "/models") else { return nil }
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 20
-        if !apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-        }
-        guard let data = Self.syncData(for: request),
-              let object = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let models = object["data"] as? [[String: Any]]
-        else { return nil }
-        let ids = models.compactMap { $0["id"] as? String }
-        return ids.first { $0.localizedCaseInsensitiveContains("qwen") && $0.localizedCaseInsensitiveContains("embedding") }
-            ?? ids.first { $0.localizedCaseInsensitiveContains("embedding") }
     }
 
     func embedding(model: String, input: String) -> [Double]? {

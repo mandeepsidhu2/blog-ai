@@ -200,6 +200,7 @@ public enum AgentRunEngine {
             agent: agent,
             trigger: trigger,
             model: Optional<LLMModelConfig>.none,
+            embeddingModel: Optional<EmbeddingModelConfig>.none,
             tools: [],
             runtime: AgentRuntimeOptions.simulated,
             now: now
@@ -210,6 +211,7 @@ public enum AgentRunEngine {
         agent: AgentDefinition,
         trigger: AgentRunTrigger,
         model: LLMModelConfig?,
+        embeddingModel: EmbeddingModelConfig? = nil,
         tools: [ToolDefinition],
         runtime: AgentRuntimeOptions,
         now: Date = Date()
@@ -223,7 +225,8 @@ public enum AgentRunEngine {
                 startedAt: now,
                 finishedAt: now,
                 logLines: issues.map { "Validation \($0.severity.rawValue): \($0.message)" },
-                stateSummary: "Run blocked by graph validation."
+                stateSummary: "Run blocked by graph validation.",
+                snapshot: AgentRunSnapshot(agent: agent)
             )
         }
 
@@ -232,6 +235,7 @@ public enum AgentRunEngine {
                 agent: agent,
                 trigger: trigger,
                 model: model,
+                embeddingModel: embeddingModel,
                 tools: tools,
                 runtime: runtime,
                 now: now
@@ -277,7 +281,8 @@ public enum AgentRunEngine {
             startedAt: now,
             finishedAt: now.addingTimeInterval(Double(max(orderedNodes.count, 1))),
             logLines: logs,
-            stateSummary: state.keys.sorted().map { "\($0)=\(state[$0] ?? "")" }.joined(separator: ", ")
+            stateSummary: state.keys.sorted().map { "\($0)=\(state[$0] ?? "")" }.joined(separator: ", "),
+            snapshot: AgentRunSnapshot(agent: agent)
         )
     }
 
@@ -285,6 +290,7 @@ public enum AgentRunEngine {
         agent: AgentDefinition,
         trigger: AgentRunTrigger,
         model: LLMModelConfig?,
+        embeddingModel: EmbeddingModelConfig?,
         tools: [ToolDefinition],
         runtime: AgentRuntimeOptions,
         now: Date
@@ -306,12 +312,13 @@ public enum AgentRunEngine {
                     }
                 }
             case .ai:
-                let promptRepository = CodingHarnessPromptDirectives.repositoryURL(from: node.prompt)
-                guard let repositoryURL = promptRepository ?? runtime.repositoryURL else {
-                    logs.append("\(node.title): no repo/cwd directive found; kept deterministic AI state update")
+                let workspace = CodingWorkspaceResolver.resolve(configuredPath: node.repositoryPath, prompt: node.prompt)
+                guard let repositoryURL = workspace.url ?? runtime.repositoryURL else {
+                    logs.append("\(node.title): \(workspace.message); kept deterministic AI state update")
                     state[node.title] = "ai-output"
                     continue
                 }
+                logs.append("\(node.title): \(workspace.url == nil ? "using runtime repository \(repositoryURL.path)" : workspace.message)")
                 guard let model else {
                     logs.append("\(node.title): no LLM model selected for coding harness")
                     return AgentRun(
@@ -321,7 +328,8 @@ public enum AgentRunEngine {
                         startedAt: now,
                         finishedAt: Date(),
                         logLines: logs,
-                        stateSummary: "Run failed: missing LLM model."
+                        stateSummary: "Run failed: missing LLM model.",
+                        snapshot: AgentRunSnapshot(agent: agent)
                     )
                 }
                 let stateLines = state.keys.sorted().map { "\($0)=\(state[$0] ?? "")" }.joined(separator: "\n")
@@ -335,10 +343,11 @@ public enum AgentRunEngine {
                     prompt: harnessPrompt,
                     repositoryURL: repositoryURL,
                     model: model,
-                    testCommand: runtime.testCommand ?? CodingHarnessPromptDirectives.testCommand(from: node.prompt),
+                    testCommand: CodingHarnessPromptDirectives.command(from: node.validationCommand) ?? runtime.testCommand ?? CodingHarnessPromptDirectives.testCommand(from: node.prompt),
                     maxContextTokens: runtime.maxContextTokens,
                     maxIterations: runtime.maxHarnessIterations,
-                    allowInternetResearch: runtime.allowInternetResearch
+                    allowInternetResearch: runtime.allowInternetResearch,
+                    embeddingModel: embeddingModel
                 ))
                 logs.append("\(node.title): coding harness \(harness.status.rawValue)")
                 logs.append(contentsOf: harness.logLines)
@@ -351,7 +360,8 @@ public enum AgentRunEngine {
                         startedAt: now,
                         finishedAt: Date(),
                         logLines: logs,
-                        stateSummary: "Run failed at \(node.title): \(harness.summary)"
+                        stateSummary: "Run failed at \(node.title): \(harness.summary)",
+                        snapshot: AgentRunSnapshot(agent: agent)
                     )
                 }
             case .code:
@@ -374,7 +384,8 @@ public enum AgentRunEngine {
             startedAt: now,
             finishedAt: Date(),
             logLines: logs,
-            stateSummary: state.keys.sorted().map { "\($0)=\(state[$0] ?? "")" }.joined(separator: ", ")
+            stateSummary: state.keys.sorted().map { "\($0)=\(state[$0] ?? "")" }.joined(separator: ", "),
+            snapshot: AgentRunSnapshot(agent: agent)
         )
     }
 
