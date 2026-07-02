@@ -1,0 +1,6 @@
+Agent memory pack gate experiment
+cases=8
+dataset_sha256=0dccc5889e8f6de198ca3002a8faf058e1db20aa974e829ca6fdf74dcb731628
+packer=newestFirst required_recall=1 perfect_case_rate=0.25 forbidden_hits=6 sensitive_hits=2 unsupported_hits=7 mean_pack_tokens=72.4
+packer=relevanceOnly required_recall=1 perfect_case_rate=0.25 forbidden_hits=6 sensitive_hits=2 unsupported_hits=7 mean_pack_tokens=72.4
+packer=governedMemoryPack required_recall=1 perfect_case_rate=1 forbidden_hits=0 sensitive_hits=0 unsupported_hits=0 mean_pack_tokens=47.5

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Agent memory pack gate results</title>
+  <desc id="desc">Grouped bar chart comparing newest-first, relevance-only, and governed memory pack builders by required recall, perfect case rate, and forbidden context hits.</desc>
+  <rect width="960" height="540" fill="#f8faf7"/>
+  <text x="48" y="46" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700" fill="#17202a">Governed memory packs preserve required context without leaks</text>
+  <text x="48" y="74" font-family="Inter, Arial, sans-serif" font-size="15" fill="#51606b">Forbidden hits are scaled against six; lower is better while recall and perfect-case rate should be higher.</text>
+  <line x1="86" y1="446" x2="916" y2="446" stroke="#9aa7b0" stroke-width="1.5"/>
+  <line x1="86" y1="88" x2="86" y2="446" stroke="#9aa7b0" stroke-width="1.5"/>
+  <text x="38" y="96" font-family="Inter, Arial, sans-serif" font-size="13" fill="#51606b">1.0</text>
+  <text x="50" y="450" font-family="Inter, Arial, sans-serif" font-size="13" fill="#51606b">0</text>
+  <rect x="120" y="88" width="44" height="358" rx="5" fill="#19647e"/>
+<text x="142" y="78" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">1.000</text>
+<rect x="178" y="356.5" width="44" height="89.5" rx="5" fill="#d66b35"/>
+<text x="200" y="346.5" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">0.250</text>
+<rect x="236" y="88" width="44" height="358" rx="5" fill="#6d597a"/>
+<text x="258" y="78" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">6</text>
+<rect x="396.6666666666667" y="88" width="44" height="358" rx="5" fill="#19647e"/>
+<text x="418.6666666666667" y="78" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">1.000</text>
+<rect x="454.6666666666667" y="356.5" width="44" height="89.5" rx="5" fill="#d66b35"/>
+<text x="476.6666666666667" y="346.5" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">0.250</text>
+<rect x="512.6666666666667" y="88" width="44" height="358" rx="5" fill="#6d597a"/>
+<text x="534.6666666666667" y="78" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">6</text>
+<rect x="673.3333333333334" y="88" width="44" height="358" rx="5" fill="#19647e"/>
+<text x="695.3333333333334" y="78" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">1.000</text>
+<rect x="731.3333333333334" y="88" width="44" height="358" rx="5" fill="#d66b35"/>
+<text x="753.3333333333334" y="78" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">1.000</text>
+<rect x="789.3333333333334" y="446" width="44" height="0" rx="5" fill="#6d597a"/>
+<text x="811.3333333333334" y="436" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">0</text>
+  <text x="224.33333333333334" y="506" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" fill="#17202a">newestFirst</text>
+<text x="501" y="506" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" fill="#17202a">relevanceOnly</text>
+<text x="777.6666666666667" y="506" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" fill="#17202a">governedMemoryPack</text>
+  <g transform="translate(82 482)" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">
+    <rect x="0" y="0" width="18" height="18" rx="3" fill="#19647e"/><text x="28" y="14">Required recall</text>
+    <rect x="172" y="0" width="18" height="18" rx="3" fill="#d66b35"/><text x="200" y="14">Perfect case rate</text>
+    <rect x="374" y="0" width="18" height="18" rx="3" fill="#6d597a"/><text x="402" y="14">Forbidden hits</text>
+  </g>
+</svg>

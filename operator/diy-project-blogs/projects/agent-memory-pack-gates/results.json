@@ -1,0 +1,420 @@
+{
+  "datasetSha256": "0dccc5889e8f6de198ca3002a8faf058e1db20aa974e829ca6fdf74dcb731628",
+  "results": [
+    {
+      "name": "newestFirst",
+      "requiredRecall": 1,
+      "perfectCaseRate": 0.25,
+      "forbiddenHits": 6,
+      "sensitiveHits": 2,
+      "unsupportedHits": 7,
+      "meanPackTokens": 72.4,
+      "cases": [
+        {
+          "id": "clean-release-context",
+          "selectedIds": [
+            "source-summary",
+            "passing-command",
+            "repo-content-rule",
+            "old-style-note"
+          ],
+          "tokens": 109,
+          "requiredHits": 3,
+          "requiredTotal": 3,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 1,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "stale-memory-conflict",
+          "selectedIds": [
+            "current-public-rule",
+            "unrelated-format",
+            "stale-public-rule"
+          ],
+          "tokens": 58,
+          "requiredHits": 1,
+          "requiredTotal": 1,
+          "forbiddenHits": 1,
+          "sensitiveHits": 0,
+          "unsupportedHits": 1,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "cross-tenant-memory",
+          "selectedIds": [
+            "tenant-b-secret-preference",
+            "tenant-a-rule",
+            "handoff-template"
+          ],
+          "tokens": 66,
+          "requiredHits": 2,
+          "requiredTotal": 2,
+          "forbiddenHits": 1,
+          "sensitiveHits": 1,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "secret-like-memory",
+          "selectedIds": [
+            "rotation-policy",
+            "token-fragment",
+            "marketing-copy"
+          ],
+          "tokens": 61,
+          "requiredHits": 1,
+          "requiredTotal": 1,
+          "forbiddenHits": 1,
+          "sensitiveHits": 1,
+          "unsupportedHits": 1,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "budget-pressure",
+          "selectedIds": [
+            "latency-threshold",
+            "cost-threshold",
+            "background-history",
+            "obsolete-budget"
+          ],
+          "tokens": 80,
+          "requiredHits": 2,
+          "requiredTotal": 2,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 2,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "provenance-required",
+          "selectedIds": [
+            "unsourced-adoption",
+            "community-signal",
+            "sourced-adoption"
+          ],
+          "tokens": 57,
+          "requiredHits": 1,
+          "requiredTotal": 1,
+          "forbiddenHits": 1,
+          "sensitiveHits": 0,
+          "unsupportedHits": 1,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "recency-without-overfit",
+          "selectedIds": [
+            "new-unrelated",
+            "release-gate",
+            "compaction-risk"
+          ],
+          "tokens": 61,
+          "requiredHits": 2,
+          "requiredTotal": 2,
+          "forbiddenHits": 1,
+          "sensitiveHits": 0,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "complete-with-noise",
+          "selectedIds": [
+            "sandbox-rule",
+            "approval-rule",
+            "hook-rule",
+            "obsolete-hook-rule"
+          ],
+          "tokens": 87,
+          "requiredHits": 3,
+          "requiredTotal": 3,
+          "forbiddenHits": 1,
+          "sensitiveHits": 0,
+          "unsupportedHits": 1,
+          "budgetViolation": false,
+          "recall": 1
+        }
+      ]
+    },
+    {
+      "name": "relevanceOnly",
+      "requiredRecall": 1,
+      "perfectCaseRate": 0.25,
+      "forbiddenHits": 6,
+      "sensitiveHits": 2,
+      "unsupportedHits": 7,
+      "meanPackTokens": 72.4,
+      "cases": [
+        {
+          "id": "clean-release-context",
+          "selectedIds": [
+            "passing-command",
+            "repo-content-rule",
+            "source-summary",
+            "old-style-note"
+          ],
+          "tokens": 109,
+          "requiredHits": 3,
+          "requiredTotal": 3,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 1,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "stale-memory-conflict",
+          "selectedIds": [
+            "current-public-rule",
+            "stale-public-rule",
+            "unrelated-format"
+          ],
+          "tokens": 58,
+          "requiredHits": 1,
+          "requiredTotal": 1,
+          "forbiddenHits": 1,
+          "sensitiveHits": 0,
+          "unsupportedHits": 1,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "cross-tenant-memory",
+          "selectedIds": [
+            "tenant-a-rule",
+            "tenant-b-secret-preference",
+            "handoff-template"
+          ],
+          "tokens": 66,
+          "requiredHits": 2,
+          "requiredTotal": 2,
+          "forbiddenHits": 1,
+          "sensitiveHits": 1,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "secret-like-memory",
+          "selectedIds": [
+            "token-fragment",
+            "rotation-policy",
+            "marketing-copy"
+          ],
+          "tokens": 61,
+          "requiredHits": 1,
+          "requiredTotal": 1,
+          "forbiddenHits": 1,
+          "sensitiveHits": 1,
+          "unsupportedHits": 1,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "budget-pressure",
+          "selectedIds": [
+            "cost-threshold",
+            "latency-threshold",
+            "obsolete-budget",
+            "background-history"
+          ],
+          "tokens": 80,
+          "requiredHits": 2,
+          "requiredTotal": 2,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 2,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "provenance-required",
+          "selectedIds": [
+            "unsourced-adoption",
+            "sourced-adoption",
+            "community-signal"
+          ],
+          "tokens": 57,
+          "requiredHits": 1,
+          "requiredTotal": 1,
+          "forbiddenHits": 1,
+          "sensitiveHits": 0,
+          "unsupportedHits": 1,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "recency-without-overfit",
+          "selectedIds": [
+            "release-gate",
+            "compaction-risk",
+            "new-unrelated"
+          ],
+          "tokens": 61,
+          "requiredHits": 2,
+          "requiredTotal": 2,
+          "forbiddenHits": 1,
+          "sensitiveHits": 0,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "complete-with-noise",
+          "selectedIds": [
+            "obsolete-hook-rule",
+            "sandbox-rule",
+            "approval-rule",
+            "hook-rule"
+          ],
+          "tokens": 87,
+          "requiredHits": 3,
+          "requiredTotal": 3,
+          "forbiddenHits": 1,
+          "sensitiveHits": 0,
+          "unsupportedHits": 1,
+          "budgetViolation": false,
+          "recall": 1
+        }
+      ]
+    },
+    {
+      "name": "governedMemoryPack",
+      "requiredRecall": 1,
+      "perfectCaseRate": 1,
+      "forbiddenHits": 0,
+      "sensitiveHits": 0,
+      "unsupportedHits": 0,
+      "meanPackTokens": 47.5,
+      "cases": [
+        {
+          "id": "clean-release-context",
+          "selectedIds": [
+            "passing-command",
+            "repo-content-rule",
+            "source-summary"
+          ],
+          "tokens": 87,
+          "requiredHits": 3,
+          "requiredTotal": 3,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "stale-memory-conflict",
+          "selectedIds": [
+            "current-public-rule"
+          ],
+          "tokens": 24,
+          "requiredHits": 1,
+          "requiredTotal": 1,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "cross-tenant-memory",
+          "selectedIds": [
+            "tenant-a-rule",
+            "handoff-template"
+          ],
+          "tokens": 45,
+          "requiredHits": 2,
+          "requiredTotal": 2,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "secret-like-memory",
+          "selectedIds": [
+            "rotation-policy"
+          ],
+          "tokens": 22,
+          "requiredHits": 1,
+          "requiredTotal": 1,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "budget-pressure",
+          "selectedIds": [
+            "cost-threshold",
+            "latency-threshold"
+          ],
+          "tokens": 48,
+          "requiredHits": 2,
+          "requiredTotal": 2,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "provenance-required",
+          "selectedIds": [
+            "sourced-adoption",
+            "community-signal"
+          ],
+          "tokens": 45,
+          "requiredHits": 1,
+          "requiredTotal": 1,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "recency-without-overfit",
+          "selectedIds": [
+            "release-gate",
+            "compaction-risk"
+          ],
+          "tokens": 43,
+          "requiredHits": 2,
+          "requiredTotal": 2,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        },
+        {
+          "id": "complete-with-noise",
+          "selectedIds": [
+            "sandbox-rule",
+            "approval-rule",
+            "hook-rule"
+          ],
+          "tokens": 66,
+          "requiredHits": 3,
+          "requiredTotal": 3,
+          "forbiddenHits": 0,
+          "sensitiveHits": 0,
+          "unsupportedHits": 0,
+          "budgetViolation": false,
+          "recall": 1
+        }
+      ]
+    }
+  ]
+}

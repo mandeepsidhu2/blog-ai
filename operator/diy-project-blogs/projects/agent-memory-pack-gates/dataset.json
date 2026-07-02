@@ -1,0 +1,109 @@
+[
+  {
+    "id": "clean-release-context",
+    "description": "Required repo rules, source summary, and latest passing command fit inside the budget.",
+    "taskKeywords": ["release", "gate", "article", "validation"],
+    "budgetTokens": 180,
+    "requiredFactIds": ["repo-content-rule", "source-summary", "passing-command"],
+    "forbiddenFactIds": [],
+    "facts": [
+      {"id": "repo-content-rule", "text": "Public tutorials require a source section, production readiness, failure analysis, and an article-specific asset.", "tokens": 31, "ageDays": 1, "scope": "repo", "sensitivity": "public", "evidence": true, "priority": 0.95},
+      {"id": "source-summary", "text": "Official agent docs now emphasize memory, compaction, hooks, permissions, sandboxing, and usage limits as operational controls.", "tokens": 30, "ageDays": 0, "scope": "research", "sensitivity": "public", "evidence": true, "priority": 0.9},
+      {"id": "passing-command", "text": "The current content gate passed after running the public-content check against the candidate source.", "tokens": 26, "ageDays": 0, "scope": "validation", "sensitivity": "public", "evidence": true, "priority": 0.85},
+      {"id": "old-style-note", "text": "Older drafts used a generic production extension section that is no longer acceptable.", "tokens": 22, "ageDays": 120, "scope": "repo", "sensitivity": "public", "evidence": false, "priority": 0.2}
+    ]
+  },
+  {
+    "id": "stale-memory-conflict",
+    "description": "A stale instruction conflicts with a current repository rule.",
+    "taskKeywords": ["content", "rule", "current", "public"],
+    "budgetTokens": 110,
+    "requiredFactIds": ["current-public-rule"],
+    "forbiddenFactIds": ["stale-public-rule"],
+    "facts": [
+      {"id": "stale-public-rule", "text": "Short demos with lightweight production notes are acceptable for publishing.", "tokens": 17, "ageDays": 180, "scope": "repo", "sensitivity": "public", "evidence": false, "priority": 0.6},
+      {"id": "current-public-rule", "text": "Public articles must be deep, customer-facing, supported by evidence, and free of internal diagnostics.", "tokens": 24, "ageDays": 0, "scope": "repo", "sensitivity": "public", "evidence": true, "priority": 0.95},
+      {"id": "unrelated-format", "text": "Presentation decks should use template slides and rendered visual review.", "tokens": 17, "ageDays": 30, "scope": "docs", "sensitivity": "public", "evidence": true, "priority": 0.15}
+    ]
+  },
+  {
+    "id": "cross-tenant-memory",
+    "description": "Useful-looking context from another tenant must not be packed into this run.",
+    "taskKeywords": ["tenant", "memory", "agent", "handoff"],
+    "budgetTokens": 120,
+    "requiredFactIds": ["tenant-a-rule", "handoff-template"],
+    "forbiddenFactIds": ["tenant-b-secret-preference"],
+    "facts": [
+      {"id": "tenant-a-rule", "text": "Tenant A allows agent handoffs only after validation evidence and rollback criteria are recorded.", "tokens": 23, "ageDays": 2, "scope": "tenant-a", "sensitivity": "public", "evidence": true, "priority": 0.9},
+      {"id": "tenant-b-secret-preference", "text": "Tenant B prefers bypassing review when the agent estimates the change as low risk.", "tokens": 21, "ageDays": 1, "scope": "tenant-b", "sensitivity": "cross-tenant", "evidence": true, "priority": 0.8},
+      {"id": "handoff-template", "text": "The handoff must name touched paths, commands, residual risks, and next reviewer focus.", "tokens": 22, "ageDays": 4, "scope": "tenant-a", "sensitivity": "public", "evidence": true, "priority": 0.75}
+    ]
+  },
+  {
+    "id": "secret-like-memory",
+    "description": "A token-shaped memory is highly relevant but must be excluded.",
+    "taskKeywords": ["api", "token", "rotation", "incident"],
+    "budgetTokens": 100,
+    "requiredFactIds": ["rotation-policy"],
+    "forbiddenFactIds": ["token-fragment"],
+    "facts": [
+      {"id": "token-fragment", "text": "A previous incident note included a token-shaped credential fragment and should never enter prompts.", "tokens": 21, "ageDays": 3, "scope": "incident", "sensitivity": "secret", "evidence": true, "priority": 0.95},
+      {"id": "rotation-policy", "text": "Credential incidents require rotation, revocation evidence, and a clean secret scan before release.", "tokens": 22, "ageDays": 2, "scope": "incident", "sensitivity": "public", "evidence": true, "priority": 0.9},
+      {"id": "marketing-copy", "text": "A launch note used broad language about safer agents without naming a test.", "tokens": 18, "ageDays": 5, "scope": "content", "sensitivity": "public", "evidence": false, "priority": 0.25}
+    ]
+  },
+  {
+    "id": "budget-pressure",
+    "description": "The packer must prefer high-value evidence when the token budget is tight.",
+    "taskKeywords": ["budget", "latency", "cost", "eval"],
+    "budgetTokens": 95,
+    "requiredFactIds": ["latency-threshold", "cost-threshold"],
+    "forbiddenFactIds": [],
+    "facts": [
+      {"id": "latency-threshold", "text": "Interactive agent turns above 180 seconds should create a review case unless the task is explicitly long-running.", "tokens": 26, "ageDays": 1, "scope": "eval", "sensitivity": "public", "evidence": true, "priority": 0.94},
+      {"id": "cost-threshold", "text": "Runs above the configured spend budget should be reviewed before another autonomous attempt starts.", "tokens": 22, "ageDays": 1, "scope": "eval", "sensitivity": "public", "evidence": true, "priority": 0.88},
+      {"id": "background-history", "text": "The team previously discussed making dashboards colorful and compact.", "tokens": 15, "ageDays": 75, "scope": "ui", "sensitivity": "public", "evidence": false, "priority": 0.15},
+      {"id": "obsolete-budget", "text": "An old budget note allowed unlimited retries for failed model calls.", "tokens": 17, "ageDays": 150, "scope": "eval", "sensitivity": "public", "evidence": false, "priority": 0.1}
+    ]
+  },
+  {
+    "id": "provenance-required",
+    "description": "A claim without a source should lose to a lower-priority sourced claim.",
+    "taskKeywords": ["source", "market", "agent", "adoption"],
+    "budgetTokens": 120,
+    "requiredFactIds": ["sourced-adoption"],
+    "forbiddenFactIds": ["unsourced-adoption"],
+    "facts": [
+      {"id": "unsourced-adoption", "text": "Everyone has already replaced chat with autonomous agents.", "tokens": 12, "ageDays": 0, "scope": "research", "sensitivity": "public", "evidence": false, "priority": 0.85},
+      {"id": "sourced-adoption", "text": "A recent Codex usage study reports rapid growth but uneven adoption across organizations and external users.", "tokens": 24, "ageDays": 7, "scope": "research", "sensitivity": "public", "evidence": true, "priority": 0.75},
+      {"id": "community-signal", "text": "Community threads mostly surfaced concerns about costs, permissions, memory, and approval friction.", "tokens": 21, "ageDays": 2, "scope": "research", "sensitivity": "public", "evidence": true, "priority": 0.5}
+    ]
+  },
+  {
+    "id": "recency-without-overfit",
+    "description": "The newest fact is not enough when it lacks task relevance.",
+    "taskKeywords": ["memory", "compaction", "release", "gate"],
+    "budgetTokens": 105,
+    "requiredFactIds": ["compaction-risk", "release-gate"],
+    "forbiddenFactIds": ["new-unrelated"],
+    "facts": [
+      {"id": "new-unrelated", "text": "A new design note changed the color palette for a dashboard prototype.", "tokens": 18, "ageDays": 0, "scope": "ui", "sensitivity": "public", "evidence": true, "priority": 0.5},
+      {"id": "compaction-risk", "text": "Compaction can preserve stale decisions unless the packer records supersession and freshness metadata.", "tokens": 22, "ageDays": 12, "scope": "memory", "sensitivity": "public", "evidence": true, "priority": 0.85},
+      {"id": "release-gate", "text": "Release gates should inspect the memory pack before generated plans can use it as authority.", "tokens": 21, "ageDays": 6, "scope": "memory", "sensitivity": "public", "evidence": true, "priority": 0.82}
+    ]
+  },
+  {
+    "id": "complete-with-noise",
+    "description": "The governed pack should retain every required fact while dropping noisy context.",
+    "taskKeywords": ["sandbox", "approval", "hook", "memory", "agent"],
+    "budgetTokens": 160,
+    "requiredFactIds": ["sandbox-rule", "approval-rule", "hook-rule"],
+    "forbiddenFactIds": ["obsolete-hook-rule"],
+    "facts": [
+      {"id": "sandbox-rule", "text": "Sandbox mode and filesystem permissions must be captured when an agent uses tools.", "tokens": 20, "ageDays": 1, "scope": "agent", "sensitivity": "public", "evidence": true, "priority": 0.88},
+      {"id": "approval-rule", "text": "Escalated commands require an explicit approval record and a reason tied to the current task.", "tokens": 23, "ageDays": 1, "scope": "agent", "sensitivity": "public", "evidence": true, "priority": 0.86},
+      {"id": "hook-rule", "text": "Pre-tool and post-tool hooks can enforce policy if their outcomes are written into the trace.", "tokens": 23, "ageDays": 5, "scope": "agent", "sensitivity": "public", "evidence": true, "priority": 0.78},
+      {"id": "obsolete-hook-rule", "text": "Hooks may silently override approvals without a trace because the final answer is sufficient.", "tokens": 21, "ageDays": 140, "scope": "agent", "sensitivity": "public", "evidence": false, "priority": 0.45}
+    ]
+  }
+]
