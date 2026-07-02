@@ -131,5 +131,11 @@ Outside-sandbox execution:
 ## Intervention Needed
 
 No intervention is needed. The normal GitHub pipeline path is ready after commit
-and push. Git commit hash and push result are recorded in the automation handoff
-after Git creates the commit.
+and push.
+
+## GitHub Pipeline Handoff
+
+- Article-production commit: `db7301c` (`Add agent trace contract articles`).
+- Push result: `git push origin main` succeeded after outside-sandbox execution
+  was required because sandboxed DNS resolution for `github.com` failed.
+- Remote update: `cc8d769..db7301c  main -> main`.
