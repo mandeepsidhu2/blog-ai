@@ -1,0 +1,5 @@
+dataset_cases=16
+dataset_sha256=8434b1e99435cc04cd011e144357b731027ac4e65c4539c45233ee3118a4375b
+gate=finalSummaryGate accuracy=0.188 block_recall=0.000 false_negatives=6 review_load=0
+gate=commandLogGate accuracy=0.375 block_recall=0.167 false_negatives=5 review_load=7
+gate=traceContractGate accuracy=0.938 block_recall=1.000 false_negatives=0 review_load=6
