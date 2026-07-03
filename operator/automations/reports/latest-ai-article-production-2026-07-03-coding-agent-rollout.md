@@ -1,6 +1,6 @@
 # Latest AI Article Production Run: Coding Agent Rollout Gates
 
-Run time: 2026-07-03 11:00-12:12 EDT
+Run time: 2026-07-03 07:00-07:13 EDT
 
 ## Source Signals Reviewed
 
@@ -99,8 +99,10 @@ were run.
 
 - Local `node` was unavailable on `PATH`; used the bundled Codex Node runtime:
   `/Applications/Codex.app/Contents/Resources/cua_node/bin/node`.
-- Sandbox blocked the local preview bind to `127.0.0.1:4173` with `EPERM`;
-  preview server was run outside the sandbox for browser review.
+- Sandbox blocked a new local preview bind to `127.0.0.1:4173` with `EPERM`.
+  The outside-sandbox retry found that port `4173` was already in use, and the
+  existing server on that port served the freshly built output for browser
+  review.
 - Git push is expected to require outside-sandbox execution if DNS is blocked,
   matching prior automation runs.
 
