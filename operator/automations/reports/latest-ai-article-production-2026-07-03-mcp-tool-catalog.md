@@ -141,14 +141,23 @@ Browser review:
 
 ## Workspace Notes
 
-Pre-existing or unrelated workspace changes were left unstaged and untouched:
+After the local commits, `main` contains multiple commits that have not reached
+`origin/main`. The primary article commit from this run is:
+
+- `884bc26` (`Add MCP tool catalog gate articles`)
+
+This report also has local follow-up correction commits documenting the blocked
+push. Earlier local article-production commits are queued ahead of `origin/main`
+as well:
+
+- `cbc98ce` (`Add smart contract agent gate articles`)
+- `c89d2d9` (`Add cybersecurity agent release gate articles`)
+- `0cb412c` (`Add agent app manifest gate articles`)
+
+Pre-existing unrelated working-tree changes were left unstaged and untouched:
 
 - modified `README.md`
 - modified `docs/INFRASTRUCTURE.md`
-- modified `app-scripts/build-site.mjs`
-- modified `site/assets/styles.css`
-- unrelated untracked article/evidence batches including agent-app,
-  cybersecurity-agent, and smart-contract-agent candidates
 
 This run stages only the MCP tool-catalog articles, assets, evidence project,
 and this report.
@@ -156,6 +165,9 @@ and this report.
 ## Intervention Needed
 
 The MCP content itself is gate-clean. The required push still needs to be
-retried after the Codex usage-limit window clears. The workspace also contains
-unrelated unstaged and untracked changes that should be reviewed separately
-before any broad cleanup.
+retried after the Codex usage-limit window clears. Because `main` contains
+earlier local article commits in addition to this MCP run, that retry will push
+the queued local commits unless the branch is adjusted first.
+The workspace also contains unrelated unstaged changes to `README.md` and
+`docs/INFRASTRUCTURE.md` that should be reviewed separately before any broad
+cleanup.
