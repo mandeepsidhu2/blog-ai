@@ -1,0 +1,377 @@
+{
+  "cases": 14,
+  "summaries": [
+    {
+      "policyName": "metadataOnly",
+      "accuracy": 0.286,
+      "meanScore": 0.357,
+      "allowed": 12,
+      "reviewed": 2,
+      "blocked": 0,
+      "falseNegatives": 7,
+      "falsePositives": 0,
+      "decisions": [
+        {
+          "id": "payments-refund-official",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "crm-note-broad-consent",
+          "expected": "review",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "ticket-close-no-confirmation",
+          "expected": "block",
+          "actual": "review",
+          "score": 0.5,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "docs-search-read-only",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "repo-agent-unsigned-card",
+          "expected": "block",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "analytics-open-network",
+          "expected": "review",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "third-party-proxy-payments",
+          "expected": "block",
+          "actual": "review",
+          "score": 0.5,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "calendar-create-specific",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "hr-records-raw-prompt-logs",
+          "expected": "block",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "mail-send-token-passthrough",
+          "expected": "block",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "expense-extended-card-public",
+          "expected": "block",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "warehouse-update-low-tests",
+          "expected": "review",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "notes-sync-token-logs",
+          "expected": "block",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "design-read-frame-allowlist",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        }
+      ]
+    },
+    {
+      "policyName": "consentOnly",
+      "accuracy": 0.429,
+      "meanScore": 0.5,
+      "allowed": 10,
+      "reviewed": 3,
+      "blocked": 1,
+      "falseNegatives": 6,
+      "falsePositives": 0,
+      "decisions": [
+        {
+          "id": "payments-refund-official",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "crm-note-broad-consent",
+          "expected": "review",
+          "actual": "review",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "ticket-close-no-confirmation",
+          "expected": "block",
+          "actual": "block",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "docs-search-read-only",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "repo-agent-unsigned-card",
+          "expected": "block",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "analytics-open-network",
+          "expected": "review",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "third-party-proxy-payments",
+          "expected": "block",
+          "actual": "review",
+          "score": 0.5,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "calendar-create-specific",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "hr-records-raw-prompt-logs",
+          "expected": "block",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "mail-send-token-passthrough",
+          "expected": "block",
+          "actual": "review",
+          "score": 0.5,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "expense-extended-card-public",
+          "expected": "block",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "warehouse-update-low-tests",
+          "expected": "review",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "notes-sync-token-logs",
+          "expected": "block",
+          "actual": "allow",
+          "score": 0,
+          "falseNegative": true,
+          "falsePositive": false
+        },
+        {
+          "id": "design-read-frame-allowlist",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        }
+      ]
+    },
+    {
+      "policyName": "boundaryGate",
+      "accuracy": 1,
+      "meanScore": 1,
+      "allowed": 4,
+      "reviewed": 3,
+      "blocked": 7,
+      "falseNegatives": 0,
+      "falsePositives": 0,
+      "decisions": [
+        {
+          "id": "payments-refund-official",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "crm-note-broad-consent",
+          "expected": "review",
+          "actual": "review",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "ticket-close-no-confirmation",
+          "expected": "block",
+          "actual": "block",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "docs-search-read-only",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "repo-agent-unsigned-card",
+          "expected": "block",
+          "actual": "block",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "analytics-open-network",
+          "expected": "review",
+          "actual": "review",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "third-party-proxy-payments",
+          "expected": "block",
+          "actual": "block",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "calendar-create-specific",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "hr-records-raw-prompt-logs",
+          "expected": "block",
+          "actual": "block",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "mail-send-token-passthrough",
+          "expected": "block",
+          "actual": "block",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "expense-extended-card-public",
+          "expected": "block",
+          "actual": "block",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "warehouse-update-low-tests",
+          "expected": "review",
+          "actual": "review",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "notes-sync-token-logs",
+          "expected": "block",
+          "actual": "block",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        },
+        {
+          "id": "design-read-frame-allowlist",
+          "expected": "allow",
+          "actual": "allow",
+          "score": 1,
+          "falseNegative": false,
+          "falsePositive": false
+        }
+      ]
+    }
+  ]
+}

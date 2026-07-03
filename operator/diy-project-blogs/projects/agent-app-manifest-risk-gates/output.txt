@@ -1,0 +1,5 @@
+Agent app manifest risk gate experiment
+cases=14
+metadataOnly: accuracy=0.286 mean_score=0.357 blocked=0 reviewed=2 allowed=12 false_negatives=7 false_positives=0
+consentOnly: accuracy=0.429 mean_score=0.5 blocked=1 reviewed=3 allowed=10 false_negatives=6 false_positives=0
+boundaryGate: accuracy=1 mean_score=1 blocked=7 reviewed=3 allowed=4 false_negatives=0 false_positives=0

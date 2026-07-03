@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Agent app manifest risk gate results</title>
+  <desc id="desc">Bar chart comparing metadata-only, consent-only, and boundary-gate policies by accuracy, false negatives, and blocked cases.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f4ea; }
+      .panel { fill: #ffffff; stroke: #d5d0c2; stroke-width: 1.5; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; fill: #17201b; }
+      .subtitle { font-family: Arial, Helvetica, sans-serif; font-size: 17px; fill: #52605a; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 17px; font-weight: 700; fill: #17201b; text-anchor: end; }
+      .value { font-family: Arial, Helvetica, sans-serif; font-size: 15px; fill: #2f3c36; }
+      .track { fill: #e8e2d3; }
+      .accuracy { fill: #266f6d; }
+      .fn { fill: #b94043; }
+      .blocked { fill: #6c5fcb; }
+      .legend { font-family: Arial, Helvetica, sans-serif; font-size: 15px; fill: #2f3c36; }
+    </style>
+  </defs>
+  <rect class="bg" width="960" height="540"/>
+  <rect class="panel" x="28" y="28" width="904" height="484" rx="8"/>
+  <text class="title" x="52" y="68">Manifest Risk Gate Comparison</text>
+  <text class="subtitle" x="52" y="94">Boundary checks remove the missed block cases that metadata and consent checks leave behind.</text>
+
+  <text x="52" y="127" class="label">metadataOnly</text>
+  <rect x="130" y="104" width="720" height="34" rx="5" class="track"/>
+  <rect x="130" y="104" width="205.92" height="34" rx="5" class="accuracy"/>
+  <text x="347.91999999999996" y="127" class="value">accuracy 0.286</text>
+  <rect x="130" y="150" width="720" height="34" rx="5" class="track"/>
+  <rect x="130" y="150" width="720" height="34" rx="5" class="fn"/>
+  <text x="862" y="173" class="value">7 false negatives</text>
+  <rect x="130" y="196" width="720" height="34" rx="5" class="track"/>
+  <rect x="130" y="196" width="0" height="34" rx="5" class="blocked"/>
+  <text x="142" y="219" class="value">0 blocked</text>
+
+  <text x="52" y="253" class="label">consentOnly</text>
+  <rect x="130" y="230" width="720" height="34" rx="5" class="track"/>
+  <rect x="130" y="230" width="308.88" height="34" rx="5" class="accuracy"/>
+  <text x="450.88" y="253" class="value">accuracy 0.429</text>
+  <rect x="130" y="276" width="720" height="34" rx="5" class="track"/>
+  <rect x="130" y="276" width="617.1428571428571" height="34" rx="5" class="fn"/>
+  <text x="759.1428571428571" y="299" class="value">6 false negatives</text>
+  <rect x="130" y="322" width="720" height="34" rx="5" class="track"/>
+  <rect x="130" y="322" width="102.85714285714285" height="34" rx="5" class="blocked"/>
+  <text x="244.85714285714283" y="345" class="value">1 blocked</text>
+
+  <text x="52" y="379" class="label">boundaryGate</text>
+  <rect x="130" y="356" width="720" height="34" rx="5" class="track"/>
+  <rect x="130" y="356" width="720" height="34" rx="5" class="accuracy"/>
+  <text x="862" y="379" class="value">accuracy 1</text>
+  <rect x="130" y="402" width="720" height="34" rx="5" class="track"/>
+  <rect x="130" y="402" width="0" height="34" rx="5" class="fn"/>
+  <text x="142" y="425" class="value">0 false negatives</text>
+  <rect x="130" y="448" width="720" height="34" rx="5" class="track"/>
+  <rect x="130" y="448" width="720" height="34" rx="5" class="blocked"/>
+  <text x="862" y="471" class="value">7 blocked</text>
+  <circle cx="486" cy="496" r="7" class="accuracy"/><text x="500" y="501" class="legend">Exact-match accuracy</text>
+  <circle cx="670" cy="496" r="7" class="fn"/><text x="684" y="501" class="legend">Expected blocks missed</text>
+  <circle cx="842" cy="496" r="7" class="blocked"/><text x="856" y="501" class="legend">Blocked cases</text>
+</svg>
