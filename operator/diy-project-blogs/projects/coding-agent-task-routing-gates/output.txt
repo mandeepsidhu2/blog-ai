@@ -1,0 +1,5 @@
+Coding-agent task routing gate experiment
+tasks=16
+delegateAll: pass_rate=0.438 route_match=0.438 low_confidence=7 high_risk_delegated=5 review_hours=18.21 compute_credits=42.88
+humanReviewOnly: pass_rate=0.563 route_match=0.625 low_confidence=2 high_risk_delegated=0 review_hours=29.21 compute_credits=33.67
+taskGate: pass_rate=0.688 route_match=0.75 low_confidence=3 high_risk_delegated=1 review_hours=25.21 compute_credits=34.45

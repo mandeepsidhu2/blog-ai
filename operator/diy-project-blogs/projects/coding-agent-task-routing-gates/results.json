@@ -1,0 +1,521 @@
+{
+  "generatedAt": "2026-07-03T11:31:47.386Z",
+  "summaries": [
+    {
+      "policyName": "delegateAll",
+      "tasks": 16,
+      "passRate": 0.438,
+      "routeMatchRate": 0.438,
+      "lowConfidence": 7,
+      "highRiskDelegated": 5,
+      "reviewHours": 18.21,
+      "computeCredits": 42.88,
+      "rows": [
+        {
+          "id": "docs-api-drift",
+          "route": "agent-fast",
+          "expectedRoute": "agent-fast",
+          "routeMatch": true,
+          "predictedPass": 0.687,
+          "reviewHours": 0.41,
+          "computeCredits": 0.55,
+          "pass": true
+        },
+        {
+          "id": "unit-test-gap",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-fast",
+          "routeMatch": false,
+          "predictedPass": 0.776,
+          "reviewHours": 1.12,
+          "computeCredits": 1.16,
+          "pass": false
+        },
+        {
+          "id": "dependency-security-alert",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.749,
+          "reviewHours": 1.2,
+          "computeCredits": 1.71,
+          "pass": true
+        },
+        {
+          "id": "flaky-check-retry",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.73,
+          "reviewHours": 1.24,
+          "computeCredits": 2.13,
+          "pass": true
+        },
+        {
+          "id": "auth-middleware-refactor",
+          "route": "agent-reviewed",
+          "expectedRoute": "human-paired",
+          "routeMatch": false,
+          "predictedPass": 0.132,
+          "reviewHours": 1.36,
+          "computeCredits": 4.37,
+          "pass": false
+        },
+        {
+          "id": "billing-edge-case",
+          "route": "agent-reviewed",
+          "expectedRoute": "human-paired",
+          "routeMatch": false,
+          "predictedPass": 0.223,
+          "reviewHours": 1.28,
+          "computeCredits": 4.04,
+          "pass": false
+        },
+        {
+          "id": "migration-plan",
+          "route": "agent-reviewed",
+          "expectedRoute": "decompose-first",
+          "routeMatch": false,
+          "predictedPass": 0.05,
+          "reviewHours": 1.48,
+          "computeCredits": 5.89,
+          "pass": false
+        },
+        {
+          "id": "schema-cleanup",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.751,
+          "reviewHours": 1.16,
+          "computeCredits": 1.89,
+          "pass": true
+        },
+        {
+          "id": "accessibility-labels",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-fast",
+          "routeMatch": false,
+          "predictedPass": 0.754,
+          "reviewHours": 1.2,
+          "computeCredits": 1.47,
+          "pass": false
+        },
+        {
+          "id": "checkout-concurrency",
+          "route": "agent-reviewed",
+          "expectedRoute": "human-paired",
+          "routeMatch": false,
+          "predictedPass": 0.101,
+          "reviewHours": 1.32,
+          "computeCredits": 4.97,
+          "pass": false
+        },
+        {
+          "id": "release-note-draft",
+          "route": "agent-fast",
+          "expectedRoute": "agent-fast",
+          "routeMatch": true,
+          "predictedPass": 0.706,
+          "reviewHours": 0.33,
+          "computeCredits": 0.46,
+          "pass": true
+        },
+        {
+          "id": "observability-trace-add",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.721,
+          "reviewHours": 1.24,
+          "computeCredits": 2.42,
+          "pass": true
+        },
+        {
+          "id": "secret-handling-cleanup",
+          "route": "agent-reviewed",
+          "expectedRoute": "human-paired",
+          "routeMatch": false,
+          "predictedPass": 0.521,
+          "reviewHours": 1.24,
+          "computeCredits": 3.35,
+          "pass": false
+        },
+        {
+          "id": "localized-copy-refresh",
+          "route": "agent-reviewed",
+          "expectedRoute": "decompose-first",
+          "routeMatch": false,
+          "predictedPass": 0.601,
+          "reviewHours": 1.15,
+          "computeCredits": 2.87,
+          "pass": false
+        },
+        {
+          "id": "api-pagination-bug",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.738,
+          "reviewHours": 1.2,
+          "computeCredits": 2.04,
+          "pass": true
+        },
+        {
+          "id": "unknown-owner-feature",
+          "route": "agent-reviewed",
+          "expectedRoute": "decompose-first",
+          "routeMatch": false,
+          "predictedPass": 0.46,
+          "reviewHours": 1.28,
+          "computeCredits": 3.56,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "policyName": "humanReviewOnly",
+      "tasks": 16,
+      "passRate": 0.563,
+      "routeMatchRate": 0.625,
+      "lowConfidence": 2,
+      "highRiskDelegated": 0,
+      "reviewHours": 29.21,
+      "computeCredits": 33.67,
+      "rows": [
+        {
+          "id": "docs-api-drift",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-fast",
+          "routeMatch": false,
+          "predictedPass": 0.777,
+          "reviewHours": 0.91,
+          "computeCredits": 0.91,
+          "pass": false
+        },
+        {
+          "id": "unit-test-gap",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-fast",
+          "routeMatch": false,
+          "predictedPass": 0.776,
+          "reviewHours": 1.12,
+          "computeCredits": 1.16,
+          "pass": false
+        },
+        {
+          "id": "dependency-security-alert",
+          "route": "human-paired",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": false,
+          "predictedPass": 0.829,
+          "reviewHours": 2.7,
+          "computeCredits": 1.22,
+          "pass": false
+        },
+        {
+          "id": "flaky-check-retry",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.73,
+          "reviewHours": 1.24,
+          "computeCredits": 2.13,
+          "pass": true
+        },
+        {
+          "id": "auth-middleware-refactor",
+          "route": "human-paired",
+          "expectedRoute": "human-paired",
+          "routeMatch": true,
+          "predictedPass": 0.731,
+          "reviewHours": 2.86,
+          "computeCredits": 3.12,
+          "pass": true
+        },
+        {
+          "id": "billing-edge-case",
+          "route": "human-paired",
+          "expectedRoute": "human-paired",
+          "routeMatch": true,
+          "predictedPass": 0.757,
+          "reviewHours": 2.78,
+          "computeCredits": 2.88,
+          "pass": true
+        },
+        {
+          "id": "migration-plan",
+          "route": "human-paired",
+          "expectedRoute": "decompose-first",
+          "routeMatch": false,
+          "predictedPass": 0.501,
+          "reviewHours": 2.98,
+          "computeCredits": 4.21,
+          "pass": false
+        },
+        {
+          "id": "schema-cleanup",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.751,
+          "reviewHours": 1.16,
+          "computeCredits": 1.89,
+          "pass": true
+        },
+        {
+          "id": "accessibility-labels",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-fast",
+          "routeMatch": false,
+          "predictedPass": 0.754,
+          "reviewHours": 1.2,
+          "computeCredits": 1.47,
+          "pass": false
+        },
+        {
+          "id": "checkout-concurrency",
+          "route": "human-paired",
+          "expectedRoute": "human-paired",
+          "routeMatch": true,
+          "predictedPass": 0.714,
+          "reviewHours": 2.82,
+          "computeCredits": 3.55,
+          "pass": true
+        },
+        {
+          "id": "release-note-draft",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-fast",
+          "routeMatch": false,
+          "predictedPass": 0.796,
+          "reviewHours": 0.83,
+          "computeCredits": 0.77,
+          "pass": false
+        },
+        {
+          "id": "observability-trace-add",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.721,
+          "reviewHours": 1.24,
+          "computeCredits": 2.42,
+          "pass": true
+        },
+        {
+          "id": "secret-handling-cleanup",
+          "route": "human-paired",
+          "expectedRoute": "human-paired",
+          "routeMatch": true,
+          "predictedPass": 0.781,
+          "reviewHours": 2.74,
+          "computeCredits": 2.39,
+          "pass": true
+        },
+        {
+          "id": "localized-copy-refresh",
+          "route": "decompose-first",
+          "expectedRoute": "decompose-first",
+          "routeMatch": true,
+          "predictedPass": 0.581,
+          "reviewHours": 1.65,
+          "computeCredits": 1.58,
+          "pass": false
+        },
+        {
+          "id": "api-pagination-bug",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.738,
+          "reviewHours": 1.2,
+          "computeCredits": 2.04,
+          "pass": true
+        },
+        {
+          "id": "unknown-owner-feature",
+          "route": "decompose-first",
+          "expectedRoute": "decompose-first",
+          "routeMatch": true,
+          "predictedPass": 0.645,
+          "reviewHours": 1.78,
+          "computeCredits": 1.93,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "policyName": "taskGate",
+      "tasks": 16,
+      "passRate": 0.688,
+      "routeMatchRate": 0.75,
+      "lowConfidence": 3,
+      "highRiskDelegated": 1,
+      "reviewHours": 25.21,
+      "computeCredits": 34.45,
+      "rows": [
+        {
+          "id": "docs-api-drift",
+          "route": "agent-fast",
+          "expectedRoute": "agent-fast",
+          "routeMatch": true,
+          "predictedPass": 0.687,
+          "reviewHours": 0.41,
+          "computeCredits": 0.55,
+          "pass": true
+        },
+        {
+          "id": "unit-test-gap",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-fast",
+          "routeMatch": false,
+          "predictedPass": 0.776,
+          "reviewHours": 1.12,
+          "computeCredits": 1.16,
+          "pass": false
+        },
+        {
+          "id": "dependency-security-alert",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.749,
+          "reviewHours": 1.2,
+          "computeCredits": 1.71,
+          "pass": true
+        },
+        {
+          "id": "flaky-check-retry",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.73,
+          "reviewHours": 1.24,
+          "computeCredits": 2.13,
+          "pass": true
+        },
+        {
+          "id": "auth-middleware-refactor",
+          "route": "human-paired",
+          "expectedRoute": "human-paired",
+          "routeMatch": true,
+          "predictedPass": 0.731,
+          "reviewHours": 2.86,
+          "computeCredits": 3.12,
+          "pass": true
+        },
+        {
+          "id": "billing-edge-case",
+          "route": "human-paired",
+          "expectedRoute": "human-paired",
+          "routeMatch": true,
+          "predictedPass": 0.757,
+          "reviewHours": 2.78,
+          "computeCredits": 2.88,
+          "pass": true
+        },
+        {
+          "id": "migration-plan",
+          "route": "human-paired",
+          "expectedRoute": "decompose-first",
+          "routeMatch": false,
+          "predictedPass": 0.501,
+          "reviewHours": 2.98,
+          "computeCredits": 4.21,
+          "pass": false
+        },
+        {
+          "id": "schema-cleanup",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.751,
+          "reviewHours": 1.16,
+          "computeCredits": 1.89,
+          "pass": true
+        },
+        {
+          "id": "accessibility-labels",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-fast",
+          "routeMatch": false,
+          "predictedPass": 0.754,
+          "reviewHours": 1.2,
+          "computeCredits": 1.47,
+          "pass": false
+        },
+        {
+          "id": "checkout-concurrency",
+          "route": "human-paired",
+          "expectedRoute": "human-paired",
+          "routeMatch": true,
+          "predictedPass": 0.714,
+          "reviewHours": 2.82,
+          "computeCredits": 3.55,
+          "pass": true
+        },
+        {
+          "id": "release-note-draft",
+          "route": "agent-fast",
+          "expectedRoute": "agent-fast",
+          "routeMatch": true,
+          "predictedPass": 0.706,
+          "reviewHours": 0.33,
+          "computeCredits": 0.46,
+          "pass": true
+        },
+        {
+          "id": "observability-trace-add",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.721,
+          "reviewHours": 1.24,
+          "computeCredits": 2.42,
+          "pass": true
+        },
+        {
+          "id": "secret-handling-cleanup",
+          "route": "agent-reviewed",
+          "expectedRoute": "human-paired",
+          "routeMatch": false,
+          "predictedPass": 0.521,
+          "reviewHours": 1.24,
+          "computeCredits": 3.35,
+          "pass": false
+        },
+        {
+          "id": "localized-copy-refresh",
+          "route": "decompose-first",
+          "expectedRoute": "decompose-first",
+          "routeMatch": true,
+          "predictedPass": 0.581,
+          "reviewHours": 1.65,
+          "computeCredits": 1.58,
+          "pass": false
+        },
+        {
+          "id": "api-pagination-bug",
+          "route": "agent-reviewed",
+          "expectedRoute": "agent-reviewed",
+          "routeMatch": true,
+          "predictedPass": 0.738,
+          "reviewHours": 1.2,
+          "computeCredits": 2.04,
+          "pass": true
+        },
+        {
+          "id": "unknown-owner-feature",
+          "route": "decompose-first",
+          "expectedRoute": "decompose-first",
+          "routeMatch": true,
+          "predictedPass": 0.645,
+          "reviewHours": 1.78,
+          "computeCredits": 1.93,
+          "pass": true
+        }
+      ]
+    }
+  ]
+}
