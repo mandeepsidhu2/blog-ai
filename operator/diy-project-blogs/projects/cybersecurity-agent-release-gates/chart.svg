@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img">
+  <title>Cybersecurity agent release gate policy comparison</title>
+  <desc>Bar chart comparing severity-only, exploit-proof-only, and dual-use gate policies by accuracy, mean score, and false negatives.</desc>
+  <rect width="960" height="540" fill="#f8fafc"/>
+  <rect x="36" y="32" width="888" height="476" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="70" y="78" font-size="30" font-weight="800" fill="#111827">Cybersecurity Agent Gate Harness</text>
+  <text x="70" y="108" font-size="16" fill="#475569">Accuracy and mean score are higher-is-better; false negatives are release-stopping misses.</text>
+  <text x="300" y="128" font-size="14" font-weight="700" fill="#0f766e">accuracy</text>
+  <text x="390" y="128" font-size="14" font-weight="700" fill="#2563eb">mean score</text>
+  <text x="500" y="128" font-size="14" font-weight="700" fill="#b45309">false negatives / 8</text>
+  
+        <text x="70" y="149" font-size="20" font-weight="700" fill="#111827">severityOnly</text>
+        <rect x="300" y="131" width="129" height="18" rx="3" fill="#0f766e"/>
+        <rect x="300" y="161" width="220" height="18" rx="3" fill="#2563eb"/>
+        <rect x="300" y="191" width="113" height="18" rx="3" fill="#b45309"/>
+        <text x="444" y="147" font-size="16" fill="#111827">0.429</text>
+        <text x="535" y="177" font-size="16" fill="#111827">0.732</text>
+        <text x="428" y="207" font-size="16" fill="#111827">3 FN</text>
+      
+        <text x="70" y="254" font-size="20" font-weight="700" fill="#111827">exploitProofOnly</text>
+        <rect x="300" y="236" width="129" height="18" rx="3" fill="#0f766e"/>
+        <rect x="300" y="266" width="204" height="18" rx="3" fill="#2563eb"/>
+        <rect x="300" y="296" width="150" height="18" rx="3" fill="#b45309"/>
+        <text x="444" y="252" font-size="16" fill="#111827">0.429</text>
+        <text x="519" y="282" font-size="16" fill="#111827">0.679</text>
+        <text x="465" y="312" font-size="16" fill="#111827">4 FN</text>
+      
+        <text x="70" y="359" font-size="20" font-weight="700" fill="#111827">dualUseGate</text>
+        <rect x="300" y="341" width="300" height="18" rx="3" fill="#0f766e"/>
+        <rect x="300" y="371" width="300" height="18" rx="3" fill="#2563eb"/>
+        <rect x="300" y="401" width="0" height="18" rx="3" fill="#b45309"/>
+        <text x="615" y="357" font-size="16" fill="#111827">1</text>
+        <text x="615" y="387" font-size="16" fill="#111827">1</text>
+        <text x="315" y="417" font-size="16" fill="#111827">0 FN</text>
+      
+  <line x1="300" y1="440" x2="600" y2="440" stroke="#94a3b8"/>
+  <text x="300" y="468" font-size="13" fill="#64748b">0.0</text>
+  <text x="585" y="468" font-size="13" fill="#64748b">1.0</text>
+</svg>

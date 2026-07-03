@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img">
+  <title>Cybersecurity agent release gate architecture</title>
+  <desc>Diagram showing a cybersecurity agent workflow passing through provenance, capability, lab isolation, patch validation, and rollout decision gates.</desc>
+  <rect width="960" height="540" fill="#f8fafc"/>
+  <rect x="42" y="38" width="876" height="464" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="76" y="88" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#111827">Cybersecurity Agent Release Gates</text>
+  <text x="76" y="118" font-family="Arial, sans-serif" font-size="16" fill="#475569">Dual-use workflows need evidence of authorization, isolation, and validated remediation before production authority.</text>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <g font-family="Arial, sans-serif">
+    <rect x="76" y="172" width="150" height="92" rx="8" fill="#ecfeff" stroke="#0891b2"/>
+    <text x="98" y="205" font-size="18" font-weight="700" fill="#164e63">Request</text>
+    <text x="98" y="232" font-size="13" fill="#155e75">triage, exploit,</text>
+    <text x="98" y="250" font-size="13" fill="#155e75">patch, or deploy</text>
+    <line x1="226" y1="218" x2="288" y2="218" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <rect x="292" y="154" width="158" height="128" rx="8" fill="#f0fdf4" stroke="#16a34a"/>
+    <text x="316" y="190" font-size="18" font-weight="700" fill="#14532d">Provenance</text>
+    <text x="316" y="218" font-size="13" fill="#166534">source trust</text>
+    <text x="316" y="238" font-size="13" fill="#166534">target authority</text>
+    <text x="316" y="258" font-size="13" fill="#166534">authorization record</text>
+    <line x1="450" y1="218" x2="512" y2="218" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <rect x="516" y="154" width="158" height="128" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+    <text x="540" y="190" font-size="18" font-weight="700" fill="#1e3a8a">Capability</text>
+    <text x="540" y="218" font-size="13" fill="#1d4ed8">exploit detail</text>
+    <text x="540" y="238" font-size="13" fill="#1d4ed8">external writes</text>
+    <text x="540" y="258" font-size="13" fill="#1d4ed8">economic impact</text>
+    <line x1="674" y1="218" x2="736" y2="218" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <rect x="740" y="154" width="138" height="128" rx="8" fill="#fff7ed" stroke="#ea580c"/>
+    <text x="764" y="190" font-size="18" font-weight="700" fill="#7c2d12">Decision</text>
+    <text x="764" y="218" font-size="13" fill="#9a3412">allow</text>
+    <text x="764" y="238" font-size="13" fill="#9a3412">review</text>
+    <text x="764" y="258" font-size="13" fill="#9a3412">block</text>
+    <rect x="196" y="342" width="174" height="86" rx="8" fill="#fef2f2" stroke="#dc2626"/>
+    <text x="222" y="374" font-size="17" font-weight="700" fill="#7f1d1d">Lab Isolation</text>
+    <text x="222" y="400" font-size="13" fill="#991b1b">forks, sandboxes,</text>
+    <text x="222" y="418" font-size="13" fill="#991b1b">ephemeral repos</text>
+    <rect x="392" y="342" width="174" height="86" rx="8" fill="#f5f3ff" stroke="#7c3aed"/>
+    <text x="418" y="374" font-size="17" font-weight="700" fill="#4c1d95">Patch Oracle</text>
+    <text x="418" y="400" font-size="13" fill="#5b21b6">fail-to-pass and</text>
+    <text x="418" y="418" font-size="13" fill="#5b21b6">legitimate replay</text>
+    <rect x="588" y="342" width="174" height="86" rx="8" fill="#fefce8" stroke="#ca8a04"/>
+    <text x="614" y="374" font-size="17" font-weight="700" fill="#713f12">Rollout Metric</text>
+    <text x="614" y="400" font-size="13" fill="#854d0e">zero false negatives</text>
+    <text x="614" y="418" font-size="13" fill="#854d0e">on block cases</text>
+  </g>
+</svg>

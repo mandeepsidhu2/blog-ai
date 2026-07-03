@@ -1,0 +1,5 @@
+Cybersecurity agent release gate experiment
+cases=14
+severityOnly: accuracy=0.429 mean_score=0.732 blocked=7 reviewed=5 allowed=2 false_negatives=3 false_positives=4
+exploitProofOnly: accuracy=0.429 mean_score=0.679 blocked=4 reviewed=5 allowed=5 false_negatives=4 false_positives=2
+dualUseGate: accuracy=1 mean_score=1 blocked=6 reviewed=4 allowed=4 false_negatives=0 false_positives=0

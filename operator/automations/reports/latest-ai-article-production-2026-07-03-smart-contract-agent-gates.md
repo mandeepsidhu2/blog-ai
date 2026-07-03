@@ -1,6 +1,6 @@
 # Latest AI Article Production Run: Smart Contract Agent Gates
 
-Run time: 2026-07-03 11:32-12:20 EDT
+Run time: 2026-07-03 07:17-07:28 EDT
 
 ## Source Signals Reviewed
 
@@ -111,10 +111,14 @@ were run.
 
 ## Commit And Push
 
-- Commit hash: pending until the post-report Git commit is created.
-- Push result: pending.
+- Local commit: created for the smart-contract agent gate batch.
+- Push result: blocked after the sandboxed push failed DNS resolution and the
+  outside-sandbox push request was rejected by the approval reviewer because the
+  Codex usage-limit gate was reached. Manual intervention is needed to push the
+  local commit to `origin/main`.
 
 ## Intervention Needed
 
-None. The candidates passed the required gates and are ready for normal GitHub
-pipeline publication through `main`.
+Manual push intervention is needed. The candidates passed the required gates
+and are committed locally, but the commit could not be pushed to `origin/main`
+from this automation run.
