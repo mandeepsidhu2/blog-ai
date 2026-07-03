@@ -1,0 +1,16 @@
+[
+  { "id": "platform-api", "engineers": 88, "codingActivity": 0.84, "peerExposure": 0.72, "taskFit": 0.78, "governanceReadiness": 0.86, "baselineMonthlyPrs": 410, "tokenBudget": 41, "risk": "medium" },
+  { "id": "mobile-core", "engineers": 76, "codingActivity": 0.79, "peerExposure": 0.58, "taskFit": 0.66, "governanceReadiness": 0.72, "baselineMonthlyPrs": 330, "tokenBudget": 36, "risk": "medium" },
+  { "id": "security-engineering", "engineers": 54, "codingActivity": 0.91, "peerExposure": 0.49, "taskFit": 0.61, "governanceReadiness": 0.94, "baselineMonthlyPrs": 176, "tokenBudget": 44, "risk": "high" },
+  { "id": "data-platform", "engineers": 92, "codingActivity": 0.73, "peerExposure": 0.64, "taskFit": 0.69, "governanceReadiness": 0.63, "baselineMonthlyPrs": 290, "tokenBudget": 39, "risk": "medium" },
+  { "id": "ml-infra", "engineers": 67, "codingActivity": 0.88, "peerExposure": 0.77, "taskFit": 0.81, "governanceReadiness": 0.78, "baselineMonthlyPrs": 248, "tokenBudget": 47, "risk": "medium" },
+  { "id": "internal-tools", "engineers": 112, "codingActivity": 0.68, "peerExposure": 0.82, "taskFit": 0.74, "governanceReadiness": 0.69, "baselineMonthlyPrs": 386, "tokenBudget": 33, "risk": "low" },
+  { "id": "payments", "engineers": 58, "codingActivity": 0.76, "peerExposure": 0.45, "taskFit": 0.56, "governanceReadiness": 0.88, "baselineMonthlyPrs": 162, "tokenBudget": 42, "risk": "high" },
+  { "id": "customer-support-systems", "engineers": 83, "codingActivity": 0.51, "peerExposure": 0.69, "taskFit": 0.63, "governanceReadiness": 0.57, "baselineMonthlyPrs": 205, "tokenBudget": 29, "risk": "medium" },
+  { "id": "documentation", "engineers": 39, "codingActivity": 0.42, "peerExposure": 0.73, "taskFit": 0.86, "governanceReadiness": 0.76, "baselineMonthlyPrs": 118, "tokenBudget": 18, "risk": "low" },
+  { "id": "release-engineering", "engineers": 45, "codingActivity": 0.81, "peerExposure": 0.52, "taskFit": 0.68, "governanceReadiness": 0.91, "baselineMonthlyPrs": 152, "tokenBudget": 35, "risk": "high" },
+  { "id": "analytics-apps", "engineers": 97, "codingActivity": 0.57, "peerExposure": 0.61, "taskFit": 0.59, "governanceReadiness": 0.58, "baselineMonthlyPrs": 244, "tokenBudget": 31, "risk": "medium" },
+  { "id": "frontend-platform", "engineers": 124, "codingActivity": 0.72, "peerExposure": 0.84, "taskFit": 0.79, "governanceReadiness": 0.74, "baselineMonthlyPrs": 478, "tokenBudget": 38, "risk": "medium" },
+  { "id": "compliance-systems", "engineers": 42, "codingActivity": 0.63, "peerExposure": 0.41, "taskFit": 0.48, "governanceReadiness": 0.93, "baselineMonthlyPrs": 104, "tokenBudget": 27, "risk": "high" },
+  { "id": "growth-experiments", "engineers": 71, "codingActivity": 0.49, "peerExposure": 0.79, "taskFit": 0.71, "governanceReadiness": 0.52, "baselineMonthlyPrs": 196, "tokenBudget": 30, "risk": "low" }
+]

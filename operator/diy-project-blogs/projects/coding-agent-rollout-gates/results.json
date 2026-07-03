@@ -1,0 +1,506 @@
+{
+  "teams": 14,
+  "results": [
+    {
+      "name": "broadRollout",
+      "seats": 1048,
+      "retainedSeats": 828,
+      "activationRate": 0.79,
+      "monthlyCreditUnits": 38744,
+      "wastedCreditUnits": 11475,
+      "prLift": 479,
+      "underSupportedTeams": 7,
+      "p95PaybackDays": 304,
+      "teams": [
+        {
+          "id": "platform-api",
+          "seats": 88,
+          "retainedSeats": 77,
+          "activation": 0.875,
+          "monthlyCreditUnits": 3752,
+          "wastedCreditUnits": 848,
+          "prLift": 67,
+          "underSupportedAdoption": 0,
+          "paybackDays": 101
+        },
+        {
+          "id": "mobile-core",
+          "seats": 76,
+          "retainedSeats": 60,
+          "activation": 0.79,
+          "monthlyCreditUnits": 2845,
+          "wastedCreditUnits": 858,
+          "prLift": 41,
+          "underSupportedAdoption": 0,
+          "paybackDays": 125
+        },
+        {
+          "id": "security-engineering",
+          "seats": 54,
+          "retainedSeats": 41,
+          "activation": 0.759,
+          "monthlyCreditUnits": 2471,
+          "wastedCreditUnits": 811,
+          "prLift": 20,
+          "underSupportedAdoption": 1,
+          "paybackDays": 222
+        },
+        {
+          "id": "data-platform",
+          "seats": 92,
+          "retainedSeats": 72,
+          "activation": 0.786,
+          "monthlyCreditUnits": 3732,
+          "wastedCreditUnits": 1149,
+          "prLift": 38,
+          "underSupportedAdoption": 0,
+          "paybackDays": 177
+        },
+        {
+          "id": "ml-infra",
+          "seats": 67,
+          "retainedSeats": 60,
+          "activation": 0.898,
+          "monthlyCreditUnits": 3275,
+          "wastedCreditUnits": 681,
+          "prLift": 43,
+          "underSupportedAdoption": 0,
+          "paybackDays": 137
+        },
+        {
+          "id": "internal-tools",
+          "seats": 112,
+          "retainedSeats": 96,
+          "activation": 0.859,
+          "monthlyCreditUnits": 3844,
+          "wastedCreditUnits": 929,
+          "prLift": 59,
+          "underSupportedAdoption": 0,
+          "paybackDays": 117
+        },
+        {
+          "id": "payments",
+          "seats": 58,
+          "retainedSeats": 40,
+          "activation": 0.692,
+          "monthlyCreditUnits": 2533,
+          "wastedCreditUnits": 987,
+          "prLift": 15,
+          "underSupportedAdoption": 1,
+          "paybackDays": 304
+        },
+        {
+          "id": "customer-support-systems",
+          "seats": 83,
+          "retainedSeats": 59,
+          "activation": 0.716,
+          "monthlyCreditUnits": 2503,
+          "wastedCreditUnits": 929,
+          "prLift": 22,
+          "underSupportedAdoption": 1,
+          "paybackDays": 205
+        },
+        {
+          "id": "documentation",
+          "seats": 39,
+          "retainedSeats": 31,
+          "activation": 0.8,
+          "monthlyCreditUnits": 730,
+          "wastedCreditUnits": 217,
+          "prLift": 19,
+          "underSupportedAdoption": 0,
+          "paybackDays": 69
+        },
+        {
+          "id": "release-engineering",
+          "seats": 45,
+          "retainedSeats": 34,
+          "activation": 0.752,
+          "monthlyCreditUnits": 1638,
+          "wastedCreditUnits": 543,
+          "prLift": 19,
+          "underSupportedAdoption": 1,
+          "paybackDays": 155
+        },
+        {
+          "id": "analytics-apps",
+          "seats": 97,
+          "retainedSeats": 69,
+          "activation": 0.707,
+          "monthlyCreditUnits": 3127,
+          "wastedCreditUnits": 1159,
+          "prLift": 24,
+          "underSupportedAdoption": 1,
+          "paybackDays": 235
+        },
+        {
+          "id": "frontend-platform",
+          "seats": 124,
+          "retainedSeats": 107,
+          "activation": 0.86,
+          "monthlyCreditUnits": 4900,
+          "wastedCreditUnits": 1159,
+          "prLift": 78,
+          "underSupportedAdoption": 0,
+          "paybackDays": 113
+        },
+        {
+          "id": "compliance-systems",
+          "seats": 42,
+          "retainedSeats": 27,
+          "activation": 0.631,
+          "monthlyCreditUnits": 1179,
+          "wastedCreditUnits": 508,
+          "prLift": 8,
+          "underSupportedAdoption": 1,
+          "paybackDays": 265
+        },
+        {
+          "id": "growth-experiments",
+          "seats": 71,
+          "retainedSeats": 55,
+          "activation": 0.778,
+          "monthlyCreditUnits": 2215,
+          "wastedCreditUnits": 697,
+          "prLift": 26,
+          "underSupportedAdoption": 1,
+          "paybackDays": 153
+        }
+      ]
+    },
+    {
+      "name": "activityOnly",
+      "seats": 558,
+      "retainedSeats": 469,
+      "activationRate": 0.841,
+      "monthlyCreditUnits": 23028,
+      "wastedCreditUnits": 6222,
+      "prLift": 387,
+      "underSupportedTeams": 3,
+      "p95PaybackDays": 240,
+      "teams": [
+        {
+          "id": "platform-api",
+          "seats": 69,
+          "retainedSeats": 62,
+          "activation": 0.892,
+          "monthlyCreditUnits": 2999,
+          "wastedCreditUnits": 660,
+          "prLift": 68,
+          "underSupportedAdoption": 0,
+          "paybackDays": 79
+        },
+        {
+          "id": "mobile-core",
+          "seats": 59,
+          "retainedSeats": 48,
+          "activation": 0.807,
+          "monthlyCreditUnits": 2251,
+          "wastedCreditUnits": 661,
+          "prLift": 42,
+          "underSupportedAdoption": 0,
+          "paybackDays": 96
+        },
+        {
+          "id": "security-engineering",
+          "seats": 42,
+          "retainedSeats": 33,
+          "activation": 0.777,
+          "monthlyCreditUnits": 1959,
+          "wastedCreditUnits": 623,
+          "prLift": 20,
+          "underSupportedAdoption": 1,
+          "paybackDays": 176
+        },
+        {
+          "id": "data-platform",
+          "seats": 72,
+          "retainedSeats": 58,
+          "activation": 0.804,
+          "monthlyCreditUnits": 2976,
+          "wastedCreditUnits": 895,
+          "prLift": 39,
+          "underSupportedAdoption": 0,
+          "paybackDays": 137
+        },
+        {
+          "id": "ml-infra",
+          "seats": 52,
+          "retainedSeats": 48,
+          "activation": 0.915,
+          "monthlyCreditUnits": 2591,
+          "wastedCreditUnits": 515,
+          "prLift": 44,
+          "underSupportedAdoption": 0,
+          "paybackDays": 106
+        },
+        {
+          "id": "internal-tools",
+          "seats": 87,
+          "retainedSeats": 76,
+          "activation": 0.876,
+          "monthlyCreditUnits": 3043,
+          "wastedCreditUnits": 736,
+          "prLift": 60,
+          "underSupportedAdoption": 0,
+          "paybackDays": 91
+        },
+        {
+          "id": "payments",
+          "seats": 45,
+          "retainedSeats": 32,
+          "activation": 0.709,
+          "monthlyCreditUnits": 2003,
+          "wastedCreditUnits": 767,
+          "prLift": 15,
+          "underSupportedAdoption": 1,
+          "paybackDays": 240
+        },
+        {
+          "id": "customer-support-systems",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        },
+        {
+          "id": "documentation",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        },
+        {
+          "id": "release-engineering",
+          "seats": 35,
+          "retainedSeats": 27,
+          "activation": 0.77,
+          "monthlyCreditUnits": 1299,
+          "wastedCreditUnits": 430,
+          "prLift": 19,
+          "underSupportedAdoption": 1,
+          "paybackDays": 123
+        },
+        {
+          "id": "analytics-apps",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        },
+        {
+          "id": "frontend-platform",
+          "seats": 97,
+          "retainedSeats": 85,
+          "activation": 0.878,
+          "monthlyCreditUnits": 3907,
+          "wastedCreditUnits": 935,
+          "prLift": 80,
+          "underSupportedAdoption": 0,
+          "paybackDays": 88
+        },
+        {
+          "id": "compliance-systems",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        },
+        {
+          "id": "growth-experiments",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        }
+      ]
+    },
+    {
+      "name": "peerVisibleGate",
+      "seats": 408,
+      "retainedSeats": 396,
+      "activationRate": 0.971,
+      "monthlyCreditUnits": 16651,
+      "wastedCreditUnits": 3126,
+      "prLift": 397,
+      "underSupportedTeams": 0,
+      "p95PaybackDays": 106,
+      "teams": [
+        {
+          "id": "platform-api",
+          "seats": 60,
+          "retainedSeats": 59,
+          "activation": 0.98,
+          "monthlyCreditUnits": 2706,
+          "wastedCreditUnits": 481,
+          "prLift": 75,
+          "underSupportedAdoption": 0,
+          "paybackDays": 65
+        },
+        {
+          "id": "mobile-core",
+          "seats": 52,
+          "retainedSeats": 50,
+          "activation": 0.952,
+          "monthlyCreditUnits": 2059,
+          "wastedCreditUnits": 403,
+          "prLift": 50,
+          "underSupportedAdoption": 0,
+          "paybackDays": 74
+        },
+        {
+          "id": "security-engineering",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        },
+        {
+          "id": "data-platform",
+          "seats": 63,
+          "retainedSeats": 60,
+          "activation": 0.949,
+          "monthlyCreditUnits": 2703,
+          "wastedCreditUnits": 550,
+          "prLift": 46,
+          "underSupportedAdoption": 0,
+          "paybackDays": 106
+        },
+        {
+          "id": "ml-infra",
+          "seats": 46,
+          "retainedSeats": 45,
+          "activation": 0.98,
+          "monthlyCreditUnits": 2378,
+          "wastedCreditUnits": 432,
+          "prLift": 47,
+          "underSupportedAdoption": 0,
+          "paybackDays": 91
+        },
+        {
+          "id": "internal-tools",
+          "seats": 76,
+          "retainedSeats": 74,
+          "activation": 0.98,
+          "monthlyCreditUnits": 2759,
+          "wastedCreditUnits": 512,
+          "prLift": 67,
+          "underSupportedAdoption": 0,
+          "paybackDays": 74
+        },
+        {
+          "id": "payments",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        },
+        {
+          "id": "customer-support-systems",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        },
+        {
+          "id": "documentation",
+          "seats": 27,
+          "retainedSeats": 26,
+          "activation": 0.963,
+          "monthlyCreditUnits": 535,
+          "wastedCreditUnits": 104,
+          "prLift": 23,
+          "underSupportedAdoption": 0,
+          "paybackDays": 42
+        },
+        {
+          "id": "release-engineering",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        },
+        {
+          "id": "analytics-apps",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        },
+        {
+          "id": "frontend-platform",
+          "seats": 84,
+          "retainedSeats": 82,
+          "activation": 0.98,
+          "monthlyCreditUnits": 3511,
+          "wastedCreditUnits": 644,
+          "prLift": 89,
+          "underSupportedAdoption": 0,
+          "paybackDays": 71
+        },
+        {
+          "id": "compliance-systems",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        },
+        {
+          "id": "growth-experiments",
+          "seats": 0,
+          "retainedSeats": 0,
+          "activation": 0,
+          "monthlyCreditUnits": 0,
+          "wastedCreditUnits": 0,
+          "prLift": 0,
+          "underSupportedAdoption": 0,
+          "paybackDays": 0
+        }
+      ]
+    }
+  ]
+}

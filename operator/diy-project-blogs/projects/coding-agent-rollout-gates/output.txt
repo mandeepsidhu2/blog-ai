@@ -1,0 +1,5 @@
+Coding agent rollout gate experiment
+teams=14
+broadRollout: seats=1048 retained=828 activation=0.79 monthly_credit_units=38744 wasted_credit_units=11475 pr_lift=479 unsupported_teams=7 p95_payback_days=304
+activityOnly: seats=558 retained=469 activation=0.841 monthly_credit_units=23028 wasted_credit_units=6222 pr_lift=387 unsupported_teams=3 p95_payback_days=240
+peerVisibleGate: seats=408 retained=396 activation=0.971 monthly_credit_units=16651 wasted_credit_units=3126 pr_lift=397 unsupported_teams=0 p95_payback_days=106
