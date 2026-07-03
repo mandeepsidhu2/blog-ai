@@ -1,0 +1,249 @@
+{
+  "datasetSha256": "a6961e7a20235207b45858f641122daee772d3fe6bc9e9c3d628a98377728884",
+  "caseCount": 14,
+  "results": [
+    {
+      "name": "seatRolloutGate",
+      "exact": 4,
+      "total": 14,
+      "accuracy": 0.2857142857142857,
+      "blockRecall": 0,
+      "falseNegatives": 7,
+      "reviewLoad": 1,
+      "predictions": [
+        {
+          "id": "platform-core-peer-led-pilot",
+          "expected": "allow",
+          "predicted": "allow"
+        },
+        {
+          "id": "docs-maintenance-clear-value",
+          "expected": "allow",
+          "predicted": "allow"
+        },
+        {
+          "id": "forced-seat-rollout-low-retention",
+          "expected": "block",
+          "predicted": "allow"
+        },
+        {
+          "id": "power-users-cost-overrun",
+          "expected": "block",
+          "predicted": "allow"
+        },
+        {
+          "id": "budget-approved-expert-lane",
+          "expected": "review",
+          "predicted": "allow"
+        },
+        {
+          "id": "weak-pr-lift-needs-more-time",
+          "expected": "review",
+          "predicted": "allow"
+        },
+        {
+          "id": "tool-permission-incident",
+          "expected": "block",
+          "predicted": "allow"
+        },
+        {
+          "id": "review-failures-over-threshold",
+          "expected": "block",
+          "predicted": "allow"
+        },
+        {
+          "id": "missing-eval-logging",
+          "expected": "block",
+          "predicted": "allow"
+        },
+        {
+          "id": "social-pocket-not-companywide",
+          "expected": "review",
+          "predicted": "review"
+        },
+        {
+          "id": "active-but-low-quality",
+          "expected": "block",
+          "predicted": "allow"
+        },
+        {
+          "id": "small-pilot-promising",
+          "expected": "review",
+          "predicted": "allow"
+        },
+        {
+          "id": "broad-peer-diffusion",
+          "expected": "allow",
+          "predicted": "allow"
+        },
+        {
+          "id": "usage-without-output-lift",
+          "expected": "block",
+          "predicted": "allow"
+        }
+      ]
+    },
+    {
+      "name": "adoptionOnlyGate",
+      "exact": 5,
+      "total": 14,
+      "accuracy": 0.35714285714285715,
+      "blockRecall": 0.14285714285714285,
+      "falseNegatives": 6,
+      "reviewLoad": 2,
+      "predictions": [
+        {
+          "id": "platform-core-peer-led-pilot",
+          "expected": "allow",
+          "predicted": "allow"
+        },
+        {
+          "id": "docs-maintenance-clear-value",
+          "expected": "allow",
+          "predicted": "allow"
+        },
+        {
+          "id": "forced-seat-rollout-low-retention",
+          "expected": "block",
+          "predicted": "block"
+        },
+        {
+          "id": "power-users-cost-overrun",
+          "expected": "block",
+          "predicted": "allow"
+        },
+        {
+          "id": "budget-approved-expert-lane",
+          "expected": "review",
+          "predicted": "allow"
+        },
+        {
+          "id": "weak-pr-lift-needs-more-time",
+          "expected": "review",
+          "predicted": "review"
+        },
+        {
+          "id": "tool-permission-incident",
+          "expected": "block",
+          "predicted": "allow"
+        },
+        {
+          "id": "review-failures-over-threshold",
+          "expected": "block",
+          "predicted": "allow"
+        },
+        {
+          "id": "missing-eval-logging",
+          "expected": "block",
+          "predicted": "allow"
+        },
+        {
+          "id": "social-pocket-not-companywide",
+          "expected": "review",
+          "predicted": "allow"
+        },
+        {
+          "id": "active-but-low-quality",
+          "expected": "block",
+          "predicted": "allow"
+        },
+        {
+          "id": "small-pilot-promising",
+          "expected": "review",
+          "predicted": "allow"
+        },
+        {
+          "id": "broad-peer-diffusion",
+          "expected": "allow",
+          "predicted": "allow"
+        },
+        {
+          "id": "usage-without-output-lift",
+          "expected": "block",
+          "predicted": "review"
+        }
+      ]
+    },
+    {
+      "name": "adoptionCostQualityGate",
+      "exact": 14,
+      "total": 14,
+      "accuracy": 1,
+      "blockRecall": 1,
+      "falseNegatives": 0,
+      "reviewLoad": 4,
+      "predictions": [
+        {
+          "id": "platform-core-peer-led-pilot",
+          "expected": "allow",
+          "predicted": "allow"
+        },
+        {
+          "id": "docs-maintenance-clear-value",
+          "expected": "allow",
+          "predicted": "allow"
+        },
+        {
+          "id": "forced-seat-rollout-low-retention",
+          "expected": "block",
+          "predicted": "block"
+        },
+        {
+          "id": "power-users-cost-overrun",
+          "expected": "block",
+          "predicted": "block"
+        },
+        {
+          "id": "budget-approved-expert-lane",
+          "expected": "review",
+          "predicted": "review"
+        },
+        {
+          "id": "weak-pr-lift-needs-more-time",
+          "expected": "review",
+          "predicted": "review"
+        },
+        {
+          "id": "tool-permission-incident",
+          "expected": "block",
+          "predicted": "block"
+        },
+        {
+          "id": "review-failures-over-threshold",
+          "expected": "block",
+          "predicted": "block"
+        },
+        {
+          "id": "missing-eval-logging",
+          "expected": "block",
+          "predicted": "block"
+        },
+        {
+          "id": "social-pocket-not-companywide",
+          "expected": "review",
+          "predicted": "review"
+        },
+        {
+          "id": "active-but-low-quality",
+          "expected": "block",
+          "predicted": "block"
+        },
+        {
+          "id": "small-pilot-promising",
+          "expected": "review",
+          "predicted": "review"
+        },
+        {
+          "id": "broad-peer-diffusion",
+          "expected": "allow",
+          "predicted": "allow"
+        },
+        {
+          "id": "usage-without-output-lift",
+          "expected": "block",
+          "predicted": "block"
+        }
+      ]
+    }
+  ]
+}

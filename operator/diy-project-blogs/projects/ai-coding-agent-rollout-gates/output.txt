@@ -1,0 +1,5 @@
+dataset_cases=14
+dataset_sha256=a6961e7a20235207b45858f641122daee772d3fe6bc9e9c3d628a98377728884
+gate=seatRolloutGate accuracy=0.286 block_recall=0.000 false_negatives=7 review_load=1
+gate=adoptionOnlyGate accuracy=0.357 block_recall=0.143 false_negatives=6 review_load=2
+gate=adoptionCostQualityGate accuracy=1.000 block_recall=1.000 false_negatives=0 review_load=4

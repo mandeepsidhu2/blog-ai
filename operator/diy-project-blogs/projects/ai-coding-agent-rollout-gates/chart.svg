@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">AI coding agent rollout gate block recall comparison</title>
+  <desc id="desc">Bar chart comparing block recall for seat rollout, adoption only, and adoption cost quality rollout gates.</desc>
+  <rect width="960" height="540" fill="#f8fafd"/>
+  <text x="60" y="62" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#202124">Rollout gate block recall</text>
+  <text x="60" y="98" font-family="Arial, sans-serif" font-size="18" fill="#5f6368">Strong rollout gates catch unsafe expansion decisions before cost, quality, or security failures scale.</text>
+  <line x1="110" y1="360" x2="850" y2="360" stroke="#9aa0a6" stroke-width="2"/>
+  <line x1="110" y1="100" x2="110" y2="360" stroke="#9aa0a6" stroke-width="2"/>
+  <text x="72" y="112" font-family="Arial, sans-serif" font-size="14" fill="#5f6368">1.0</text>
+  <text x="72" y="238" font-family="Arial, sans-serif" font-size="14" fill="#5f6368">0.5</text>
+  <text x="80" y="365" font-family="Arial, sans-serif" font-size="14" fill="#5f6368">0</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="165" y="360" width="118" height="0" rx="4" fill="#b3261e" />
+    <text x="224" y="350" text-anchor="middle" font-size="20" font-weight="700" fill="#202124">0.00</text>
+    <text x="224" y="430" text-anchor="middle" font-size="17" fill="#3c4043">seatRollout</text>
+
+    <rect x="390" y="323" width="118" height="37" rx="4" fill="#f29900" />
+    <text x="449" y="313" text-anchor="middle" font-size="20" font-weight="700" fill="#202124">0.14</text>
+    <text x="449" y="430" text-anchor="middle" font-size="17" fill="#3c4043">adoptionOnly</text>
+
+    <rect x="615" y="100" width="118" height="260" rx="4" fill="#188038" />
+    <text x="674" y="90" text-anchor="middle" font-size="20" font-weight="700" fill="#202124">1.00</text>
+    <text x="674" y="430" text-anchor="middle" font-size="17" fill="#3c4043">adoptionCostQuality</text></g>
+  <text x="60" y="492" font-family="Arial, sans-serif" font-size="18" fill="#202124">Dataset: 14 rollout scenarios, 0 false negatives for the tested gate.</text>
+</svg>
