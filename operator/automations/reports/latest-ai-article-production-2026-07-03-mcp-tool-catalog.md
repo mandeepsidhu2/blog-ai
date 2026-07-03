@@ -15,6 +15,18 @@ promoted into `content/articles/` and `content/assets/`. The run used no local
 model service, no torch workload, no CUDA, no CPU ML experiment, and no cloud
 resource commands.
 
+Commit created:
+
+- `884bc26` (`Add MCP tool catalog gate articles`)
+
+Push result:
+
+- Sandboxed `git push origin main` failed DNS resolution for `github.com`.
+- Outside-sandbox `git push origin main` was requested because the automation
+  explicitly requires pushing after gates pass, but the approval reviewer
+  rejected the escalation because the Codex account hit its usage limit. The
+  reviewer reported retry availability at 11:27 AM.
+
 ## Source Signals Reviewed
 
 Primary and high-signal sources:
@@ -143,6 +155,7 @@ and this report.
 
 ## Intervention Needed
 
-No content intervention is needed for the MCP candidates. The only operational
-note is that the workspace contains unrelated unstaged and untracked changes
-that should be reviewed separately before any broad cleanup.
+The MCP content itself is gate-clean. The required push still needs to be
+retried after the Codex usage-limit window clears. The workspace also contains
+unrelated unstaged and untracked changes that should be reviewed separately
+before any broad cleanup.
