@@ -643,7 +643,7 @@ function renderHomePage(articles, topics) {
         </div>
         <form class="home-search" data-home-search>
           <label class="sr-only" for="home-search-input">Search tutorials</label>
-          <input id="home-search-input" type="search" placeholder="Search agents, RAG, evals, security..." autocomplete="off">
+          <input id="home-search-input" type="search" placeholder="Search tutorials..." autocomplete="off">
           <button type="submit">Search</button>
         </form>
       </div>
