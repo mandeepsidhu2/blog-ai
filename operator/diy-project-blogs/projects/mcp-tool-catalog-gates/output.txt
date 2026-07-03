@@ -1,0 +1,5 @@
+MCP tool catalog gate experiment
+tools=24 tasks=14
+allTools: exact_visible=14/14 exact_visible_rate=1 selection_accuracy=1 unsafe_selections=0 unsafe_alternatives=235 mean_visible_tools=24 p95_latency_ms=1740
+namespaceOnly: exact_visible=14/14 exact_visible_rate=1 selection_accuracy=1 unsafe_selections=0 unsafe_alternatives=23 mean_visible_tools=3.07 p95_latency_ms=1740
+capabilityGate: exact_visible=14/14 exact_visible_rate=1 selection_accuracy=1 unsafe_selections=0 unsafe_alternatives=0 mean_visible_tools=1 p95_latency_ms=1740

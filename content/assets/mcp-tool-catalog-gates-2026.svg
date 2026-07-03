@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">MCP tool catalog gate architecture</title>
+  <desc id="desc">Architecture diagram showing an agent request flowing through task classification, capability filtering, authorization checks, tool evaluation, telemetry, and rollback gates before MCP tool exposure.</desc>
+  <rect width="960" height="540" fill="#f7fbff"/>
+  <text x="48" y="58" class="title">MCP tool catalog gate</text>
+  <text x="48" y="92" class="subtitle">Expose fewer tools, preserve exact capability, and keep side effects auditable.</text>
+  <g class="box">
+    <rect x="54" y="142" width="156" height="96" rx="8"/>
+    <text x="78" y="180">Task</text>
+    <text x="78" y="206">classification</text>
+  </g>
+  <g class="box">
+    <rect x="252" y="142" width="156" height="96" rx="8"/>
+    <text x="278" y="180">Capability</text>
+    <text x="278" y="206">filter</text>
+  </g>
+  <g class="box">
+    <rect x="450" y="142" width="156" height="96" rx="8"/>
+    <text x="476" y="180">Auth and</text>
+    <text x="476" y="206">scope check</text>
+  </g>
+  <g class="box">
+    <rect x="648" y="142" width="156" height="96" rx="8"/>
+    <text x="674" y="180">Tool eval</text>
+    <text x="674" y="206">and latency</text>
+  </g>
+  <g class="selected">
+    <rect x="252" y="314" width="354" height="118" rx="8"/>
+    <text x="284" y="360">Minimal visible catalog</text>
+    <text x="284" y="390">One approved tool per task when possible</text>
+  </g>
+  <g class="side">
+    <rect x="648" y="314" width="228" height="118" rx="8"/>
+    <text x="680" y="360">Telemetry</text>
+    <text x="680" y="390">usage, errors, rollback</text>
+  </g>
+  <path d="M210 190h42" class="arrow"/>
+  <path d="M408 190h42" class="arrow"/>
+  <path d="M606 190h42" class="arrow"/>
+  <path d="M726 238v76" class="arrow"/>
+  <path d="M648 373h-42" class="arrow"/>
+  <path d="M132 238c0 118 55 177 120 177" class="arrow dashed"/>
+  <text x="56" y="486" class="note">Blocked tools remain outside the model context until scope, consent, tests, and approval policy pass.</text>
+  <style>
+    .title { font: 700 32px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #172033; }
+    .subtitle, .note { font: 18px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #415269; }
+    .box rect { fill: #ffffff; stroke: #7aa5c8; stroke-width: 2; }
+    .box text, .selected text, .side text { font: 700 19px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #172033; }
+    .selected rect { fill: #e7f6f2; stroke: #0f8b8d; stroke-width: 2; }
+    .side rect { fill: #fff5e2; stroke: #edae49; stroke-width: 2; }
+    .arrow { fill: none; stroke: #243447; stroke-width: 3; marker-end: url(#arrowhead); }
+    .dashed { stroke-dasharray: 8 7; stroke: #63758b; }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#243447"/>
+    </marker>
+  </defs>
+</svg>

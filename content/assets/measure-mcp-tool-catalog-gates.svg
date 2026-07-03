@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">MCP tool catalog policy comparison</title>
+  <desc id="desc">Chart comparing selection accuracy, unsafe alternatives, and mean visible tools for all-tools, namespace-only, and capability-gated MCP catalog policies.</desc>
+  <rect width="960" height="540" fill="#f8fbff"/>
+  <text x="48" y="54" class="title">MCP tool catalog gate comparison</text>
+  <text x="210" y="92" class="legend"><tspan class="accuracyText">accuracy</tspan>  <tspan class="unsafeText">unsafe alternatives</tspan>  <tspan class="visibleText">visible tools</tspan></text>
+  
+    <text x="48" y="124" class="label">allTools</text>
+    <rect x="210" y="100" width="360" height="18" rx="3" class="accuracy"/>
+    <rect x="210" y="128" width="360" height="18" rx="3" class="unsafe"/>
+    <rect x="210" y="156" width="360" height="18" rx="3" class="visible"/>
+    <text x="580" y="114" class="value">1</text>
+    <text x="580" y="142" class="value">235</text>
+    <text x="580" y="170" class="value">24</text>
+
+    <text x="48" y="228" class="label">namespaceOnly</text>
+    <rect x="210" y="204" width="360" height="18" rx="3" class="accuracy"/>
+    <rect x="210" y="232" width="35" height="18" rx="3" class="unsafe"/>
+    <rect x="210" y="260" width="46" height="18" rx="3" class="visible"/>
+    <text x="580" y="218" class="value">1</text>
+    <text x="255" y="246" class="value">23</text>
+    <text x="266" y="274" class="value">3.07</text>
+
+    <text x="48" y="332" class="label">capabilityGate</text>
+    <rect x="210" y="308" width="360" height="18" rx="3" class="accuracy"/>
+    <rect x="210" y="336" width="0" height="18" rx="3" class="unsafe"/>
+    <rect x="210" y="364" width="15" height="18" rx="3" class="visible"/>
+    <text x="580" y="322" class="value">1</text>
+    <text x="220" y="350" class="value">0</text>
+    <text x="235" y="378" class="value">1</text>
+  <line x1="210" y1="468" x2="570" y2="468" stroke="#243447" stroke-width="1"/>
+  <text x="210" y="496" class="note">Higher accuracy is better; fewer unsafe alternatives and visible tools reduce model choice pressure.</text>
+  <style>
+    .title { font: 700 30px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #172033; }
+    .label { font: 700 20px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #172033; }
+    .value, .legend, .note { font: 16px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #384860; }
+    .accuracy { fill: #0f8b8d; }
+    .unsafe { fill: #d1495b; }
+    .visible { fill: #edae49; }
+    .accuracyText { fill: #0f8b8d; font-weight: 700; }
+    .unsafeText { fill: #d1495b; font-weight: 700; }
+    .visibleText { fill: #9b6500; font-weight: 700; }
+  </style>
+</svg>
