@@ -1,0 +1,5 @@
+Smart contract agent gate experiment
+cases=12
+textOnly: detected=9 detection_rate=0.75 exploit_validated=0 exploit_validation_rate=0 patch_accepted=0 patch_acceptance_rate=0 unsafe_autonomy=5 false_confidence=9
+forkValidated: detected=11 detection_rate=0.917 exploit_validated=9 exploit_validation_rate=0.75 patch_accepted=0 patch_acceptance_rate=0 unsafe_autonomy=6 false_confidence=3
+humanReviewedPatch: detected=11 detection_rate=0.917 exploit_validated=10 exploit_validation_rate=0.833 patch_accepted=8 patch_acceptance_rate=0.667 unsafe_autonomy=0 false_confidence=3

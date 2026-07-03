@@ -1,0 +1,122 @@
+[
+  {
+    "id": "verified-accounting-proxy",
+    "chainState": 0.91,
+    "sourceAvailability": 0.95,
+    "economicImpact": 0.84,
+    "patchability": 0.88,
+    "oracleCoverage": 0.9,
+    "humanContext": 0.72,
+    "risk": "high"
+  },
+  {
+    "id": "unverified-bytecode-pool",
+    "chainState": 0.86,
+    "sourceAvailability": 0.18,
+    "economicImpact": 0.78,
+    "patchability": 0.22,
+    "oracleCoverage": 0.54,
+    "humanContext": 0.44,
+    "risk": "high"
+  },
+  {
+    "id": "price-oracle-manipulation",
+    "chainState": 0.82,
+    "sourceAvailability": 0.82,
+    "economicImpact": 0.93,
+    "patchability": 0.63,
+    "oracleCoverage": 0.76,
+    "humanContext": 0.61,
+    "risk": "high"
+  },
+  {
+    "id": "legacy-reentrancy-vault",
+    "chainState": 0.74,
+    "sourceAvailability": 0.89,
+    "economicImpact": 0.58,
+    "patchability": 0.41,
+    "oracleCoverage": 0.7,
+    "humanContext": 0.68,
+    "risk": "medium"
+  },
+  {
+    "id": "governance-access-control",
+    "chainState": 0.79,
+    "sourceAvailability": 0.92,
+    "economicImpact": 0.72,
+    "patchability": 0.86,
+    "oracleCoverage": 0.81,
+    "humanContext": 0.77,
+    "risk": "high"
+  },
+  {
+    "id": "cross-chain-bridge-adapter",
+    "chainState": 0.69,
+    "sourceAvailability": 0.64,
+    "economicImpact": 0.96,
+    "patchability": 0.34,
+    "oracleCoverage": 0.49,
+    "humanContext": 0.52,
+    "risk": "critical"
+  },
+  {
+    "id": "token-burn-input-validation",
+    "chainState": 0.94,
+    "sourceAvailability": 0.9,
+    "economicImpact": 0.69,
+    "patchability": 0.78,
+    "oracleCoverage": 0.87,
+    "humanContext": 0.7,
+    "risk": "high"
+  },
+  {
+    "id": "flash-loan-accounting-edge",
+    "chainState": 0.88,
+    "sourceAvailability": 0.71,
+    "economicImpact": 0.89,
+    "patchability": 0.56,
+    "oracleCoverage": 0.73,
+    "humanContext": 0.58,
+    "risk": "critical"
+  },
+  {
+    "id": "small-protocol-fee-rounding",
+    "chainState": 0.61,
+    "sourceAvailability": 0.97,
+    "economicImpact": 0.31,
+    "patchability": 0.82,
+    "oracleCoverage": 0.66,
+    "humanContext": 0.75,
+    "risk": "medium"
+  },
+  {
+    "id": "upgrade-admin-timelock-gap",
+    "chainState": 0.83,
+    "sourceAvailability": 0.88,
+    "economicImpact": 0.81,
+    "patchability": 0.91,
+    "oracleCoverage": 0.84,
+    "humanContext": 0.79,
+    "risk": "high"
+  },
+  {
+    "id": "bytecode-only-router",
+    "chainState": 0.72,
+    "sourceAvailability": 0.12,
+    "economicImpact": 0.67,
+    "patchability": 0.2,
+    "oracleCoverage": 0.37,
+    "humanContext": 0.33,
+    "risk": "high"
+  },
+  {
+    "id": "lending-liquidation-invariant",
+    "chainState": 0.8,
+    "sourceAvailability": 0.86,
+    "economicImpact": 0.87,
+    "patchability": 0.67,
+    "oracleCoverage": 0.8,
+    "humanContext": 0.73,
+    "risk": "critical"
+  }
+]

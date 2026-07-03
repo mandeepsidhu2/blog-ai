@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520" role="img" aria-labelledby="title desc">
+  <title id="title">Smart contract agent gate comparison</title>
+  <desc id="desc">Bar chart comparing detection, exploit validation, patch acceptance, unsafe autonomy, and false confidence across three smart contract agent review policies.</desc>
+  <rect width="920" height="520" fill="#f8fafc"/>
+  <text x="44" y="48" font-family="Arial, sans-serif" font-size="26" font-weight="800" fill="#0f172a">Smart Contract Agent Gates</text>
+  <text x="44" y="76" font-family="Arial, sans-serif" font-size="14" fill="#475569">Deterministic comparison across twelve representative audit cases</text>
+  <g font-family="Arial, sans-serif">
+    <text x="44" y="138" font-size="18" font-weight="700" fill="#172033">textOnly</text>
+    <text x="220" y="124" text-anchor="end" font-size="12" fill="#475569">Detected</text><rect x="240" y="112" width="390" height="14" rx="3" fill="#2563eb"/><text x="638" y="124" font-size="12" fill="#172033">9</text>
+    <text x="220" y="144" text-anchor="end" font-size="12" fill="#475569">Exploit validated</text><rect x="240" y="132" width="0" height="14" rx="3" fill="#0891b2"/><text x="248" y="144" font-size="12" fill="#172033">0</text>
+    <text x="220" y="164" text-anchor="end" font-size="12" fill="#475569">Patch accepted</text><rect x="240" y="152" width="0" height="14" rx="3" fill="#16a34a"/><text x="248" y="164" font-size="12" fill="#172033">0</text>
+    <text x="220" y="184" text-anchor="end" font-size="12" fill="#475569">Unsafe autonomy</text><rect x="240" y="172" width="217" height="14" rx="3" fill="#dc2626"/><text x="465" y="184" font-size="12" fill="#172033">5</text>
+    <text x="220" y="204" text-anchor="end" font-size="12" fill="#475569">False confidence</text><rect x="240" y="192" width="390" height="14" rx="3" fill="#f59e0b"/><text x="638" y="204" font-size="12" fill="#172033">9</text>
+    <text x="44" y="260" font-size="18" font-weight="700" fill="#172033">forkValidated</text>
+    <text x="220" y="246" text-anchor="end" font-size="12" fill="#475569">Detected</text><rect x="240" y="234" width="477" height="14" rx="3" fill="#2563eb"/><text x="725" y="246" font-size="12" fill="#172033">11</text>
+    <text x="220" y="266" text-anchor="end" font-size="12" fill="#475569">Exploit validated</text><rect x="240" y="254" width="390" height="14" rx="3" fill="#0891b2"/><text x="638" y="266" font-size="12" fill="#172033">9</text>
+    <text x="220" y="286" text-anchor="end" font-size="12" fill="#475569">Patch accepted</text><rect x="240" y="274" width="0" height="14" rx="3" fill="#16a34a"/><text x="248" y="286" font-size="12" fill="#172033">0</text>
+    <text x="220" y="306" text-anchor="end" font-size="12" fill="#475569">Unsafe autonomy</text><rect x="240" y="294" width="260" height="14" rx="3" fill="#dc2626"/><text x="508" y="306" font-size="12" fill="#172033">6</text>
+    <text x="220" y="326" text-anchor="end" font-size="12" fill="#475569">False confidence</text><rect x="240" y="314" width="130" height="14" rx="3" fill="#f59e0b"/><text x="378" y="326" font-size="12" fill="#172033">3</text>
+    <text x="44" y="382" font-size="18" font-weight="700" fill="#172033">humanReviewedPatch</text>
+    <text x="220" y="368" text-anchor="end" font-size="12" fill="#475569">Detected</text><rect x="240" y="356" width="477" height="14" rx="3" fill="#2563eb"/><text x="725" y="368" font-size="12" fill="#172033">11</text>
+    <text x="220" y="388" text-anchor="end" font-size="12" fill="#475569">Exploit validated</text><rect x="240" y="376" width="433" height="14" rx="3" fill="#0891b2"/><text x="681" y="388" font-size="12" fill="#172033">10</text>
+    <text x="220" y="408" text-anchor="end" font-size="12" fill="#475569">Patch accepted</text><rect x="240" y="396" width="347" height="14" rx="3" fill="#16a34a"/><text x="595" y="408" font-size="12" fill="#172033">8</text>
+    <text x="220" y="428" text-anchor="end" font-size="12" fill="#475569">Unsafe autonomy</text><rect x="240" y="416" width="0" height="14" rx="3" fill="#dc2626"/><text x="248" y="428" font-size="12" fill="#172033">0</text>
+    <text x="220" y="448" text-anchor="end" font-size="12" fill="#475569">False confidence</text><rect x="240" y="436" width="130" height="14" rx="3" fill="#f59e0b"/><text x="378" y="448" font-size="12" fill="#172033">3</text>
+    <line x1="240" y1="476" x2="760" y2="476" stroke="#cbd5e1"/>
+    <text x="240" y="500" font-size="12" fill="#64748b">0</text>
+    <text x="750" y="500" font-size="12" fill="#64748b">12 cases</text>
+  </g>
+</svg>
