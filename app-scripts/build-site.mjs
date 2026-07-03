@@ -1038,8 +1038,8 @@ async function main() {
         short_name: "AI Tutorials",
         start_url: "/",
         display: "standalone",
-        background_color: "#f7f3ea",
-        theme_color: "#16251f",
+        background_color: "#f6f8fb",
+        theme_color: "#0b1020",
         icons: [{ src: "/favicon.svg", sizes: "any", type: "image/svg+xml" }],
       },
       null,
@@ -1048,7 +1048,7 @@ async function main() {
   );
   await writeText(
     path.join(appDir, "favicon.svg"),
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#16251f"/><path d="M15 45 27 17h10l12 28h-9l-2-6H26l-2 6h-9Zm13-13h8l-4-11-4 11Z" fill="#f5d46c"/></svg>`,
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#0b1020"/><path d="M15 45 27 17h10l12 28h-9l-2-6H26l-2 6h-9Zm13-13h8l-4-11-4 11Z" fill="#67e8f9"/></svg>`,
   );
 
   for (const topic of topics) {

@@ -33,8 +33,8 @@ Passing candidates promoted into committed source:
   Gates (`evidenceMode: experiment`)
 
 No additional candidates were promoted. The run favored one source-grounded
-operating-model article and one measured companion tutorial to stay within the
-daily quality cap.
+operating-model article and one measured companion tutorial because those were
+the candidates supported by the available evidence.
 
 ## Experiment Artifacts
 

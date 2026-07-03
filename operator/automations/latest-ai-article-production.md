@@ -6,17 +6,19 @@ Run every 12 hours.
 
 ## Objective
 
-Produce a high-quality candidate article batch from current AI market signals:
+Produce a high-quality candidate article batch from current AI market signals
+while respecting the daily publication maximum of 50 articles.
 
-- two `evidenceMode: strategy` candidates based on deep research into recent AI
-  trends, releases, ecosystem movement, benchmarks, protocols, tools, or
-  engineering practices.
-- two `evidenceMode: experiment` candidates backed by local code, runnable
-  experiments, measured outputs, charts, or inspectable artifacts.
+- `evidenceMode: strategy` candidates should be based on deep research into
+  recent AI trends, releases, ecosystem movement, benchmarks, protocols, tools,
+  or engineering practices.
+- `evidenceMode: experiment` candidates should be backed by local code,
+  runnable experiments, measured outputs, charts, or inspectable artifacts.
 
-Quality is more important than count. Attempt four candidates, but do not force
-publication-quality output when the research or experiment is not strong enough.
-It is acceptable to ship fewer candidates or none if the gate fails.
+Quality is more important than count. There is no smaller per-run article quota
+or per-evidence-mode cap. Do not force publication-quality output when the
+research or experiment is not strong enough. It is acceptable to ship fewer
+candidates than the daily maximum, or none if the gate fails.
 
 ## Internal Versus Public Framing
 
@@ -145,6 +147,8 @@ and validating candidates:
 After candidates pass the mandatory public content gate, promote the passing
 articles and article-specific assets into committed source:
 
+- count articles already promoted for the current calendar day and promote only
+  enough passing candidates to keep the day at or below 50 published articles.
 - copy article Markdown files into `content/articles/`.
 - copy article visual assets into `content/assets/`.
 - keep internal experiment artifacts under `operator/diy-project-blogs/`.
@@ -188,8 +192,9 @@ If a gate fails, do not weaken the gate. Fix, exclude, or report the candidate.
 This automation is authorized to make passing articles durable and publishable
 through the normal GitHub pipeline. This prompt explicitly authorizes
 `git add`, `git commit`, and `git push origin main` to the main branch for this
-automation, but only after the mandatory public-content gate, source promotion,
-site build, and generated-site check pass:
+automation, but only after the daily 50-article maximum is respected and the
+mandatory public-content gate, source promotion, site build, and generated-site
+check pass:
 
 1. `git add` the promoted article Markdown, article assets, internal evidence
    projects, and any directly related documentation or report updates.

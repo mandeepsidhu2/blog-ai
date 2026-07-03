@@ -8,9 +8,9 @@ Ran the scheduled article-production workflow after reading the required repo
 instructions and automation docs. The run produced a temporary candidate batch
 focused on delegated-agent permission boundaries and a durable internal
 evidence project. The candidate public-content gate passed for two articles,
-but the candidates were not promoted because the repo already contains two
-public articles dated 2026-06-29, which reaches the project daily publication
-cap.
+but the candidates were not promoted because the run followed the former daily
+publication policy in effect on 2026-06-29. That policy has since been replaced
+by a 50-article-per-day maximum.
 
 No local model inference, LM Studio workflow, torch run, CUDA run, or CPU ML
 experiment was used. The MPS-only rule was therefore not triggered. No AWS,
@@ -116,4 +116,5 @@ promoted into committed public content during this run.
 ## Intervention Needed
 
 No intervention is needed. The next run can revisit the temporary candidate
-batch if the daily article cap is clear and the topic still remains current.
+batch under the current 50-article-per-day maximum if the topic still remains
+current.

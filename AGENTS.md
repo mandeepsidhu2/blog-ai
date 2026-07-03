@@ -40,10 +40,11 @@ Reference:
   Topic, domain, tags, and SEO intent are independent of `evidenceMode`; an
   embedding-model trend article and an embedding-model measured tutorial should
   share the same customer-facing domain language when appropriate.
-- Quality beats quantity. Publish at most one or two articles per day, and only
-  when they are deep enough for real engineers and research-minded readers to
-  lean on. Lightweight demos, filler prose, deterministic-fixture writeups, and
-  articles with a generic `Production extension` section must not be published.
+- Quality beats quantity. Publish no more than 50 articles per day, and only
+  when each article is deep enough for real engineers and research-minded
+  readers to lean on. Lightweight demos, filler prose, deterministic-fixture
+  writeups, and articles with a generic `Production extension` section must not
+  be published.
 
 ## Start Here
 

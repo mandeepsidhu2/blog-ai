@@ -75,8 +75,9 @@ npm run check:content
 
 Do not publish a generated batch if the gate reports incomplete content,
 operator-only diagnostics, missing assets, weak metadata, lightweight demo
-language, or missing production readiness guidance. Quality beats quantity; one
-or two deep articles per day is the target.
+language, or missing production readiness guidance. Quality beats quantity; the
+daily maximum is 50 articles, and every published article must clear the same
+depth and readiness bar.
 
 ## Documentation
 

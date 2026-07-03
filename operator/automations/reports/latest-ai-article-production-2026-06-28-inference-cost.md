@@ -5,8 +5,8 @@ Run time: 2026-06-28 07:30 America/New_York
 Produced a temporary candidate batch focused on LLM inference economics and
 token-budget routing. The candidate batch passed the mandatory public content
 gate, but candidates were not promoted into committed public content because
-the repository already contains two public articles dated 2026-06-28 and the
-repo rule is to publish at most one or two articles per day.
+the run followed the former daily publication policy in effect on 2026-06-28.
+That policy has since been replaced by a 50-article-per-day maximum.
 
 No AWS, Terraform, OpenTofu, S3, CloudFront, local model inference, or torch
 work was used.
@@ -47,14 +47,14 @@ Candidate articles:
   - Title: `Build LLM Inference Cost Gates Before Scaling AI Features`
   - Mode: `strategy`
   - Asset: `inference-cost-release-gates-2026.svg`
-  - Status: passed candidate public-content gate; not promoted due daily
-    article cap.
+  - Status: passed candidate public-content gate; not promoted under the former
+    daily publication policy.
 - `measure-token-budget-routing`
   - Title: `Measure Token-Budget Routing for LLM Inference`
   - Mode: `experiment`
   - Asset: `measure-token-budget-routing.svg`
-  - Status: passed candidate public-content gate; not promoted due daily
-    article cap.
+  - Status: passed candidate public-content gate; not promoted under the former
+    daily publication policy.
 
 ## Experiment Artifacts
 
@@ -92,8 +92,8 @@ Public content gate passed for 2 articles in latest-ai-article-production.
 Promotion:
 
 - Not promoted into `content/articles` or `content/assets`.
-- Reason: the repo already has two public articles dated 2026-06-28, matching
-  the daily publishing cap.
+- Reason: the run followed the former daily publication policy in effect on
+  2026-06-28.
 
 Committed-source build/site checks:
 
@@ -101,6 +101,6 @@ Committed-source build/site checks:
 
 ## Intervention Needed
 
-No intervention is required for the completed local run. If the daily cap should
-be overridden, promote the temporary candidates in a later run and execute the
-full committed-source gate sequence before publishing.
+No intervention is required for the completed local run. If these candidates
+should still be promoted, rerun the full committed-source gate sequence under
+the current 50-article-per-day maximum before publishing.

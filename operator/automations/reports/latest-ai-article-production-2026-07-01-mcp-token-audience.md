@@ -10,9 +10,10 @@ metadata, token audience validation, and token passthrough risks.
 
 The candidates passed the temporary public-content gate but were not promoted
 into committed public content because the automation memory showed an earlier
-2026-07-01 run had already promoted two articles, meeting the daily publication
-cap. Public source was returned to the existing 11-article state before final
-checks and commit.
+2026-07-01 run had already promoted articles under the former daily publication
+policy. That policy has since been replaced by a 50-article-per-day maximum.
+Public source was returned to the existing 11-article state before final checks
+and commit.
 
 No local model inference was used. No torch work was used, so the MPS-only torch
 rule was not triggered. No AWS, Terraform, OpenTofu, S3 sync, or CloudFront
@@ -52,8 +53,8 @@ without primary-source support.
 - `mcp-resource-authorization-gates-2026`
   - Title: Build Resource-Bound Authorization Gates for MCP Agents
   - Internal source mode: strategy
-  - Status: passed candidate gate; not promoted because the 2026-07-01 daily
-    article cap was already met by an earlier run.
+  - Status: passed candidate gate; not promoted under the former daily
+    publication policy.
   - Temporary files:
     - `/tmp/blog-ai-article-run-20260701-mcp-token-audience/articles/mcp-resource-authorization-gates-2026.md`
     - `/tmp/blog-ai-article-run-20260701-mcp-token-audience/assets/mcp-resource-authorization-gates-2026.svg`
@@ -61,15 +62,15 @@ without primary-source support.
 - `measure-mcp-token-audience-gates`
   - Title: Measure MCP Token Audience Gates for Agent Tools
   - Internal source mode: experiment
-  - Status: passed candidate gate; not promoted because the 2026-07-01 daily
-    article cap was already met by an earlier run.
+  - Status: passed candidate gate; not promoted under the former daily
+    publication policy.
   - Temporary files:
     - `/tmp/blog-ai-article-run-20260701-mcp-token-audience/articles/measure-mcp-token-audience-gates.md`
     - `/tmp/blog-ai-article-run-20260701-mcp-token-audience/assets/measure-mcp-token-audience-gates.svg`
 
 No second strategy or second measured candidate was promoted. The verified
 source cluster for this run was concentrated around MCP authorization, and the
-workflow quality bar favors one or two strong articles over forcing weaker
+workflow quality bar favors only well-supported articles over forcing weaker
 topic coverage.
 
 ## Experiment Artifacts
@@ -104,7 +105,8 @@ resourceBound: accuracy=1 mean_score=1 blocked=8 reviewed=5 allowed=1 false_nega
   - The two passing candidates were briefly copied into `content/articles` and
     `content/assets` for committed-source validation.
   - After rereading automation memory, the public files were removed because an
-    earlier 2026-07-01 run had already promoted two articles.
+    earlier 2026-07-01 run had already promoted articles under the former daily
+    publication policy.
 - Committed public-content gate after cap correction:
   - Passed for 11 articles.
 - Site build after cap correction:
@@ -141,4 +143,4 @@ resourceBound: accuracy=1 mean_score=1 blocked=8 reviewed=5 allowed=1 false_nega
 ## Intervention Needed
 
 No intervention is needed for this run. The MCP candidates are gated and ready
-to revisit in a future run when the daily article cap permits promotion.
+to revisit in a future run under the current 50-article-per-day maximum.

@@ -5,10 +5,9 @@ Run time: 2026-07-02 09:30 EDT
 ## Summary
 
 Produced and promoted two publication-quality AI agent articles focused on
-trace contracts for coding-agent release gates. The run intentionally shipped
-two candidates rather than forcing four because the measured trace-completeness
+trace contracts for coding-agent release gates. The measured trace-completeness
 project gave one strong implementation-backed tutorial and one paired
-operating-model tutorial.
+operating-model tutorial, so the run did not force weaker additional topics.
 
 No local model inference was used. No torch work was used, so the MPS-only
 torch rule was not triggered. No AWS, Terraform, OpenTofu, or cloud-mutating

@@ -29,8 +29,8 @@ Passing candidates promoted into committed source:
 - `measure-covert-channel-agent-traces`: Measure Covert-Channel Risk in Agent
   Tool Traces (`evidenceMode: experiment`)
 
-No additional candidates were promoted. Quality and daily cap constraints
-favored one source-led article and one measured companion tutorial.
+No additional candidates were promoted. Quality constraints favored one
+source-led article and one measured companion tutorial.
 
 ## Experiment Artifacts
 

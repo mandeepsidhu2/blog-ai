@@ -7,8 +7,9 @@ Run time: 2026-07-02 12:06 EDT
 Produced a current-source candidate batch on governed memory compaction for
 long-running AI agents and created one measured local evidence project. The
 candidate batch passed the public-content gate, but it was not promoted into
-committed public content because the repository had already promoted two
-articles earlier on 2026-07-02, meeting the repo's daily public-article cap.
+committed public content because the run followed the former daily publication
+policy in effect on 2026-07-02. That policy has since been replaced by a
+50-article-per-day maximum.
 
 No local model inference was used. No torch work was used, so the MPS-only torch
 rule was not triggered. No AWS, Terraform, OpenTofu, or cloud-mutating commands
@@ -54,7 +55,7 @@ Temporary batch:
 
 `/private/tmp/blog-ai-article-run-20260702-memory-compaction/`
 
-Passing candidates deferred by daily cap:
+Passing candidates deferred by the former publication policy:
 
 - `agent-memory-compaction-gates-2026`
   - Title: `Design Memory Compaction Gates for Long-Running AI Agents`
@@ -75,7 +76,8 @@ Passing candidates deferred by daily cap:
 
 Additional candidates were not forced. The run produced a focused two-candidate
 batch because the source evidence and measured harness supported this topic
-strongly, while the daily promotion cap blocked another public-content commit.
+strongly, while the former promotion policy blocked another public-content
+commit.
 
 ## Experiment Artifacts
 
@@ -130,11 +132,11 @@ Committed-source gates:
 ## Promotion Decision
 
 No candidates were promoted. The earlier 2026-07-02 automation run already
-promoted two articles, and the repository rule is to publish at most one or two
-articles per day. The memory-compaction candidates are gate-clean but deferred
-for a future run if still current.
+promoted articles under the then-current publication policy. The current policy
+is a maximum of 50 articles per day. The memory-compaction candidates are
+gate-clean but deferred for a future run if still current.
 
 ## Intervention Needed
 
 No intervention is needed. The normal article pipeline should wait for the next
-publication window before promoting another public article.
+run before promoting another public article.
