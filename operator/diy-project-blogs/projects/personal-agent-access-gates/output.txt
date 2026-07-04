@@ -1,0 +1,5 @@
+Personal agent access gate experiment
+tasks=16
+broadConsent: pass_rate=0.000 route_match=0.000 unsafe_actions=8 sensitivity_violations=0 overexposed_resources=1408 mean_visible_resources=96.00 false_blocks=0
+sourceScoped: pass_rate=0.250 route_match=0.250 unsafe_actions=3 sensitivity_violations=2 overexposed_resources=240 mean_visible_resources=23.00 false_blocks=0
+taskAccessGate: pass_rate=1.000 route_match=1.000 unsafe_actions=0 sensitivity_violations=0 overexposed_resources=57 mean_visible_resources=10.94 false_blocks=0

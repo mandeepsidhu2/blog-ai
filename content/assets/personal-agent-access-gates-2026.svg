@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img">
+  <title>Personal AI assistant access gate architecture</title>
+  <desc>Architecture diagram showing user intent, task classification, resource scopes, action gates, approval controls, execution, audit traces, and rollback metrics for personal AI assistants.</desc>
+  <rect width="960" height="540" fill="#f8fafc"/>
+  <rect x="52" y="48" width="856" height="444" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="84" y="92" font-family="Arial, sans-serif" font-size="28" font-weight="800" fill="#111827">Personal assistant access gates</text>
+  <text x="84" y="122" font-family="Arial, sans-serif" font-size="17" fill="#475569">Classify intent before granting resources or irreversible actions.</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="84" y="178" width="142" height="82" rx="7" fill="#dbeafe" stroke="#2563eb"/>
+    <text x="155" y="211" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">User intent</text>
+    <text x="155" y="237" text-anchor="middle" font-size="14" fill="#1f2937">task + owner</text>
+    <path d="M226 219 H274" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="274" y="160" width="164" height="118" rx="7" fill="#ecfeff" stroke="#0891b2"/>
+    <text x="356" y="195" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">Classifier</text>
+    <text x="356" y="221" text-anchor="middle" font-size="14" fill="#1f2937">sensitivity</text>
+    <text x="356" y="243" text-anchor="middle" font-size="14" fill="#1f2937">action type</text>
+    <path d="M438 219 H486" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="486" y="142" width="174" height="154" rx="7" fill="#fef3c7" stroke="#d97706"/>
+    <text x="573" y="176" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">Access gate</text>
+    <text x="573" y="204" text-anchor="middle" font-size="14" fill="#1f2937">read scopes</text>
+    <text x="573" y="226" text-anchor="middle" font-size="14" fill="#1f2937">draft/write/send</text>
+    <text x="573" y="248" text-anchor="middle" font-size="14" fill="#1f2937">approval route</text>
+    <path d="M660 219 H708" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="708" y="168" width="136" height="102" rx="7" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="776" y="203" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">Execution</text>
+    <text x="776" y="230" text-anchor="middle" font-size="14" fill="#1f2937">bounded tools</text>
+    <path d="M776 270 V336" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="604" y="336" width="240" height="92" rx="7" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="724" y="371" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">Audit + rollback</text>
+    <text x="724" y="398" text-anchor="middle" font-size="14" fill="#1f2937">unsafe action, scope, budget</text>
+    <rect x="290" y="336" width="242" height="92" rx="7" fill="#fae8ff" stroke="#a21caf"/>
+    <text x="411" y="371" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">Approvals</text>
+    <text x="411" y="398" text-anchor="middle" font-size="14" fill="#1f2937">confirm or human review</text>
+    <path d="M573 296 V336" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M532 382 H604" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+</svg>
