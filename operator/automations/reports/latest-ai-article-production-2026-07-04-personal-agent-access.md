@@ -91,6 +91,17 @@ Notes:
 
 ## Intervention Needed
 
-The normal next step is `git push origin main` after committing this run. Local
-`main` was already multiple commits ahead of `origin/main` before this run, so a
-successful push will publish those earlier local commits as well as this batch.
+Local commit for this run:
+
+- `525d80e` (`Add personal agent access gate articles`)
+
+Push result:
+
+- Sandboxed `git push origin main` failed DNS resolution for `github.com`.
+- Outside-sandbox `git push origin main` was rejected by the approval reviewer
+  because local `main` would publish nine unpushed commits, including eight
+  pre-existing commits outside this run.
+
+Intervention needed: approve or perform the branch push with awareness that it
+will publish the prior local commits as well as this batch, or split/rebase the
+history manually before pushing.
