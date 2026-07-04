@@ -123,7 +123,7 @@ Visual review:
 
 Content is committed locally, but remote push needs intervention.
 
-- Local commit: `302d6b0` (`Add coding agent task routing articles`)
+- Local article commit: `cd36c56` (`Add coding agent task routing articles`)
 - Sandboxed `git push origin main` failed because `github.com` DNS resolution
   is blocked in the sandbox.
 - Outside-sandbox `git push origin main` was rejected by the approval reviewer
