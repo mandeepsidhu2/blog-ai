@@ -1,0 +1,5 @@
+Agentic commerce payment gate experiment
+tasks=16
+savedCardDelegation: pass_rate=0.188 policy_match=0.188 unauthorized_charges=10 mandate_violations=4 manual_review_misses=7 overexposed_merchants=1010 mean_visible_merchants=65.75 false_blocks=0
+merchantScopedToken: pass_rate=0.750 policy_match=0.750 unauthorized_charges=4 mandate_violations=6 manual_review_misses=0 overexposed_merchants=30 mean_visible_merchants=4.19 false_blocks=0
+mandatePaymentGate: pass_rate=1.000 policy_match=1.000 unauthorized_charges=0 mandate_violations=0 manual_review_misses=0 overexposed_merchants=25 mean_visible_merchants=3.19 false_blocks=0

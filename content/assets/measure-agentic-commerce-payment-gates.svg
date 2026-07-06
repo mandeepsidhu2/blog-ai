@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img">
+  <title>Agentic commerce payment gate results</title>
+  <desc>Bar chart comparing saved card delegation, merchant-scoped tokens, and mandate payment gates by pass rate, unauthorized charges, and mandate violations.</desc>
+  <rect width="960" height="540" fill="#f8fafc"/>
+  <rect x="48" y="44" width="864" height="444" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="84" y="90" font-family="Arial, sans-serif" font-size="28" font-weight="800" fill="#111827">Payment authorization gates for agents</text>
+  <text x="84" y="122" font-family="Arial, sans-serif" font-size="17" fill="#475569">Pass rate improves only when the payment mandate is checked at runtime.</text>
+  <line x1="96" y1="332" x2="864" y2="332" stroke="#94a3b8"/>
+  <line x1="96" y1="112" x2="96" y2="332" stroke="#94a3b8"/>
+  <text x="78" y="336" text-anchor="end" font-family="Arial, sans-serif" font-size="13" fill="#475569">0</text>
+  <text x="78" y="116" text-anchor="end" font-family="Arial, sans-serif" font-size="13" fill="#475569">1.0 / 8</text>
+  
+    <g>
+      <text x="200" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">saved Card Delegation</text>
+      <rect x="130" y="290.75" width="42" height="41.25" fill="#16a34a"/>
+      <rect x="182" y="112" width="42" height="220" fill="#dc2626"/>
+      <rect x="234" y="236" width="42" height="96" fill="#d97706"/>
+      <text x="151" y="280.75" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">0.19</text>
+      <text x="203" y="102" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">10</text>
+      <text x="255" y="226" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">4</text>
+    </g>
+    <g>
+      <text x="450" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">merchant Scoped Token</text>
+      <rect x="380" y="167" width="42" height="165" fill="#16a34a"/>
+      <rect x="432" y="220" width="42" height="112" fill="#dc2626"/>
+      <rect x="484" y="188" width="42" height="144" fill="#d97706"/>
+      <text x="401" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">0.75</text>
+      <text x="453" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">4</text>
+      <text x="505" y="178" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">6</text>
+    </g>
+    <g>
+      <text x="700" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">mandate Payment Gate</text>
+      <rect x="630" y="112" width="42" height="220" fill="#16a34a"/>
+      <rect x="682" y="332" width="42" height="0" fill="#dc2626"/>
+      <rect x="734" y="332" width="42" height="0" fill="#d97706"/>
+      <text x="651" y="102" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">1.00</text>
+      <text x="703" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">0</text>
+      <text x="755" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">0</text>
+    </g>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#111827">
+    <rect x="160" y="436" width="18" height="18" fill="#16a34a"/><text x="186" y="451">pass rate</text>
+    <rect x="306" y="436" width="18" height="18" fill="#dc2626"/><text x="332" y="451">unauthorized charges</text>
+    <rect x="520" y="436" width="18" height="18" fill="#d97706"/><text x="546" y="451">mandate violations</text>
+  </g>
+</svg>
