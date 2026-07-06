@@ -1,0 +1,214 @@
+{
+  "assets": [
+    {
+      "id": "launch-blog-text",
+      "modality": "text",
+      "domain": "product",
+      "sensitivity": "public",
+      "caption": "Launch notes describe Gemini embedding task types, dimensionality controls, and multilingual retrieval use cases.",
+      "tags": ["gemini", "embedding", "task", "dimension", "multilingual", "retrieval", "launch"]
+    },
+    {
+      "id": "pricing-page-text",
+      "modality": "text",
+      "domain": "commercial",
+      "sensitivity": "public",
+      "caption": "Pricing page explains batch retrieval jobs, online query cost, storage overhead, and cache behavior for vector indexes.",
+      "tags": ["pricing", "batch", "online", "query", "cost", "cache", "vector", "index"]
+    },
+    {
+      "id": "eval-policy-text",
+      "modality": "text",
+      "domain": "governance",
+      "sensitivity": "internal",
+      "caption": "Evaluation policy defines recall thresholds, citation requirements, rollback rules, and unsupported-answer guardrails.",
+      "tags": ["evaluation", "recall", "citation", "rollback", "unsupported", "guardrail", "threshold"]
+    },
+    {
+      "id": "architecture-diagram-image",
+      "modality": "image",
+      "domain": "architecture",
+      "sensitivity": "internal",
+      "caption": "Diagram shows ingestion, modality adapters, vector index, reranker, citation checker, and answer composer.",
+      "tags": ["diagram", "architecture", "ingestion", "adapter", "vector", "reranker", "citation", "composer"]
+    },
+    {
+      "id": "dashboard-screenshot-image",
+      "modality": "image",
+      "domain": "operations",
+      "sensitivity": "internal",
+      "caption": "Screenshot displays retrieval latency, recall at three, index freshness, failed citations, and modality mix.",
+      "tags": ["screenshot", "dashboard", "latency", "recall", "freshness", "citation", "modality", "monitoring"]
+    },
+    {
+      "id": "support-ticket-screenshot-image",
+      "modality": "image",
+      "domain": "support",
+      "sensitivity": "restricted",
+      "caption": "Support screenshot contains customer issue timeline, account identifier, escalation notes, and redaction markers.",
+      "tags": ["support", "ticket", "customer", "timeline", "account", "escalation", "redaction"]
+    },
+    {
+      "id": "benchmark-results-table",
+      "modality": "table",
+      "domain": "evaluation",
+      "sensitivity": "internal",
+      "caption": "Table compares text-only retrieval, unified multimodal retrieval, and modality-routed retrieval on recall and citation risk.",
+      "tags": ["benchmark", "table", "text-only", "unified", "multimodal", "routing", "recall", "risk"]
+    },
+    {
+      "id": "incident-runbook-table",
+      "modality": "table",
+      "domain": "operations",
+      "sensitivity": "internal",
+      "caption": "Runbook table maps retrieval failures to owners, severity, rollback criteria, and paging thresholds.",
+      "tags": ["runbook", "failure", "owner", "severity", "rollback", "paging", "threshold"]
+    },
+    {
+      "id": "demo-walkthrough-video",
+      "modality": "video",
+      "domain": "product",
+      "sensitivity": "public",
+      "caption": "Video walkthrough shows a user asking a visual question, retrieving a diagram region, and receiving grounded citations.",
+      "tags": ["video", "walkthrough", "visual", "question", "diagram", "grounded", "citation"]
+    },
+    {
+      "id": "sales-call-audio",
+      "modality": "audio",
+      "domain": "commercial",
+      "sensitivity": "restricted",
+      "caption": "Audio transcript captures a sales call about customer procurement concerns, security review, and price objections.",
+      "tags": ["audio", "transcript", "sales", "procurement", "security", "price", "objection", "customer"]
+    },
+    {
+      "id": "release-webinar-video",
+      "modality": "video",
+      "domain": "product",
+      "sensitivity": "public",
+      "caption": "Release webinar explains embedding model upgrades, file search, multimodal retrieval, and evaluation workflow changes.",
+      "tags": ["webinar", "release", "embedding", "file", "search", "multimodal", "evaluation"]
+    },
+    {
+      "id": "source-code-snippet-text",
+      "modality": "code",
+      "domain": "implementation",
+      "sensitivity": "internal",
+      "caption": "Code snippet configures query task type, document task type, vector dimensions, filters, and citation checks.",
+      "tags": ["code", "query", "document", "task", "dimension", "filter", "citation", "check"]
+    }
+  ],
+  "queries": [
+    {
+      "id": "diagram-citation-path",
+      "text": "Which architecture diagram explains how the reranker and citation checker connect?",
+      "domain": "architecture",
+      "requiredModalities": ["image"],
+      "allowedSensitivity": "internal",
+      "expectedIds": ["architecture-diagram-image"]
+    },
+    {
+      "id": "recall-dashboard",
+      "text": "Find the dashboard evidence for recall at three and failed citations.",
+      "domain": "operations",
+      "requiredModalities": ["image"],
+      "allowedSensitivity": "internal",
+      "expectedIds": ["dashboard-screenshot-image"]
+    },
+    {
+      "id": "routing-benchmark-table",
+      "text": "Which table compares text-only retrieval with multimodal routing?",
+      "domain": "evaluation",
+      "requiredModalities": ["table"],
+      "allowedSensitivity": "internal",
+      "expectedIds": ["benchmark-results-table"]
+    },
+    {
+      "id": "rollback-runbook",
+      "text": "Show the runbook that maps retrieval failures to rollback criteria.",
+      "domain": "operations",
+      "requiredModalities": ["table"],
+      "allowedSensitivity": "internal",
+      "expectedIds": ["incident-runbook-table"]
+    },
+    {
+      "id": "gemini-doc-controls",
+      "text": "Find the written launch notes about embedding task types and dimensionality controls.",
+      "domain": "product",
+      "requiredModalities": ["text"],
+      "allowedSensitivity": "public",
+      "expectedIds": ["launch-blog-text"]
+    },
+    {
+      "id": "cost-cache-page",
+      "text": "Which public page describes batch retrieval jobs, online query cost, and cache behavior?",
+      "domain": "commercial",
+      "requiredModalities": ["text"],
+      "allowedSensitivity": "public",
+      "expectedIds": ["pricing-page-text"]
+    },
+    {
+      "id": "unsupported-answer-policy",
+      "text": "Find the policy for unsupported-answer guardrails, citation requirements, and rollback rules.",
+      "domain": "governance",
+      "requiredModalities": ["text"],
+      "allowedSensitivity": "internal",
+      "expectedIds": ["eval-policy-text"]
+    },
+    {
+      "id": "visual-walkthrough",
+      "text": "Find the video walkthrough where a visual question retrieves a diagram region.",
+      "domain": "product",
+      "requiredModalities": ["video"],
+      "allowedSensitivity": "public",
+      "expectedIds": ["demo-walkthrough-video"]
+    },
+    {
+      "id": "release-webinar",
+      "text": "Which release webinar discusses embedding upgrades, file search, and evaluation workflows?",
+      "domain": "product",
+      "requiredModalities": ["video"],
+      "allowedSensitivity": "public",
+      "expectedIds": ["release-webinar-video"]
+    },
+    {
+      "id": "customer-price-objection",
+      "text": "Find restricted sales-call audio about procurement, security review, and price objections.",
+      "domain": "commercial",
+      "requiredModalities": ["audio"],
+      "allowedSensitivity": "restricted",
+      "expectedIds": ["sales-call-audio"]
+    },
+    {
+      "id": "sensitive-support-screenshot",
+      "text": "Find the restricted customer support screenshot with escalation notes and redaction markers.",
+      "domain": "support",
+      "requiredModalities": ["image"],
+      "allowedSensitivity": "restricted",
+      "expectedIds": ["support-ticket-screenshot-image"]
+    },
+    {
+      "id": "implementation-config",
+      "text": "Find the implementation code configuring query task type, document task type, filters, and citation checks.",
+      "domain": "implementation",
+      "requiredModalities": ["code"],
+      "allowedSensitivity": "internal",
+      "expectedIds": ["source-code-snippet-text"]
+    },
+    {
+      "id": "product-multimodal-overview",
+      "text": "Gather public product evidence about embedding model upgrades and multimodal retrieval.",
+      "domain": "product",
+      "requiredModalities": ["text", "video"],
+      "allowedSensitivity": "public",
+      "expectedIds": ["launch-blog-text", "release-webinar-video"]
+    },
+    {
+      "id": "ops-health-evidence",
+      "text": "Gather operational evidence about retrieval latency, failed citations, failures, and rollback.",
+      "domain": "operations",
+      "requiredModalities": ["image", "table"],
+      "allowedSensitivity": "internal",
+      "expectedIds": ["dashboard-screenshot-image", "incident-runbook-table"]
+    }
+  ]
+}

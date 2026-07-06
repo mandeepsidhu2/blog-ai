@@ -1,0 +1,584 @@
+{
+  "generatedAt": "2026-07-06T18:01:08.851Z",
+  "summaries": [
+    {
+      "policy": "textOnlyIndex",
+      "passRate": 0.14285714285714285,
+      "recallAtK": 0.5,
+      "modalityPrecision": 0.33333333333333337,
+      "sensitivityViolations": 5,
+      "meanContextItems": 3,
+      "latencyMs": 2006,
+      "results": [
+        {
+          "queryId": "diagram-citation-path",
+          "retrievedIds": [
+            "benchmark-results-table",
+            "eval-policy-text",
+            "source-code-snippet-text"
+          ],
+          "recall": 0,
+          "modalityPrecision": 0,
+          "sensitivityViolations": 0,
+          "contextItems": 3,
+          "pass": false
+        },
+        {
+          "queryId": "recall-dashboard",
+          "retrievedIds": [
+            "incident-runbook-table",
+            "benchmark-results-table",
+            "eval-policy-text"
+          ],
+          "recall": 0,
+          "modalityPrecision": 0,
+          "sensitivityViolations": 0,
+          "contextItems": 3,
+          "pass": false
+        },
+        {
+          "queryId": "routing-benchmark-table",
+          "retrievedIds": [
+            "benchmark-results-table",
+            "incident-runbook-table",
+            "eval-policy-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.6666666666666666,
+          "sensitivityViolations": 0,
+          "contextItems": 3,
+          "pass": true
+        },
+        {
+          "queryId": "rollback-runbook",
+          "retrievedIds": [
+            "incident-runbook-table",
+            "benchmark-results-table",
+            "eval-policy-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.6666666666666666,
+          "sensitivityViolations": 0,
+          "contextItems": 3,
+          "pass": true
+        },
+        {
+          "queryId": "gemini-doc-controls",
+          "retrievedIds": [
+            "launch-blog-text",
+            "pricing-page-text",
+            "source-code-snippet-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.6666666666666666,
+          "sensitivityViolations": 1,
+          "contextItems": 3,
+          "pass": false
+        },
+        {
+          "queryId": "cost-cache-page",
+          "retrievedIds": [
+            "pricing-page-text",
+            "launch-blog-text",
+            "benchmark-results-table"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.6666666666666666,
+          "sensitivityViolations": 1,
+          "contextItems": 3,
+          "pass": false
+        },
+        {
+          "queryId": "unsupported-answer-policy",
+          "retrievedIds": [
+            "eval-policy-text",
+            "benchmark-results-table",
+            "source-code-snippet-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.3333333333333333,
+          "sensitivityViolations": 0,
+          "contextItems": 3,
+          "pass": false
+        },
+        {
+          "queryId": "visual-walkthrough",
+          "retrievedIds": [
+            "launch-blog-text",
+            "pricing-page-text",
+            "benchmark-results-table"
+          ],
+          "recall": 0,
+          "modalityPrecision": 0,
+          "sensitivityViolations": 1,
+          "contextItems": 3,
+          "pass": false
+        },
+        {
+          "queryId": "release-webinar",
+          "retrievedIds": [
+            "launch-blog-text",
+            "pricing-page-text",
+            "benchmark-results-table"
+          ],
+          "recall": 0,
+          "modalityPrecision": 0,
+          "sensitivityViolations": 1,
+          "contextItems": 3,
+          "pass": false
+        },
+        {
+          "queryId": "customer-price-objection",
+          "retrievedIds": [
+            "pricing-page-text",
+            "incident-runbook-table",
+            "benchmark-results-table"
+          ],
+          "recall": 0,
+          "modalityPrecision": 0,
+          "sensitivityViolations": 0,
+          "contextItems": 3,
+          "pass": false
+        },
+        {
+          "queryId": "sensitive-support-screenshot",
+          "retrievedIds": [
+            "launch-blog-text",
+            "incident-runbook-table",
+            "benchmark-results-table"
+          ],
+          "recall": 0,
+          "modalityPrecision": 0,
+          "sensitivityViolations": 0,
+          "contextItems": 3,
+          "pass": false
+        },
+        {
+          "queryId": "implementation-config",
+          "retrievedIds": [
+            "source-code-snippet-text",
+            "benchmark-results-table",
+            "eval-policy-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.3333333333333333,
+          "sensitivityViolations": 0,
+          "contextItems": 3,
+          "pass": false
+        },
+        {
+          "queryId": "product-multimodal-overview",
+          "retrievedIds": [
+            "launch-blog-text",
+            "pricing-page-text",
+            "benchmark-results-table"
+          ],
+          "recall": 0.5,
+          "modalityPrecision": 0.6666666666666666,
+          "sensitivityViolations": 1,
+          "contextItems": 3,
+          "pass": false
+        },
+        {
+          "queryId": "ops-health-evidence",
+          "retrievedIds": [
+            "incident-runbook-table",
+            "benchmark-results-table",
+            "eval-policy-text"
+          ],
+          "recall": 0.5,
+          "modalityPrecision": 0.6666666666666666,
+          "sensitivityViolations": 0,
+          "contextItems": 3,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "policy": "unifiedUngated",
+      "passRate": 0.7857142857142857,
+      "recallAtK": 1,
+      "modalityPrecision": 0.5357142857142857,
+      "sensitivityViolations": 0,
+      "meanContextItems": 4,
+      "latencyMs": 2313,
+      "results": [
+        {
+          "queryId": "diagram-citation-path",
+          "retrievedIds": [
+            "architecture-diagram-image",
+            "demo-walkthrough-video",
+            "dashboard-screenshot-image",
+            "release-webinar-video"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.5,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": true
+        },
+        {
+          "queryId": "recall-dashboard",
+          "retrievedIds": [
+            "dashboard-screenshot-image",
+            "incident-runbook-table",
+            "architecture-diagram-image",
+            "demo-walkthrough-video"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.5,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": true
+        },
+        {
+          "queryId": "routing-benchmark-table",
+          "retrievedIds": [
+            "benchmark-results-table",
+            "release-webinar-video",
+            "incident-runbook-table",
+            "eval-policy-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.5,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": true
+        },
+        {
+          "queryId": "rollback-runbook",
+          "retrievedIds": [
+            "incident-runbook-table",
+            "dashboard-screenshot-image",
+            "benchmark-results-table",
+            "release-webinar-video"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.5,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": true
+        },
+        {
+          "queryId": "gemini-doc-controls",
+          "retrievedIds": [
+            "launch-blog-text",
+            "release-webinar-video",
+            "demo-walkthrough-video",
+            "pricing-page-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.5,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": true
+        },
+        {
+          "queryId": "cost-cache-page",
+          "retrievedIds": [
+            "pricing-page-text",
+            "launch-blog-text",
+            "release-webinar-video",
+            "demo-walkthrough-video"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.5,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": true
+        },
+        {
+          "queryId": "unsupported-answer-policy",
+          "retrievedIds": [
+            "eval-policy-text",
+            "architecture-diagram-image",
+            "benchmark-results-table",
+            "source-code-snippet-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.25,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": false
+        },
+        {
+          "queryId": "visual-walkthrough",
+          "retrievedIds": [
+            "demo-walkthrough-video",
+            "release-webinar-video",
+            "launch-blog-text",
+            "pricing-page-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.5,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": true
+        },
+        {
+          "queryId": "release-webinar",
+          "retrievedIds": [
+            "release-webinar-video",
+            "demo-walkthrough-video",
+            "launch-blog-text",
+            "pricing-page-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.5,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": true
+        },
+        {
+          "queryId": "customer-price-objection",
+          "retrievedIds": [
+            "sales-call-audio",
+            "pricing-page-text",
+            "support-ticket-screenshot-image",
+            "architecture-diagram-image"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.25,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": false
+        },
+        {
+          "queryId": "sensitive-support-screenshot",
+          "retrievedIds": [
+            "support-ticket-screenshot-image",
+            "dashboard-screenshot-image",
+            "architecture-diagram-image",
+            "sales-call-audio"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.75,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": true
+        },
+        {
+          "queryId": "implementation-config",
+          "retrievedIds": [
+            "source-code-snippet-text",
+            "architecture-diagram-image",
+            "demo-walkthrough-video",
+            "benchmark-results-table"
+          ],
+          "recall": 1,
+          "modalityPrecision": 0.25,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": false
+        },
+        {
+          "queryId": "product-multimodal-overview",
+          "retrievedIds": [
+            "release-webinar-video",
+            "launch-blog-text",
+            "demo-walkthrough-video",
+            "pricing-page-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": true
+        },
+        {
+          "queryId": "ops-health-evidence",
+          "retrievedIds": [
+            "dashboard-screenshot-image",
+            "incident-runbook-table",
+            "benchmark-results-table",
+            "architecture-diagram-image"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 4,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "policy": "modalityRouted",
+      "passRate": 1,
+      "recallAtK": 1,
+      "modalityPrecision": 1,
+      "sensitivityViolations": 0,
+      "meanContextItems": 2,
+      "latencyMs": 1249,
+      "results": [
+        {
+          "queryId": "diagram-citation-path",
+          "retrievedIds": [
+            "architecture-diagram-image",
+            "dashboard-screenshot-image"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 2,
+          "pass": true
+        },
+        {
+          "queryId": "recall-dashboard",
+          "retrievedIds": [
+            "dashboard-screenshot-image",
+            "architecture-diagram-image"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 2,
+          "pass": true
+        },
+        {
+          "queryId": "routing-benchmark-table",
+          "retrievedIds": [
+            "benchmark-results-table",
+            "incident-runbook-table"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 2,
+          "pass": true
+        },
+        {
+          "queryId": "rollback-runbook",
+          "retrievedIds": [
+            "incident-runbook-table",
+            "benchmark-results-table"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 2,
+          "pass": true
+        },
+        {
+          "queryId": "gemini-doc-controls",
+          "retrievedIds": [
+            "launch-blog-text",
+            "pricing-page-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 2,
+          "pass": true
+        },
+        {
+          "queryId": "cost-cache-page",
+          "retrievedIds": [
+            "pricing-page-text",
+            "launch-blog-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 2,
+          "pass": true
+        },
+        {
+          "queryId": "unsupported-answer-policy",
+          "retrievedIds": [
+            "eval-policy-text",
+            "pricing-page-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 2,
+          "pass": true
+        },
+        {
+          "queryId": "visual-walkthrough",
+          "retrievedIds": [
+            "demo-walkthrough-video",
+            "release-webinar-video"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 2,
+          "pass": true
+        },
+        {
+          "queryId": "release-webinar",
+          "retrievedIds": [
+            "release-webinar-video",
+            "demo-walkthrough-video"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 2,
+          "pass": true
+        },
+        {
+          "queryId": "customer-price-objection",
+          "retrievedIds": [
+            "sales-call-audio"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 1,
+          "pass": true
+        },
+        {
+          "queryId": "sensitive-support-screenshot",
+          "retrievedIds": [
+            "support-ticket-screenshot-image",
+            "dashboard-screenshot-image"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 2,
+          "pass": true
+        },
+        {
+          "queryId": "implementation-config",
+          "retrievedIds": [
+            "source-code-snippet-text"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 1,
+          "pass": true
+        },
+        {
+          "queryId": "product-multimodal-overview",
+          "retrievedIds": [
+            "release-webinar-video",
+            "launch-blog-text",
+            "demo-walkthrough-video"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 3,
+          "pass": true
+        },
+        {
+          "queryId": "ops-health-evidence",
+          "retrievedIds": [
+            "dashboard-screenshot-image",
+            "incident-runbook-table",
+            "benchmark-results-table"
+          ],
+          "recall": 1,
+          "modalityPrecision": 1,
+          "sensitivityViolations": 0,
+          "contextItems": 3,
+          "pass": true
+        }
+      ]
+    }
+  ]
+}

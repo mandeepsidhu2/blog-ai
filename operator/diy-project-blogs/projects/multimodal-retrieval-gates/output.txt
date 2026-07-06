@@ -1,0 +1,5 @@
+Multimodal retrieval routing experiment
+queries=14
+textOnlyIndex: pass_rate=0.143 recall_at_k=0.5 modality_precision=0.333 sensitivity_violations=5 mean_context_items=3 latency_ms=2006
+unifiedUngated: pass_rate=0.786 recall_at_k=1 modality_precision=0.536 sensitivity_violations=0 mean_context_items=4 latency_ms=2313
+modalityRouted: pass_rate=1 recall_at_k=1 modality_precision=1 sensitivity_violations=0 mean_context_items=2 latency_ms=1249
