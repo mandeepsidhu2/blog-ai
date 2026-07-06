@@ -1,6 +1,6 @@
 # Latest AI Article Production Run: Multimodal Retrieval Gates
 
-Run time: 2026-07-05 00:00 EDT
+Run time: 2026-07-06 14:08 EDT
 
 ## Instructions Read
 
@@ -123,13 +123,27 @@ Notes:
 
 ## Git And Push
 
-Pending at report creation. The automation requires `git add`, `git commit`,
-and `git push origin main` after report generation. The branch was already
-ahead of `origin/main` by 10 commits before this run, with pre-existing
-unstaged edits to `README.md` and `docs/INFRASTRUCTURE.md`; those files were
+Article batch commit:
+
+- `0e1b68d` (`Add multimodal retrieval gate articles`)
+
+Push result:
+
+- Required `git push origin main` was attempted in the sandbox and failed
+  because `github.com` could not be resolved.
+- The same push was retried outside the sandbox because this automation
+  explicitly requires pushing committed passing content. The approval reviewer
+  rejected the push because local `main` would publish an 11-commit backlog on
+  the default branch, including prior local commits beyond this run.
+
+The branch was already ahead of `origin/main` by 10 commits before this run.
+After the article commit and the local report-correction commit, it is ahead by
+12 commits. Pre-existing unstaged edits to `README.md` and
+`docs/INFRASTRUCTURE.md` and unrelated untracked agentic-commerce files were
 left untouched.
 
 ## Intervention Needed
 
-None for content quality or experiments. Push may still need user intervention
-if the existing unpushed commit queue causes approval rejection again.
+None for content quality or experiments. User intervention is needed to approve
+or manually manage the existing unpushed `main` backlog before the normal
+GitHub pipeline can publish this batch.
