@@ -133,20 +133,26 @@ Notes:
 
 Article batch commit:
 
-- Pending at report creation time.
+- `dae2ad8` (`Add agentic commerce payment gate articles`)
 
 Push result:
 
-- Pending at report creation time.
+- Required `git push origin main` was attempted in the sandbox and failed
+  because `github.com` could not be resolved.
+- The same push was requested outside the sandbox because this automation
+  explicitly requires pushing committed passing content. The approval reviewer
+  rejected the push because local `main` would publish a 13-commit backlog on
+  the default branch, including prior local commits beyond this run.
 
 The branch was already ahead of `origin/main` by 12 commits before this run,
 including the July 5 multimodal retrieval article/report commits and earlier
-article-production commits. Pre-existing unstaged edits to `README.md` and
-`docs/INFRASTRUCTURE.md` were left untouched.
+article-production commits. The article commit added one more local commit, and
+this report-correction commit adds another local commit to the same unpushed
+queue. Pre-existing unstaged edits to `README.md` and `docs/INFRASTRUCTURE.md`
+were left untouched.
 
 ## Intervention Needed
 
-None for content quality or experiments. If push approval is rejected again,
-user intervention will be needed to approve or manually manage the existing
-unpushed `main` backlog before the normal GitHub pipeline can publish this
-batch.
+None for content quality or experiments. User intervention is needed to approve
+or manually manage the existing unpushed `main` backlog before the normal
+GitHub pipeline can publish this batch.
