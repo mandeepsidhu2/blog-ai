@@ -407,9 +407,8 @@ function renderHead({
   `;
 }
 
-function renderHeader(active = "tutorials") {
-  const isHome = active === "tutorials";
-  const homePrefix = isHome ? "" : "/";
+function renderHeader(active = "tutorials", page = "home") {
+  const homePrefix = page === "home" ? "" : "/";
   return `
     <header class="site-header">
       <a class="brand" href="/" aria-label="${escapeAttribute(siteName)} home">
@@ -694,7 +693,7 @@ function renderHomePage(articles, topics) {
 <html lang="en">
 <head>${renderHead({ title: siteName, description: siteDescription, pathName: "/" })}</head>
 <body data-page="home">
-  ${renderHeader("tutorials")}
+  ${renderHeader("tutorials", "home")}
   <main>
     <section class="hero-section">
       <div class="hero-copy">
@@ -813,7 +812,7 @@ function renderTopicPage(topic, articles, topics) {
     pathName: `/topics/${topic.slug}/`,
   })}</head>
 <body data-page="topic">
-  ${renderHeader("tutorials")}
+  ${renderHeader("tutorials", "topic")}
   <main>
     <section class="topic-hero">
       <p class="eyebrow">Topic</p>
@@ -931,7 +930,7 @@ function renderArticlePage(article, articles) {
     structuredData: [articleSchema, breadcrumbSchema],
   })}</head>
 <body data-page="article" data-article-slug="${escapeAttribute(article.slug)}">
-  ${renderHeader("tutorials")}
+  ${renderHeader("tutorials", "article")}
   <main class="article-shell">
     <aside class="article-left">
       ${renderToc(article.toc)}
