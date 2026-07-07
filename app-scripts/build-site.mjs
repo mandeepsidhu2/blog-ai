@@ -13,9 +13,13 @@ const contentOutDir = path.join(distDir, "content");
 const pipelineDir = path.join(distDir, "pipeline-artifact");
 
 const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://learn.toolsite.com");
-const siteName = "AI Tutorial Lab";
+const siteName = "AI Systems Fieldbook";
+const siteShortName = "AI Fieldbook";
+const heroImage = "/assets/hero-ai-systems-fieldbook.png";
+const heroImageAlt =
+  "Production AI engineering dashboard with eval harness code, rollout metrics, trace gates, and retrieval boundary matrix";
 const siteDescription =
-  "Practical AI engineering tutorials for RAG, transformers, agents, LangGraph workflows, and evaluation.";
+  "Production AI engineering guides with runnable code, evaluation harnesses, rollout gates, and source-backed operating patterns.";
 
 function normalizeSiteUrl(value) {
   return value.replace(/\/+$/, "");
@@ -347,8 +351,8 @@ function renderHead({
   title,
   description,
   pathName,
-  image = "/assets/hero-ai-workspace.png",
-  imageAlt = "Layered AI engineering workspace with code panels and model diagrams",
+  image = heroImage,
+  imageAlt = heroImageAlt,
   keywords = [],
   publishedTime = "",
   type = "website",
@@ -396,7 +400,7 @@ function renderHead({
     <meta name="twitter:image:alt" content="${escapeAttribute(imageAlt)}">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="manifest" href="/manifest.webmanifest">
-    <link rel="preload" as="image" href="/assets/hero-ai-workspace.png">
+    <link rel="preload" as="image" href="${escapeAttribute(heroImage)}">
     <link rel="stylesheet" href="/assets/styles.css">
     <script type="module" src="/assets/app.js"></script>
     ${structuredDataScripts}
@@ -404,17 +408,25 @@ function renderHead({
 }
 
 function renderHeader(active = "tutorials") {
+  const isHome = active === "tutorials";
+  const homePrefix = isHome ? "" : "/";
   return `
     <header class="site-header">
       <a class="brand" href="/" aria-label="${escapeAttribute(siteName)} home">
         <span class="brand-mark" aria-hidden="true">AI</span>
-        <span>${escapeHtml(siteName)}</span>
+        <span class="brand-lockup">
+          <span>${escapeHtml(siteName)}</span>
+          <small>Evals, gates, runnable code</small>
+        </span>
       </a>
       <nav class="top-nav" aria-label="Primary">
-        <a href="/" ${active === "tutorials" ? 'aria-current="page"' : ""}>Tutorials</a>
+        <a href="${homePrefix}#featured" ${active === "tutorials" ? 'aria-current="page"' : ""}>Guides</a>
+        <a href="${homePrefix}#topics">Topics</a>
+        <a href="${homePrefix}#latest">Latest</a>
       </nav>
       <button class="icon-button search-trigger" type="button" data-search-open aria-label="Search tutorials">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.4-4.4m1.4-5.1a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"/></svg>
+        <span>Search</span>
       </button>
     </header>
   `;
@@ -463,7 +475,53 @@ function renderArticleMeta(article) {
     <footer class="article-card-meta">
       <span>${escapeHtml(article.level)}</span>
       <span>${article.readingTime} min</span>
+      <time datetime="${escapeAttribute(article.date)}">${escapeHtml(formatArticleDate(article.date))}</time>
     </footer>
+  `;
+}
+
+function countBlocks(article, type) {
+  return article.blocks.filter((block) => block.type === type).length;
+}
+
+function formatArticleDate(value) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${value}T00:00:00Z`));
+}
+
+function getArticleSignals(article, limit = 3) {
+  const signals = [];
+  const codeBlocks = countBlocks(article, "code");
+  const outputBlocks = countBlocks(article, "output");
+  const text = article.markdown.toLowerCase();
+
+  if (codeBlocks >= 3) {
+    signals.push("Runnable code");
+  } else if (codeBlocks > 0) {
+    signals.push("Code examples");
+  }
+  if (outputBlocks > 0) signals.push("Measured outputs");
+  if (/source signals|research basis|source\/signal|primary-source|official product docs/.test(text)) {
+    signals.push("Source signals");
+  }
+  if (/release gate|rollout gate|threshold|guardrail|rollback|production readiness|failure mode/.test(text)) {
+    signals.push("Production gates");
+  }
+
+  return [...new Set(signals)].slice(0, limit);
+}
+
+function renderSignalBadges(article, limit = 3) {
+  const signals = getArticleSignals(article, limit);
+  if (!signals.length) return "";
+  return `
+    <div class="signal-row" aria-label="Guide signals">
+      ${signals.map((signal) => `<span>${escapeHtml(signal)}</span>`).join("")}
+    </div>
   `;
 }
 
@@ -483,7 +541,9 @@ function renderSpotlightArticle(article) {
           <h2>${escapeHtml(article.title)}</h2>
           <p>${escapeHtml(article.description)}</p>
           ${renderArticleMeta(article)}
+          ${renderSignalBadges(article)}
           <div class="tag-row">${tags}</div>
+          <span class="read-more">Read guide</span>
         </div>
         <img src="${escapeAttribute(article.image)}" alt="${escapeAttribute(article.imageAlt)}" width="1600" height="900">
       </a>
@@ -499,6 +559,7 @@ function renderCompactArticleCard(article) {
         <h3>${escapeHtml(article.title)}</h3>
         <p>${escapeHtml(article.description)}</p>
         ${renderArticleMeta(article)}
+        ${renderSignalBadges(article, 2)}
       </a>
     </article>
   `;
@@ -510,7 +571,7 @@ function renderLatestArticleRow(article) {
       <a class="latest-link" href="${escapeAttribute(article.url)}">
         <span class="topic-pill">${escapeHtml(article.topic)}</span>
         <strong>${escapeHtml(article.title)}</strong>
-        <span>${escapeHtml(article.date)} · ${article.readingTime} min</span>
+        <span>${escapeHtml(article.level)} · ${article.readingTime} min · ${escapeHtml(formatArticleDate(article.date))}</span>
       </a>
     </li>
   `;
@@ -607,15 +668,18 @@ function renderHomePage(articles, topics) {
   const topicChips = renderTopicChips(topTopics);
   const tagSummaries = buildTagSummaries(articles);
   const articleCount = formatCount(articles.length);
+  const topicCount = formatCount(topics.length);
+  const codeArticleCount = formatCount(articles.filter((article) => countBlocks(article, "code") > 0).length);
+  const outputArticleCount = formatCount(articles.filter((article) => countBlocks(article, "output") > 0).length);
   const recommendedCards = recommendedArticles.map(renderCompactArticleCard).join("");
   const latestRows = latestArticles.map(renderLatestArticleRow).join("");
   const latestSection = latestRows
     ? `
-    <section class="latest-section" aria-labelledby="latest-heading">
+    <section class="latest-section" id="latest" aria-labelledby="latest-heading">
       <div class="section-heading inline-heading">
         <div>
           <p class="eyebrow">Latest updates</p>
-          <h2 id="latest-heading">Fresh work, without the full archive dump.</h2>
+          <h2 id="latest-heading">Fresh field notes without the archive dump.</h2>
         </div>
         <button class="secondary-action compact-action" type="button" data-search-open>Search all ${articleCount}</button>
       </div>
@@ -634,35 +698,66 @@ function renderHomePage(articles, topics) {
   <main>
     <section class="hero-section">
       <div class="hero-copy">
-        <p class="eyebrow">Stay ahead in AI</p>
-        <h1>Stay ahead in AI before the stack becomes table stakes.</h1>
-        <p class="hero-summary">RAG, transformers, agents, LangGraph, and evaluation are now core engineering literacy. Learn them with practical, code-heavy tutorials.</p>
+        <p class="eyebrow">Production AI engineering</p>
+        <h1>Build AI systems with gates, evals, and code you can rerun.</h1>
+        <p class="hero-summary">A practical fieldbook for agents, retrieval, multimodal systems, inference cost, and rollout governance. Every guide is written for engineers who need mechanisms, thresholds, failure modes, and working examples.</p>
         <div class="hero-actions">
-          <a class="primary-action" href="#featured">Start with top guides</a>
-          <button class="secondary-action" type="button" data-search-open>Search library</button>
+          <a class="primary-action" href="#featured">Read the field guide</a>
+          <button class="secondary-action" type="button" data-search-open>Search guides</button>
+        </div>
+        <div class="hero-proof-grid" aria-label="Library proof points">
+          <div>
+            <strong>${articleCount}</strong>
+            <span>production guides</span>
+          </div>
+          <div>
+            <strong>${codeArticleCount}</strong>
+            <span>with code</span>
+          </div>
+          <div>
+            <strong>${outputArticleCount}</strong>
+            <span>with outputs</span>
+          </div>
+          <div>
+            <strong>${topicCount}</strong>
+            <span>topic maps</span>
+          </div>
         </div>
         <form class="home-search" data-home-search>
           <label class="sr-only" for="home-search-input">Search tutorials</label>
-          <input id="home-search-input" type="search" placeholder="Search tutorials..." autocomplete="off">
+          <input id="home-search-input" type="search" placeholder="Search agents, RAG, evals, rollout gates..." autocomplete="off">
           <button type="submit">Search</button>
         </form>
       </div>
       <figure class="hero-visual">
-        <img src="/assets/hero-ai-workspace.png" alt="Layered AI engineering workspace with code panels and model diagrams" width="1536" height="864">
+        <img src="${escapeAttribute(heroImage)}" alt="${escapeAttribute(heroImageAlt)}" width="1672" height="941">
+        <figcaption>Eval harnesses, rollout metrics, trace policy, and production gates in one library.</figcaption>
       </figure>
     </section>
 
-    <section class="topic-band" aria-label="Topics">
+    <section class="topic-band" id="topics" aria-label="Topics">
       ${topicChips}
+    </section>
+
+    <section class="known-for" aria-labelledby="known-for-heading">
+      <div>
+        <p class="eyebrow">Known for</p>
+        <h2 id="known-for-heading">Practical AI systems work, not generic AI commentary.</h2>
+      </div>
+      <ul>
+        <li><strong>Release gates</strong><span>Adoption, security, cost, access, and checkout boundaries.</span></li>
+        <li><strong>Reproducible harnesses</strong><span>Runnable code, outputs, and measurement notes where claims depend on data.</span></li>
+        <li><strong>Production judgment</strong><span>Failure modes, rollback criteria, guardrails, and source signals.</span></li>
+      </ul>
     </section>
 
     <section class="home-curation" id="featured" data-home-curated>
       <div class="section-heading inline-heading">
         <div>
-          <p class="eyebrow">Top articles</p>
-          <h2>Start with the guides that define the library.</h2>
+          <p class="eyebrow">Start here</p>
+          <h2>Recommended routes through the fieldbook.</h2>
         </div>
-        <p>${articleCount} production-grade tutorials indexed by topic, tag, and full-text search.</p>
+        <p>${articleCount} guides indexed by topic, tag, full-text search, level, runtime, update date, and concrete implementation signals.</p>
       </div>
       <div class="feature-grid">
         ${renderSpotlightArticle(spotlightArticle)}
@@ -675,7 +770,7 @@ function renderHomePage(articles, topics) {
     <section class="discovery-section" id="tutorials">
       <div class="section-heading">
         <p class="eyebrow">Library discovery</p>
-        <h2>Browse the map instead of paging through every card.</h2>
+        <h2>Find the operating problem you need to solve.</h2>
       </div>
       <div class="discovery-grid">
         <section class="discovery-panel" aria-labelledby="topics-heading">
@@ -776,7 +871,7 @@ function renderRelated(article, articles) {
 function renderArticlePage(article, articles) {
   const tags = article.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
   const related = renderRelated(article, articles);
-  const articleImage = article.image || "/assets/hero-ai-workspace.png";
+  const articleImage = article.image || heroImage;
   const articleImageAlt = article.imageAlt || `${article.title} tutorial diagram`;
   const articleSchema = {
     "@type": "TechArticle",
@@ -1035,7 +1130,7 @@ async function main() {
     `${JSON.stringify(
       {
         name: siteName,
-        short_name: "AI Tutorials",
+        short_name: siteShortName,
         start_url: "/",
         display: "standalone",
         background_color: "#f6f8fb",

@@ -227,9 +227,9 @@ async function main() {
   );
 
   const home = await readText(path.join(appDir, "index.html"));
-  assert(home.includes("<title>AI Tutorial Lab</title>"), "Home page title is missing.");
+  assert(home.includes("<title>AI Systems Fieldbook</title>"), "Home page title is missing.");
   assert(home.includes('<meta name="description"'), "Home page description meta tag is missing.");
-  assert(home.includes("/assets/hero-ai-workspace.png"), "Home page visual asset is missing.");
+  assert(home.includes("/assets/hero-ai-systems-fieldbook.png"), "Home page visual asset is missing.");
   assert(home.includes("data-home-curated"), "Home page curated discovery modules are missing.");
   assert(home.includes("data-home-search"), "Home page search entry point is missing.");
   assert(home.includes("data-tag-cloud"), "Home page tag discovery is missing.");
@@ -303,7 +303,7 @@ async function main() {
   const requiredFiles = [
     path.join(appDir, "assets", "styles.css"),
     path.join(appDir, "assets", "app.js"),
-    path.join(appDir, "assets", "hero-ai-workspace.png"),
+    path.join(appDir, "assets", "hero-ai-systems-fieldbook.png"),
     path.join(appDir, "robots.txt"),
     path.join(distDir, "pipeline-artifact", "app", "index.html"),
     path.join(distDir, "pipeline-artifact", "content", "content", "v1", "manifest.json"),

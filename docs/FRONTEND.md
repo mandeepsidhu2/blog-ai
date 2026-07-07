@@ -17,6 +17,9 @@ Home page:
 
 - header with brand, topic links, and search.
 - hero with a real raster visual.
+- proof points near the hero that explain why the library is trustworthy,
+  using real generated counts or concrete implementation signals rather than
+  generic claims.
 - topic chips visible in the first viewport.
 - a bounded editorial front door: one spotlight article, a small set of
   recommended articles, topic hubs, tag-triggered search, and a capped latest
@@ -25,6 +28,9 @@ Home page:
   library grows to hundreds or thousands of articles.
 - article-specific spotlight images use non-cropping containment so charts and
   diagrams keep their labels, axes, and text visible.
+- featured and recommended article cards expose practical selection signals
+  such as level, reading time, update date, code availability, measured outputs,
+  source signals, and production gates when those are present in the article.
 
 Article page:
 
