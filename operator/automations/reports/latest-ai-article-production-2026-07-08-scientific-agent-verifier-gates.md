@@ -125,10 +125,17 @@ Results:
 
 ## Git And Push Status
 
-Pending at report creation time. The automation will run `git add`, `git
-commit`, and `git push origin main` after this report is generated.
+Article batch commit:
+
+- `253da90` (`Add scientific agent verifier gate articles`)
+
+Push result:
+
+- Sandboxed `git push origin main` failed because DNS resolution for
+  `github.com` was unavailable inside the sandbox.
+- Outside-sandbox `git push origin main` was approved and succeeded:
+  `6330a89..253da90 main -> main`.
 
 ## Intervention Needed
 
-None at report creation time. If `git push origin main` is blocked by network
-or approval policy, the push result must be reported after the attempt.
+None for the promoted scientific-agent verifier batch.
