@@ -1,0 +1,5 @@
+Scientific agent verifier gate experiment
+cases=16
+narrativeConfidence: pass_rate=0.250 policy_match=0.250 unsupported_claims=9 missing_verifiers=3 leakage_risks=5 review_misses=7 false_blocks=0 claim_ready=12 expert_reviews=0 blocked=0
+metricOnly: pass_rate=0.375 policy_match=0.375 unsupported_claims=6 missing_verifiers=0 leakage_risks=3 review_misses=7 false_blocks=0 claim_ready=10 expert_reviews=0 blocked=0
+verifierFirstGate: pass_rate=1.000 policy_match=1.000 unsupported_claims=0 missing_verifiers=0 leakage_risks=0 review_misses=0 false_blocks=0 claim_ready=5 expert_reviews=5 blocked=3
