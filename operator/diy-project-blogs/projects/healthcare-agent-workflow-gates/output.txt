@@ -1,0 +1,5 @@
+Healthcare agent workflow gate experiment
+tasks=18
+autonomousClinicalAgent: pass_rate=0.111 policy_match=0.111 unsafe_actions=10 signoff_misses=10 patient_comms_misses=4 data_mutation_violations=11 modality_failures=0 false_blocks=0 privacy_overexposure=23
+benchmarkThresholdGate: pass_rate=0.278 policy_match=0.278 unsafe_actions=3 signoff_misses=1 patient_comms_misses=0 data_mutation_violations=2 modality_failures=0 false_blocks=1 privacy_overexposure=11
+clinicalWorkflowGate: pass_rate=1.000 policy_match=1.000 unsafe_actions=0 signoff_misses=0 patient_comms_misses=0 data_mutation_violations=0 modality_failures=0 false_blocks=0 privacy_overexposure=2
