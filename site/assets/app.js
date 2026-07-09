@@ -184,6 +184,30 @@ function initToc() {
   headings.forEach((heading) => observer.observe(heading));
 }
 
+function initReadingProgress() {
+  const article = document.querySelector(".article-main");
+  const header = document.querySelector(".site-header");
+  if (!article || !header) return;
+
+  let frame = 0;
+  function updateProgress() {
+    frame = 0;
+    const start = article.offsetTop;
+    const distance = Math.max(article.offsetHeight - window.innerHeight, 1);
+    const progress = Math.min(Math.max((window.scrollY - start) / distance, 0), 1);
+    header.style.setProperty("--reading-progress", `${(progress * 100).toFixed(2)}%`);
+  }
+
+  function requestUpdate() {
+    if (frame) return;
+    frame = window.requestAnimationFrame(updateProgress);
+  }
+
+  updateProgress();
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate);
+}
+
 function initExternalLinks() {
   document.querySelectorAll('a[href^="http"]').forEach((link) => {
     if (link.hostname !== window.location.hostname) {
@@ -195,4 +219,5 @@ function initExternalLinks() {
 initSearch();
 initCopyButtons();
 initToc();
+initReadingProgress();
 initExternalLinks();

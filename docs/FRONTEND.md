@@ -6,7 +6,11 @@ The frontend is a static, editorial tutorial interface.
 
 - fast first load.
 - readable long-form technical content.
-- quiet, professional UI.
+- a modern editorial AI-systems identity: dark technical mastheads, warm-white
+  reading surfaces, crisp data accents, and restrained motion.
+- quiet, professional UI after the first-view identity moment; visual interest
+  should come from real system information, diagrams, and hierarchy rather than
+  decorative gradient blobs.
 - visible topic navigation.
 - code and output blocks that are easy to scan.
 - no dependency on client-side rendering for SEO article text.
@@ -16,7 +20,11 @@ The frontend is a static, editorial tutorial interface.
 Home page:
 
 - header with brand, topic links, and search.
-- hero with a real raster visual.
+- hero with a real raster visual presented as a specific systems console, not a
+  generic stock illustration.
+- compact layouts prioritize the proof grid and topic rail in the first
+  viewport; the detailed systems console is hidden below `680px` because its
+  labels are not inspectable at that size.
 - proof points near the hero that explain why the library is trustworthy,
   using real generated counts or concrete implementation signals rather than
   generic claims.
@@ -36,6 +44,7 @@ Article page:
 
 - left-side table of contents on desktop.
 - article content in a constrained reading column.
+- sticky reading-progress signal in the global header.
 - related articles on desktop.
 - generated metadata: topic, level, reading time, date, tags.
 - mobile layout without horizontal overflow.

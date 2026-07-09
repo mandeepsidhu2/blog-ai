@@ -231,7 +231,10 @@ async function main() {
   assert(home.includes('<meta name="description"'), "Home page description meta tag is missing.");
   assert(home.includes("/assets/hero-ai-systems-fieldbook.png"), "Home page visual asset is missing.");
   assert(home.includes("data-home-curated"), "Home page curated discovery modules are missing.");
-  assert(home.includes("data-home-search"), "Home page search entry point is missing.");
+  assert(
+    home.includes("data-search-open") && home.includes("Search the library"),
+    "Home page search entry point is missing.",
+  );
   assert(home.includes("data-tag-cloud"), "Home page tag discovery is missing.");
   const homeArticleLinks = [...home.matchAll(/href="\/tutorials\//g)].length;
   assert(

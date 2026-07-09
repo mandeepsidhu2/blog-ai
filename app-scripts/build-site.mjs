@@ -381,6 +381,7 @@ function renderHead({
   return `
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080b10">
     <title>${escapeHtml(fullTitle)}</title>
     <meta name="description" content="${escapeAttribute(description)}">
     ${keywordMeta}
@@ -412,10 +413,10 @@ function renderHeader(active = "tutorials", page = "home") {
   return `
     <header class="site-header">
       <a class="brand" href="/" aria-label="${escapeAttribute(siteName)} home">
-        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
         <span class="brand-lockup">
-          <span>${escapeHtml(siteName)}</span>
-          <small>Evals, gates, runnable code</small>
+          <span>AI Systems <strong>Fieldbook</strong></span>
+          <small>Production intelligence</small>
         </span>
       </a>
       <nav class="top-nav" aria-label="Primary">
@@ -426,8 +427,37 @@ function renderHeader(active = "tutorials", page = "home") {
       <button class="icon-button search-trigger" type="button" data-search-open aria-label="Search tutorials">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.4-4.4m1.4-5.1a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"/></svg>
         <span>Search</span>
+        <kbd>/</kbd>
       </button>
+      <span class="reading-progress" aria-hidden="true"></span>
     </header>
+  `;
+}
+
+function renderFooter() {
+  return `
+    <footer class="site-footer">
+      <div class="footer-main">
+        <a class="brand footer-brand" href="/" aria-label="${escapeAttribute(siteName)} home">
+          <span class="brand-mark" aria-hidden="true"><span></span></span>
+          <span class="brand-lockup">
+            <span>AI Systems <strong>Fieldbook</strong></span>
+            <small>Production intelligence</small>
+          </span>
+        </a>
+        <p>Mechanisms, measurements, and release criteria for engineers shipping consequential AI systems.</p>
+        <nav aria-label="Footer">
+          <a href="/#featured">Guides</a>
+          <a href="/#topics">Topics</a>
+          <a href="/#latest">Latest</a>
+          <button type="button" data-search-open>Search</button>
+        </nav>
+      </div>
+      <div class="footer-meta">
+        <span>Independent AI engineering field notes</span>
+        <span>Built for careful systems work</span>
+      </div>
+    </footer>
   `;
 }
 
@@ -544,7 +574,9 @@ function renderSpotlightArticle(article) {
           <div class="tag-row">${tags}</div>
           <span class="read-more">Read guide</span>
         </div>
-        <img src="${escapeAttribute(article.image)}" alt="${escapeAttribute(article.imageAlt)}" width="1600" height="900">
+        <div class="spotlight-visual">
+          <img src="${escapeAttribute(article.image)}" alt="${escapeAttribute(article.imageAlt)}" width="1600" height="900">
+        </div>
       </a>
     </article>
   `;
@@ -696,46 +728,54 @@ function renderHomePage(articles, topics) {
   ${renderHeader("tutorials", "home")}
   <main>
     <section class="hero-section">
-      <div class="hero-copy">
-        <p class="eyebrow">Production AI engineering</p>
-        <h1>Build AI systems with gates, evals, and code you can rerun.</h1>
-        <p class="hero-summary">A practical fieldbook for agents, retrieval, multimodal systems, inference cost, and rollout governance. Every guide is written for engineers who need mechanisms, thresholds, failure modes, and working examples.</p>
-        <div class="hero-actions">
-          <a class="primary-action" href="#featured">Read the field guide</a>
-          <button class="secondary-action" type="button" data-search-open>Search guides</button>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow hero-eyebrow"><span aria-hidden="true"></span>Operational AI, explained</p>
+          <h1>The fieldbook for <span>production AI systems.</span></h1>
+          <p class="hero-summary">Deep, practical guidance for agents, retrieval, multimodal systems, inference economics, and rollout governance. Written for engineers who need mechanisms, thresholds, failure modes, and code that holds up beyond the demo.</p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#featured">Explore the fieldbook <span aria-hidden="true">&rarr;</span></a>
+            <button class="secondary-action" type="button" data-search-open>Search the library</button>
+          </div>
+          <div class="hero-proof-grid" aria-label="Library proof points">
+            <div>
+              <strong>${articleCount}</strong>
+              <span>production guides</span>
+            </div>
+            <div>
+              <strong>${codeArticleCount}</strong>
+              <span>with code</span>
+            </div>
+            <div>
+              <strong>${outputArticleCount}</strong>
+              <span>with outputs</span>
+            </div>
+            <div>
+              <strong>${topicCount}</strong>
+              <span>system domains</span>
+            </div>
+          </div>
         </div>
-        <div class="hero-proof-grid" aria-label="Library proof points">
-          <div>
-            <strong>${articleCount}</strong>
-            <span>production guides</span>
+        <figure class="hero-visual">
+          <div class="visual-chrome" aria-hidden="true">
+            <span>FIELDBOOK / SYSTEMS CONSOLE</span>
+            <span class="visual-status"><i></i>RELEASE READY</span>
           </div>
-          <div>
-            <strong>${codeArticleCount}</strong>
-            <span>with code</span>
+          <div class="hero-image-wrap">
+            <img src="${escapeAttribute(heroImage)}" alt="${escapeAttribute(heroImageAlt)}" width="1672" height="941">
           </div>
-          <div>
-            <strong>${outputArticleCount}</strong>
-            <span>with outputs</span>
-          </div>
-          <div>
-            <strong>${topicCount}</strong>
-            <span>topic maps</span>
-          </div>
-        </div>
-        <form class="home-search" data-home-search>
-          <label class="sr-only" for="home-search-input">Search tutorials</label>
-          <input id="home-search-input" type="search" placeholder="Search agents, RAG, evals, rollout gates..." autocomplete="off">
-          <button type="submit">Search</button>
-        </form>
+          <figcaption>
+            <span><i aria-hidden="true"></i>Evaluation harness</span>
+            <span>Trace policy</span>
+            <span>Rollout gates</span>
+          </figcaption>
+        </figure>
       </div>
-      <figure class="hero-visual">
-        <img src="${escapeAttribute(heroImage)}" alt="${escapeAttribute(heroImageAlt)}" width="1672" height="941">
-        <figcaption>Eval harnesses, rollout metrics, trace policy, and production gates in one library.</figcaption>
-      </figure>
     </section>
 
     <section class="topic-band" id="topics" aria-label="Topics">
-      ${topicChips}
+      <p>Explore systems</p>
+      <div class="topic-band-track">${topicChips}</div>
     </section>
 
     <section class="known-for" aria-labelledby="known-for-heading">
@@ -795,6 +835,7 @@ function renderHomePage(articles, topics) {
 
     ${latestSection}
   </main>
+  ${renderFooter()}
   ${renderSearchDialog()}
 </body>
 </html>`;
@@ -815,12 +856,15 @@ function renderTopicPage(topic, articles, topics) {
   ${renderHeader("tutorials", "topic")}
   <main>
     <section class="topic-hero">
-      <p class="eyebrow">Topic</p>
-      <h1>${escapeHtml(topic.name)} tutorials</h1>
-      <p>${topic.count} focused ${topic.count === 1 ? "guide" : "guides"} with runnable patterns and explicit trade-offs.</p>
+      <div>
+        <p class="eyebrow"><span aria-hidden="true"></span>System domain</p>
+        <h1>${escapeHtml(topic.name)}</h1>
+      </div>
+      <p><strong>${topic.count} focused ${topic.count === 1 ? "guide" : "guides"}.</strong> Runnable patterns, explicit trade-offs, and production release criteria.</p>
     </section>
     <section class="topic-band" aria-label="All topics">
-      ${renderTopicChips(topics)}
+      <p>All systems</p>
+      <div class="topic-band-track">${renderTopicChips(topics)}</div>
     </section>
     <section class="tutorial-index">
       <div class="tutorial-grid">
@@ -828,6 +872,7 @@ function renderTopicPage(topic, articles, topics) {
       </div>
     </section>
   </main>
+  ${renderFooter()}
   ${renderSearchDialog()}
 </body>
 </html>`;
@@ -936,7 +981,11 @@ function renderArticlePage(article, articles) {
       ${renderToc(article.toc)}
     </aside>
     <article class="article-main">
-      <a class="breadcrumb" href="/">Tutorials</a>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Fieldbook</a>
+        <span aria-hidden="true">/</span>
+        <a href="/topics/${escapeAttribute(article.topicSlug)}/">${escapeHtml(article.topic)}</a>
+      </nav>
       <header class="article-header">
         <span class="topic-pill">${escapeHtml(article.topic)}</span>
         <h1>${escapeHtml(article.title)}</h1>
@@ -944,8 +993,9 @@ function renderArticlePage(article, articles) {
         <div class="article-meta">
           <span>${escapeHtml(article.level)}</span>
           <span>${article.readingTime} min read</span>
-          <time datetime="${escapeAttribute(article.date)}">${escapeHtml(article.date)}</time>
+          <time datetime="${escapeAttribute(article.date)}">Updated ${escapeHtml(formatArticleDate(article.date))}</time>
         </div>
+        ${renderSignalBadges(article, 4)}
         <div class="tag-row">${tags}</div>
       </header>
       <figure class="article-hero-image">
@@ -962,6 +1012,7 @@ function renderArticlePage(article, articles) {
       </section>
     </aside>
   </main>
+  ${renderFooter()}
   ${renderSearchDialog()}
 </body>
 </html>`;
@@ -1132,8 +1183,8 @@ async function main() {
         short_name: siteShortName,
         start_url: "/",
         display: "standalone",
-        background_color: "#f6f8fb",
-        theme_color: "#0b1020",
+        background_color: "#f3f4f1",
+        theme_color: "#080b10",
         icons: [{ src: "/favicon.svg", sizes: "any", type: "image/svg+xml" }],
       },
       null,
@@ -1142,7 +1193,7 @@ async function main() {
   );
   await writeText(
     path.join(appDir, "favicon.svg"),
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#0b1020"/><path d="M15 45 27 17h10l12 28h-9l-2-6H26l-2 6h-9Zm13-13h8l-4-11-4 11Z" fill="#67e8f9"/></svg>`,
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="9" fill="#10161e"/><path d="m18 21 14 11 14-11M18 43l14-11 14 11" fill="none" stroke="#62707d" stroke-width="2"/><circle cx="32" cy="32" r="5" fill="#b8f56a"/><circle cx="18" cy="21" r="4" fill="#52dcef"/><circle cx="46" cy="21" r="4" fill="#ffb84d"/><circle cx="18" cy="43" r="4" fill="#8f7cf8"/><circle cx="46" cy="43" r="4" fill="#61d99c"/></svg>`,
   );
 
   for (const topic of topics) {
