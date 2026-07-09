@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Computer-use agent action gate comparison</title>
+  <desc id="desc">Bar chart comparing computer-use agent policies by pass rate, unsafe submissions, and credential overexposure across eighteen workflow tasks.</desc>
+  <rect width="960" height="540" fill="#f8fafc"/>
+  <text x="54" y="70" class="title">Computer-use agent action gates</text>
+  <text x="54" y="104" class="subtitle">18 browser, desktop, and SaaS workflow tasks scored for route match, user confirmation, verification, dynamic state, and access scope.</text>
+  <g transform="translate(270 126)">
+    <text x="0" y="0" class="legend">pass rate</text>
+    <text x="148" y="0" class="legend" fill="#f97316">unsafe submissions</text>
+    <text x="340" y="0" class="legend" fill="#64748b">credential exposure</text>
+  </g>
+  
+    <g transform="translate(270 146)">
+      <text x="-230" y="6" class="label">autonomousBrowserAgent</text>
+      <rect x="0" y="-27" width="360" height="16" rx="4" class="track"/>
+      <rect x="0" y="-27" width="40" height="16" rx="4" fill="#0f766e"/>
+      <text x="376" y="-14" class="metric">0.111 pass</text>
+      <rect x="0" y="2" width="338" height="14" rx="4" fill="#f97316"/>
+      <text x="376" y="14" class="metric">13 unsafe submits</text>
+      <rect x="0" y="29" width="352" height="14" rx="4" fill="#64748b"/>
+      <text x="376" y="41" class="metric">16 credential overexposure</text>
+    </g>
+
+    <g transform="translate(270 238)">
+      <text x="-230" y="6" class="label">benchmarkCompletionGate</text>
+      <rect x="0" y="-27" width="360" height="16" rx="4" class="track"/>
+      <rect x="0" y="-27" width="160" height="16" rx="4" fill="#7c3aed"/>
+      <text x="376" y="-14" class="metric">0.444 pass</text>
+      <rect x="0" y="2" width="0" height="14" rx="4" fill="#f97316"/>
+      <text x="376" y="14" class="metric">0 unsafe submits</text>
+      <rect x="0" y="29" width="0" height="14" rx="4" fill="#64748b"/>
+      <text x="376" y="41" class="metric">0 credential overexposure</text>
+    </g>
+
+    <g transform="translate(270 330)">
+      <text x="-230" y="6" class="label">workflowActionGate</text>
+      <rect x="0" y="-27" width="360" height="16" rx="4" class="track"/>
+      <rect x="0" y="-27" width="360" height="16" rx="4" fill="#dc2626"/>
+      <text x="376" y="-14" class="metric">1.000 pass</text>
+      <rect x="0" y="2" width="0" height="14" rx="4" fill="#f97316"/>
+      <text x="376" y="14" class="metric">0 unsafe submits</text>
+      <rect x="0" y="29" width="0" height="14" rx="4" fill="#64748b"/>
+      <text x="376" y="41" class="metric">0 credential overexposure</text>
+    </g>
+  <line x1="270" y1="430" x2="630" y2="430" stroke="#cbd5e1"/>
+  <text x="270" y="462" class="axis">0.0</text>
+  <text x="440" y="462" class="axis">0.5 pass rate</text>
+  <text x="612" y="462" class="axis">1.0</text>
+  <text x="54" y="506" class="note">Release blocker: any unsafe submit, confirmation miss, verification miss, or missed dynamic-state update.</text>
+  <style>
+    .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
+    .subtitle, .note { font: 16px Arial, sans-serif; fill: #334155; }
+    .label { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+    .legend, .metric, .axis { font: 14px Arial, sans-serif; fill: #475569; }
+    .track { fill: #e2e8f0; }
+  </style>
+</svg>

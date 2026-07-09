@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Computer-use agent action gate architecture</title>
+  <desc id="desc">Architecture diagram showing a computer-use agent routed through observation, action classification, confirmation gates, verification, and blocked paths before reaching SaaS workflow tools.</desc>
+  <rect width="960" height="540" fill="#f8fafc"/>
+  <text x="54" y="62" class="title">Computer-use agent action gates</text>
+  <text x="54" y="94" class="subtitle">Route browser, desktop, and SaaS actions before the agent reaches credentials, submit buttons, or destructive writes.</text>
+  <g transform="translate(54 142)">
+    <rect x="0" y="0" width="150" height="96" rx="8" class="box source"/>
+    <text x="22" y="36" class="boxTitle">User goal</text>
+    <text x="22" y="64" class="boxText">Task, context, account</text>
+  </g>
+  <g transform="translate(244 142)">
+    <rect x="0" y="0" width="150" height="96" rx="8" class="box observe"/>
+    <text x="22" y="34" class="boxTitle">Observation</text>
+    <text x="22" y="62" class="boxText">Screen, DOM, state</text>
+  </g>
+  <g transform="translate(434 116)">
+    <rect x="0" y="0" width="180" height="148" rx="8" class="box gate"/>
+    <text x="20" y="34" class="boxTitle">Action gate</text>
+    <text x="20" y="64" class="boxText">Classify route</text>
+    <text x="20" y="90" class="boxText">Scope credentials</text>
+    <text x="20" y="116" class="boxText">Require proof</text>
+  </g>
+  <g transform="translate(678 70)">
+    <rect x="0" y="0" width="210" height="72" rx="8" class="route"/>
+    <text x="18" y="30" class="routeTitle">draft-only</text>
+    <text x="18" y="52" class="routeText">No submit or writes</text>
+  </g>
+  <g transform="translate(678 166)">
+    <rect x="0" y="0" width="210" height="72" rx="8" class="route"/>
+    <text x="18" y="30" class="routeTitle">human-confirmed submit</text>
+    <text x="18" y="52" class="routeText">Review before side effect</text>
+  </g>
+  <g transform="translate(678 262)">
+    <rect x="0" y="0" width="210" height="72" rx="8" class="route warn"/>
+    <text x="18" y="30" class="routeTitle">admin/data review</text>
+    <text x="18" y="52" class="routeText">Evidence and diff required</text>
+  </g>
+  <g transform="translate(678 358)">
+    <rect x="0" y="0" width="210" height="72" rx="8" class="route block"/>
+    <text x="18" y="30" class="routeTitle">blocked</text>
+    <text x="18" y="52" class="routeText">No credentialed action</text>
+  </g>
+  <path d="M204 190 H244" class="arrow"/>
+  <path d="M394 190 H434" class="arrow"/>
+  <path d="M614 164 C640 120 650 106 678 106" class="arrow"/>
+  <path d="M614 188 H678" class="arrow"/>
+  <path d="M614 214 C640 252 650 298 678 298" class="arrow"/>
+  <path d="M614 238 C640 320 650 394 678 394" class="arrow"/>
+  <g transform="translate(80 332)">
+    <rect x="0" y="0" width="478" height="126" rx="8" class="metrics"/>
+    <text x="24" y="36" class="metricTitle">Release metrics</text>
+    <text x="24" y="68" class="metricText">route match | unsafe submits | confirmation misses | verification misses</text>
+    <text x="24" y="96" class="metricText">dynamic-state misses | credential overexposure | app overreach | false blocks</text>
+  </g>
+  <style>
+    .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
+    .subtitle { font: 16px Arial, sans-serif; fill: #334155; }
+    .box, .route, .metrics { stroke: #cbd5e1; stroke-width: 2; }
+    .source { fill: #ecfeff; }
+    .observe { fill: #eef2ff; }
+    .gate { fill: #fff7ed; }
+    .route { fill: #ffffff; }
+    .warn { fill: #fffbeb; }
+    .block { fill: #fee2e2; }
+    .metrics { fill: #f1f5f9; }
+    .boxTitle, .routeTitle, .metricTitle { font: 700 17px Arial, sans-serif; fill: #0f172a; }
+    .boxText, .routeText, .metricText { font: 14px Arial, sans-serif; fill: #475569; }
+    .arrow { fill: none; stroke: #334155; stroke-width: 3; stroke-linecap: round; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#334155"/>
+    </marker>
+  </defs>
+</svg>
