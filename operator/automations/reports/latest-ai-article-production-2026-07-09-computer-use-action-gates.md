@@ -116,9 +116,12 @@ Sandbox note:
 
 ## Git Pipeline
 
-Normal GitHub pipeline path is being used. Commit hash and push result will be
-recorded in a follow-up report update after `git commit` and `git push origin
-main`.
+Normal GitHub pipeline path was used.
+
+- Batch commit: `51e1119` (`Add computer-use agent action gate articles`)
+- Sandboxed push result: failed DNS resolution for `github.com`.
+- Outside-sandbox push result: succeeded, advancing `origin/main` from
+  `92c6cd2` to `51e1119`.
 
 ## Intervention Needed
 
