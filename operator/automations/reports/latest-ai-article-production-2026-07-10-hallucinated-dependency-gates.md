@@ -128,10 +128,14 @@ Sandbox note:
 
 ## Git Pipeline
 
-Normal GitHub pipeline path is being used.
+Normal GitHub pipeline path was used.
 
-- Batch commit: pending.
-- Push result: pending.
+- Batch commit: `e48b746` (`Add hallucinated dependency gate articles`)
+- Pre-existing unpushed local commit included by the required default-branch
+  push: `df18b19` (`Add AI media provenance gate articles`)
+- Sandboxed push result: failed DNS resolution for `github.com`.
+- Outside-sandbox push result: succeeded, advancing `origin/main` from
+  `17952d5` to `e48b746`.
 
 ## Intervention Needed
 
