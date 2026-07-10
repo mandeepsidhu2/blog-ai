@@ -13,8 +13,10 @@ SITE_URL=https://learn.toolsite.com node app-scripts/build-site.mjs
 Check:
 
 ```sh
+node operator/scripts/check-public-content.mjs --self-test
 node operator/scripts/check-public-content.mjs
 node app-scripts/check-site.mjs
+node operator/scripts/upgrade-svg-library.mjs --check
 ```
 
 Preview:
@@ -26,10 +28,15 @@ node app-scripts/serve-dist.mjs
 Operator-generated article batches can be validated without uploading:
 
 ```sh
+node operator/scripts/upgrade-svg-library.mjs \
+  --assets-dir /tmp/generated-ai-content/assets
+
 node operator/scripts/check-public-content.mjs \
   --articles-dir /tmp/generated-ai-content/articles \
   --assets-dir /tmp/generated-ai-content/assets \
-  --source-label generated-ai-content
+  --source-label generated-ai-content \
+  --quality-profile automation \
+  --editorial-review /tmp/generated-ai-content/editorial-review.json
 
 node operator/scripts/publish-generated-content.mjs \
   --source-dir /tmp/generated-ai-content \
@@ -78,6 +85,10 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
   are SVG, PNG, or JPEG files with readable dimensions, useful minimum size, a
   landscape aspect ratio, and no remote SVG dependencies.
 - SVG article assets include `<title>` and `<desc>` accessibility metadata.
+- SVG article assets use the publication visual-system marker, avoid generic
+  Arial/Helvetica slide styling and oversized card radii, contain enough
+  graphical marks to be a useful figure, and pass bounded-label repair so
+  captions do not run outside their canvas or panel.
 - title and description are strong enough for customer-facing SEO pages.
 - article depth, TOC section count, at least three code blocks, and output
   blocks for `evidenceMode: experiment`.
@@ -94,6 +105,18 @@ Use the bundled Codex Node runtime if local `node` is unavailable.
   as strategy article, experiment article, research-backed article, or trend
   article is blocked. Lightweight `Production extension` sections,
   deterministic-fixture articles, and generic hype filler are blocked.
+- with `--quality-profile automation`, the batch has exactly one
+  `deep-research` article and two `timely-analysis` articles across three
+  distinct topics. Tier-specific evidence density, unique source/domain
+  diversity, substantive code and outputs, locally sourced comparison tables,
+  reproducibility manifests, measured signals, comparison limits,
+  decision-guidance, and adoption-boundary requirements are enforced.
+- automation candidates are checked for reused slugs, near-duplicate prose,
+  copied long paragraphs, and title similarity against the committed library.
+- `--editorial-review` is mandatory for automation batches. Its structured JSON
+  records seven rubric scores, the strongest counterargument, the weakest claim,
+  the main reproduction barrier, and at least two substantive revisions for
+  each article.
 
 ## Review Loop
 

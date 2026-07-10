@@ -1,45 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Coding agent rollout gate scorecard</title>
   <desc id="desc">Bar chart comparing retained-seat rate, normalized wasted credits, and unsupported adoption risk for three coding agent rollout policies.</desc>
-  <rect width="960" height="540" fill="#f8fafc"/>
-  <rect x="34" y="30" width="892" height="478" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <rect x="34" y="30" width="892" height="478" rx="8" fill="#121a23" stroke="#334250"/>
   <text x="72" y="72" font-size="25" font-weight="700" fill="#0f172a">Coding agent rollout gates</text>
   <text x="72" y="102" font-size="15" fill="#475569">Retained-seat rate should rise while wasted credits and unsupported adoption risk fall.</text>
-  <line x1="70" y1="386" x2="870" y2="386" stroke="#94a3b8"/>
-  <line x1="70" y1="94" x2="70" y2="386" stroke="#94a3b8"/>
+  <line x1="70" y1="386" x2="870" y2="386" stroke="#40515f"/>
+  <line x1="70" y1="94" x2="70" y2="386" stroke="#40515f"/>
   <text x="48" y="102" font-size="13" fill="#64748b">1.0</text>
   <text x="56" y="390" font-size="13" fill="#64748b">0</text>
-  
+
       <g>
-        <rect x="94" y="155.32" width="50" height="230.68" rx="4" fill="#126e6a"/>
-        <rect x="162" y="94" width="50" height="292" rx="4" fill="#8b5cf6"/>
-        <rect x="230" y="94" width="50" height="292" rx="4" fill="#d64a3a"/>
+        <rect x="94" y="155.32" width="50" height="230.68" rx="4" fill="#43d6a0"/>
+        <rect x="162" y="94" width="50" height="292" rx="4" fill="#9b87ff"/>
+        <rect x="230" y="94" width="50" height="292" rx="4" fill="#ff657a"/>
         <text x="119" y="414" text-anchor="middle" font-size="14" fill="#1f2937">retain</text>
         <text x="187" y="414" text-anchor="middle" font-size="14" fill="#1f2937">waste</text>
         <text x="255" y="414" text-anchor="middle" font-size="14" fill="#1f2937">risk</text>
         <text x="187" y="445" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">broad rollout</text>
       </g>
       <g>
-        <rect x="352" y="140.428" width="50" height="245.572" rx="4" fill="#126e6a"/>
-        <rect x="420" y="227.6711111111111" width="50" height="158.3288888888889" rx="4" fill="#8b5cf6"/>
-        <rect x="488" y="260.8571428571429" width="50" height="125.14285714285714" rx="4" fill="#d64a3a"/>
+        <rect x="352" y="140.428" width="50" height="245.572" rx="4" fill="#43d6a0"/>
+        <rect x="420" y="227.6711111111111" width="50" height="158.3288888888889" rx="4" fill="#9b87ff"/>
+        <rect x="488" y="260.8571428571429" width="50" height="125.14285714285714" rx="4" fill="#ff657a"/>
         <text x="377" y="414" text-anchor="middle" font-size="14" fill="#1f2937">retain</text>
         <text x="445" y="414" text-anchor="middle" font-size="14" fill="#1f2937">waste</text>
         <text x="513" y="414" text-anchor="middle" font-size="14" fill="#1f2937">risk</text>
         <text x="445" y="445" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">activity only</text>
       </g>
       <g>
-        <rect x="610" y="102.46800000000002" width="50" height="283.532" rx="4" fill="#126e6a"/>
-        <rect x="678" y="306.45385620915033" width="50" height="79.54614379084968" rx="4" fill="#8b5cf6"/>
-        <rect x="746" y="386" width="50" height="0" rx="4" fill="#d64a3a"/>
+        <rect x="610" y="102.46800000000002" width="50" height="283.532" rx="4" fill="#43d6a0"/>
+        <rect x="678" y="306.45385620915033" width="50" height="79.54614379084968" rx="4" fill="#9b87ff"/>
+        <rect x="746" y="386" width="50" height="0" rx="4" fill="#ff657a"/>
         <text x="635" y="414" text-anchor="middle" font-size="14" fill="#1f2937">retain</text>
         <text x="703" y="414" text-anchor="middle" font-size="14" fill="#1f2937">waste</text>
         <text x="771" y="414" text-anchor="middle" font-size="14" fill="#1f2937">risk</text>
         <text x="703" y="445" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">peer-visible gate</text>
       </g>
   <g transform="translate(72 474)">
-    <rect width="14" height="14" fill="#126e6a"/><text x="22" y="12" font-size="14" fill="#334155">Retained-seat rate</text>
-    <rect x="166" width="14" height="14" fill="#8b5cf6"/><text x="188" y="12" font-size="14" fill="#334155">Normalized wasted credits</text>
-    <rect x="390" width="14" height="14" fill="#d64a3a"/><text x="412" y="12" font-size="14" fill="#334155">Unsupported teams</text>
+    <rect width="14" height="14" fill="#43d6a0"/><text x="22" y="12" font-size="14" fill="#334155">Retained-seat rate</text>
+    <rect x="166" width="14" height="14" fill="#9b87ff"/><text x="188" y="12" font-size="14" fill="#334155">Normalized wasted credits</text>
+    <rect x="390" width="14" height="14" fill="#ff657a"/><text x="412" y="12" font-size="14" fill="#334155">Unsupported teams</text>
+  </g>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / MEASURED RESULTS</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
   </g>
 </svg>

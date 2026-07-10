@@ -9,7 +9,7 @@ const appDir = path.join(distDir, "app");
 const contentDir = path.join(distDir, "content");
 const articleSourceDir = path.join(rootDir, "content", "articles");
 const internalEvidenceFramingPattern =
-  /\bDIY project\b|\boperator project\b|\bresearch-backed article\b|\bevidence-backed article\b|\bexperiment-backed article\b|\bstrategy article\b|\bexperiment article\b|\btrend article\b|\bevidenceMode\b|\bevidence mode\b|operator\/diy-project-blogs/i;
+  /\bDIY project\b|\boperator project\b|\bresearch-backed article\b|\bevidence-backed article\b|\bexperiment-backed article\b|\bstrategy article\b|\bexperiment article\b|\btrend article\b|\bevidenceMode\b|\bevidence mode\b|\bqualityTier\b|\bevidenceProject\b|\bevidenceManifest\b|\beditorial-review\b|operator\/diy-project-blogs/i;
 
 async function readText(filePath) {
   return fs.readFile(filePath, "utf8");
@@ -229,7 +229,7 @@ async function main() {
   const home = await readText(path.join(appDir, "index.html"));
   assert(home.includes("<title>AI Systems Fieldbook</title>"), "Home page title is missing.");
   assert(home.includes('<meta name="description"'), "Home page description meta tag is missing.");
-  assert(home.includes("/assets/hero-ai-systems-fieldbook.png"), "Home page visual asset is missing.");
+  assert(home.includes("/assets/hero-paired-seed-validation.png"), "Home page visual asset is missing.");
   assert(home.includes("data-home-curated"), "Home page curated discovery modules are missing.");
   assert(
     home.includes("data-search-open") && home.includes("Search the library"),
@@ -278,6 +278,10 @@ async function main() {
     assert(!html.includes("undefined"), `Article ${article.slug} contains undefined output.`);
     assert(!html.includes("evidenceMode"), `Article ${article.slug} exposes internal evidence metadata.`);
     assert(!JSON.stringify(json).includes("evidenceMode"), `Article JSON ${article.slug} exposes internal evidence metadata.`);
+    for (const internalField of ["qualityTier", "evidenceProject", "evidenceManifest"]) {
+      assert(!html.includes(internalField), `Article ${article.slug} exposes ${internalField}.`);
+      assert(!JSON.stringify(json).includes(internalField), `Article JSON ${article.slug} exposes ${internalField}.`);
+    }
     assert(
       !internalEvidenceFramingPattern.test(`${html}\n${JSON.stringify(json)}`),
       `Article ${article.slug} exposes internal evidence-mode framing.`,
@@ -306,7 +310,7 @@ async function main() {
   const requiredFiles = [
     path.join(appDir, "assets", "styles.css"),
     path.join(appDir, "assets", "app.js"),
-    path.join(appDir, "assets", "hero-ai-systems-fieldbook.png"),
+    path.join(appDir, "assets", "hero-paired-seed-validation.png"),
     path.join(appDir, "robots.txt"),
     path.join(distDir, "pipeline-artifact", "app", "index.html"),
     path.join(distDir, "pipeline-artifact", "content", "content", "v1", "manifest.json"),

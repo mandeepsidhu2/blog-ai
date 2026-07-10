@@ -62,7 +62,8 @@ crawler-visible HTML page under `/tutorials/*`.
 `app-scripts/build-site.mjs`:
 
 - parses article front matter.
-- converts Markdown blocks to safe HTML.
+- converts headings, prose, lists, quotes, code, outputs, and Markdown tables to
+  safe HTML and structured article JSON blocks.
 - generates article table of contents from `h2` and `h3`.
 - emits SEO article pages.
 - emits content JSON payloads.

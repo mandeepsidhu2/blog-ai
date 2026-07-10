@@ -6,19 +6,51 @@ Run every 12 hours.
 
 ## Objective
 
-Produce a high-quality candidate article batch from current AI market signals
-while respecting the daily publication maximum of 50 articles.
+Produce one atomic batch of exactly three publication-grade articles while
+respecting the daily publication maximum of 50 articles:
 
-- `evidenceMode: strategy` candidates should be based on deep research into
-  recent AI trends, releases, ecosystem movement, benchmarks, protocols, tools,
-  or engineering practices.
-- `evidenceMode: experiment` candidates should be backed by local code,
-  runnable experiments, measured outputs, charts, or inspectable artifacts.
+1. one `qualityTier: deep-research` article grounded in completed empirical
+   work or a new controlled experiment;
+2. one `qualityTier: timely-analysis` article comparing a recent model,
+   benchmark, release, or specification with quantitative evidence; and
+3. one `qualityTier: timely-analysis` article explaining a separate current AI
+   systems, product, protocol, or market development with concrete engineering
+   consequences.
 
-Quality is more important than count. There is no smaller per-run article quota
-or per-evidence-mode cap. Do not force publication-quality output when the
-research or experiment is not strong enough. It is acceptable to ship fewer
-candidates than the daily maximum, or none if the gate fails.
+The three articles must cover distinct customer-facing topics. Do not produce a
+strategy/experiment companion pair about the same narrow gate. The batch is
+atomic: if any slot lacks sufficient evidence or fails a gate, publish no
+partial batch and report exactly which slot was blocked. Do not lower the bar or
+substitute generic filler to reach three.
+
+Reader excitement must come from important results, surprising comparisons,
+useful numbers, and clear implications. It must not come from hype language.
+
+The governing question is not "is this long enough?" It is "would a senior
+engineer or scientist learn something consequential, trust the evidence, and
+make a better technical decision after spending time on it?" Length and section
+counts are only anti-thinness floors. Never add prose, headings, code, sources,
+or tables solely to satisfy a count.
+
+## Quality Exemplars
+
+Before choosing the deep-research slot, inspect these local projects as quality
+exemplars:
+
+- `/Users/mandeepsidhu/Desktop/code/completed-research/dropout-decay`: read
+  `README.md`, `REPRODUCING.md`, `docs/formula_coefficient_methodology.md`, and
+  `paper/paper_results_summary.json`.
+- `/Users/mandeepsidhu/Desktop/code/policy-verified-agent-tool`: read
+  `README.md`, `paper/paper_results_summary.json`,
+  `paper/reproducibility_manifest.md`, and the statistical-testing summaries
+  under `paper/tables/` and `reports/diagnostics/`.
+
+Use their research discipline as the target: explicit hypotheses, matched
+baselines, multiple seeds or repeated observations, ablations and negative
+controls, uncertainty or confidence intervals, claim narrowing, scope limits,
+and a reproducibility path from raw artifacts to each public claim. Do not copy
+their prose and do not repeatedly publish the same result. Use other completed
+research when it meets the same bar.
 
 ## Internal Versus Public Framing
 
@@ -41,59 +73,139 @@ Public copy must not say "strategy article", "experiment article",
 
 ## Research Phase
 
-1. Gather current public signals from primary or high-signal sources:
+1. Reserve the three required slots before drafting. Record a one-sentence
+   reader question, the evidence path, and the reason the topic matters now for
+   each slot.
+2. Search the committed library and recent automation reports before approving
+   a slot. Reject a topic that merely renames an existing article, reuses its
+   central mechanism, or republishes the same experiment with a new wrapper.
+3. For the two timely-analysis slots, gather current public signals from
+   primary or high-signal sources:
    official model/provider blogs, release notes, framework docs, standards
    bodies, GitHub repositories, arXiv papers, benchmark releases, issue threads,
    conference/workshop material, and public social/community signals.
-2. Use social media and community sites only as discovery signals unless the
+4. Use social media and community sites only as discovery signals unless the
    source itself is authoritative. Do not treat viral claims as facts without
    primary-source confirmation.
-3. Prefer sources published or materially updated in the last 30 days. If a
-   source is older but relevant, explain why it matters now.
-4. Record exact source URLs in the article. Strategy candidates need at least
-   five current primary or high-signal sources.
-5. If web access is blocked, source quality is weak, or the trend cannot be
-   verified, stop that candidate and report the reason.
+5. Prefer timely sources published or materially updated in the last 14 days.
+   A source up to 30 days old is acceptable when it provides a necessary
+   benchmark, specification, or comparison baseline. Explain why older sources
+   still matter.
+6. Record exact source URLs, publication dates, model/version identifiers, and
+   the provenance of every quantitative comparison. If web access is blocked,
+   source quality is weak, or a claim cannot be verified, stop the entire batch
+   and report the affected slot.
 
-## Strategy Candidate Requirements
+## Deep-Research Slot
 
-Each strategy candidate must:
+The deep-research article must:
 
-- use `evidenceMode: strategy`.
-- choose topic and tags by domain, not by evidence mode.
-- be concrete enough for real software engineers, AI engineers, or research
-  scientists to act on.
-- include an article-specific visual asset.
-- ensure the visual asset passes the image gate and renders without cropped
-  labels, hidden axes, broken placeholders, or remote asset dependencies.
-- include a source/signal/research section.
-- include operational signals such as evaluation criteria, release gates,
-  benchmark implications, cost/latency trade-offs, adoption risks, or security
-  controls.
-- include production readiness, limitations, guardrails, and rollout guidance.
-- avoid filler, unsupported hype, and vague claims.
+- use `qualityTier: deep-research` and `evidenceMode: experiment`.
+- be based on saved artifacts from a completed research project or a new
+  project under `operator/diy-project-blogs/projects/<slug>/`.
+- state the hypothesis, datasets, model/configuration scale, treatment,
+  baselines, seed or repeat count, metrics, and hardware/runtime boundary.
+- distinguish exploratory screens from confirmatory evidence.
+- include matched baselines, at least one ablation or negative control,
+  uncertainty or statistical testing, error analysis, and an explicit claim
+  ladder separating supported conclusions from speculation.
+- use only as much prose as the argument requires, with anti-thinness floors of
+  2,400 total words and 1,800 non-code words. It must still contain three
+  substantive implementation excerpts, two measured-output blocks, a sourced
+  result table, and at least six unique scholarly or primary links across three
+  source domains.
+- include at least 45 substantive implementation lines, eight measured signals,
+  and eight output lines. Compact, meaningful excerpts are preferred over
+  inflated code listings.
+- include Methodology, Baselines or Controls, Results, Statistical Analysis or
+  Uncertainty, Reproducibility, Limitations or Error Analysis, and Claim
+  Boundary sections. Report at least one negative result, failed hypothesis, or
+  negative control in plain language.
+- include a real result figure generated from the cited artifacts. A generic
+  architecture flowchart is not sufficient evidence.
+- set internal `evidenceProject` and `evidenceManifest` front matter. The
+  manifest must follow `operator/automations/evidence-manifest.schema.json` and
+  the contract in `docs/CONTENT.md`, and trace the public claims to existing
+  configs, code, raw/processed results, and figures.
 
-## Experiment Candidate Requirements
+Long Torch reruns are not required when completed artifacts are internally
+consistent and reproducible. Prefer reading and validating saved summaries,
+configs, traces, figures, and manifests. Never invent missing measurements.
 
-Each experiment candidate must:
+## Timely-Analysis Slots
 
-- use `evidenceMode: experiment`.
-- create or update an internal project under
-  `operator/diy-project-blogs/projects/<slug>/`.
-- include a runnable script, data or fixtures where needed, output artifacts,
-  and a short project README.
-- produce measured evidence such as metrics, traces, latency, recall, tool-call
-  behavior, graph state transitions, ablations, or error analysis.
-- include at least three implementation code blocks and one output block in the
-  article.
-- include reproducibility notes, failure analysis, and production-readiness
-  guidance.
+Each timely-analysis article must:
 
-Experiments can use any rigorous AI engineering subject, including local LLM
-behavior, embedding models, RAG, LangGraph state flow, tool calling, agent
-permissions, eval harnesses, structured outputs, or model-routing simulations.
-They do not need to use a local model when a deterministic Python/JavaScript
-experiment is the better evidence source.
+- use `qualityTier: timely-analysis` and `evidenceMode: strategy`.
+- cover a different topic from the other two batch articles.
+- use at least eight primary or high-signal sources and identify dates and exact
+  model, product, protocol, or benchmark versions. Use at least four independent
+  source domains; multiple provider pages do not count as independent
+  corroboration.
+- use only as much prose as the decision requires, with anti-thinness floors of
+  1,800 total words and 1,400 non-code words. Include at least eight measured
+  specifications, scores, prices, latency values, context limits, or adoption
+  statistics and explicitly record at least three source/release dates.
+- include a nearby-sourced Markdown comparison table with at least three columns
+  and three data rows. Normalize units, label unknown values, and never compare
+  benchmark numbers with incompatible settings as if they were equivalent.
+- explain benchmark limitations, missing information, likely confounders, and
+  what an engineer should test before adopting the release.
+- include a concise finding/decision summary, explicit comparison/benchmark and
+  engineering-decision sections, a source ledger with dates, an adoption
+  boundary or when-not-to-use section, production implications, failure modes,
+  and rollback or migration guidance.
+
+One timely slot should normally be model/benchmark/specification focused. The
+other should normally be systems/ecosystem/news focused. A press-release recap,
+feature list, or unsourced leaderboard summary does not qualify.
+
+## Skeptical Editorial Review
+
+Drafting and reviewing are separate passes. After all three drafts and visuals
+exist, stop writing and review each article as a skeptical senior engineer or
+scientist encountering it for the first time:
+
+1. State the strongest counterargument to the article's conclusion.
+2. Identify the most weakly supported public claim and either strengthen,
+   narrow, or remove it.
+3. Identify the largest reproduction or adoption barrier and make it explicit.
+4. Compare the article with the committed library for duplicated thesis,
+   repeated long paragraphs, and templated structure.
+5. Make at least two substantive revisions based on the review. Copy editing
+   alone does not count.
+6. Score `questionValue`, `technicalDepth`, `evidenceTraceability`,
+   `methodologicalRigor`, `decisionUsefulness`, `clarityDensity`, and
+   `visualEvidence` from 1 to 5. Every score must be at least 4 and the average
+   must be at least 4.3. Do not inflate scores; a failing score blocks the whole
+   atomic batch.
+
+Write the machine-checkable result to `editorial-review.json` using
+`operator/automations/editorial-review.schema.json`. The review is internal and
+must never appear in public article copy.
+
+## Visual Standard
+
+Every article must have a distinct evidence-bearing visual:
+
+- deep research: a real chart, ablation, uncertainty plot, or result matrix
+  generated from the article's artifacts;
+- timely analysis: a sourced comparison matrix, benchmark chart, release
+  timeline, or decision surface built from the cited facts.
+
+Do not publish generic pastel cards, repeated rounded-box pipelines, stock
+icons, decorative neural-network imagery, or an `assistant -> checks -> decision`
+diagram that merely restates the prose. SVGs must use the shared publication
+visual system, avoid Arial/Helvetica, keep radii at 12px or below, and remain
+readable at article and mobile widths.
+
+Run the SVG visual-system pass against candidate assets before the candidate
+content gate:
+
+```sh
+node operator/scripts/upgrade-svg-library.mjs \
+  --assets-dir /tmp/blog-ai-article-run-<timestamp>/assets
+```
 
 ## Local Model Rules
 
@@ -141,6 +253,7 @@ and validating candidates:
 /tmp/blog-ai-article-run-<timestamp>/
   articles/
   assets/
+  editorial-review.json
   report.md
 ```
 
@@ -159,7 +272,9 @@ articles and article-specific assets into committed source:
 node operator/scripts/check-public-content.mjs \
   --articles-dir /tmp/blog-ai-article-run-<timestamp>/articles \
   --assets-dir /tmp/blog-ai-article-run-<timestamp>/assets \
-  --source-label latest-ai-article-production
+  --source-label latest-ai-article-production \
+  --quality-profile automation \
+  --editorial-review /tmp/blog-ai-article-run-<timestamp>/editorial-review.json
 ```
 
 ## Quality Gates
@@ -167,7 +282,11 @@ node operator/scripts/check-public-content.mjs \
 Before any candidate is published or committed:
 
 1. Run `node operator/scripts/check-public-content.mjs` against the candidate
-   batch.
+   batch with `--quality-profile automation`. This mechanically requires exactly
+   one deep-research article, exactly two timely-analysis articles, and three
+   distinct topics. It also verifies evidence/source density, source diversity,
+   substantive comparison tables, reproducibility manifests, originality
+   against the existing library, and the structured editorial review.
 2. Promote only the passing candidates into `content/articles` and
    `content/assets`.
 3. Run the committed-source gates:
@@ -238,6 +357,8 @@ The normal output is a concise run report with:
 - candidate titles and slugs.
 - which candidates passed or failed.
 - experiment artifacts created.
+- editorial scores, counterarguments, identified claim risks, and substantive
+  revisions made.
 - checks run.
 - commit hash and push result for the normal GitHub pipeline path, or S3
   publishing result and uploaded-object verification when the fallback path is

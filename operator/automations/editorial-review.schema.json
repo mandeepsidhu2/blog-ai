@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://learn.toolsite.com/schemas/editorial-review.schema.json",
+  "title": "AI Systems Fieldbook editorial review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "reviews"],
+  "properties": {
+    "version": { "const": 1 },
+    "reviews": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "slug",
+          "verdict",
+          "scores",
+          "strongestCounterargument",
+          "unsupportedClaimRisk",
+          "reproductionBarrier",
+          "revisions"
+        ],
+        "properties": {
+          "slug": { "type": "string", "minLength": 3 },
+          "verdict": { "const": "publish-ready" },
+          "scores": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "questionValue",
+              "technicalDepth",
+              "evidenceTraceability",
+              "methodologicalRigor",
+              "decisionUsefulness",
+              "clarityDensity",
+              "visualEvidence"
+            ],
+            "properties": {
+              "questionValue": { "type": "integer", "minimum": 4, "maximum": 5 },
+              "technicalDepth": { "type": "integer", "minimum": 4, "maximum": 5 },
+              "evidenceTraceability": { "type": "integer", "minimum": 4, "maximum": 5 },
+              "methodologicalRigor": { "type": "integer", "minimum": 4, "maximum": 5 },
+              "decisionUsefulness": { "type": "integer", "minimum": 4, "maximum": 5 },
+              "clarityDensity": { "type": "integer", "minimum": 4, "maximum": 5 },
+              "visualEvidence": { "type": "integer", "minimum": 4, "maximum": 5 }
+            }
+          },
+          "strongestCounterargument": { "type": "string", "minLength": 40 },
+          "unsupportedClaimRisk": { "type": "string", "minLength": 40 },
+          "reproductionBarrier": { "type": "string", "minLength": 40 },
+          "revisions": {
+            "type": "array",
+            "minItems": 2,
+            "items": { "type": "string", "minLength": 20 }
+          }
+        }
+      }
+    }
+  }
+}

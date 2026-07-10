@@ -15,9 +15,9 @@ const pipelineDir = path.join(distDir, "pipeline-artifact");
 const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://learn.toolsite.com");
 const siteName = "AI Systems Fieldbook";
 const siteShortName = "AI Fieldbook";
-const heroImage = "/assets/hero-ai-systems-fieldbook.png";
+const heroImage = "/assets/hero-paired-seed-validation.png";
 const heroImageAlt =
-  "Production AI engineering dashboard with eval harness code, rollout metrics, trace gates, and retrieval boundary matrix";
+  "Paired-seed validation curves comparing baseline, fixed-gate, budgeted-intervention, and dropout training runs";
 const siteDescription =
   "Production AI engineering guides with runnable code, evaluation harnesses, rollout gates, and source-backed operating patterns.";
 
@@ -127,6 +127,22 @@ function createUniqueId(title, usedIds) {
   return id;
 }
 
+function splitMarkdownTableRow(line) {
+  return line
+    .trim()
+    .replace(/^\|/, "")
+    .replace(/\|$/, "")
+    .split("|")
+    .map((cell) => cell.trim());
+}
+
+function tableAlignment(cell) {
+  const value = cell.trim();
+  if (value.startsWith(":") && value.endsWith(":")) return "center";
+  if (value.endsWith(":")) return "right";
+  return "left";
+}
+
 function parseMarkdown(markdown) {
   const lines = markdown.split(/\r?\n/);
   const blocks = [];
@@ -179,6 +195,28 @@ function parseMarkdown(markdown) {
       const id = createUniqueId(title, usedIds);
       blocks.push({ type: "heading", depth, id, title });
       toc.push({ id, depth, title });
+      continue;
+    }
+
+    const tableDivider = lines[index + 1]?.trim() || "";
+    if (
+      trimmed.includes("|") &&
+      /^\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?$/.test(tableDivider)
+    ) {
+      flushParagraph();
+      const headers = splitMarkdownTableRow(trimmed);
+      const alignments = splitMarkdownTableRow(tableDivider).map(tableAlignment);
+      const rows = [];
+      index += 2;
+      while (index < lines.length) {
+        const row = lines[index].trim();
+        if (!row || !row.includes("|")) break;
+        const cells = splitMarkdownTableRow(row);
+        rows.push(headers.map((_, cellIndex) => cells[cellIndex] || ""));
+        index += 1;
+      }
+      index -= 1;
+      blocks.push({ type: "table", headers, alignments, rows });
       continue;
     }
 
@@ -245,6 +283,27 @@ function renderBlock(block) {
     return `<blockquote>${renderInlineMarkdown(block.text)}</blockquote>`;
   }
 
+  if (block.type === "table") {
+    const headings = block.headers
+      .map(
+        (header, index) =>
+          `<th scope="col" style="text-align:${block.alignments[index] || "left"}">${renderInlineMarkdown(header)}</th>`,
+      )
+      .join("");
+    const rows = block.rows
+      .map(
+        (row) =>
+          `<tr>${row
+            .map(
+              (cell, index) =>
+                `<td style="text-align:${block.alignments[index] || "left"}">${renderInlineMarkdown(cell)}</td>`,
+            )
+            .join("")}</tr>`,
+      )
+      .join("");
+    return `<div class="table-frame" role="region" aria-label="Comparison table" tabindex="0"><table><thead><tr>${headings}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+
   if (block.type === "code") {
     const label = block.language || "text";
     return [
@@ -269,6 +328,23 @@ function renderBlock(block) {
 
 function renderBlocks(blocks) {
   return blocks.map(renderBlock).join("\n");
+}
+
+function verifyMarkdownTableSupport() {
+  const fixture = [
+    "| Model | Score |",
+    "| :--- | ---: |",
+    "| baseline | 73.4 |",
+  ].join("\n");
+  const table = parseMarkdown(fixture).blocks.find((block) => block.type === "table");
+  if (
+    !table ||
+    table.headers.length !== 2 ||
+    table.alignments[1] !== "right" ||
+    !renderBlock(table).includes("<table>")
+  ) {
+    throw new Error("Markdown comparison-table support failed its build-time self-check");
+  }
 }
 
 function articleToSearchText(article) {
@@ -300,6 +376,15 @@ function articleJsonBlocks(blocks) {
         type: "output",
         kind: block.kind,
         text: block.text,
+        html: renderBlock(block),
+      };
+    }
+    if (block.type === "table") {
+      return {
+        type: "table",
+        headers: block.headers,
+        alignments: block.alignments,
+        rows: block.rows,
         html: renderBlock(block),
       };
     }
@@ -758,16 +843,16 @@ function renderHomePage(articles, topics) {
         </div>
         <figure class="hero-visual">
           <div class="visual-chrome" aria-hidden="true">
-            <span>FIELDBOOK / SYSTEMS CONSOLE</span>
-            <span class="visual-status"><i></i>RELEASE READY</span>
+            <span>RESEARCH / PAIRED-SEED VALIDATION</span>
+            <span class="visual-status"><i></i>ARTIFACT VERIFIED</span>
           </div>
           <div class="hero-image-wrap">
-            <img src="${escapeAttribute(heroImage)}" alt="${escapeAttribute(heroImageAlt)}" width="1672" height="941">
+            <img src="${escapeAttribute(heroImage)}" alt="${escapeAttribute(heroImageAlt)}" width="2240" height="1560">
           </div>
           <figcaption>
-            <span><i aria-hidden="true"></i>Evaluation harness</span>
-            <span>Trace policy</span>
-            <span>Rollout gates</span>
+            <span><i aria-hidden="true"></i>Three model regimes</span>
+            <span>Paired seeds</span>
+            <span>Trajectory metrics</span>
           </figcaption>
         </figure>
       </div>
@@ -1157,6 +1242,7 @@ async function copyPipelineArtifact() {
 }
 
 async function main() {
+  verifyMarkdownTableSupport();
   await fs.rm(distDir, { recursive: true, force: true });
   await fs.mkdir(appDir, { recursive: true });
   await fs.mkdir(contentOutDir, { recursive: true });

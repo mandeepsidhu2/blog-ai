@@ -1,49 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Scientific agent verifier gate results</title>
   <desc id="desc">Bar chart comparing narrative confidence, metric-only, and verifier-first policies by pass rate, unsupported claims, leakage risks, and missed expert reviews.</desc>
-  <rect width="960" height="540" fill="#f7f3ea" />
-  <rect x="28" y="28" width="904" height="484" rx="8" fill="#ffffff" stroke="#d4c7b4" />
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <rect x="28" y="28" width="904" height="484" rx="8" fill="#121a23" stroke="#334250" />
   <text x="48" y="70" class="title">Scientific Agent Verifier Gates</text>
   <text x="48" y="96" class="subtitle">Pass rate is normalized; issue bars show raw counts across 16 cases.</text>
-  
+
       <text x="48" y="131" class="label">narrativeConfidence</text>
-      <rect x="210" y="116" width="105" height="18" rx="4" fill="#1b998b" />
+      <rect x="210" y="116" width="105" height="18" rx="4" fill="#43d6a0" />
       <text x="327" y="130" class="value">0.250 pass</text>
-      <rect x="210" y="144" width="420" height="18" rx="4" fill="#d95d39" />
+      <rect x="210" y="144" width="420" height="18" rx="4" fill="#ff657a" />
       <text x="642" y="158" class="value">9 unsupported</text>
-      <rect x="210" y="172" width="233" height="18" rx="4" fill="#4464ad" />
+      <rect x="210" y="172" width="233" height="18" rx="4" fill="#52dcef" />
       <text x="455" y="186" class="value">5 leakage</text>
-      <rect x="210" y="200" width="327" height="18" rx="4" fill="#7d5fff" />
+      <rect x="210" y="200" width="327" height="18" rx="4" fill="#9b87ff" />
       <text x="549" y="214" class="value">7 review misses</text>
       <text x="48" y="249" class="label">metricOnly</text>
-      <rect x="210" y="234" width="158" height="18" rx="4" fill="#1b998b" />
+      <rect x="210" y="234" width="158" height="18" rx="4" fill="#43d6a0" />
       <text x="380" y="248" class="value">0.375 pass</text>
-      <rect x="210" y="262" width="280" height="18" rx="4" fill="#d95d39" />
+      <rect x="210" y="262" width="280" height="18" rx="4" fill="#ff657a" />
       <text x="502" y="276" class="value">6 unsupported</text>
-      <rect x="210" y="290" width="140" height="18" rx="4" fill="#4464ad" />
+      <rect x="210" y="290" width="140" height="18" rx="4" fill="#52dcef" />
       <text x="362" y="304" class="value">3 leakage</text>
-      <rect x="210" y="318" width="327" height="18" rx="4" fill="#7d5fff" />
+      <rect x="210" y="318" width="327" height="18" rx="4" fill="#9b87ff" />
       <text x="549" y="332" class="value">7 review misses</text>
       <text x="48" y="367" class="label">verifierFirstGate</text>
-      <rect x="210" y="352" width="420" height="18" rx="4" fill="#1b998b" />
+      <rect x="210" y="352" width="420" height="18" rx="4" fill="#43d6a0" />
       <text x="642" y="366" class="value">1.000 pass</text>
-      <rect x="210" y="380" width="0" height="18" rx="4" fill="#d95d39" />
+      <rect x="210" y="380" width="0" height="18" rx="4" fill="#ff657a" />
       <text x="222" y="394" class="value">0 unsupported</text>
-      <rect x="210" y="408" width="0" height="18" rx="4" fill="#4464ad" />
+      <rect x="210" y="408" width="0" height="18" rx="4" fill="#52dcef" />
       <text x="222" y="422" class="value">0 leakage</text>
-      <rect x="210" y="436" width="0" height="18" rx="4" fill="#7d5fff" />
+      <rect x="210" y="436" width="0" height="18" rx="4" fill="#9b87ff" />
       <text x="222" y="450" class="value">0 review misses</text>
   <g transform="translate(48 480)">
-    <rect width="16" height="16" fill="#1b998b" /><text x="24" y="13" class="legend">Pass rate</text>
-    <rect x="124" width="16" height="16" fill="#d95d39" /><text x="148" y="13" class="legend">Unsupported claims</text>
-    <rect x="308" width="16" height="16" fill="#4464ad" /><text x="332" y="13" class="legend">Leakage risks</text>
-    <rect x="448" width="16" height="16" fill="#7d5fff" /><text x="472" y="13" class="legend">Review misses</text>
+    <rect width="16" height="16" fill="#43d6a0" /><text x="24" y="13" class="legend">Pass rate</text>
+    <rect x="124" width="16" height="16" fill="#ff657a" /><text x="148" y="13" class="legend">Unsupported claims</text>
+    <rect x="308" width="16" height="16" fill="#52dcef" /><text x="332" y="13" class="legend">Leakage risks</text>
+    <rect x="448" width="16" height="16" fill="#9b87ff" /><text x="472" y="13" class="legend">Review misses</text>
   </g>
   <style>
-    .title { font: 700 28px Arial, sans-serif; fill: #1f2933; }
-    .subtitle { font: 15px Arial, sans-serif; fill: #5d6875; }
-    .label { font: 700 17px Arial, sans-serif; fill: #1f2933; }
-    .value { font: 13px Arial, sans-serif; fill: #293845; }
-    .legend { font: 13px Arial, sans-serif; fill: #46515e; }
+    .title { font: 700 28px Inter, system-ui, sans-serif; fill: #1f2933; }
+    .subtitle { font: 15px Inter, system-ui, sans-serif; fill: #5d6875; }
+    .label { font: 700 17px Inter, system-ui, sans-serif; fill: #1f2933; }
+    .value { font: 13px Inter, system-ui, sans-serif; fill: #293845; }
+    .legend { font: 13px Inter, system-ui, sans-serif; fill: #46515e; }
   </style>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / MEASURED RESULTS</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

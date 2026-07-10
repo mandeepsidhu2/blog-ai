@@ -13,6 +13,8 @@ The frontend is a static, editorial tutorial interface.
   decorative gradient blobs.
 - visible topic navigation.
 - code and output blocks that are easy to scan.
+- semantic comparison tables with clear units and horizontal scrolling on
+  compact screens.
 - no dependency on client-side rendering for SEO article text.
 
 ## Layout
@@ -39,6 +41,8 @@ Home page:
 - featured and recommended article cards expose practical selection signals
   such as level, reading time, update date, code availability, measured outputs,
   source signals, and production gates when those are present in the article.
+- article figures use the dark publication visual system so evidence charts and
+  architecture diagrams feel native to the site instead of embedded slides.
 
 Article page:
 

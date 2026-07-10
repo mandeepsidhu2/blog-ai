@@ -1,24 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="440" viewBox="0 0 920 440" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="440" viewBox="0 0 920 440" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Agent delegation release gate metrics</title>
   <desc id="desc">Bar chart comparing optimistic, reviewed, and production policy profiles on accuracy, missed incident rate, and overblock rate.</desc>
-  <rect width="920" height="440" fill="#f7fbf8"/>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="920" height="440" fill="#080c12"/>
+    <rect width="920" height="440" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
   <text x="48" y="52" font-size="27" font-weight="800" fill="#172026">Agent delegation release gates</text>
   <text x="48" y="82" font-size="15" fill="#475467">Accuracy rises when cloud, tool, customer-data, and untrusted-instruction boundaries are enforced.</text>
   <line x1="52" y1="310" x2="870" y2="310" stroke="#98a2b3" stroke-width="1"/>
   <line x1="52" y1="90" x2="52" y2="310" stroke="#98a2b3" stroke-width="1"/>
-  <rect x="80" y="172" width="42" height="138" rx="4" fill="#216869"/><text x="101" y="164" text-anchor="middle" font-size="13" fill="#172026">0.63</text><text x="101" y="335" text-anchor="middle" font-size="12" fill="#344054">accuracy</text>
-<rect x="150" y="145" width="42" height="165" rx="4" fill="#b23a48"/><text x="171" y="137" text-anchor="middle" font-size="13" fill="#172026">0.75</text><text x="171" y="335" text-anchor="middle" font-size="12" fill="#344054">missed</text>
+  <rect x="80" y="172" width="42" height="138" rx="4" fill="#43d6a0"/><text x="101" y="164" text-anchor="middle" font-size="13" fill="#172026">0.63</text><text x="101" y="335" text-anchor="middle" font-size="12" fill="#344054">accuracy</text>
+<rect x="150" y="145" width="42" height="165" rx="4" fill="#ff657a"/><text x="171" y="137" text-anchor="middle" font-size="13" fill="#172026">0.75</text><text x="171" y="335" text-anchor="middle" font-size="12" fill="#344054">missed</text>
 <rect x="220" y="310" width="42" height="0" rx="4" fill="#d48c06"/><text x="241" y="302" text-anchor="middle" font-size="13" fill="#172026">0.00</text><text x="241" y="335" text-anchor="middle" font-size="12" fill="#344054">overblock</text>
-<rect x="360" y="90" width="42" height="220" rx="4" fill="#216869"/><text x="381" y="82" text-anchor="middle" font-size="13" fill="#172026">1.00</text><text x="381" y="335" text-anchor="middle" font-size="12" fill="#344054">accuracy</text>
-<rect x="430" y="310" width="42" height="0" rx="4" fill="#b23a48"/><text x="451" y="302" text-anchor="middle" font-size="13" fill="#172026">0.00</text><text x="451" y="335" text-anchor="middle" font-size="12" fill="#344054">missed</text>
+<rect x="360" y="90" width="42" height="220" rx="4" fill="#43d6a0"/><text x="381" y="82" text-anchor="middle" font-size="13" fill="#172026">1.00</text><text x="381" y="335" text-anchor="middle" font-size="12" fill="#344054">accuracy</text>
+<rect x="430" y="310" width="42" height="0" rx="4" fill="#ff657a"/><text x="451" y="302" text-anchor="middle" font-size="13" fill="#172026">0.00</text><text x="451" y="335" text-anchor="middle" font-size="12" fill="#344054">missed</text>
 <rect x="500" y="310" width="42" height="0" rx="4" fill="#d48c06"/><text x="521" y="302" text-anchor="middle" font-size="13" fill="#172026">0.00</text><text x="521" y="335" text-anchor="middle" font-size="12" fill="#344054">overblock</text>
-<rect x="640" y="90" width="42" height="220" rx="4" fill="#216869"/><text x="661" y="82" text-anchor="middle" font-size="13" fill="#172026">1.00</text><text x="661" y="335" text-anchor="middle" font-size="12" fill="#344054">accuracy</text>
-<rect x="710" y="310" width="42" height="0" rx="4" fill="#b23a48"/><text x="731" y="302" text-anchor="middle" font-size="13" fill="#172026">0.00</text><text x="731" y="335" text-anchor="middle" font-size="12" fill="#344054">missed</text>
+<rect x="640" y="90" width="42" height="220" rx="4" fill="#43d6a0"/><text x="661" y="82" text-anchor="middle" font-size="13" fill="#172026">1.00</text><text x="661" y="335" text-anchor="middle" font-size="12" fill="#344054">accuracy</text>
+<rect x="710" y="310" width="42" height="0" rx="4" fill="#ff657a"/><text x="731" y="302" text-anchor="middle" font-size="13" fill="#172026">0.00</text><text x="731" y="335" text-anchor="middle" font-size="12" fill="#344054">missed</text>
 <rect x="780" y="310" width="42" height="0" rx="4" fill="#d48c06"/><text x="801" y="302" text-anchor="middle" font-size="13" fill="#172026">0.00</text><text x="801" y="335" text-anchor="middle" font-size="12" fill="#344054">overblock</text>
   <text x="165" y="380" text-anchor="middle" font-size="17" font-weight="700" fill="#172026">optimistic</text>
 <text x="445" y="380" text-anchor="middle" font-size="17" font-weight="700" fill="#172026">reviewed</text>
 <text x="725" y="380" text-anchor="middle" font-size="17" font-weight="700" fill="#172026">production</text>
-  <rect x="48" y="402" width="18" height="18" fill="#216869" rx="3"/><text x="74" y="416" font-size="13" fill="#344054">accuracy</text>
-  <rect x="170" y="402" width="18" height="18" fill="#b23a48" rx="3"/><text x="196" y="416" font-size="13" fill="#344054">missed incidents</text>
+  <rect x="48" y="402" width="18" height="18" fill="#43d6a0" rx="3"/><text x="74" y="416" font-size="13" fill="#344054">accuracy</text>
+  <rect x="170" y="402" width="18" height="18" fill="#ff657a" rx="3"/><text x="196" y="416" font-size="13" fill="#344054">missed incidents</text>
   <rect x="326" y="402" width="18" height="18" fill="#d48c06" rx="3"/><text x="352" y="416" font-size="13" fill="#344054">overblocked safe tasks</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="896" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="896" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / MEASURED RESULTS</text>
+    <rect x="0.5" y="0.5" width="919" height="439" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

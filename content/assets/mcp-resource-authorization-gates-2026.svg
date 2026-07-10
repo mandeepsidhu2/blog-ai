@@ -1,39 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">MCP resource-bound authorization gate</title>
   <desc id="desc">Architecture diagram showing an MCP client, authorization server discovery, resource-bound token validation, downstream token exchange, and release gates.</desc>
-  <rect width="960" height="540" fill="#f8faf7"/>
-  <text x="48" y="48" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#17202a">Resource-bound authorization for MCP agents</text>
-  <text x="48" y="76" font-family="Inter, Arial, sans-serif" font-size="16" fill="#51606b">Bind tokens to the intended resource before side-effecting tools receive production authority.</text>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="48" y="48" font-family="Inter, Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#17202a">Resource-bound authorization for MCP agents</text>
+  <text x="48" y="76" font-family="Inter, Inter, system-ui, sans-serif" font-size="16" fill="#51606b">Bind tokens to the intended resource before side-effecting tools receive production authority.</text>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
       <path d="M0,0 L0,6 L9,3 z" fill="#51606b"/>
     </marker>
   </defs>
-  <rect x="52" y="128" width="184" height="92" rx="8" fill="#ffffff" stroke="#9aa7b0" stroke-width="1.5"/>
-  <text x="144" y="164" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#17202a">Agent client</text>
-  <text x="144" y="190" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" fill="#51606b">requests tool access</text>
-  <rect x="300" y="118" width="220" height="112" rx="8" fill="#eaf4f6" stroke="#1f6f8b" stroke-width="2"/>
-  <text x="410" y="156" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#17202a">Protected resource</text>
-  <text x="410" y="182" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" fill="#51606b">metadata + canonical URI</text>
-  <text x="410" y="204" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" fill="#51606b">advertises auth servers</text>
-  <rect x="596" y="128" width="216" height="92" rx="8" fill="#fff4eb" stroke="#b85c38" stroke-width="2"/>
-  <text x="704" y="164" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#17202a">Authorization server</text>
-  <text x="704" y="190" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" fill="#51606b">issues resource token</text>
+  <rect x="52" y="128" width="184" height="92" rx="8" fill="#121a23" stroke="#9aa7b0" stroke-width="1.5"/>
+  <text x="144" y="164" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="19" font-weight="700" fill="#17202a">Agent client</text>
+  <text x="144" y="190" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="14" fill="#51606b">requests tool access</text>
+  <rect x="300" y="118" width="220" height="112" rx="8" fill="#102938" stroke="#43d6a0" stroke-width="2"/>
+  <text x="410" y="156" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="19" font-weight="700" fill="#17202a">Protected resource</text>
+  <text x="410" y="182" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="14" fill="#51606b">metadata + canonical URI</text>
+  <text x="410" y="204" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="14" fill="#51606b">advertises auth servers</text>
+  <rect x="596" y="128" width="216" height="92" rx="8" fill="#302418" stroke="#b85c38" stroke-width="2"/>
+  <text x="704" y="164" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="19" font-weight="700" fill="#17202a">Authorization server</text>
+  <text x="704" y="190" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="14" fill="#51606b">issues resource token</text>
   <line x1="236" y1="174" x2="292" y2="174" stroke="#51606b" stroke-width="2" marker-end="url(#arrow)"/>
   <line x1="520" y1="174" x2="588" y2="174" stroke="#51606b" stroke-width="2" marker-end="url(#arrow)"/>
-  <rect x="186" y="304" width="246" height="132" rx="8" fill="#ffffff" stroke="#9aa7b0" stroke-width="1.5"/>
-  <text x="309" y="342" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#17202a">Release gate</text>
-  <text x="309" y="371" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">audience matches resource</text>
-  <text x="309" y="396" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">issuer matches metadata</text>
-  <text x="309" y="421" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">no passthrough token reuse</text>
-  <rect x="532" y="304" width="246" height="132" rx="8" fill="#eef1fa" stroke="#5f4b8b" stroke-width="2"/>
-  <text x="655" y="342" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#17202a">Tool execution</text>
-  <text x="655" y="371" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">scoped request headers</text>
-  <text x="655" y="396" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">separate downstream tokens</text>
-  <text x="655" y="421" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#17202a">audit trace + rollback</text>
+  <rect x="186" y="304" width="246" height="132" rx="8" fill="#121a23" stroke="#9aa7b0" stroke-width="1.5"/>
+  <text x="309" y="342" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#17202a">Release gate</text>
+  <text x="309" y="371" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="15" fill="#17202a">audience matches resource</text>
+  <text x="309" y="396" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="15" fill="#17202a">issuer matches metadata</text>
+  <text x="309" y="421" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="15" fill="#17202a">no passthrough token reuse</text>
+  <rect x="532" y="304" width="246" height="132" rx="8" fill="#211b35" stroke="#9b87ff" stroke-width="2"/>
+  <text x="655" y="342" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#17202a">Tool execution</text>
+  <text x="655" y="371" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="15" fill="#17202a">scoped request headers</text>
+  <text x="655" y="396" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="15" fill="#17202a">separate downstream tokens</text>
+  <text x="655" y="421" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="15" fill="#17202a">audit trace + rollback</text>
   <line x1="410" y1="230" x2="330" y2="300" stroke="#51606b" stroke-width="2" marker-end="url(#arrow)"/>
   <line x1="704" y1="220" x2="420" y2="304" stroke="#51606b" stroke-width="2" marker-end="url(#arrow)"/>
   <line x1="432" y1="370" x2="524" y2="370" stroke="#51606b" stroke-width="2" marker-end="url(#arrow)"/>
   <rect x="64" y="468" width="832" height="36" rx="8" fill="#17202a"/>
-  <text x="480" y="491" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#ffffff">Block when the resource, issuer, transport, discovery metadata, or downstream token boundary cannot be explained.</text>
+  <text x="480" y="491" text-anchor="middle" font-family="Inter, Inter, system-ui, sans-serif" font-size="15" fill="#121a23">Block when the resource, issuer, transport, discovery metadata, or downstream token boundary cannot be explained.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

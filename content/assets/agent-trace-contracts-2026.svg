@@ -1,37 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Agent trace contract architecture</title>
   <desc id="desc">Architecture diagram showing a coding agent trace flowing through scope, command, artifact, approval, visual, and rollback gates before release.</desc>
-  <rect width="1200" height="675" fill="#f8fafc"/>
-  <rect x="72" y="78" width="1056" height="519" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-  <text x="104" y="132" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">Trace contracts for agent release gates</text>
-  <text x="104" y="170" font-family="Inter, Arial, sans-serif" font-size="18" fill="#475569">A release decision should inspect the action trace, not just the final answer.</text>
-  <g font-family="Inter, Arial, sans-serif">
-    <rect x="104" y="228" width="190" height="108" rx="14" fill="#dbeafe" stroke="#2563eb"/>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <rect x="72" y="78" width="1056" height="519" rx="8" fill="#121a23" stroke="#334250" stroke-width="2"/>
+  <text x="104" y="132" font-family="Inter, Inter, system-ui, sans-serif" font-size="34" font-weight="700" fill="#0f172a">Trace contracts for agent release gates</text>
+  <text x="104" y="170" font-family="Inter, Inter, system-ui, sans-serif" font-size="18" fill="#475569">A release decision should inspect the action trace, not just the final answer.</text>
+  <g font-family="Inter, Inter, system-ui, sans-serif">
+    <rect x="104" y="228" width="190" height="108" rx="8" fill="#102938" stroke="#52dcef"/>
     <text x="128" y="267" font-size="20" font-weight="700" fill="#1e3a8a">Intent</text>
-    <text x="128" y="297" font-size="15" fill="#1e40af">user scope</text>
-    <text x="128" y="320" font-size="15" fill="#1e40af">risk class</text>
-    <rect x="340" y="228" width="190" height="108" rx="14" fill="#dcfce7" stroke="#16a34a"/>
-    <text x="364" y="267" font-size="20" font-weight="700" fill="#14532d">Actions</text>
-    <text x="364" y="297" font-size="15" fill="#166534">commands</text>
-    <text x="364" y="320" font-size="15" fill="#166534">tool calls</text>
-    <rect x="576" y="228" width="190" height="108" rx="14" fill="#fef3c7" stroke="#d97706"/>
+    <text x="128" y="297" font-size="15" fill="#52dcef">user scope</text>
+    <text x="128" y="320" font-size="15" fill="#52dcef">risk class</text>
+    <rect x="340" y="228" width="190" height="108" rx="8" fill="#11291f" stroke="#b8f56a"/>
+    <text x="364" y="267" font-size="20" font-weight="700" fill="#b8f56a">Actions</text>
+    <text x="364" y="297" font-size="15" fill="#b8f56a">commands</text>
+    <text x="364" y="320" font-size="15" fill="#b8f56a">tool calls</text>
+    <rect x="576" y="228" width="190" height="108" rx="8" fill="#302418" stroke="#ffb84d"/>
     <text x="600" y="267" font-size="20" font-weight="700" fill="#78350f">Evidence</text>
     <text x="600" y="297" font-size="15" fill="#92400e">tests and digests</text>
     <text x="600" y="320" font-size="15" fill="#92400e">browser proof</text>
-    <rect x="812" y="228" width="190" height="108" rx="14" fill="#fee2e2" stroke="#dc2626"/>
+    <rect x="812" y="228" width="190" height="108" rx="8" fill="#32191e" stroke="#ff657a"/>
     <text x="836" y="267" font-size="20" font-weight="700" fill="#7f1d1d">Controls</text>
     <text x="836" y="297" font-size="15" fill="#991b1b">approvals</text>
     <text x="836" y="320" font-size="15" fill="#991b1b">rollback</text>
     <path d="M296 282 H338" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
     <path d="M532 282 H574" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
     <path d="M768 282 H810" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
-    <rect x="227" y="418" width="746" height="92" rx="16" fill="#0f172a"/>
-    <text x="262" y="457" font-size="22" font-weight="700" fill="#ffffff">Release decision</text>
-    <text x="262" y="489" font-size="17" fill="#cbd5e1">allow when all invariants are present, review ambiguous gaps, block unsafe side effects</text>
+    <rect x="227" y="418" width="746" height="92" rx="8" fill="#0f172a"/>
+    <text x="262" y="457" font-size="22" font-weight="700" fill="#121a23">Release decision</text>
+    <text x="262" y="489" font-size="17" fill="#334250" textLength="699" lengthAdjust="spacingAndGlyphs">allow when all invariants are present, review ambiguous gaps, block unsafe side effects</text>
   </g>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
     </marker>
   </defs>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

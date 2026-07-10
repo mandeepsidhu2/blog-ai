@@ -1,12 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Multimodal retrieval gate architecture</title>
   <desc id="desc">Architecture diagram showing mixed media ingestion routed through modality adapters, embedding indexes, policy gates, reranking, citation checks, and production monitoring.</desc>
-  <rect width="960" height="540" fill="#f8fafc"/>
-  <text x="54" y="58" font-family="Arial, sans-serif" font-size="34" font-weight="800" fill="#172033">Multimodal Retrieval Gates</text>
-  <text x="54" y="92" font-family="Arial, sans-serif" font-size="17" fill="#475569">Keep mixed text, image, table, audio, and video evidence useful without hiding modality risk.</text>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
 
-  <g font-family="Arial, sans-serif">
-    <rect x="54" y="142" width="154" height="236" rx="8" fill="#e0f2fe" stroke="#0369a1" stroke-width="2"/>
+  <text x="54" y="58" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="800" fill="#172033">Multimodal Retrieval Gates</text>
+  <text x="54" y="92" font-family="Inter, system-ui, sans-serif" font-size="17" fill="#475569">Keep mixed text, image, table, audio, and video evidence useful without hiding modality risk.</text>
+
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="54" y="142" width="154" height="236" rx="8" fill="#102938" stroke="#52dcef" stroke-width="2"/>
     <text x="131" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">Ingestion</text>
     <text x="82" y="218" font-size="16" fill="#334155">Text docs</text>
     <text x="82" y="252" font-size="16" fill="#334155">Screenshots</text>
@@ -14,15 +24,15 @@
     <text x="82" y="320" font-size="16" fill="#334155">Audio/video</text>
     <text x="82" y="354" font-size="16" fill="#334155">Code snippets</text>
 
-    <rect x="262" y="124" width="174" height="272" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+    <rect x="262" y="124" width="174" height="272" rx="8" fill="#11291f" stroke="#43d6a0" stroke-width="2"/>
     <text x="349" y="158" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">Adapters</text>
-    <text x="292" y="202" font-size="16" fill="#334155">OCR and captions</text>
+    <text x="292" y="202" font-size="16" fill="#334155" textLength="132" lengthAdjust="spacingAndGlyphs">OCR and captions</text>
     <text x="292" y="236" font-size="16" fill="#334155">Table schemas</text>
     <text x="292" y="270" font-size="16" fill="#334155">Video segments</text>
     <text x="292" y="304" font-size="16" fill="#334155">Task prefixes</text>
-    <text x="292" y="338" font-size="16" fill="#334155">Sensitivity tags</text>
+    <text x="292" y="338" font-size="16" fill="#334155" textLength="132" lengthAdjust="spacingAndGlyphs">Sensitivity tags</text>
 
-    <rect x="498" y="124" width="180" height="272" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <rect x="498" y="124" width="180" height="272" rx="8" fill="#302418" stroke="#c2410c" stroke-width="2"/>
     <text x="588" y="158" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">Retrieval Gate</text>
     <text x="528" y="202" font-size="16" fill="#334155">Modality route</text>
     <text x="528" y="236" font-size="16" fill="#334155">Domain filter</text>
@@ -30,10 +40,10 @@
     <text x="528" y="304" font-size="16" fill="#334155">Top-k by class</text>
     <text x="528" y="338" font-size="16" fill="#334155">Rerank evidence</text>
 
-    <rect x="734" y="142" width="172" height="236" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+    <rect x="734" y="142" width="172" height="236" rx="8" fill="#17212b" stroke="#475569" stroke-width="2"/>
     <text x="820" y="176" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">Answer Gate</text>
     <text x="766" y="218" font-size="16" fill="#334155">Citation check</text>
-    <text x="766" y="252" font-size="16" fill="#334155">Unsupported stop</text>
+    <text x="766" y="252" font-size="16" fill="#334155" textLength="128" lengthAdjust="spacingAndGlyphs">Unsupported stop</text>
     <text x="766" y="286" font-size="16" fill="#334155">Trace metrics</text>
     <text x="766" y="320" font-size="16" fill="#334155">Rollback rule</text>
     <text x="766" y="354" font-size="16" fill="#334155">Human review</text>
@@ -50,8 +60,23 @@
     <path d="M726 252 L739 260 L726 268 Z"/>
   </g>
 
-  <g font-family="Arial, sans-serif" font-size="15" fill="#475569">
-    <rect x="90" y="426" width="780" height="56" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
-    <text x="114" y="459">Release metrics: recall@k, modality precision, sensitivity violations, citation validity, latency, and rollback triggers.</text>
+  <g font-family="Inter, system-ui, sans-serif" font-size="15" fill="#475569">
+    <rect x="90" y="426" width="780" height="56" rx="8" fill="#121a23" stroke="#334250"/>
+    <text x="114" y="459" textLength="744" lengthAdjust="spacingAndGlyphs">Release metrics: recall@k, modality precision, sensitivity violations, citation validity, latency, and rollback triggers.</text>
+  </g>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
   </g>
 </svg>

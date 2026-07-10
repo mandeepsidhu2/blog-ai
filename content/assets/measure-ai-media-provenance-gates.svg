@@ -1,43 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">AI media provenance gate experiment results</title>
   <desc id="desc">Grouped bar chart comparing metadata-only, watermark-only, and dual-signal provenance gates by pass rate and missed safety conditions.</desc>
-  <rect width="960" height="520" fill="#f8fbfd"/>
-  <rect x="38" y="36" width="884" height="448" fill="#ffffff" stroke="#d5dde6" stroke-width="2" rx="8"/>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="520" fill="#080c12"/>
+    <rect width="960" height="520" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <rect x="38" y="36" width="884" height="448" fill="#121a23" stroke="#334250" stroke-width="2" rx="8"/>
   <text x="72" y="82" font-size="28" font-weight="800" fill="#1d2733">AI Media Provenance Gate Results</text>
-  <text x="72" y="110" font-size="15" fill="#53616f">Twenty synthetic media handoff cases scored across provenance metadata, watermark, disclosure, and high-risk review routes.</text>
+  <text x="72" y="110" font-size="15" fill="#53616f" textLength="838" lengthAdjust="spacingAndGlyphs">Twenty synthetic media handoff cases scored across provenance metadata, watermark, disclosure, and high-risk review routes.</text>
   <line x1="100" y1="350" x2="860" y2="350" stroke="#8290a0" stroke-width="2"/>
   <line x1="100" y1="120" x2="100" y2="350" stroke="#8290a0" stroke-width="2"/>
   <text x="80" y="127" text-anchor="end" font-size="12" fill="#53616f">100%</text>
   <text x="80" y="355" text-anchor="end" font-size="12" fill="#53616f">0</text>
-  
+
         <g>
-          <rect x="180" y="246.5" width="68" height="103.5" fill="#2f7d5f" rx="4"/>
-          <rect x="256" y="223.5" width="68" height="126.50000000000001" fill="#b43f3f" rx="4"/>
+          <rect x="180" y="246.5" width="68" height="103.5" fill="#43d6a0" rx="4"/>
+          <rect x="256" y="223.5" width="68" height="126.50000000000001" fill="#ff657a" rx="4"/>
           <rect x="332" y="269.5" width="68" height="80.5" fill="#d18b2f" rx="4"/>
-          <rect x="408" y="315.5" width="68" height="34.5" fill="#6d5bd0" rx="4"/>
+          <rect x="408" y="315.5" width="68" height="34.5" fill="#9b87ff" rx="4"/>
           <text x="294" y="392" text-anchor="middle" font-size="16" font-weight="700" fill="#1d2733">metadataOnlyPolicy</text>
           <text x="294" y="416" text-anchor="middle" font-size="13" fill="#53616f">pass 45%</text>
         </g>
         <g>
-          <rect x="415" y="246.5" width="68" height="103.5" fill="#2f7d5f" rx="4"/>
-          <rect x="491" y="235" width="68" height="115" fill="#b43f3f" rx="4"/>
+          <rect x="415" y="246.5" width="68" height="103.5" fill="#43d6a0" rx="4"/>
+          <rect x="491" y="235" width="68" height="115" fill="#ff657a" rx="4"/>
           <rect x="567" y="269.5" width="68" height="80.5" fill="#d18b2f" rx="4"/>
-          <rect x="643" y="315.5" width="68" height="34.5" fill="#6d5bd0" rx="4"/>
+          <rect x="643" y="315.5" width="68" height="34.5" fill="#9b87ff" rx="4"/>
           <text x="529" y="392" text-anchor="middle" font-size="16" font-weight="700" fill="#1d2733">watermarkOnlyPolicy</text>
           <text x="529" y="416" text-anchor="middle" font-size="13" fill="#53616f">pass 45%</text>
         </g>
         <g>
-          <rect x="650" y="120" width="68" height="230" fill="#2f7d5f" rx="4"/>
-          <rect x="726" y="350" width="68" height="0" fill="#b43f3f" rx="4"/>
+          <rect x="650" y="120" width="68" height="230" fill="#43d6a0" rx="4"/>
+          <rect x="726" y="350" width="68" height="0" fill="#ff657a" rx="4"/>
           <rect x="802" y="350" width="68" height="0" fill="#d18b2f" rx="4"/>
-          <rect x="878" y="350" width="68" height="0" fill="#6d5bd0" rx="4"/>
+          <rect x="878" y="350" width="68" height="0" fill="#9b87ff" rx="4"/>
           <text x="764" y="392" text-anchor="middle" font-size="16" font-weight="700" fill="#1d2733">dualSignalProvenanceGate</text>
           <text x="764" y="416" text-anchor="middle" font-size="13" fill="#53616f">pass 100%</text>
         </g>
   <g transform="translate(72 438)" font-size="13" fill="#344050">
-    <rect x="0" y="-12" width="14" height="14" fill="#2f7d5f" rx="2"/><text x="22" y="0">pass rate</text>
-    <rect x="130" y="-12" width="14" height="14" fill="#b43f3f" rx="2"/><text x="152" y="0">unsafe publish rate</text>
+    <rect x="0" y="-12" width="14" height="14" fill="#43d6a0" rx="2"/><text x="22" y="0">pass rate</text>
+    <rect x="130" y="-12" width="14" height="14" fill="#ff657a" rx="2"/><text x="152" y="0">unsafe publish rate</text>
     <rect x="308" y="-12" width="14" height="14" fill="#d18b2f" rx="2"/><text x="330" y="0">review miss rate</text>
-    <rect x="482" y="-12" width="14" height="14" fill="#6d5bd0" rx="2"/><text x="504" y="0">conflict miss rate</text>
+    <rect x="482" y="-12" width="14" height="14" fill="#9b87ff" rx="2"/><text x="504" y="0">conflict miss rate</text>
+  </g>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / MEASURED RESULTS</text>
+    <rect x="0.5" y="0.5" width="959" height="519" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
   </g>
 </svg>

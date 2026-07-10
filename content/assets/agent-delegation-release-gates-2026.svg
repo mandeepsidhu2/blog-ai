@@ -1,31 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Delegated agent release gate architecture</title>
   <desc id="desc">Architecture diagram showing user task intake, agent workspace, tool registry, policy gate, evaluation trace, and human review before production writes.</desc>
-  <rect width="1200" height="675" fill="#f5f9f6"/>
-  <rect x="70" y="72" width="1060" height="531" rx="22" fill="#ffffff" stroke="#c7d7cc" stroke-width="2"/>
-  <text x="108" y="130" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="800" fill="#172026">Delegated agent release gates</text>
-  <text x="108" y="166" font-family="Inter, Arial, sans-serif" font-size="18" fill="#475467">Autonomy expands only when context, tools, permissions, traces, and rollback criteria are measurable.</text>
-  <g font-family="Inter, Arial, sans-serif">
-    <rect x="115" y="250" width="160" height="110" rx="12" fill="#e7f1ea" stroke="#81a88b"/>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <rect x="70" y="72" width="1060" height="531" rx="8" fill="#121a23" stroke="#c7d7cc" stroke-width="2"/>
+  <text x="108" y="130" font-family="Inter, Inter, system-ui, sans-serif" font-size="36" font-weight="800" fill="#172026">Delegated agent release gates</text>
+  <text x="108" y="166" font-family="Inter, Inter, system-ui, sans-serif" font-size="18" fill="#475467">Autonomy expands only when context, tools, permissions, traces, and rollback criteria are measurable.</text>
+  <g font-family="Inter, Inter, system-ui, sans-serif">
+    <rect x="115" y="250" width="160" height="110" rx="8" fill="#11291f" stroke="#81a88b"/>
     <text x="195" y="292" text-anchor="middle" font-size="21" font-weight="700" fill="#172026">Task intake</text>
     <text x="195" y="323" text-anchor="middle" font-size="14" fill="#475467">intent, files, risk</text>
     <path d="M275 305 L345 305" stroke="#56705d" stroke-width="4" marker-end="url(#arrow)"/>
-    <rect x="345" y="235" width="178" height="140" rx="12" fill="#f8efe4" stroke="#c79c61"/>
+    <rect x="345" y="235" width="178" height="140" rx="8" fill="#302418" stroke="#c79c61"/>
     <text x="434" y="281" text-anchor="middle" font-size="21" font-weight="700" fill="#172026">Agent workspace</text>
     <text x="434" y="313" text-anchor="middle" font-size="14" fill="#475467">sandbox, branch, trace</text>
     <text x="434" y="338" text-anchor="middle" font-size="14" fill="#475467">isolated execution</text>
     <path d="M523 305 L593 305" stroke="#56705d" stroke-width="4" marker-end="url(#arrow)"/>
-    <rect x="593" y="214" width="190" height="182" rx="12" fill="#e9eef8" stroke="#8092bd"/>
+    <rect x="593" y="214" width="190" height="182" rx="8" fill="#e9eef8" stroke="#8092bd"/>
     <text x="688" y="258" text-anchor="middle" font-size="21" font-weight="700" fill="#172026">Policy gate</text>
     <text x="688" y="294" text-anchor="middle" font-size="14" fill="#475467">tool scope</text>
     <text x="688" y="320" text-anchor="middle" font-size="14" fill="#475467">data class</text>
     <text x="688" y="346" text-anchor="middle" font-size="14" fill="#475467">approval + tests</text>
     <path d="M783 305 L853 305" stroke="#56705d" stroke-width="4" marker-end="url(#arrow)"/>
-    <rect x="853" y="235" width="205" height="140" rx="12" fill="#f4e7eb" stroke="#c98998"/>
+    <rect x="853" y="235" width="205" height="140" rx="8" fill="#32191e" stroke="#c98998"/>
     <text x="956" y="281" text-anchor="middle" font-size="21" font-weight="700" fill="#172026">Review boundary</text>
     <text x="956" y="313" text-anchor="middle" font-size="14" fill="#475467">PR, approval, rollback</text>
     <text x="956" y="338" text-anchor="middle" font-size="14" fill="#475467">before production write</text>
-    <rect x="363" y="452" width="360" height="68" rx="12" fill="#f7fbf8" stroke="#b9c9bf"/>
+    <rect x="363" y="452" width="360" height="68" rx="8" fill="#101720" stroke="#334250"/>
     <text x="543" y="494" text-anchor="middle" font-size="18" font-weight="700" fill="#172026">Evaluation trace: model id, prompt version, tools, approvals, gates</text>
     <path d="M688 396 C688 430 650 452 610 452" fill="none" stroke="#56705d" stroke-width="3" marker-end="url(#arrow)"/>
   </g>
@@ -34,4 +44,18 @@
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#56705d"/>
     </marker>
   </defs>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

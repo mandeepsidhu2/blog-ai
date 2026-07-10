@@ -1,8 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Inference cost release gate architecture</title>
   <desc id="desc">Architecture diagram showing request classification, token budget estimation, model route selection, cache policy, batch or realtime serving, and observability feedback for LLM inference cost gates.</desc>
-  <rect width="920" height="520" fill="#f8fafc"/>
-  <rect x="34" y="32" width="852" height="456" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="920" height="520" fill="#080c12"/>
+    <rect width="920" height="520" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <rect x="34" y="32" width="852" height="456" rx="8" fill="#121a23" stroke="#334250"/>
   <text x="62" y="74" font-size="26" font-weight="700" fill="#111827">Inference cost release gates</text>
   <text x="62" y="104" font-size="15" fill="#475569">Route by task risk, token budget, cache reuse, latency SLO, and fallback evidence before launch.</text>
   <defs>
@@ -10,36 +20,36 @@
       <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
     </marker>
   </defs>
-  <g font-family="Inter, Arial, sans-serif">
-    <rect x="66" y="152" width="142" height="84" rx="8" fill="#dbeafe" stroke="#315fba"/>
+  <g font-family="Inter, Inter, system-ui, sans-serif">
+    <rect x="66" y="152" width="142" height="84" rx="8" fill="#102938" stroke="#52dcef"/>
     <text x="137" y="184" text-anchor="middle" font-size="17" font-weight="700" fill="#172033">Request</text>
     <text x="137" y="210" text-anchor="middle" font-size="13" fill="#334155">risk + SLO</text>
 
-    <rect x="250" y="152" width="150" height="84" rx="8" fill="#dcfce7" stroke="#1f766e"/>
+    <rect x="250" y="152" width="150" height="84" rx="8" fill="#11291f" stroke="#43d6a0"/>
     <text x="325" y="181" text-anchor="middle" font-size="17" font-weight="700" fill="#172033">Budget gate</text>
     <text x="325" y="207" text-anchor="middle" font-size="13" fill="#334155">tokens + cache</text>
 
-    <rect x="442" y="126" width="150" height="62" rx="8" fill="#fef3c7" stroke="#b45309"/>
+    <rect x="442" y="126" width="150" height="62" rx="8" fill="#302418" stroke="#b45309"/>
     <text x="517" y="153" text-anchor="middle" font-size="16" font-weight="700" fill="#172033">Batch lane</text>
     <text x="517" y="174" text-anchor="middle" font-size="12" fill="#334155">low urgency</text>
 
-    <rect x="442" y="216" width="150" height="62" rx="8" fill="#ede9fe" stroke="#7c3aed"/>
+    <rect x="442" y="216" width="150" height="62" rx="8" fill="#211b35" stroke="#9b87ff"/>
     <text x="517" y="243" text-anchor="middle" font-size="16" font-weight="700" fill="#172033">Realtime lane</text>
     <text x="517" y="264" text-anchor="middle" font-size="12" fill="#334155">latency bound</text>
 
-    <rect x="634" y="152" width="152" height="84" rx="8" fill="#fee2e2" stroke="#dc2626"/>
+    <rect x="634" y="152" width="152" height="84" rx="8" fill="#32191e" stroke="#ff657a"/>
     <text x="710" y="181" text-anchor="middle" font-size="17" font-weight="700" fill="#172033">Fallback gate</text>
     <text x="710" y="207" text-anchor="middle" font-size="13" fill="#334155">retry + rollback</text>
 
-    <rect x="118" y="334" width="190" height="74" rx="8" fill="#ecfeff" stroke="#0891b2"/>
+    <rect x="118" y="334" width="190" height="74" rx="8" fill="#102938" stroke="#52dcef"/>
     <text x="213" y="363" text-anchor="middle" font-size="16" font-weight="700" fill="#172033">Metrics</text>
     <text x="213" y="386" text-anchor="middle" font-size="12" fill="#334155">cost, latency, quality</text>
 
-    <rect x="364" y="334" width="190" height="74" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+    <rect x="364" y="334" width="190" height="74" rx="8" fill="#17212b" stroke="#64748b"/>
     <text x="459" y="363" text-anchor="middle" font-size="16" font-weight="700" fill="#172033">Trace store</text>
     <text x="459" y="386" text-anchor="middle" font-size="12" fill="#334155">route decisions</text>
 
-    <rect x="610" y="334" width="190" height="74" rx="8" fill="#fff7ed" stroke="#ea580c"/>
+    <rect x="610" y="334" width="190" height="74" rx="8" fill="#302418" stroke="#ff9b55"/>
     <text x="705" y="363" text-anchor="middle" font-size="16" font-weight="700" fill="#172033">Release review</text>
     <text x="705" y="386" text-anchor="middle" font-size="12" fill="#334155">thresholds + owners</text>
 
@@ -52,5 +62,20 @@
     <line x1="400" y1="236" x2="238" y2="330" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
     <line x1="325" y1="236" x2="442" y2="330" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
     <line x1="554" y1="371" x2="606" y2="371" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="896" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="896" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="919" height="519" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
   </g>
 </svg>

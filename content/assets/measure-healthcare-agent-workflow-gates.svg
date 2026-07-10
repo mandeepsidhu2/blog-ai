@@ -1,21 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Healthcare agent workflow gate comparison</title>
   <desc id="desc">Bar chart comparing autonomous clinical agents, benchmark threshold gates, and clinical workflow gates by pass rate, unsafe actions, and privacy overexposure.</desc>
-  <rect width="960" height="540" fill="#f8fafc"/>
-  <text x="54" y="70" class="title">Healthcare agent workflow gates</text>
-  <text x="54" y="104" class="subtitle">18 health workflow tasks scored for route match, clinical signoff, patient communication review, modality support, and privacy exposure.</text>
-  <g transform="translate(260 126)">
-    <text x="0" y="0" class="legend">pass rate</text>
-    <text x="148" y="0" class="legend" fill="#f97316">unsafe actions</text>
-    <text x="320" y="0" class="legend" fill="#64748b">privacy overexposure</text>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
   </g>
+
+  <text x="54" y="70" class="title">Healthcare agent workflow gates</text>
+  <text x="54" y="104" class="subtitle" textLength="878" lengthAdjust="spacingAndGlyphs">18 health workflow tasks scored for route match, clinical signoff, patient communication review, modality support, and privacy exposure.</text>
 
     <g transform="translate(260 145)">
       <text x="-220" y="6" class="label">autonomousClinicalAgent</text>
       <rect x="0" y="-26" width="360" height="16" rx="4" class="track"/>
-      <rect x="0" y="-26" width="40" height="16" rx="4" fill="#0f766e"/>
+      <rect x="0" y="-26" width="40" height="16" rx="4" fill="#43d6a0"/>
       <text x="372" y="-13" class="metric">0.111 pass</text>
-      <rect x="0" y="2" width="220" height="14" rx="4" fill="#f97316"/>
+      <rect x="0" y="2" width="220" height="14" rx="4" fill="#ff9b55"/>
       <text x="372" y="14" class="metric">10 unsafe</text>
       <rect x="0" y="28" width="276" height="14" rx="4" fill="#64748b"/>
       <text x="372" y="40" class="metric">23 overexposed</text>
@@ -24,9 +29,9 @@
     <g transform="translate(260 237)">
       <text x="-220" y="6" class="label">benchmarkThresholdGate</text>
       <rect x="0" y="-26" width="360" height="16" rx="4" class="track"/>
-      <rect x="0" y="-26" width="100" height="16" rx="4" fill="#7c3aed"/>
+      <rect x="0" y="-26" width="100" height="16" rx="4" fill="#9b87ff"/>
       <text x="372" y="-13" class="metric">0.278 pass</text>
-      <rect x="0" y="2" width="66" height="14" rx="4" fill="#f97316"/>
+      <rect x="0" y="2" width="66" height="14" rx="4" fill="#ff9b55"/>
       <text x="372" y="14" class="metric">3 unsafe</text>
       <rect x="0" y="28" width="132" height="14" rx="4" fill="#64748b"/>
       <text x="372" y="40" class="metric">11 overexposed</text>
@@ -35,23 +40,38 @@
     <g transform="translate(260 329)">
       <text x="-220" y="6" class="label">clinicalWorkflowGate</text>
       <rect x="0" y="-26" width="360" height="16" rx="4" class="track"/>
-      <rect x="0" y="-26" width="360" height="16" rx="4" fill="#dc2626"/>
+      <rect x="0" y="-26" width="360" height="16" rx="4" fill="#ff657a"/>
       <text x="372" y="-13" class="metric">1.000 pass</text>
-      <rect x="0" y="2" width="0" height="14" rx="4" fill="#f97316"/>
+      <rect x="0" y="2" width="0" height="14" rx="4" fill="#ff9b55"/>
       <text x="372" y="14" class="metric">0 unsafe</text>
       <rect x="0" y="28" width="24" height="14" rx="4" fill="#64748b"/>
       <text x="372" y="40" class="metric">2 overexposed</text>
     </g>
-  <line x1="260" y1="430" x2="620" y2="430" stroke="#cbd5e1"/>
+  <line x1="260" y1="430" x2="620" y2="430" stroke="#334250"/>
   <text x="260" y="462" class="axis">0.0</text>
   <text x="430" y="462" class="axis">0.5 pass rate</text>
   <text x="602" y="462" class="axis">1.0</text>
   <text x="54" y="506" class="note">Release blocker: any unsafe action, signoff miss, patient communication miss, or unsupported modality.</text>
   <style>
-    .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
-    .subtitle, .note { font: 16px Arial, sans-serif; fill: #334155; }
-    .label { font: 700 16px Arial, sans-serif; fill: #0f172a; }
-    .legend, .metric, .axis { font: 14px Arial, sans-serif; fill: #475569; }
-    .track { fill: #e2e8f0; }
+    .title { font: 700 34px Inter, system-ui, sans-serif; fill: #0f172a; }
+    .subtitle, .note { font: 16px Inter, system-ui, sans-serif; fill: #334155; }
+    .label { font: 700 16px Inter, system-ui, sans-serif; fill: #0f172a; }
+    .legend, .metric, .axis { font: 14px Inter, system-ui, sans-serif; fill: #475569; }
+    .track { fill: #253240; }
   </style>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / MEASURED RESULTS</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

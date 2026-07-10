@@ -1,27 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Agent app consent gate architecture</title>
   <desc id="desc">Diagram showing manifest review, consent copy, token binding, UI containment, trace logging, and rollout decisions for agent app releases.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
   <defs>
     <style>
-      .bg { fill: #f5f7f2; }
-      .lane { fill: #ffffff; stroke: #ced7ca; stroke-width: 2; }
+      .bg { fill: #101720; }
+      .lane { fill: #121a23; stroke: #334250; stroke-width: 2; }
       .head { fill: #17332f; }
-      .headtext { font-family: Arial, Helvetica, sans-serif; font-size: 17px; font-weight: 700; fill: #ffffff; }
-      .title { font-family: Arial, Helvetica, sans-serif; font-size: 31px; font-weight: 700; fill: #14241f; }
-      .sub { font-family: Arial, Helvetica, sans-serif; font-size: 17px; fill: #4c5d55; }
-      .label { font-family: Arial, Helvetica, sans-serif; font-size: 17px; font-weight: 700; fill: #14241f; }
-      .body { font-family: Arial, Helvetica, sans-serif; font-size: 14px; fill: #3a4842; }
-      .small { font-family: Arial, Helvetica, sans-serif; font-size: 13px; fill: #53625c; }
+      .headtext { font-family: Inter, system-ui, sans-serif; font-size: 17px; font-weight: 700; fill: #121a23; }
+      .title { font-family: Inter, system-ui, sans-serif; font-size: 31px; font-weight: 700; fill: #14241f; }
+      .sub { font-family: Inter, system-ui, sans-serif; font-size: 17px; fill: #4c5d55; }
+      .label { font-family: Inter, system-ui, sans-serif; font-size: 17px; font-weight: 700; fill: #14241f; }
+      .body { font-family: Inter, system-ui, sans-serif; font-size: 14px; fill: #3a4842; }
+      .small { font-family: Inter, system-ui, sans-serif; font-size: 13px; fill: #53625c; }
       .arrow { fill: none; stroke: #50655f; stroke-width: 3; marker-end: url(#arrow); }
-      .ok { fill: #dff0e6; stroke: #2f7d5b; stroke-width: 2; }
-      .warn { fill: #fff2cf; stroke: #b77a22; stroke-width: 2; }
-      .stop { fill: #f8d9da; stroke: #b94043; stroke-width: 2; }
+      .ok { fill: #11291f; stroke: #2f7d5b; stroke-width: 2; }
+      .warn { fill: #302418; stroke: #b77a22; stroke-width: 2; }
+      .stop { fill: #32191e; stroke: #b94043; stroke-width: 2; }
     </style>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#50655f"/>
     </marker>
   </defs>
-  <rect class="bg" width="960" height="540"/>
+
   <text class="title" x="48" y="58">Consent Gates for Agent Apps</text>
   <text class="sub" x="48" y="85">Treat manifests, UI components, tool scopes, and agent cards as release inputs.</text>
 
@@ -33,12 +43,12 @@
   <text class="body" x="68" y="254">requested scopes</text>
   <text class="body" x="68" y="276">write actions</text>
   <text class="body" x="68" y="298">network targets</text>
-  <text class="small" x="68" y="350">Reject vague authority</text>
+  <text class="small" x="68" y="350" textLength="140" lengthAdjust="spacingAndGlyphs">Reject vague authority</text>
   <text class="small" x="68" y="370">before user traffic.</text>
 
   <rect class="lane" x="278" y="128" width="172" height="276" rx="8"/>
   <rect class="head" x="278" y="128" width="172" height="44" rx="8"/>
-  <text class="headtext" x="302" y="156">Consent Boundary</text>
+  <text class="headtext" x="302" y="156" textLength="136" lengthAdjust="spacingAndGlyphs">Consent Boundary</text>
   <text class="label" x="298" y="207">Explain</text>
   <text class="body" x="298" y="232">data access</text>
   <text class="body" x="298" y="254">write authority</text>
@@ -63,8 +73,8 @@
   <text class="headtext" x="778" y="156">Rollout Gate</text>
   <text class="label" x="758" y="207">Decide</text>
   <text class="body" x="758" y="232">allow safe reads</text>
-  <text class="body" x="758" y="254">review migration risk</text>
-  <text class="body" x="758" y="276">block unsafe writes</text>
+  <text class="body" x="758" y="254" textLength="140" lengthAdjust="spacingAndGlyphs">review migration risk</text>
+  <text class="body" x="758" y="276" textLength="140" lengthAdjust="spacingAndGlyphs">block unsafe writes</text>
   <text class="body" x="758" y="298">capture traces</text>
   <text class="small" x="758" y="350">Expand only after</text>
   <text class="small" x="758" y="370">gate metrics hold.</text>
@@ -79,4 +89,19 @@
   <text class="label" x="424" y="468">Review</text>
   <rect class="stop" x="612" y="440" width="176" height="44" rx="8"/>
   <text class="label" x="652" y="468">Block</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

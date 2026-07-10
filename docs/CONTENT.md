@@ -34,6 +34,48 @@ Required fields:
 - `imageAlt`
 - `evidenceMode`
 
+Automation-produced articles also require the internal `qualityTier` field:
+
+- `deep-research`: empirical work with methods, baselines, controls,
+  uncertainty, measured outputs, and reproducibility.
+- `timely-analysis`: current, source-dense analysis with quantitative
+  comparison and engineering decision guidance.
+
+Like `evidenceMode`, `qualityTier` must not become a public badge, topic, tag,
+headline formula, or URL category.
+
+Automation-produced `deep-research` articles additionally require internal
+front matter:
+
+- `evidenceProject`: repo-relative project directory under
+  `operator/diy-project-blogs/projects/`.
+- `evidenceManifest`: JSON manifest inside that project.
+
+The evidence manifest uses `version: 1` and must include a specific
+`hypothesis`, an explicit `claimBoundary`, `design.baselines`,
+`design.controls`, `design.repeats`, `reproduction.commands`, and at least three
+existing project-relative artifact paths. The public build does not emit these
+internal fields. They exist so a result can be traced from the article back to
+code, configs, measurements, and figures. The machine-readable contract lives at
+`operator/automations/evidence-manifest.schema.json`.
+
+```json
+{
+  "version": 1,
+  "hypothesis": "A specific, falsifiable statement with the expected direction of effect.",
+  "claimBoundary": "What the evidence supports and what it cannot establish.",
+  "design": {
+    "baselines": ["matched baseline"],
+    "controls": ["negative control or ablation"],
+    "repeats": 5
+  },
+  "reproduction": {
+    "commands": ["node run-experiment.mjs"]
+  },
+  "artifacts": ["config.json", "results.json", "figure.svg"]
+}
+```
+
 Asset fields:
 
 - `image`: article-specific Open Graph and in-page hero image. Use an absolute
@@ -47,6 +89,11 @@ assets that are non-empty, local to `content/assets`, readable by the build
 checks, at least 640x320, and landscape enough to fit the article hero and home
 spotlight without cropping. SVGs must include a `<title>`, `<desc>`, and
 viewBox or width/height metadata, and must not depend on remote linked assets.
+SVGs must also declare `data-visual-quality="publication"`, use the shared
+fieldbook visual system and `data-text-fit="bounded"` marker, avoid generic
+Arial/Helvetica slide styling, keep card radii at 12px or below, and contain
+enough graphical structure to communicate a real result or system. Run
+`operator/scripts/upgrade-svg-library.mjs` before the public content gate.
 
 ## Internal Source Modes
 
@@ -87,6 +134,9 @@ reader intent.
 - The article table of contents is generated from `h2` and `h3`.
 - Include code fences for implementation-heavy tutorials.
 - Use `output` fences for terminal or program output.
+- Use Markdown tables for sourced model, benchmark, cost, latency, or
+  specification comparisons. Tables render as horizontally scrollable semantic
+  HTML on compact screens.
 - Use article images for architecture diagrams, flow charts, or UI outputs that
   help readers understand the implementation. Generated content assets should
   live under `content/assets` only as temporary build input unless the article is
@@ -161,9 +211,24 @@ Every tutorial should be:
 - readable without requiring hidden context.
 - useful as an SEO page and as a structured content payload.
 - production-grade enough to represent the product to customers.
+- worthy of a senior engineer's or scientist's time: it should answer an
+  important question, expose enough evidence to audit the answer, and improve a
+  real technical decision.
 
 For AI engineering content, prefer controlled examples, evaluation criteria,
 and reproducibility notes over trend-only commentary.
+
+Automation batches contain exactly three distinct-topic articles: one
+`deep-research` article and two `timely-analysis` articles. The deep article
+must expose its hypothesis, baselines, repeated evidence, uncertainty, negative
+results, limitations, and artifact path. Timely articles must compare current
+facts from primary sources rather than summarize announcements.
+
+Word, heading, source, code, and table counts are anti-thinness floors, not
+quality targets. Do not pad an article to reach them. Automation candidates
+must also pass a structured skeptical review covering question value, technical
+depth, evidence traceability, methodological rigor, decision usefulness,
+clarity/density, and visual evidence.
 
 ## Review Checklist
 

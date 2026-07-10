@@ -1,38 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Multimodal retrieval routing experiment results</title>
   <desc id="desc">Bar chart comparing pass rate, recall, and modality precision for text-only indexing, unified untyped retrieval, and modality-routed retrieval.</desc>
-  <rect width="960" height="540" fill="#f8fafc"/>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
   <text x="56" y="62" font-size="34" font-weight="800" fill="#172033">Multimodal Retrieval Gates</text>
   <text x="56" y="100" font-size="18" fill="#475569">Controlled retrieval run across 14 mixed-modality queries</text>
-  <line x1="88" y1="390" x2="890" y2="390" stroke="#94a3b8" stroke-width="2"/>
-  <line x1="88" y1="130" x2="88" y2="390" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="88" y1="390" x2="890" y2="390" stroke="#40515f" stroke-width="2"/>
+  <line x1="88" y1="130" x2="88" y2="390" stroke="#40515f" stroke-width="2"/>
   <text x="72" y="136" text-anchor="end" font-size="15" fill="#64748b">1.0</text>
   <text x="72" y="264" text-anchor="end" font-size="15" fill="#64748b">0.5</text>
   <text x="72" y="394" text-anchor="end" font-size="15" fill="#64748b">0</text>
-  <line x1="88" y1="260" x2="890" y2="260" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="6 6"/>
-  
-        <rect x="130" y="353" width="36" height="37" fill="#1f7a6d" rx="4"/>
+  <line x1="88" y1="260" x2="890" y2="260" stroke="#334250" stroke-width="1" stroke-dasharray="6 6"/>
+
+        <rect x="130" y="353" width="36" height="37" fill="#43d6a0" rx="4"/>
         <text x="148" y="343" text-anchor="middle" font-size="18" fill="#172033">0.143</text>
         <text x="148" y="424" text-anchor="middle" font-size="15" fill="#334155">Pass</text>
-        <rect x="184" y="260" width="36" height="130" fill="#3b5ba9" rx="4"/>
+        <rect x="184" y="260" width="36" height="130" fill="#52dcef" rx="4"/>
         <text x="202" y="250" text-anchor="middle" font-size="18" fill="#172033">0.5</text>
         <text x="202" y="424" text-anchor="middle" font-size="15" fill="#334155">Recall</text>
         <rect x="238" y="303" width="36" height="87" fill="#a05d18" rx="4"/>
         <text x="256" y="293" text-anchor="middle" font-size="18" fill="#172033">0.333</text>
         <text x="256" y="424" text-anchor="middle" font-size="15" fill="#334155">Precision</text>
-        <rect x="390" y="186" width="36" height="204" fill="#1f7a6d" rx="4"/>
+        <rect x="390" y="186" width="36" height="204" fill="#43d6a0" rx="4"/>
         <text x="408" y="176" text-anchor="middle" font-size="18" fill="#172033">0.786</text>
         <text x="408" y="424" text-anchor="middle" font-size="15" fill="#334155">Pass</text>
-        <rect x="444" y="130" width="36" height="260" fill="#3b5ba9" rx="4"/>
+        <rect x="444" y="130" width="36" height="260" fill="#52dcef" rx="4"/>
         <text x="462" y="120" text-anchor="middle" font-size="18" fill="#172033">1</text>
         <text x="462" y="424" text-anchor="middle" font-size="15" fill="#334155">Recall</text>
         <rect x="498" y="251" width="36" height="139" fill="#a05d18" rx="4"/>
         <text x="516" y="241" text-anchor="middle" font-size="18" fill="#172033">0.536</text>
         <text x="516" y="424" text-anchor="middle" font-size="15" fill="#334155">Precision</text>
-        <rect x="650" y="130" width="36" height="260" fill="#1f7a6d" rx="4"/>
+        <rect x="650" y="130" width="36" height="260" fill="#43d6a0" rx="4"/>
         <text x="668" y="120" text-anchor="middle" font-size="18" fill="#172033">1</text>
         <text x="668" y="424" text-anchor="middle" font-size="15" fill="#334155">Pass</text>
-        <rect x="704" y="130" width="36" height="260" fill="#3b5ba9" rx="4"/>
+        <rect x="704" y="130" width="36" height="260" fill="#52dcef" rx="4"/>
         <text x="722" y="120" text-anchor="middle" font-size="18" fill="#172033">1</text>
         <text x="722" y="424" text-anchor="middle" font-size="15" fill="#334155">Recall</text>
         <rect x="758" y="130" width="36" height="260" fill="#a05d18" rx="4"/>
@@ -40,4 +50,19 @@
         <text x="776" y="424" text-anchor="middle" font-size="15" fill="#334155">Precision</text>
   <text x="208" y="470" text-anchor="middle" font-size="22" font-weight="700" fill="#172033">textOnlyIndex</text><text x="468" y="470" text-anchor="middle" font-size="22" font-weight="700" fill="#172033">unifiedUngated</text><text x="728" y="470" text-anchor="middle" font-size="22" font-weight="700" fill="#172033">modalityRouted</text>
   <text x="56" y="515" font-size="16" fill="#475569">Gate result: modality-routed retrieval reached the highest pass rate with zero sensitivity violations.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / MEASURED RESULTS</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

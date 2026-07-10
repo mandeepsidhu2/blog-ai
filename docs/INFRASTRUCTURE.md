@@ -12,6 +12,16 @@ Application source repository:
 git@github.com:mandeepsidhu2/blog-ai.git
 ```
 
+Canonical build URL:
+
+```text
+https://learn.toolsite.com
+```
+
+The active app-specific Terraform stack also exposes a default CloudFront URL
+through its `frontend_url` output. Use that output for deployment smoke tests
+while Route 53 and ACM custom-domain resources remain intentionally disabled.
+
 Do not add Blog AI resources to the retired shared `frontend-apps` stack.
 
 Agent Flow Studio is deployed separately from the `agent` repository through:

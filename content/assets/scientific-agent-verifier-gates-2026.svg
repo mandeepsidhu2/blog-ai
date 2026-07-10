@@ -1,39 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Verifier-gated scientific AI agent workflow</title>
   <desc id="desc">Architecture diagram showing scientific AI agent proposals moving through evidence retrieval, executable verifiers, clean-room replay, expert review, and publication-ready claims.</desc>
-  <rect width="1200" height="630" fill="#f7f3ea"/>
-  <rect x="46" y="44" width="1108" height="542" rx="8" fill="#ffffff" stroke="#cfbea5" stroke-width="2"/>
-  <text x="82" y="102" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#1f2933">Gate Scientific AI Agents With Verifiers</text>
-  <text x="82" y="134" font-family="Arial, sans-serif" font-size="18" fill="#5b6572">Move from fluent hypotheses to reproducible claims only after replay, checks, and review.</text>
-  <g font-family="Arial, sans-serif">
-    <rect x="86" y="204" width="188" height="118" rx="8" fill="#e9f5f2" stroke="#1b998b" stroke-width="2"/>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="630" fill="#080c12"/>
+    <rect width="1200" height="630" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <rect x="46" y="44" width="1108" height="542" rx="8" fill="#121a23" stroke="#cfbea5" stroke-width="2"/>
+  <text x="82" y="102" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="700" fill="#1f2933">Gate Scientific AI Agents With Verifiers</text>
+  <text x="82" y="134" font-family="Inter, system-ui, sans-serif" font-size="18" fill="#5b6572">Move from fluent hypotheses to reproducible claims only after replay, checks, and review.</text>
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="86" y="204" width="188" height="118" rx="8" fill="#11291f" stroke="#43d6a0" stroke-width="2"/>
     <text x="116" y="244" font-size="20" font-weight="700" fill="#16332f">Agent</text>
     <text x="116" y="274" font-size="15" fill="#2f4b47">Hypothesis</text>
     <text x="116" y="296" font-size="15" fill="#2f4b47">or code change</text>
-    <rect x="334" y="204" width="188" height="118" rx="8" fill="#eef2ff" stroke="#4464ad" stroke-width="2"/>
+    <rect x="334" y="204" width="188" height="118" rx="8" fill="#211b35" stroke="#52dcef" stroke-width="2"/>
     <text x="364" y="244" font-size="20" font-weight="700" fill="#23345f">Evidence</text>
     <text x="364" y="274" font-size="15" fill="#3d4c72">Source set</text>
     <text x="364" y="296" font-size="15" fill="#3d4c72">and trace</text>
-    <rect x="582" y="204" width="188" height="118" rx="8" fill="#fff5e6" stroke="#d9902f" stroke-width="2"/>
+    <rect x="582" y="204" width="188" height="118" rx="8" fill="#302418" stroke="#d9902f" stroke-width="2"/>
     <text x="612" y="244" font-size="20" font-weight="700" fill="#6d4410">Verifier</text>
     <text x="612" y="274" font-size="15" fill="#694d28">Executable tests</text>
     <text x="612" y="296" font-size="15" fill="#694d28">and metrics</text>
-    <rect x="830" y="204" width="188" height="118" rx="8" fill="#f8edf8" stroke="#9b5aa5" stroke-width="2"/>
+    <rect x="830" y="204" width="188" height="118" rx="8" fill="#211b35" stroke="#9b5aa5" stroke-width="2"/>
     <text x="860" y="244" font-size="20" font-weight="700" fill="#5a2b61">Replay</text>
     <text x="860" y="274" font-size="15" fill="#5d3f65">Clean-room</text>
     <text x="860" y="296" font-size="15" fill="#5d3f65">replication</text>
     <path d="M274 263 H334" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
     <path d="M522 263 H582" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
     <path d="M770 263 H830" stroke="#6b7280" stroke-width="3" marker-end="url(#arrow)"/>
-    <rect x="188" y="402" width="226" height="92" rx="8" fill="#fdf2f2" stroke="#d95d39" stroke-width="2"/>
+    <rect x="188" y="402" width="226" height="92" rx="8" fill="#32191e" stroke="#ff657a" stroke-width="2"/>
     <text x="220" y="438" font-size="19" font-weight="700" fill="#7d2a16">Stop</text>
-    <text x="220" y="466" font-size="15" fill="#713321">Leakage, unsafe action,</text>
+    <text x="220" y="466" font-size="15" fill="#713321" textLength="182" lengthAdjust="spacingAndGlyphs">Leakage, unsafe action,</text>
     <text x="220" y="486" font-size="15" fill="#713321">or missing verifier</text>
     <rect x="488" y="402" width="226" height="92" rx="8" fill="#f2f7f3" stroke="#4d9078" stroke-width="2"/>
     <text x="520" y="438" font-size="19" font-weight="700" fill="#254e42">Review</text>
     <text x="520" y="466" font-size="15" fill="#345f52">High-impact claims</text>
     <text x="520" y="486" font-size="15" fill="#345f52">need expert signoff</text>
-    <rect x="788" y="402" width="226" height="92" rx="8" fill="#edf7ff" stroke="#2274a5" stroke-width="2"/>
+    <rect x="788" y="402" width="226" height="92" rx="8" fill="#102938" stroke="#52dcef" stroke-width="2"/>
     <text x="820" y="438" font-size="19" font-weight="700" fill="#154762">Release</text>
     <text x="820" y="466" font-size="15" fill="#27556b">Claim, artifact,</text>
     <text x="820" y="486" font-size="15" fill="#27556b">and replay packet</text>
@@ -46,4 +56,18 @@
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280"/>
     </marker>
   </defs>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="629" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

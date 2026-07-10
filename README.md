@@ -43,6 +43,10 @@ npm run preview
 SITE_URL=https://learn.toolsite.com npm run build
 ```
 
+The deployed default CloudFront URL is owned by the app-specific infrastructure
+stack and is exposed as the `frontend_url` output in
+`../infrastructure/blog-ai-frontend`.
+
 ## Content
 
 Each article uses YAML-like front matter followed by Markdown:

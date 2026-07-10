@@ -1,13 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Dependency release gate architecture for AI coding assistants</title>
   <desc id="desc">Architecture diagram showing an AI coding assistant dependency suggestion passing through registry existence, source verification, provenance, script risk, secret scope, and release decision gates.</desc>
-  <rect width="960" height="540" fill="#f8fafc"/>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
   <text x="54" y="70" class="title">Gate AI-suggested dependencies before install</text>
   <text x="54" y="104" class="subtitle">Treat package and repository suggestions as release candidates, not as commands to execute.</text>
   <g class="box">
     <rect x="54" y="164" width="170" height="84" rx="8"/>
     <text x="82" y="199">Assistant</text>
-    <text x="82" y="224">suggests package</text>
+    <text x="82" y="224" textLength="130" lengthAdjust="spacingAndGlyphs">suggests package</text>
   </g>
   <path d="M224 206h58" class="arrow"/>
   <g class="box">
@@ -34,31 +44,31 @@
     <text x="790" y="252">block</text>
   </g>
   <g>
-    <rect x="104" y="328" width="184" height="86" rx="8" fill="#dbeafe" stroke="#2563eb"/>
+    <rect x="104" y="328" width="184" height="86" rx="8" fill="#102938" stroke="#52dcef"/>
     <text x="130" y="362" class="smallTitle">Allowed</text>
-    <text x="130" y="389" class="small">pinned install with lockfile</text>
+    <text x="130" y="389" class="small"><tspan x="130" dy="0">pinned install</tspan><tspan x="130" dy="18">with lockfile</tspan></text>
   </g>
   <g>
-    <rect x="388" y="328" width="184" height="86" rx="8" fill="#ecfdf5" stroke="#0f766e"/>
+    <rect x="388" y="328" width="184" height="86" rx="8" fill="#11291f" stroke="#43d6a0"/>
     <text x="414" y="362" class="smallTitle">Review</text>
-    <text x="414" y="389" class="small">sandbox native or script risk</text>
+    <text x="414" y="389" class="small"><tspan x="414" dy="0">sandbox native</tspan><tspan x="414" dy="18">or script risk</tspan></text>
   </g>
   <g>
-    <rect x="672" y="328" width="184" height="86" rx="8" fill="#fee2e2" stroke="#b91c1c"/>
+    <rect x="672" y="328" width="184" height="86" rx="8" fill="#32191e" stroke="#ff657a"/>
     <text x="698" y="362" class="smallTitle">Blocked</text>
-    <text x="698" y="389" class="small">unverified or squatted names</text>
+    <text x="698" y="389" class="small"><tspan x="698" dy="0">unverified or</tspan><tspan x="698" dy="18">squatted names</tspan></text>
   </g>
   <path d="M834 268v40" class="arrowDown"/>
   <path d="M616 268c0 52-136 28-136 60" class="arrowDown"/>
   <path d="M374 268c0 52-178 28-178 60" class="arrowDown"/>
-  <text x="54" y="486" class="note">Release metrics: unsafe installs, squatted accepts, provenance misses, script-risk misses, source-verification misses, and secret overexposure.</text>
+  <text x="54" y="486" class="note" textLength="878" lengthAdjust="spacingAndGlyphs">Release metrics: unsafe installs, squatted accepts, provenance misses, script-risk misses, source-verification misses, and secret overexposure.</text>
   <style>
-    .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
-    .subtitle, .note { font: 16px Arial, sans-serif; fill: #334155; }
-    .box rect { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
-    .box text { font: 700 17px Arial, sans-serif; fill: #0f172a; }
-    .smallTitle { font: 700 19px Arial, sans-serif; fill: #0f172a; }
-    .small { font: 15px Arial, sans-serif; fill: #334155; }
+    .title { font: 700 34px Inter, system-ui, sans-serif; fill: #0f172a; }
+    .subtitle, .note { font: 16px Inter, system-ui, sans-serif; fill: #334155; }
+    .box rect { fill: #121a23; stroke: #334250; stroke-width: 2; }
+    .box text { font: 700 17px Inter, system-ui, sans-serif; fill: #0f172a; }
+    .smallTitle { font: 700 19px Inter, system-ui, sans-serif; fill: #0f172a; }
+    .small { font: 15px Inter, system-ui, sans-serif; fill: #334155; }
     .arrow { stroke: #64748b; stroke-width: 3; marker-end: url(#arrow); }
     .arrowDown { fill: none; stroke: #64748b; stroke-width: 3; marker-end: url(#arrow); }
   </style>
@@ -67,4 +77,19 @@
       <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
     </marker>
   </defs>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

@@ -1,17 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Covert-channel release gate for tool-using agents</title>
   <desc id="desc">Architecture diagram showing untrusted inputs, agent planning, tool-call trace capture, hidden-channel scoring, review queues, and rollback controls.</desc>
-  <rect width="960" height="540" fill="#f7faf8"/>
-  <text x="44" y="52" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#17202a">Release gates for hidden agent coordination</text>
-  <text x="44" y="82" font-family="Inter, Arial, sans-serif" font-size="16" fill="#53616c">Gate the trace surface, not only the visible assistant text.</text>
-  <g font-family="Inter, Arial, sans-serif">
-    <rect x="48" y="130" width="150" height="88" rx="8" fill="#ffffff" stroke="#9db4bd" stroke-width="2"/>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="44" y="52" font-family="Inter, Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#17202a">Release gates for hidden agent coordination</text>
+  <text x="44" y="82" font-family="Inter, Inter, system-ui, sans-serif" font-size="16" fill="#53616c">Gate the trace surface, not only the visible assistant text.</text>
+  <g font-family="Inter, Inter, system-ui, sans-serif">
+    <rect x="48" y="130" width="150" height="88" rx="8" fill="#121a23" stroke="#9db4bd" stroke-width="2"/>
     <text x="123" y="164" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Untrusted input</text>
     <text x="123" y="190" text-anchor="middle" font-size="13" fill="#53616c">tickets, docs, email</text>
-    <rect x="266" y="130" width="150" height="88" rx="8" fill="#ffffff" stroke="#9db4bd" stroke-width="2"/>
+    <rect x="266" y="130" width="150" height="88" rx="8" fill="#121a23" stroke="#9db4bd" stroke-width="2"/>
     <text x="341" y="164" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Agent plan</text>
     <text x="341" y="190" text-anchor="middle" font-size="13" fill="#53616c">steps and delegation</text>
-    <rect x="484" y="130" width="150" height="88" rx="8" fill="#ffffff" stroke="#9db4bd" stroke-width="2"/>
+    <rect x="484" y="130" width="150" height="88" rx="8" fill="#121a23" stroke="#9db4bd" stroke-width="2"/>
     <text x="559" y="164" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Tool calls</text>
     <text x="559" y="190" text-anchor="middle" font-size="13" fill="#53616c">metadata and payloads</text>
     <rect x="702" y="130" width="184" height="88" rx="8" fill="#fff7ef" stroke="#bf4e30" stroke-width="2"/>
@@ -20,23 +30,38 @@
     <path d="M198 174 H266" stroke="#60717d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
     <path d="M416 174 H484" stroke="#60717d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
     <path d="M634 174 H702" stroke="#60717d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-    <rect x="110" y="316" width="170" height="92" rx="8" fill="#eef7f8" stroke="#1f7a8c" stroke-width="2"/>
+    <rect x="110" y="316" width="170" height="92" rx="8" fill="#102938" stroke="#43d6a0" stroke-width="2"/>
     <text x="195" y="350" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Allow</text>
     <text x="195" y="376" text-anchor="middle" font-size="13" fill="#53616c">normal low-risk traces</text>
-    <rect x="394" y="316" width="170" height="92" rx="8" fill="#fffaf0" stroke="#c68a2d" stroke-width="2"/>
+    <rect x="394" y="316" width="170" height="92" rx="8" fill="#302418" stroke="#c68a2d" stroke-width="2"/>
     <text x="479" y="350" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Review</text>
     <text x="479" y="376" text-anchor="middle" font-size="13" fill="#53616c">ambiguous coordination</text>
-    <rect x="678" y="316" width="170" height="92" rx="8" fill="#f6eef8" stroke="#6b5b95" stroke-width="2"/>
+    <rect x="678" y="316" width="170" height="92" rx="8" fill="#211b35" stroke="#9b87ff" stroke-width="2"/>
     <text x="763" y="350" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Block</text>
     <text x="763" y="376" text-anchor="middle" font-size="13" fill="#53616c">high-risk hidden channels</text>
-    <path d="M750 218 C680 260 280 268 210 316" stroke="#1f7a8c" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <path d="M750 218 C680 260 280 268 210 316" stroke="#43d6a0" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
     <path d="M794 218 C760 266 540 270 492 316" stroke="#c68a2d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-    <path d="M840 218 C842 262 800 284 770 316" stroke="#6b5b95" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-    <text x="46" y="470" font-size="16" fill="#17202a">Operational signals: hidden payload budget, repeated metadata patterns, untrusted provenance, cross-agent route, and rollback owner.</text>
+    <path d="M840 218 C842 262 800 284 770 316" stroke="#9b87ff" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <text x="46" y="470" font-size="16" fill="#17202a" textLength="901" lengthAdjust="spacingAndGlyphs">Operational signals: hidden payload budget, repeated metadata patterns, untrusted provenance, cross-agent route, and rollback owner.</text>
   </g>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#60717d"/>
     </marker>
   </defs>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

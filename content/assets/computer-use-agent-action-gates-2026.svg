@@ -1,45 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
   <title id="title">Computer-use agent action gate architecture</title>
   <desc id="desc">Architecture diagram showing a computer-use agent routed through observation, action classification, confirmation gates, verification, and blocked paths before reaching SaaS workflow tools.</desc>
-  <rect width="960" height="540" fill="#f8fafc"/>
-  <text x="54" y="62" class="title">Computer-use agent action gates</text>
-  <text x="54" y="94" class="subtitle">Route browser, desktop, and SaaS actions before the agent reaches credentials, submit buttons, or destructive writes.</text>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="54" y="62" class="title" textLength="84" lengthAdjust="spacingAndGlyphs">Computer-use agent action gates</text>
+  <text x="54" y="94" class="subtitle" textLength="878" lengthAdjust="spacingAndGlyphs">Route browser, desktop, and SaaS actions before the agent reaches credentials, submit buttons, or destructive writes.</text>
   <g transform="translate(54 142)">
     <rect x="0" y="0" width="150" height="96" rx="8" class="box source"/>
     <text x="22" y="36" class="boxTitle">User goal</text>
-    <text x="22" y="64" class="boxText">Task, context, account</text>
+    <text x="22" y="64" class="boxText" textLength="116" lengthAdjust="spacingAndGlyphs">Task, context, account</text>
   </g>
   <g transform="translate(244 142)">
     <rect x="0" y="0" width="150" height="96" rx="8" class="box observe"/>
     <text x="22" y="34" class="boxTitle">Observation</text>
-    <text x="22" y="62" class="boxText">Screen, DOM, state</text>
+    <text x="22" y="62" class="boxText" textLength="116" lengthAdjust="spacingAndGlyphs">Screen, DOM, state</text>
   </g>
   <g transform="translate(434 116)">
     <rect x="0" y="0" width="180" height="148" rx="8" class="box gate"/>
     <text x="20" y="34" class="boxTitle">Action gate</text>
     <text x="20" y="64" class="boxText">Classify route</text>
-    <text x="20" y="90" class="boxText">Scope credentials</text>
+    <text x="20" y="90" class="boxText" textLength="148" lengthAdjust="spacingAndGlyphs">Scope credentials</text>
     <text x="20" y="116" class="boxText">Require proof</text>
   </g>
   <g transform="translate(678 70)">
     <rect x="0" y="0" width="210" height="72" rx="8" class="route"/>
     <text x="18" y="30" class="routeTitle">draft-only</text>
-    <text x="18" y="52" class="routeText">No submit or writes</text>
+    <text x="18" y="52" class="routeText" textLength="120" lengthAdjust="spacingAndGlyphs">No submit or writes</text>
   </g>
   <g transform="translate(678 166)">
     <rect x="0" y="0" width="210" height="72" rx="8" class="route"/>
-    <text x="18" y="30" class="routeTitle">human-confirmed submit</text>
-    <text x="18" y="52" class="routeText">Review before side effect</text>
+    <text x="18" y="30" class="routeTitle" textLength="180" lengthAdjust="spacingAndGlyphs">human-confirmed submit</text>
+    <text x="18" y="52" class="routeText" textLength="180" lengthAdjust="spacingAndGlyphs">Review before side effect</text>
   </g>
   <g transform="translate(678 262)">
     <rect x="0" y="0" width="210" height="72" rx="8" class="route warn"/>
-    <text x="18" y="30" class="routeTitle">admin/data review</text>
-    <text x="18" y="52" class="routeText">Evidence and diff required</text>
+    <text x="18" y="30" class="routeTitle" textLength="120" lengthAdjust="spacingAndGlyphs">admin/data review</text>
+    <text x="18" y="52" class="routeText" textLength="180" lengthAdjust="spacingAndGlyphs">Evidence and diff required</text>
   </g>
   <g transform="translate(678 358)">
     <rect x="0" y="0" width="210" height="72" rx="8" class="route block"/>
     <text x="18" y="30" class="routeTitle">blocked</text>
-    <text x="18" y="52" class="routeText">No credentialed action</text>
+    <text x="18" y="52" class="routeText" textLength="180" lengthAdjust="spacingAndGlyphs">No credentialed action</text>
   </g>
   <path d="M204 190 H244" class="arrow"/>
   <path d="M394 190 H434" class="arrow"/>
@@ -49,23 +59,23 @@
   <path d="M614 238 C640 320 650 394 678 394" class="arrow"/>
   <g transform="translate(80 332)">
     <rect x="0" y="0" width="478" height="126" rx="8" class="metrics"/>
-    <text x="24" y="36" class="metricTitle">Release metrics</text>
-    <text x="24" y="68" class="metricText">route match | unsafe submits | confirmation misses | verification misses</text>
-    <text x="24" y="96" class="metricText">dynamic-state misses | credential overexposure | app overreach | false blocks</text>
+    <text x="24" y="36" class="metricTitle" textLength="114" lengthAdjust="spacingAndGlyphs">Release metrics</text>
+    <text x="24" y="68" class="metricText" textLength="442" lengthAdjust="spacingAndGlyphs">route match | unsafe submits | confirmation misses | verification misses</text>
+    <text x="24" y="96" class="metricText" textLength="442" lengthAdjust="spacingAndGlyphs">dynamic-state misses | credential overexposure | app overreach | false blocks</text>
   </g>
   <style>
-    .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
-    .subtitle { font: 16px Arial, sans-serif; fill: #334155; }
-    .box, .route, .metrics { stroke: #cbd5e1; stroke-width: 2; }
-    .source { fill: #ecfeff; }
-    .observe { fill: #eef2ff; }
-    .gate { fill: #fff7ed; }
-    .route { fill: #ffffff; }
+    .title { font: 700 34px Inter, system-ui, sans-serif; fill: #0f172a; }
+    .subtitle { font: 16px Inter, system-ui, sans-serif; fill: #334155; }
+    .box, .route, .metrics { stroke: #334250; stroke-width: 2; }
+    .source { fill: #102938; }
+    .observe { fill: #211b35; }
+    .gate { fill: #302418; }
+    .route { fill: #121a23; }
     .warn { fill: #fffbeb; }
-    .block { fill: #fee2e2; }
-    .metrics { fill: #f1f5f9; }
-    .boxTitle, .routeTitle, .metricTitle { font: 700 17px Arial, sans-serif; fill: #0f172a; }
-    .boxText, .routeText, .metricText { font: 14px Arial, sans-serif; fill: #475569; }
+    .block { fill: #32191e; }
+    .metrics { fill: #17212b; }
+    .boxTitle, .routeTitle, .metricTitle { font: 700 17px Inter, system-ui, sans-serif; fill: #0f172a; }
+    .boxText, .routeText, .metricText { font: 14px Inter, system-ui, sans-serif; fill: #475569; }
     .arrow { fill: none; stroke: #334155; stroke-width: 3; stroke-linecap: round; marker-end: url(#arrowhead); }
   </style>
   <defs>
@@ -73,4 +83,19 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#334155"/>
     </marker>
   </defs>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
 </svg>

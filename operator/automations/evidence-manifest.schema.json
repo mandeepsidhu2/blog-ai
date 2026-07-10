@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://learn.toolsite.com/schemas/evidence-manifest.schema.json",
+  "title": "AI Systems Fieldbook evidence manifest",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "version",
+    "hypothesis",
+    "claimBoundary",
+    "design",
+    "reproduction",
+    "artifacts"
+  ],
+  "properties": {
+    "version": { "const": 1 },
+    "hypothesis": { "type": "string", "minLength": 40 },
+    "claimBoundary": { "type": "string", "minLength": 40 },
+    "design": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["baselines", "controls", "repeats"],
+      "properties": {
+        "baselines": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 3 }
+        },
+        "controls": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 3 }
+        },
+        "repeats": { "type": "integer", "minimum": 2 }
+      }
+    },
+    "reproduction": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["commands"],
+      "properties": {
+        "commands": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 3 }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "oneOf": [
+          { "type": "string", "minLength": 1 },
+          {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["path"],
+            "properties": {
+              "path": { "type": "string", "minLength": 1 },
+              "sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

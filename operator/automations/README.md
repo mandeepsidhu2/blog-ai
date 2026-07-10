@@ -9,8 +9,11 @@ static generator, or the CodeBuild pipeline.
 
 ## Active Automations
 
-- `latest-ai-article-production.md`: every 12 hours, research current AI market
-  signals and produce article candidates using the public content contract.
+- `latest-ai-article-production.md`: every 12 hours, produce one atomic
+  three-article batch: one deep empirical research article and two timely,
+  quantitative AI analyses across distinct topics. Publication also requires a
+  structured skeptical editorial review and originality check against the
+  committed library.
 
 ## Rules
 
