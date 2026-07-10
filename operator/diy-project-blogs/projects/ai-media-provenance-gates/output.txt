@@ -1,0 +1,5 @@
+AI media provenance gate experiment
+cases=20
+metadataOnlyPolicy: pass_rate=0.450 route_match=0.450 unsafe_publishes=11 disclosure_misses=2 machine_readable_misses=8 conflict_misses=3 review_misses=7 high_risk_misses=4 unnecessary_blocks=0
+watermarkOnlyPolicy: pass_rate=0.450 route_match=0.450 unsafe_publishes=10 disclosure_misses=0 machine_readable_misses=7 conflict_misses=3 review_misses=7 high_risk_misses=3 unnecessary_blocks=0
+dualSignalProvenanceGate: pass_rate=1.000 route_match=1.000 unsafe_publishes=0 disclosure_misses=0 machine_readable_misses=0 conflict_misses=0 review_misses=0 high_risk_misses=0 unnecessary_blocks=0

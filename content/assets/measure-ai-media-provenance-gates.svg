@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+  <title id="title">AI media provenance gate experiment results</title>
+  <desc id="desc">Grouped bar chart comparing metadata-only, watermark-only, and dual-signal provenance gates by pass rate and missed safety conditions.</desc>
+  <rect width="960" height="520" fill="#f8fbfd"/>
+  <rect x="38" y="36" width="884" height="448" fill="#ffffff" stroke="#d5dde6" stroke-width="2" rx="8"/>
+  <text x="72" y="82" font-size="28" font-weight="800" fill="#1d2733">AI Media Provenance Gate Results</text>
+  <text x="72" y="110" font-size="15" fill="#53616f">Twenty synthetic media handoff cases scored across provenance metadata, watermark, disclosure, and high-risk review routes.</text>
+  <line x1="100" y1="350" x2="860" y2="350" stroke="#8290a0" stroke-width="2"/>
+  <line x1="100" y1="120" x2="100" y2="350" stroke="#8290a0" stroke-width="2"/>
+  <text x="80" y="127" text-anchor="end" font-size="12" fill="#53616f">100%</text>
+  <text x="80" y="355" text-anchor="end" font-size="12" fill="#53616f">0</text>
+  
+        <g>
+          <rect x="180" y="246.5" width="68" height="103.5" fill="#2f7d5f" rx="4"/>
+          <rect x="256" y="223.5" width="68" height="126.50000000000001" fill="#b43f3f" rx="4"/>
+          <rect x="332" y="269.5" width="68" height="80.5" fill="#d18b2f" rx="4"/>
+          <rect x="408" y="315.5" width="68" height="34.5" fill="#6d5bd0" rx="4"/>
+          <text x="294" y="392" text-anchor="middle" font-size="16" font-weight="700" fill="#1d2733">metadataOnlyPolicy</text>
+          <text x="294" y="416" text-anchor="middle" font-size="13" fill="#53616f">pass 45%</text>
+        </g>
+        <g>
+          <rect x="415" y="246.5" width="68" height="103.5" fill="#2f7d5f" rx="4"/>
+          <rect x="491" y="235" width="68" height="115" fill="#b43f3f" rx="4"/>
+          <rect x="567" y="269.5" width="68" height="80.5" fill="#d18b2f" rx="4"/>
+          <rect x="643" y="315.5" width="68" height="34.5" fill="#6d5bd0" rx="4"/>
+          <text x="529" y="392" text-anchor="middle" font-size="16" font-weight="700" fill="#1d2733">watermarkOnlyPolicy</text>
+          <text x="529" y="416" text-anchor="middle" font-size="13" fill="#53616f">pass 45%</text>
+        </g>
+        <g>
+          <rect x="650" y="120" width="68" height="230" fill="#2f7d5f" rx="4"/>
+          <rect x="726" y="350" width="68" height="0" fill="#b43f3f" rx="4"/>
+          <rect x="802" y="350" width="68" height="0" fill="#d18b2f" rx="4"/>
+          <rect x="878" y="350" width="68" height="0" fill="#6d5bd0" rx="4"/>
+          <text x="764" y="392" text-anchor="middle" font-size="16" font-weight="700" fill="#1d2733">dualSignalProvenanceGate</text>
+          <text x="764" y="416" text-anchor="middle" font-size="13" fill="#53616f">pass 100%</text>
+        </g>
+  <g transform="translate(72 438)" font-size="13" fill="#344050">
+    <rect x="0" y="-12" width="14" height="14" fill="#2f7d5f" rx="2"/><text x="22" y="0">pass rate</text>
+    <rect x="130" y="-12" width="14" height="14" fill="#b43f3f" rx="2"/><text x="152" y="0">unsafe publish rate</text>
+    <rect x="308" y="-12" width="14" height="14" fill="#d18b2f" rx="2"/><text x="330" y="0">review miss rate</text>
+    <rect x="482" y="-12" width="14" height="14" fill="#6d5bd0" rx="2"/><text x="504" y="0">conflict miss rate</text>
+  </g>
+</svg>
