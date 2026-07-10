@@ -1,0 +1,5 @@
+Hallucinated dependency gate experiment
+tasks=20
+blindAssistantInstall: pass_rate=0.050 route_match=0.050 unsafe_installs=13 squatted_accepts=9 provenance_misses=6 script_risk_misses=10 source_verification_misses=19 false_blocks=0 secret_overexposure=60
+registryNameGate: pass_rate=0.350 route_match=0.350 unsafe_installs=3 squatted_accepts=0 provenance_misses=5 script_risk_misses=3 source_verification_misses=0 false_blocks=0 secret_overexposure=7
+dependencyReleaseGate: pass_rate=1.000 route_match=1.000 unsafe_installs=0 squatted_accepts=0 provenance_misses=0 script_risk_misses=0 source_verification_misses=0 false_blocks=0 secret_overexposure=4

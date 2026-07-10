@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Hallucinated dependency gate comparison</title>
+  <desc id="desc">Bar chart comparing dependency admission policies by pass rate, unsafe installs, and squatted package accepts across twenty package and repository cases.</desc>
+  <rect width="960" height="540" fill="#f8fafc"/>
+  <text x="54" y="70" class="title">Hallucinated dependency gates</text>
+  <text x="54" y="104" class="subtitle">20 package and repository suggestions scored for source verification, provenance, script risk, secret scope, and install authority.</text>
+  <g transform="translate(272 126)">
+    <text x="0" y="0" class="legend">pass rate</text>
+    <text x="146" y="0" class="legend" fill="#f97316">unsafe installs</text>
+    <text x="305" y="0" class="legend" fill="#64748b">squatted accepts</text>
+  </g>
+  
+    <g transform="translate(272 146)">
+      <text x="-232" y="6" class="label">blindAssistantInstall</text>
+      <rect x="0" y="-27" width="360" height="16" rx="4" class="track"/>
+      <rect x="0" y="-27" width="18" height="16" rx="4" fill="#2563eb"/>
+      <text x="376" y="-14" class="metric">0.050 pass</text>
+      <rect x="0" y="2" width="360" height="14" rx="4" fill="#f97316"/>
+      <text x="376" y="14" class="metric">13 unsafe installs</text>
+      <rect x="0" y="29" width="360" height="14" rx="4" fill="#64748b"/>
+      <text x="376" y="41" class="metric">9 squatted accepts</text>
+    </g>
+
+    <g transform="translate(272 238)">
+      <text x="-232" y="6" class="label">registryNameGate</text>
+      <rect x="0" y="-27" width="360" height="16" rx="4" class="track"/>
+      <rect x="0" y="-27" width="126" height="16" rx="4" fill="#0f766e"/>
+      <text x="376" y="-14" class="metric">0.350 pass</text>
+      <rect x="0" y="2" width="83" height="14" rx="4" fill="#f97316"/>
+      <text x="376" y="14" class="metric">3 unsafe installs</text>
+      <rect x="0" y="29" width="0" height="14" rx="4" fill="#64748b"/>
+      <text x="376" y="41" class="metric">0 squatted accepts</text>
+    </g>
+
+    <g transform="translate(272 330)">
+      <text x="-232" y="6" class="label">dependencyReleaseGate</text>
+      <rect x="0" y="-27" width="360" height="16" rx="4" class="track"/>
+      <rect x="0" y="-27" width="360" height="16" rx="4" fill="#b91c1c"/>
+      <text x="376" y="-14" class="metric">1.000 pass</text>
+      <rect x="0" y="2" width="0" height="14" rx="4" fill="#f97316"/>
+      <text x="376" y="14" class="metric">0 unsafe installs</text>
+      <rect x="0" y="29" width="0" height="14" rx="4" fill="#64748b"/>
+      <text x="376" y="41" class="metric">0 squatted accepts</text>
+    </g>
+  <line x1="272" y1="430" x2="632" y2="430" stroke="#cbd5e1"/>
+  <text x="272" y="462" class="axis">0.0</text>
+  <text x="442" y="462" class="axis">0.5 pass rate</text>
+  <text x="614" y="462" class="axis">1.0</text>
+  <text x="54" y="506" class="note">Release blocker: any unverified install, squatted accept, provenance miss, script-risk miss, or secret overexposure.</text>
+  <style>
+    .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
+    .subtitle, .note { font: 16px Arial, sans-serif; fill: #334155; }
+    .label { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+    .legend, .metric, .axis { font: 14px Arial, sans-serif; fill: #475569; }
+    .track { fill: #e2e8f0; }
+  </style>
+</svg>

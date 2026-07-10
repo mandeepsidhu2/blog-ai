@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Dependency release gate architecture for AI coding assistants</title>
+  <desc id="desc">Architecture diagram showing an AI coding assistant dependency suggestion passing through registry existence, source verification, provenance, script risk, secret scope, and release decision gates.</desc>
+  <rect width="960" height="540" fill="#f8fafc"/>
+  <text x="54" y="70" class="title">Gate AI-suggested dependencies before install</text>
+  <text x="54" y="104" class="subtitle">Treat package and repository suggestions as release candidates, not as commands to execute.</text>
+  <g class="box">
+    <rect x="54" y="164" width="170" height="84" rx="8"/>
+    <text x="82" y="199">Assistant</text>
+    <text x="82" y="224">suggests package</text>
+  </g>
+  <path d="M224 206h58" class="arrow"/>
+  <g class="box">
+    <rect x="282" y="144" width="182" height="124" rx="8"/>
+    <text x="312" y="176">Name checks</text>
+    <text x="312" y="204">registry exists</text>
+    <text x="312" y="228">owner matches</text>
+    <text x="312" y="252">source verified</text>
+  </g>
+  <path d="M464 206h56" class="arrow"/>
+  <g class="box">
+    <rect x="520" y="144" width="188" height="124" rx="8"/>
+    <text x="552" y="176">Risk checks</text>
+    <text x="552" y="204">provenance</text>
+    <text x="552" y="228">install scripts</text>
+    <text x="552" y="252">native code</text>
+  </g>
+  <path d="M708 206h54" class="arrow"/>
+  <g class="box">
+    <rect x="762" y="144" width="144" height="124" rx="8"/>
+    <text x="790" y="176">Decision</text>
+    <text x="790" y="204">pin</text>
+    <text x="790" y="228">sandbox</text>
+    <text x="790" y="252">block</text>
+  </g>
+  <g>
+    <rect x="104" y="328" width="184" height="86" rx="8" fill="#dbeafe" stroke="#2563eb"/>
+    <text x="130" y="362" class="smallTitle">Allowed</text>
+    <text x="130" y="389" class="small">pinned install with lockfile</text>
+  </g>
+  <g>
+    <rect x="388" y="328" width="184" height="86" rx="8" fill="#ecfdf5" stroke="#0f766e"/>
+    <text x="414" y="362" class="smallTitle">Review</text>
+    <text x="414" y="389" class="small">sandbox native or script risk</text>
+  </g>
+  <g>
+    <rect x="672" y="328" width="184" height="86" rx="8" fill="#fee2e2" stroke="#b91c1c"/>
+    <text x="698" y="362" class="smallTitle">Blocked</text>
+    <text x="698" y="389" class="small">unverified or squatted names</text>
+  </g>
+  <path d="M834 268v40" class="arrowDown"/>
+  <path d="M616 268c0 52-136 28-136 60" class="arrowDown"/>
+  <path d="M374 268c0 52-178 28-178 60" class="arrowDown"/>
+  <text x="54" y="486" class="note">Release metrics: unsafe installs, squatted accepts, provenance misses, script-risk misses, source-verification misses, and secret overexposure.</text>
+  <style>
+    .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
+    .subtitle, .note { font: 16px Arial, sans-serif; fill: #334155; }
+    .box rect { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+    .box text { font: 700 17px Arial, sans-serif; fill: #0f172a; }
+    .smallTitle { font: 700 19px Arial, sans-serif; fill: #0f172a; }
+    .small { font: 15px Arial, sans-serif; fill: #334155; }
+    .arrow { stroke: #64748b; stroke-width: 3; marker-end: url(#arrow); }
+    .arrowDown { fill: none; stroke: #64748b; stroke-width: 3; marker-end: url(#arrow); }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+</svg>
