@@ -140,8 +140,24 @@ Pre-existing untracked content left untouched:
 
 ## Commit And Push
 
-Created commit `df18b19` (`Add AI media provenance gate articles`). Push is
-pending. This report will be updated again after `git push origin main`.
+Created commits:
+
+- `df18b19` (`Add AI media provenance gate articles`)
+- `dc2bba0` (`Record AI media provenance validation`)
+
+Sandboxed `git push origin main` failed DNS resolution for `github.com`.
+Outside-sandbox `git push origin main` succeeded. The push moved
+`origin/main` from `e48b746` to `0e411ea`. The pushed range included this
+run's provenance commits and pre-existing hallucinated-dependency commits that
+were already on local `main` during this run:
+
+- `e48b746` (`Add hallucinated dependency gate articles`)
+- `df18b19` (`Add AI media provenance gate articles`)
+- `dc2bba0` (`Record AI media provenance validation`)
+- `0e411ea` (`Record hallucinated dependency gate push result`)
+
+After the push, local `main` and `origin/main` both pointed at
+`0e411ea2a8a36268e3c8747c70fe1a6b3525f979`.
 
 ## Intervention Needed
 
