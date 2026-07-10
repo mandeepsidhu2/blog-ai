@@ -110,8 +110,18 @@ Visual review:
 - The dirty-worktree home spotlight is currently occupied by pre-existing
   untracked July 10 `hallucinated-dependency-gates` content. That content was
   not created by this run and is not staged by this run. A clean-HEAD visual
-  check will be run after committing the promoted provenance files so the
-  review reflects what the GitHub pipeline will build.
+  check was run after committing the promoted provenance files so the review
+  reflects what the GitHub pipeline will build.
+- Clean-worktree validation for commit `df18b19` was run in
+  `/tmp/blog-ai-clean-ai-media-provenance-df18b19`. The public-content gate,
+  production-URL build, generated-site check, blocked-label/local-diagnostic
+  scan, article HTML/JSON/manifest/search-index/sitemap spot checks, and
+  `git diff --check` passed there as well.
+- Clean-worktree browser review confirmed the home spotlight points to
+  `Gate AI Media Provenance Before Publishing`, both article pages render their
+  article-specific SVGs, desktop and 390px mobile image boxes are visible, and
+  the page-level scroll width stays bounded to the viewport. Overflow findings
+  were confined to existing horizontally scrollable code/topic-chip content.
 
 ## Worktree Notes
 
@@ -130,8 +140,8 @@ Pre-existing untracked content left untouched:
 
 ## Commit And Push
 
-Pending. This report will be updated after the normal GitHub pipeline commit
-and `git push origin main` attempt.
+Created commit `df18b19` (`Add AI media provenance gate articles`). Push is
+pending. This report will be updated again after `git push origin main`.
 
 ## Intervention Needed
 
