@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "hypothesis": "A dropout schedule driven by parameter-to-data and compute-to-data pressure will reduce final validation cross-entropy relative to matched static-dropout baselines across the measured streaming language-model regimes.",
+  "claimBoundary": "The evidence covers three datasets, two token-prefix budgets, small decoder-only transformers, and three to five paired seeds; it does not establish universal coefficients, frontier-scale transfer, or superiority over every possible adaptive regularizer.",
+  "design": {
+    "baselines": [
+      "best matched static-dropout condition selected within each regime",
+      "per-seed static counterpart at the same dataset, architecture, and prefix budget"
+    ],
+    "controls": [
+      "earliest-stage comparison where the decay schedule is often worse",
+      "dataset-specific coefficient fits with leave-model and leave-prefix diagnostics"
+    ],
+    "repeats": 3
+  },
+  "reproduction": {
+    "commands": [
+      "node operator/diy-project-blogs/projects/dropout-pressure-law-fieldbook/analyze-results.mjs"
+    ]
+  },
+  "artifacts": [
+    "paper-results-summary.json",
+    "analyze-results.mjs",
+    "article-results.json",
+    "output.txt",
+    "dropout-pressure-law.svg",
+    "source-provenance.md"
+  ]
+}

@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
+  <title>GPT-5.6 routing surface and coding benchmark disagreement</title>
+  <desc>Sol, Terra, and Luna are compared by independent intelligence score and measured cost per task. A second panel contrasts Sol and Claude Fable 5 across three coding benchmarks.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <style>
+    text { font-family: Inter, ui-sans-serif, system-ui, sans-serif; fill: #101720; }
+    .eyebrow { font-size: 14px; font-weight: 750; letter-spacing: 1px; fill: #5eead4; }
+    .title { font-size: 34px; font-weight: 780; }
+    .sub { font-size: 16px; fill: #a9b8cc; }
+    .panel-title { font-size: 18px; font-weight: 720; }
+    .label { font-size: 15px; font-weight: 650; }
+    .small { font-size: 12px; fill: #91a2b9; }
+    .value { font-size: 13px; font-weight: 700; }
+    .grid { stroke: #26364b; stroke-width: 1; }
+  </style>
+  <text x="64" y="58" class="eyebrow">MODEL ROUTING, NOT A GLOBAL ALIAS</text>
+  <text x="64" y="101" class="title" textLength="1123" lengthAdjust="spacingAndGlyphs">The family creates a cost frontier; coding results still depend on the harness</text>
+  <text x="64" y="132" class="sub">Independent max-effort measurements at left. Provider-reported benchmark rows at right.</text>
+
+  <rect x="62" y="166" width="520" height="430" rx="8" fill="#0c1a2b" stroke="#263a51"/>
+  <text x="88" y="202" class="panel-title">Intelligence score vs measured cost/task</text>
+  <text x="88" y="226" class="small">Artificial Analysis Intelligence Index v4.1, max effort</text>
+  <line x1="130" y1="510" x2="540" y2="510" class="grid"/>
+  <line x1="130" y1="260" x2="130" y2="510" class="grid"/>
+  <line x1="130" y1="447" x2="540" y2="447" class="grid"/>
+  <line x1="130" y1="385" x2="540" y2="385" class="grid"/>
+  <line x1="130" y1="322" x2="540" y2="322" class="grid"/>
+  <text x="112" y="515" class="small" text-anchor="end">48</text>
+  <text x="112" y="452" class="small" text-anchor="end">51</text>
+  <text x="112" y="390" class="small" text-anchor="end">54</text>
+  <text x="112" y="327" class="small" text-anchor="end">57</text>
+  <text x="112" y="265" class="small" text-anchor="end">60</text>
+  <text x="130" y="535" class="small" text-anchor="middle">$0</text>
+  <text x="335" y="535" class="small" text-anchor="middle">$0.55</text>
+  <text x="540" y="535" class="small" text-anchor="middle">$1.10</text>
+  <circle cx="208" cy="447" r="19" fill="#38bdf8" opacity="0.9"/>
+  <text x="208" y="452" class="value" text-anchor="middle">L</text>
+  <text x="208" y="482" class="label" text-anchor="middle">Luna 51 / $0.21</text>
+  <circle cx="335" cy="364" r="22" fill="#9b87ff" opacity="0.9"/>
+  <text x="335" y="369" class="value" text-anchor="middle">T</text>
+  <text x="335" y="404" class="label" text-anchor="middle">Terra 55 / $0.55</text>
+  <circle cx="518" cy="281" r="26" fill="#14b8a6" opacity="0.95"/>
+  <text x="518" y="286" class="value" text-anchor="middle">S</text>
+  <text x="490" y="328" class="label" text-anchor="middle">Sol 59 / $1.04</text>
+  <path d="M208 447 Q330 342 518 281" fill="none" stroke="#5eead4" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="88" y="573" class="small">Bubble area approximates AA Coding Agent Index: 74.6, 77.4, 80.0.</text>
+
+  <rect x="606" y="166" width="532" height="430" rx="8" fill="#0c1a2b" stroke="#263a51"/>
+  <text x="632" y="202" class="panel-title">Coding benchmark disagreement</text>
+  <text x="632" y="226" class="small">GPT-5.6 Sol vs Claude Fable 5; scores are not cross-row comparable</text>
+  <line x1="770" y1="270" x2="1090" y2="270" class="grid"/>
+  <line x1="770" y1="380" x2="1090" y2="380" class="grid"/>
+  <line x1="770" y1="490" x2="1090" y2="490" class="grid"/>
+  <text x="632" y="292" class="label">AA Coding Index</text>
+  <rect x="770" y="274" width="256" height="20" rx="4" fill="#14b8a6"/>
+  <rect x="770" y="300" width="247" height="12" rx="4" fill="#ffb84d" opacity="0.88"/>
+  <text x="1034" y="290" class="value">80.0</text>
+  <text x="1025" y="312" class="small">77.2</text>
+  <text x="632" y="402" class="label">SWE-Bench Pro</text>
+  <rect x="770" y="384" width="207" height="20" rx="4" fill="#14b8a6"/>
+  <rect x="770" y="410" width="256" height="12" rx="4" fill="#ffb84d" opacity="0.88"/>
+  <text x="985" y="400" class="value">64.6</text>
+  <text x="1034" y="422" class="small">80.0</text>
+  <text x="632" y="512" class="label">Terminal-Bench 2.1</text>
+  <rect x="770" y="494" width="284" height="20" rx="4" fill="#14b8a6"/>
+  <rect x="770" y="520" width="266" height="12" rx="4" fill="#ffb84d" opacity="0.88"/>
+  <text x="1062" y="510" class="value">88.8</text>
+  <text x="1044" y="532" class="small">83.1</text>
+  <rect x="632" y="556" width="16" height="8" rx="2" fill="#14b8a6"/>
+  <text x="656" y="565" class="small">GPT-5.6 Sol</text>
+  <rect x="770" y="556" width="16" height="8" rx="2" fill="#ffb84d"/>
+  <text x="794" y="565" class="small">Claude Fable 5</text>
+  <text x="64" y="635" class="small">Sources: Artificial Analysis, July 9 2026; OpenAI GPT-5.6 evaluation appendix. Cost is measured per AA index task, not API list cost.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

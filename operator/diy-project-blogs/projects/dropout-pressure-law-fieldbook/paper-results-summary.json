@@ -1,0 +1,875 @@
+{
+  "openweb": {
+    "coefficients": {
+      "regime": "OpenWebText10K",
+      "cells": 15,
+      "A": 0.08189560629877818,
+      "B": -0.023948107975524876,
+      "D": 0.1536984646521253,
+      "C0": -0.05559686586455526,
+      "mae": 0.01579101988615387,
+      "rmse": 0.018845563252758567,
+      "leave_model_mae": 0.024771721924833498,
+      "leave_prefix_mae": 0.030983393290384315,
+      "formula": "p = +0.081896 * log10(P / U) -0.023948 * log10(C / U) +0.153698 * log10(P / U) * log10(C / U) -0.055597"
+    },
+    "small_stream": {
+      "n": 5,
+      "final_stage": 4,
+      "final_prefix": 4000000,
+      "condition_final_mean": 4.3981304407119755,
+      "condition_final_std": 0.009545784836147743,
+      "best_static_condition": "static_dropout_0.14",
+      "best_static_mean": 4.44545366615057,
+      "best_static_std": 0.012017216742245517,
+      "improvement": 0.04732322543859446,
+      "paired_deltas": [
+        -0.03942108899354935,
+        -0.05825117975473404,
+        -0.032753005623817444,
+        -0.052590467035770416,
+        -0.053600385785102844
+      ],
+      "paired_records": [
+        {
+          "seed": 1,
+          "decay_loss": 4.402347795665264,
+          "best_static_condition": "static_dropout_0.14",
+          "best_static_loss": 4.4417688846588135,
+          "delta": -0.03942108899354935,
+          "gain": 0.03942108899354935
+        },
+        {
+          "seed": 2,
+          "decay_loss": 4.401971310377121,
+          "best_static_condition": "static_dropout_0.14",
+          "best_static_loss": 4.460222490131855,
+          "delta": -0.05825117975473404,
+          "gain": 0.05825117975473404
+        },
+        {
+          "seed": 3,
+          "decay_loss": 4.402896843850613,
+          "best_static_condition": "static_dropout_0.14",
+          "best_static_loss": 4.43564984947443,
+          "delta": -0.032753005623817444,
+          "gain": 0.032753005623817444
+        },
+        {
+          "seed": 4,
+          "decay_loss": 4.381064593791962,
+          "best_static_condition": "static_dropout_0.14",
+          "best_static_loss": 4.433655060827732,
+          "delta": -0.052590467035770416,
+          "gain": 0.052590467035770416
+        },
+        {
+          "seed": 5,
+          "decay_loss": 4.402371659874916,
+          "best_static_condition": "static_dropout_0.14",
+          "best_static_loss": 4.455972045660019,
+          "delta": -0.053600385785102844,
+          "gain": 0.053600385785102844
+        }
+      ],
+      "paired_wins": 5,
+      "paired_mean_delta": -0.04732322543859482,
+      "paired_std_delta": 0.010738969078098962,
+      "paired_gain_mean": 0.04732322543859482,
+      "paired_gain_std": 0.010738969078098962,
+      "paired_gain_ci_low": 0.0382560983300209,
+      "paired_gain_ci_high": 0.055258719623088835,
+      "budget": {
+        "steps_per_stage": [
+          1000
+        ],
+        "batch_sizes": [
+          16
+        ],
+        "block_size": 128,
+        "sampled_per_stage": [
+          2048000
+        ],
+        "final_sampled_tokens": 10240000,
+        "prefix_path": [
+          250000,
+          500000,
+          1000000,
+          2000000,
+          4000000
+        ],
+        "stage_count": 5
+      },
+      "stage_deltas": [
+        {
+          "stage": 0,
+          "prefix": 250000,
+          "condition_dropout": 0.385,
+          "condition_mean": 5.4946602284908295,
+          "condition_std": 0.01093302726132647,
+          "best_static_condition": "static_dropout_0.3",
+          "best_static_mean": 5.448330155014991,
+          "best_static_std": 0.0138285316736341,
+          "delta": 0.04633007347583806
+        },
+        {
+          "stage": 1,
+          "prefix": 500000,
+          "condition_dropout": 0.319,
+          "condition_mean": 5.071460470557213,
+          "condition_std": 0.01179360076463939,
+          "best_static_condition": "static_dropout_0.3",
+          "best_static_mean": 5.066737298667431,
+          "best_static_std": 0.017273470277214743,
+          "delta": 0.004723171889781774
+        },
+        {
+          "stage": 2,
+          "prefix": 1000000,
+          "condition_dropout": 0.227,
+          "condition_mean": 4.781069016456604,
+          "condition_std": 0.008428247627355752,
+          "best_static_condition": "static_dropout_0.3",
+          "best_static_mean": 4.79825523942709,
+          "best_static_std": 0.01441949497608529,
+          "delta": -0.01718622297048622
+        },
+        {
+          "stage": 3,
+          "prefix": 2000000,
+          "condition_dropout": 0.139,
+          "condition_mean": 4.558990895748138,
+          "condition_std": 0.014177173687439483,
+          "best_static_condition": "static_dropout_0.3",
+          "best_static_mean": 4.603498187661171,
+          "best_static_std": 0.014129740963263297,
+          "delta": -0.04450729191303271
+        },
+        {
+          "stage": 4,
+          "prefix": 4000000,
+          "condition_dropout": 0.066,
+          "condition_mean": 4.3981304407119755,
+          "condition_std": 0.009545784836147743,
+          "best_static_condition": "static_dropout_0.14",
+          "best_static_mean": 4.44545366615057,
+          "best_static_std": 0.012017216742245517,
+          "delta": -0.04732322543859446
+        }
+      ]
+    },
+    "l20_stream": {
+      "n": 3,
+      "final_stage": 5,
+      "final_prefix": 8000000,
+      "condition_final_mean": 4.179318442940712,
+      "condition_final_std": 0.01344880214961143,
+      "best_static_condition": "static_dropout_0.2",
+      "best_static_mean": 4.215624410659075,
+      "best_static_std": 0.014242200766109402,
+      "improvement": 0.03630596771836281,
+      "paired_deltas": [
+        -0.03935118764638901,
+        -0.025513865053653717,
+        -0.03717709332704544
+      ],
+      "paired_records": [
+        {
+          "seed": 1,
+          "decay_loss": 4.192408442497253,
+          "best_static_condition": "static_dropout_0.18",
+          "best_static_loss": 4.231759630143642,
+          "delta": -0.03935118764638901,
+          "gain": 0.03935118764638901
+        },
+        {
+          "seed": 2,
+          "decay_loss": 4.180009409785271,
+          "best_static_condition": "static_dropout_0.2",
+          "best_static_loss": 4.205523274838924,
+          "delta": -0.025513865053653717,
+          "gain": 0.025513865053653717
+        },
+        {
+          "seed": 3,
+          "decay_loss": 4.165537476539612,
+          "best_static_condition": "static_dropout_0.14",
+          "best_static_loss": 4.202714569866657,
+          "delta": -0.03717709332704544,
+          "gain": 0.03717709332704544
+        }
+      ],
+      "paired_wins": 3,
+      "paired_mean_delta": -0.03401404867569605,
+      "paired_std_delta": 0.007441203715372809,
+      "paired_gain_mean": 0.03401404867569605,
+      "paired_gain_std": 0.007441203715372809,
+      "paired_gain_ci_low": 0.025513865053653717,
+      "paired_gain_ci_high": 0.03935118764638901,
+      "budget": {
+        "steps_per_stage": [
+          1000
+        ],
+        "batch_sizes": [
+          16
+        ],
+        "block_size": 128,
+        "sampled_per_stage": [
+          2048000
+        ],
+        "final_sampled_tokens": 12288000,
+        "prefix_path": [
+          250000,
+          500000,
+          1000000,
+          2000000,
+          4000000,
+          8000000
+        ],
+        "stage_count": 6
+      },
+      "stage_deltas": [
+        {
+          "stage": 0,
+          "prefix": 250000,
+          "condition_dropout": 0.433,
+          "condition_mean": 5.460076779127121,
+          "condition_std": 0.0012588964293079841,
+          "best_static_condition": "static_dropout_0.3",
+          "best_static_mean": 5.39707263559103,
+          "best_static_std": 0.014451385161445679,
+          "delta": 0.06300414353609085
+        },
+        {
+          "stage": 1,
+          "prefix": 500000,
+          "condition_dropout": 0.367,
+          "condition_mean": 5.017915904521942,
+          "condition_std": 0.005764488447180914,
+          "best_static_condition": "static_dropout_0.3",
+          "best_static_mean": 5.01688560595115,
+          "best_static_std": 0.012061853156578773,
+          "delta": 0.0010302985707921763
+        },
+        {
+          "stage": 2,
+          "prefix": 1000000,
+          "condition_dropout": 0.27,
+          "condition_mean": 4.7070309941967325,
+          "condition_std": 0.015739562982191573,
+          "best_static_condition": "static_dropout_0.3",
+          "best_static_mean": 4.72180004666249,
+          "best_static_std": 0.02152489745362506,
+          "delta": -0.014769052465757326
+        },
+        {
+          "stage": 3,
+          "prefix": 2000000,
+          "condition_dropout": 0.17600000000000002,
+          "condition_mean": 4.487937837839127,
+          "condition_std": 0.009026555295310244,
+          "best_static_condition": "static_dropout_0.2",
+          "best_static_mean": 4.511637444297473,
+          "best_static_std": 0.016469397224544248,
+          "delta": -0.023699606458346345
+        },
+        {
+          "stage": 4,
+          "prefix": 4000000,
+          "condition_dropout": 0.09500000000000001,
+          "condition_mean": 4.311577834188938,
+          "condition_std": 0.015007670903308238,
+          "best_static_condition": "static_dropout_0.2",
+          "best_static_mean": 4.338780450324218,
+          "best_static_std": 0.01698295581756926,
+          "delta": -0.027202616135279634
+        },
+        {
+          "stage": 5,
+          "prefix": 8000000,
+          "condition_dropout": 0.033,
+          "condition_mean": 4.179318442940712,
+          "condition_std": 0.01344880214961143,
+          "best_static_condition": "static_dropout_0.2",
+          "best_static_mean": 4.215624410659075,
+          "best_static_std": 0.014242200766109402,
+          "delta": -0.03630596771836281
+        }
+      ]
+    }
+  },
+  "tinystories": {
+    "coefficients": {
+      "regime": "TinyStories",
+      "cells": 16,
+      "A": -0.08926115772929914,
+      "B": -0.1297539607354037,
+      "D": 0.2550686141985067,
+      "C0": 0.08152490344304414,
+      "mae": 0.01799638717496229,
+      "rmse": 0.023120178816187012,
+      "leave_model_mae": 0.029523601005481504,
+      "leave_prefix_mae": 0.03253257579449062,
+      "formula": "p = -0.089261 * log10(P / U) -0.129754 * log10(C / U) +0.255069 * log10(P / U) * log10(C / U) +0.081525"
+    },
+    "small_stream": {
+      "n": 5,
+      "final_stage": 3,
+      "final_prefix": 4000000,
+      "condition_final_mean": 2.5311126589775084,
+      "condition_final_std": 0.021347338722582713,
+      "best_static_condition": "static_dropout_0.08",
+      "best_static_mean": 2.5443769969046115,
+      "best_static_std": 0.021138839821398296,
+      "improvement": 0.013264337927103131,
+      "paired_deltas": [
+        -0.0005062669515609741,
+        -0.021110694855451584,
+        -0.009244173765182495,
+        -0.016586389392614365,
+        -0.014097623527050018
+      ],
+      "paired_records": [
+        {
+          "seed": 1,
+          "decay_loss": 2.541424009948969,
+          "best_static_condition": "static_dropout_0.08",
+          "best_static_loss": 2.54193027690053,
+          "delta": -0.0005062669515609741,
+          "gain": 0.0005062669515609741
+        },
+        {
+          "seed": 2,
+          "decay_loss": 2.5376960188150406,
+          "best_static_condition": "static_dropout_0.12",
+          "best_static_loss": 2.558806713670492,
+          "delta": -0.021110694855451584,
+          "gain": 0.021110694855451584
+        },
+        {
+          "seed": 3,
+          "decay_loss": 2.5385167226195335,
+          "best_static_condition": "static_dropout_0.08",
+          "best_static_loss": 2.547760896384716,
+          "delta": -0.009244173765182495,
+          "gain": 0.009244173765182495
+        },
+        {
+          "seed": 4,
+          "decay_loss": 2.493242312222719,
+          "best_static_condition": "static_dropout_0.08",
+          "best_static_loss": 2.5098287016153336,
+          "delta": -0.016586389392614365,
+          "gain": 0.016586389392614365
+        },
+        {
+          "seed": 5,
+          "decay_loss": 2.5446842312812805,
+          "best_static_condition": "static_dropout_0.08",
+          "best_static_loss": 2.5587818548083305,
+          "delta": -0.014097623527050018,
+          "gain": 0.014097623527050018
+        }
+      ],
+      "paired_wins": 5,
+      "paired_mean_delta": -0.012309029698371887,
+      "paired_std_delta": 0.00786865194496459,
+      "paired_gain_mean": 0.012309029698371887,
+      "paired_gain_std": 0.00786865194496459,
+      "paired_gain_ci_low": 0.005942809581756592,
+      "paired_gain_ci_high": 0.017898358404636383,
+      "budget": {
+        "steps_per_stage": [
+          2000
+        ],
+        "batch_sizes": [
+          16
+        ],
+        "block_size": 128,
+        "sampled_per_stage": [
+          4096000
+        ],
+        "final_sampled_tokens": 16384000,
+        "prefix_path": [
+          500000,
+          1000000,
+          2000000,
+          4000000
+        ],
+        "stage_count": 4
+      },
+      "stage_deltas": [
+        {
+          "stage": 0,
+          "prefix": 500000,
+          "condition_dropout": 0.184,
+          "condition_mean": 3.232573334872723,
+          "condition_std": 0.012322249630223228,
+          "best_static_condition": "static_dropout_0.12",
+          "best_static_mean": 3.2225750528275965,
+          "best_static_std": 0.014316453554089874,
+          "delta": 0.009998282045126317
+        },
+        {
+          "stage": 1,
+          "prefix": 1000000,
+          "condition_dropout": 0.141,
+          "condition_mean": 2.8907706700265408,
+          "condition_std": 0.00267614743609897,
+          "best_static_condition": "static_dropout_0.12",
+          "best_static_mean": 2.893001724779606,
+          "best_static_std": 0.012108793042410648,
+          "delta": -0.002231054753065287
+        },
+        {
+          "stage": 2,
+          "prefix": 2000000,
+          "condition_dropout": 0.084,
+          "condition_mean": 2.6690264880657195,
+          "condition_std": 0.020694473868817478,
+          "best_static_condition": "static_dropout_0.12",
+          "best_static_mean": 2.6794611223042013,
+          "best_static_std": 0.016337678176899628,
+          "delta": -0.010434634238481788
+        },
+        {
+          "stage": 3,
+          "prefix": 4000000,
+          "condition_dropout": 0.045,
+          "condition_mean": 2.5311126589775084,
+          "condition_std": 0.021347338722582713,
+          "best_static_condition": "static_dropout_0.08",
+          "best_static_mean": 2.5443769969046115,
+          "best_static_std": 0.021138839821398296,
+          "delta": -0.013264337927103131
+        }
+      ]
+    },
+    "l20_stream": {
+      "n": 3,
+      "final_stage": 4,
+      "final_prefix": 8000000,
+      "condition_final_mean": 2.208572393283248,
+      "condition_final_std": 0.004634657584019386,
+      "best_static_condition": "static_dropout_0.2",
+      "best_static_mean": 2.218574500953158,
+      "best_static_std": 0.003241222983607362,
+      "improvement": 0.010002107669909943,
+      "paired_deltas": [
+        -0.00869341753423214,
+        -0.006095590069890022,
+        -0.013002954423427582
+      ],
+      "paired_records": [
+        {
+          "seed": 1,
+          "decay_loss": 2.206169916316867,
+          "best_static_condition": "static_dropout_0.2",
+          "best_static_loss": 2.214863333851099,
+          "delta": -0.00869341753423214,
+          "gain": 0.00869341753423214
+        },
+        {
+          "seed": 2,
+          "decay_loss": 2.2139150239527225,
+          "best_static_condition": "static_dropout_0.2",
+          "best_static_loss": 2.2200106140226126,
+          "delta": -0.006095590069890022,
+          "gain": 0.006095590069890022
+        },
+        {
+          "seed": 3,
+          "decay_loss": 2.2056322395801544,
+          "best_static_condition": "static_dropout_0.18",
+          "best_static_loss": 2.218635194003582,
+          "delta": -0.013002954423427582,
+          "gain": 0.013002954423427582
+        }
+      ],
+      "paired_wins": 3,
+      "paired_mean_delta": -0.00926398734251658,
+      "paired_std_delta": 0.0034888512447114515,
+      "paired_gain_mean": 0.00926398734251658,
+      "paired_gain_std": 0.0034888512447114515,
+      "paired_gain_ci_low": 0.006095590069890022,
+      "paired_gain_ci_high": 0.013002954423427582,
+      "budget": {
+        "steps_per_stage": [
+          2000
+        ],
+        "batch_sizes": [
+          16
+        ],
+        "block_size": 128,
+        "sampled_per_stage": [
+          4096000
+        ],
+        "final_sampled_tokens": 20480000,
+        "prefix_path": [
+          500000,
+          1000000,
+          2000000,
+          4000000,
+          8000000
+        ],
+        "stage_count": 5
+      },
+      "stage_deltas": [
+        {
+          "stage": 0,
+          "prefix": 500000,
+          "condition_dropout": 0.253,
+          "condition_mean": 3.030243801573912,
+          "condition_std": 0.006391037258560546,
+          "best_static_condition": "static_dropout_0.2",
+          "best_static_mean": 3.02974146977067,
+          "best_static_std": 0.006865445597812618,
+          "delta": 0.0005023318032422175
+        },
+        {
+          "stage": 1,
+          "prefix": 1000000,
+          "condition_dropout": 0.209,
+          "condition_mean": 2.7195058229068914,
+          "condition_std": 0.01655123058742941,
+          "best_static_condition": "static_dropout_0.26",
+          "best_static_mean": 2.712211973965168,
+          "best_static_std": 0.01060853933383755,
+          "delta": 0.007293848941723358
+        },
+        {
+          "stage": 2,
+          "prefix": 2000000,
+          "condition_dropout": 0.137,
+          "condition_mean": 2.476810533553362,
+          "condition_std": 0.006082638165661795,
+          "best_static_condition": "static_dropout_0.2",
+          "best_static_mean": 2.4733379955093064,
+          "best_static_std": 0.009827865290864221,
+          "delta": 0.003472538044055451
+        },
+        {
+          "stage": 3,
+          "prefix": 4000000,
+          "condition_dropout": 0.077,
+          "condition_mean": 2.3110335220893226,
+          "condition_std": 0.015477651713059048,
+          "best_static_condition": "static_dropout_0.2",
+          "best_static_mean": 2.3167371824383736,
+          "best_static_std": 0.008877543510132386,
+          "delta": -0.00570366034905101
+        },
+        {
+          "stage": 4,
+          "prefix": 8000000,
+          "condition_dropout": 0.041,
+          "condition_mean": 2.208572393283248,
+          "condition_std": 0.004634657584019386,
+          "best_static_condition": "static_dropout_0.2",
+          "best_static_mean": 2.218574500953158,
+          "best_static_std": 0.003241222983607362,
+          "delta": -0.010002107669909943
+        }
+      ]
+    }
+  },
+  "wikitext": {
+    "coefficients": {
+      "regime": "WikiText-103",
+      "cells": 15,
+      "A": -0.002674916387321836,
+      "B": -0.2836210480242947,
+      "D": 0.2686063066585002,
+      "C0": -0.01899454503425616,
+      "mae": 0.016244092648220347,
+      "rmse": 0.019131667586788335,
+      "leave_model_mae": 0.030438322968748356,
+      "leave_prefix_mae": 0.04435212839791333,
+      "formula": "p = -0.002675 * log10(P / U) -0.283621 * log10(C / U) +0.268606 * log10(P / U) * log10(C / U) -0.018995"
+    },
+    "small_stream": {
+      "n": 5,
+      "final_stage": 4,
+      "final_prefix": 4000000,
+      "condition_final_mean": 4.080797865241766,
+      "condition_final_std": 0.019458062276034267,
+      "best_static_condition": "static_dropout_0.1",
+      "best_static_mean": 4.1104619488120075,
+      "best_static_std": 0.018806640195540816,
+      "improvement": 0.02966408357024175,
+      "paired_deltas": [
+        -0.018418047577142715,
+        -0.018113188445568085,
+        -0.027215413749217987,
+        -0.02507050335407257,
+        -0.037036627531051636
+      ],
+      "paired_records": [
+        {
+          "seed": 1,
+          "decay_loss": 4.062299974262714,
+          "best_static_condition": "static_dropout_0.1",
+          "best_static_loss": 4.080718021839857,
+          "delta": -0.018418047577142715,
+          "gain": 0.018418047577142715
+        },
+        {
+          "seed": 2,
+          "decay_loss": 4.112260434776545,
+          "best_static_condition": "static_dropout_0.06",
+          "best_static_loss": 4.130373623222113,
+          "delta": -0.018113188445568085,
+          "gain": 0.018113188445568085
+        },
+        {
+          "seed": 3,
+          "decay_loss": 4.0763493329286575,
+          "best_static_condition": "static_dropout_0.08",
+          "best_static_loss": 4.1035647466778755,
+          "delta": -0.027215413749217987,
+          "gain": 0.027215413749217987
+        },
+        {
+          "seed": 4,
+          "decay_loss": 4.0844879895448685,
+          "best_static_condition": "static_dropout_0.1",
+          "best_static_loss": 4.109558492898941,
+          "delta": -0.02507050335407257,
+          "gain": 0.02507050335407257
+        },
+        {
+          "seed": 5,
+          "decay_loss": 4.068591594696045,
+          "best_static_condition": "static_dropout_0.08",
+          "best_static_loss": 4.105628222227097,
+          "delta": -0.037036627531051636,
+          "gain": 0.037036627531051636
+        }
+      ],
+      "paired_wins": 5,
+      "paired_mean_delta": -0.0251707561314106,
+      "paired_std_delta": 0.007752385341386418,
+      "paired_gain_mean": 0.0251707561314106,
+      "paired_gain_std": 0.007752385341386418,
+      "paired_gain_ci_low": 0.019626595079898834,
+      "paired_gain_ci_high": 0.03128769695758819,
+      "budget": {
+        "steps_per_stage": [
+          1000
+        ],
+        "batch_sizes": [
+          16
+        ],
+        "block_size": 128,
+        "sampled_per_stage": [
+          2048000
+        ],
+        "final_sampled_tokens": 10240000,
+        "prefix_path": [
+          250000,
+          500000,
+          1000000,
+          2000000,
+          4000000
+        ],
+        "stage_count": 5
+      },
+      "stage_deltas": [
+        {
+          "stage": 0,
+          "prefix": 250000,
+          "condition_dropout": 0.3,
+          "condition_mean": 5.21483291387558,
+          "condition_std": 0.018060268226475495,
+          "best_static_condition": "static_dropout_0.18",
+          "best_static_mean": 5.16162400841713,
+          "best_static_std": 0.014987630048664583,
+          "delta": 0.05320890545845014
+        },
+        {
+          "stage": 1,
+          "prefix": 500000,
+          "condition_dropout": 0.26,
+          "condition_mean": 4.80534844994545,
+          "condition_std": 0.027829930328897787,
+          "best_static_condition": "static_dropout_0.2",
+          "best_static_mean": 4.787301687896251,
+          "best_static_std": 0.023601504941398347,
+          "delta": 0.01804676204919886
+        },
+        {
+          "stage": 2,
+          "prefix": 1000000,
+          "condition_dropout": 0.18,
+          "condition_mean": 4.49377838075161,
+          "condition_std": 0.014674108647494532,
+          "best_static_condition": "static_dropout_0.14",
+          "best_static_mean": 4.500055414438248,
+          "best_static_std": 0.014819407090300617,
+          "delta": -0.006277033686638234
+        },
+        {
+          "stage": 3,
+          "prefix": 2000000,
+          "condition_dropout": 0.09,
+          "condition_mean": 4.260725708305836,
+          "condition_std": 0.018098739272622868,
+          "best_static_condition": "static_dropout_0.14",
+          "best_static_mean": 4.281563547253609,
+          "best_static_std": 0.02138858846966249,
+          "delta": -0.020837838947772802
+        },
+        {
+          "stage": 4,
+          "prefix": 4000000,
+          "condition_dropout": 0.02,
+          "condition_mean": 4.080797865241766,
+          "condition_std": 0.019458062276034267,
+          "best_static_condition": "static_dropout_0.1",
+          "best_static_mean": 4.1104619488120075,
+          "best_static_std": 0.018806640195540816,
+          "delta": -0.02966408357024175
+        }
+      ]
+    },
+    "l20_stream": {
+      "n": 3,
+      "final_stage": 5,
+      "final_prefix": 8000000,
+      "condition_final_mean": 3.957240684578816,
+      "condition_final_std": 0.008487626829204101,
+      "best_static_condition": "static_dropout_0.14",
+      "best_static_mean": 3.9756230898201466,
+      "best_static_std": 0.008723729300606414,
+      "improvement": 0.018382405241330613,
+      "paired_deltas": [
+        -0.016518089920282364,
+        -0.00015844032168388367,
+        -0.027258697897195816
+      ],
+      "paired_records": [
+        {
+          "seed": 1,
+          "decay_loss": 3.952172212302685,
+          "best_static_condition": "static_dropout_0.18",
+          "best_static_loss": 3.968690302222967,
+          "delta": -0.016518089920282364,
+          "gain": 0.016518089920282364
+        },
+        {
+          "seed": 2,
+          "decay_loss": 3.967039406299591,
+          "best_static_condition": "static_dropout_0.14",
+          "best_static_loss": 3.967197846621275,
+          "delta": -0.00015844032168388367,
+          "gain": 0.00015844032168388367
+        },
+        {
+          "seed": 3,
+          "decay_loss": 3.9525104351341724,
+          "best_static_condition": "static_dropout_0.1",
+          "best_static_loss": 3.9797691330313683,
+          "delta": -0.027258697897195816,
+          "gain": 0.027258697897195816
+        }
+      ],
+      "paired_wins": 3,
+      "paired_mean_delta": -0.014645076046387354,
+      "paired_std_delta": 0.013646872385042126,
+      "paired_gain_mean": 0.014645076046387354,
+      "paired_gain_std": 0.013646872385042126,
+      "paired_gain_ci_low": 0.00015844032168388367,
+      "paired_gain_ci_high": 0.027258697897195816,
+      "budget": {
+        "steps_per_stage": [
+          1000
+        ],
+        "batch_sizes": [
+          16
+        ],
+        "block_size": 128,
+        "sampled_per_stage": [
+          2048000
+        ],
+        "final_sampled_tokens": 12288000,
+        "prefix_path": [
+          250000,
+          500000,
+          1000000,
+          2000000,
+          4000000,
+          8000000
+        ],
+        "stage_count": 6
+      },
+      "stage_deltas": [
+        {
+          "stage": 0,
+          "prefix": 250000,
+          "condition_dropout": 0.284,
+          "condition_mean": 5.2075243567427,
+          "condition_std": 0.013993230772716539,
+          "best_static_condition": "static_dropout_0.26",
+          "best_static_mean": 5.1994956483443575,
+          "best_static_std": 0.013634536236337126,
+          "delta": 0.008028708398342133
+        },
+        {
+          "stage": 1,
+          "prefix": 500000,
+          "condition_dropout": 0.211,
+          "condition_mean": 4.816951217750709,
+          "condition_std": 0.0272929978517565,
+          "best_static_condition": "static_dropout_0.3",
+          "best_static_mean": 4.8010413100322085,
+          "best_static_std": 0.023497612891923463,
+          "delta": 0.015909907718500094
+        },
+        {
+          "stage": 2,
+          "prefix": 1000000,
+          "condition_dropout": 0.116,
+          "condition_mean": 4.538959090908368,
+          "condition_std": 0.018682984974041847,
+          "best_static_condition": "static_dropout_0.26",
+          "best_static_mean": 4.507193277279536,
+          "best_static_std": 0.022063926876841285,
+          "delta": 0.03176581362883191
+        },
+        {
+          "stage": 3,
+          "prefix": 2000000,
+          "condition_dropout": 0.03599999999999999,
+          "condition_mean": 4.310809387514989,
+          "condition_std": 0.02431455246903313,
+          "best_static_condition": "static_dropout_0.26",
+          "best_static_mean": 4.275388439496358,
+          "best_static_std": 0.021064935851257058,
+          "delta": 0.03542094801863094
+        },
+        {
+          "stage": 4,
+          "prefix": 4000000,
+          "condition_dropout": 0.02,
+          "condition_mean": 4.1124994705120725,
+          "condition_std": 0.024692308091551114,
+          "best_static_condition": "static_dropout_0.18",
+          "best_static_mean": 4.108785220732291,
+          "best_static_std": 0.016546231012667934,
+          "delta": 0.003714249779781298
+        },
+        {
+          "stage": 5,
+          "prefix": 8000000,
+          "condition_dropout": 0.02,
+          "condition_mean": 3.957240684578816,
+          "condition_std": 0.008487626829204101,
+          "best_static_condition": "static_dropout_0.14",
+          "best_static_mean": 3.9756230898201466,
+          "best_static_std": 0.008723729300606414,
+          "delta": -0.018382405241330613
+        }
+      ]
+    }
+  }
+}

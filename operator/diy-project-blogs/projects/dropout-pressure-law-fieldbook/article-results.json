@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-10",
+  "metric": "validation cross-entropy reduction versus matched best-static dropout (nats)",
+  "rows": [
+    {
+      "regime": "OpenWebText10K",
+      "short": "OWT",
+      "budget": "4M",
+      "repeats": 5,
+      "decayLoss": 4.3981304407119755,
+      "bestStaticLoss": 4.44545366615057,
+      "bestStaticCondition": "static_dropout_0.14",
+      "pairedGain": 0.04732322543859482,
+      "ci95": [
+        0.0382560983300209,
+        0.055258719623088835
+      ],
+      "wins": 5,
+      "earlyPrefix": 250000,
+      "earlyDelta": 0.04633007347583806,
+      "finalDropout": 0.066
+    },
+    {
+      "regime": "OpenWebText10K",
+      "short": "OWT",
+      "budget": "8M",
+      "repeats": 3,
+      "decayLoss": 4.179318442940712,
+      "bestStaticLoss": 4.215624410659075,
+      "bestStaticCondition": "static_dropout_0.2",
+      "pairedGain": 0.03401404867569605,
+      "ci95": [
+        0.025513865053653717,
+        0.03935118764638901
+      ],
+      "wins": 3,
+      "earlyPrefix": 250000,
+      "earlyDelta": 0.06300414353609085,
+      "finalDropout": 0.033
+    },
+    {
+      "regime": "TinyStories",
+      "short": "Tiny",
+      "budget": "4M",
+      "repeats": 5,
+      "decayLoss": 2.5311126589775084,
+      "bestStaticLoss": 2.5443769969046115,
+      "bestStaticCondition": "static_dropout_0.08",
+      "pairedGain": 0.012309029698371887,
+      "ci95": [
+        0.005942809581756592,
+        0.017898358404636383
+      ],
+      "wins": 5,
+      "earlyPrefix": 500000,
+      "earlyDelta": 0.009998282045126317,
+      "finalDropout": 0.045
+    },
+    {
+      "regime": "TinyStories",
+      "short": "Tiny",
+      "budget": "8M",
+      "repeats": 3,
+      "decayLoss": 2.208572393283248,
+      "bestStaticLoss": 2.218574500953158,
+      "bestStaticCondition": "static_dropout_0.2",
+      "pairedGain": 0.00926398734251658,
+      "ci95": [
+        0.006095590069890022,
+        0.013002954423427582
+      ],
+      "wins": 3,
+      "earlyPrefix": 500000,
+      "earlyDelta": 0.0005023318032422175,
+      "finalDropout": 0.041
+    },
+    {
+      "regime": "WikiText-103",
+      "short": "Wiki",
+      "budget": "4M",
+      "repeats": 5,
+      "decayLoss": 4.080797865241766,
+      "bestStaticLoss": 4.1104619488120075,
+      "bestStaticCondition": "static_dropout_0.1",
+      "pairedGain": 0.0251707561314106,
+      "ci95": [
+        0.019626595079898834,
+        0.03128769695758819
+      ],
+      "wins": 5,
+      "earlyPrefix": 250000,
+      "earlyDelta": 0.05320890545845014,
+      "finalDropout": 0.02
+    },
+    {
+      "regime": "WikiText-103",
+      "short": "Wiki",
+      "budget": "8M",
+      "repeats": 3,
+      "decayLoss": 3.957240684578816,
+      "bestStaticLoss": 3.9756230898201466,
+      "bestStaticCondition": "static_dropout_0.14",
+      "pairedGain": 0.014645076046387354,
+      "ci95": [
+        0.00015844032168388367,
+        0.027258697897195816
+      ],
+      "wins": 3,
+      "earlyPrefix": 250000,
+      "earlyDelta": 0.008028708398342133,
+      "finalDropout": 0.02
+    }
+  ],
+  "coefficients": [
+    {
+      "regime": "OpenWebText10K",
+      "cells": 15,
+      "A": 0.08189560629877818,
+      "B": -0.023948107975524876,
+      "D": 0.1536984646521253,
+      "C0": -0.05559686586455526,
+      "mae": 0.01579101988615387,
+      "rmse": 0.018845563252758567,
+      "leave_model_mae": 0.024771721924833498,
+      "leave_prefix_mae": 0.030983393290384315,
+      "formula": "p = +0.081896 * log10(P / U) -0.023948 * log10(C / U) +0.153698 * log10(P / U) * log10(C / U) -0.055597"
+    },
+    {
+      "regime": "TinyStories",
+      "cells": 16,
+      "A": -0.08926115772929914,
+      "B": -0.1297539607354037,
+      "D": 0.2550686141985067,
+      "C0": 0.08152490344304414,
+      "mae": 0.01799638717496229,
+      "rmse": 0.023120178816187012,
+      "leave_model_mae": 0.029523601005481504,
+      "leave_prefix_mae": 0.03253257579449062,
+      "formula": "p = -0.089261 * log10(P / U) -0.129754 * log10(C / U) +0.255069 * log10(P / U) * log10(C / U) +0.081525"
+    },
+    {
+      "regime": "WikiText-103",
+      "cells": 15,
+      "A": -0.002674916387321836,
+      "B": -0.2836210480242947,
+      "D": 0.2686063066585002,
+      "C0": -0.01899454503425616,
+      "mae": 0.016244092648220347,
+      "rmse": 0.019131667586788335,
+      "leave_model_mae": 0.030438322968748356,
+      "leave_prefix_mae": 0.04435212839791333,
+      "formula": "p = -0.002675 * log10(P / U) -0.283621 * log10(C / U) +0.268606 * log10(P / U) * log10(C / U) -0.018995"
+    }
+  ]
+}

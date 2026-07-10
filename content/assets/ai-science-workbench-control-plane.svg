@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
+  <title>Scientific workbench scale and end-to-end reliability gap</title>
+  <desc>Current science workbenches expose many tools and workflow stages, while PaperArena and AstaBench measurements show large gaps between component capability and complete scientific work.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <style>
+    text { font-family: Inter, ui-sans-serif, system-ui, sans-serif; fill: #101720; }
+    .eyebrow { font-size: 14px; font-weight: 750; letter-spacing: 1px; fill: #67e8f9; }
+    .title { font-size: 35px; font-weight: 780; }
+    .sub { font-size: 16px; fill: #a9b8cc; }
+    .metric { font-size: 35px; font-weight: 800; }
+    .label { font-size: 15px; font-weight: 680; }
+    .small { font-size: 12px; fill: #91a2b9; }
+    .panel { font-size: 18px; font-weight: 720; }
+    .grid { stroke: #26364b; stroke-width: 1; }
+  </style>
+  <text x="64" y="58" class="eyebrow">AI FOR SCIENCE: EXECUTION NEEDS CONTROL</text>
+  <text x="64" y="101" class="title">Workbench depth rose faster than end-to-end reliability</text>
+  <text x="64" y="132" class="sub">Product-scale signals describe integration. Benchmarks below measure different tasks and must not be merged.</text>
+
+  <rect x="62" y="164" width="1076" height="142" rx="8" fill="#0c1a2b" stroke="#263a51"/>
+  <line x1="421" y1="184" x2="421" y2="286" class="grid"/>
+  <line x1="780" y1="184" x2="780" y2="286" class="grid"/>
+  <text x="92" y="205" class="small">CLAUDE SCIENCE</text>
+  <text x="92" y="251" class="metric" fill="#22d3ee">60+</text>
+  <text x="180" y="248" class="label">curated skills and connectors</text>
+  <text x="450" y="205" class="small">GPT-ROSALIND</text>
+  <text x="450" y="251" class="metric" fill="#9b87ff">6</text>
+  <text x="486" y="248" class="label">LifeSciBench workflow areas</text>
+  <text x="809" y="205" class="small">FUTUREHOUSE PLATFORM</text>
+  <text x="809" y="251" class="metric" fill="#14b8a6">4</text>
+  <text x="845" y="248" class="label">specialized agents at launch</text>
+  <text x="92" y="282" class="small">Integration counts are product descriptions, not capability scores.</text>
+
+  <rect x="62" y="330" width="520" height="270" rx="8" fill="#0c1a2b" stroke="#263a51"/>
+  <text x="88" y="368" class="panel">PaperArena cross-paper reasoning</text>
+  <text x="88" y="391" class="small">Same benchmark scale: Ph.D. experts vs best listed multi-agent system</text>
+  <text x="88" y="438" class="label">Ph.D. experts</text>
+  <rect x="210" y="420" width="300" height="28" rx="5" fill="#101720" opacity="0.92"/>
+  <text x="520" y="440" class="label">83.50</text>
+  <text x="88" y="494" class="label">Best agent</text>
+  <rect x="210" y="476" width="139" height="28" rx="5" fill="#22d3ee"/>
+  <text x="359" y="496" class="label">38.78</text>
+  <line x1="349" y1="523" x2="510" y2="523" stroke="#fb7185" stroke-width="3"/>
+  <text x="430" y="550" class="label" text-anchor="middle" fill="#fda4af">44.72-point gap</text>
+  <text x="88" y="579" class="small">Multi-agent avg. steps: 8.58. Tool use remained inefficient.</text>
+
+  <rect x="606" y="330" width="532" height="270" rx="8" fill="#0c1a2b" stroke="#263a51"/>
+  <text x="632" y="368" class="panel" textLength="494" lengthAdjust="spacingAndGlyphs">AstaBench: aggregate success can hide completion failure</text>
+  <text x="632" y="391" class="small">Different AstaBench slices; shown side-by-side as an adoption warning</text>
+  <text x="632" y="438" class="label">Top current aggregate</text>
+  <rect x="790" y="420" width="232" height="28" rx="5" fill="#9b87ff"/>
+  <text x="1032" y="440" class="label">58.0%</text>
+  <text x="632" y="494" class="label">Perfect E2E-Hard</text>
+  <rect x="790" y="476" width="12" height="28" rx="4" fill="#fb7185"/>
+  <text x="812" y="496" class="label">3%</text>
+  <text x="632" y="536" class="small">The hard workflow often completed 60-70% of steps,</text>
+  <text x="632" y="555" class="small">yet an unfinished scientific chain is not a defensible result.</text>
+  <text x="632" y="579" class="small">Current aggregate: Opus 4.7, $3.54 average/problem.</text>
+
+  <text x="64" y="637" class="small">Sources: Anthropic Claude Science (Jun 30 2026), OpenAI GPT-Rosalind (Jun 3 2026), FutureHouse, PaperArena, Ai2 AstaBench (Apr 30 2026).</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "dropout-pressure-law-streaming-language-models",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The observed gain may come from using any sensible high-to-low dropout path rather than from the fitted interaction pressure law, because the final validation does not include matched linear, cosine, and piecewise schedule controls.",
+      "unsupportedClaimRisk": "Calling the formula itself necessary would exceed the evidence; the paired runs establish superiority over the tested static grid at the final prefixes, not superiority over all adaptive schedules or transfer to frontier-scale training.",
+      "reproductionBarrier": "Full training reproduction requires the frozen corpus caches, exact static grids, multi-seed MPS runs, and substantial runtime; the article-level analyzer can audit the published numbers but cannot replace those training artifacts.",
+      "revisions": [
+        "Added the unresolved schedule-shape counterargument and named linear, cosine, and matched piecewise decay as required future controls.",
+        "Converted the absolute gains into a bounded 0.37%-1.06% relative cross-entropy range and explicitly rejected downstream-quality inflation."
+      ]
+    },
+    {
+      "slug": "gpt-5-6-model-routing-cost-benchmarks",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 5,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "Most exact benchmark rows are launch-time provider measurements or pre-release independent tests, so none establishes that GPT-5.6 will lower cost or improve acceptance in the reader's production harness.",
+      "unsupportedClaimRisk": "The independent index's finding that Terra is dominated could be overgeneralized into a universal routing rule even though another prompt mix, tokenizer profile, latency target, or tool harness could give Terra a valid workload.",
+      "reproductionBarrier": "The public sources do not provide one executable harness that reproduces every cross-provider row, and a useful decision additionally requires private task traces, human repair costs, cache behavior, and route-level ground truth.",
+      "revisions": [
+        "Added a numeric Sol-versus-Luna break-even calculation that converts a 20-point failure reduction into a $4.56 avoided-failure threshold.",
+        "Added a 200-task Pareto exit condition for Terra so the middle tier is removed when it wins no production route."
+      ]
+    },
+    {
+      "slug": "ai-science-workbenches-control-plane",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The workbench feature comparison is based on vendor descriptions, while the independent benchmarks evaluate different agents and scaffolds; combining them could imply product reliability that has not been measured.",
+      "unsupportedClaimRisk": "The strongest risk is transferring AstaBench, PaperArena, or SciAgentArena results to Claude Science or GPT-Rosalind and treating product-level provenance features as proof that those controls are complete or effective.",
+      "reproductionBarrier": "A lab cannot validate the recommendation without controlled access to its own sensitive data, identity system, cluster policy, domain reviewers, and completed workflow corpus, none of which a public benchmark can substitute for.",
+      "revisions": [
+        "Added an explicit statement that none of the cited benchmarks directly ranks the released workbench products and that backbone-to-product transfer is a category error.",
+        "Added five adversarial pre-data checks for egress, credential expiry, immutable inputs, compute ceilings, and reviewer quarantine."
+      ]
+    }
+  ]
+}

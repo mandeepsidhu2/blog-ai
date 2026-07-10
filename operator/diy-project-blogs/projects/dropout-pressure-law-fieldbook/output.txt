@@ -1,0 +1,8 @@
+paired final-prefix audit (positive gain favors decay)
+OpenWebText10K  4M gain=0.0473 ci95=[0.0383,0.0553] wins=5/5 early_delta=0.0463
+OpenWebText10K  8M gain=0.0340 ci95=[0.0255,0.0394] wins=3/3 early_delta=0.0630
+TinyStories     4M gain=0.0123 ci95=[0.0059,0.0179] wins=5/5 early_delta=0.0100
+TinyStories     8M gain=0.0093 ci95=[0.0061,0.0130] wins=3/3 early_delta=0.0005
+WikiText-103    4M gain=0.0252 ci95=[0.0196,0.0313] wins=5/5 early_delta=0.0532
+WikiText-103    8M gain=0.0146 ci95=[0.0002,0.0273] wins=3/3 early_delta=0.0080
+claim boundary: six measured small-transformer regimes; no frontier-scale extrapolation
