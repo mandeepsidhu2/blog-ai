@@ -233,5 +233,17 @@ Terraform, OpenTofu, local-model, Torch, or other cloud-mutating command ran.
 
 ## Publication transaction
 
-Pending the authorized Git commit and `git push origin main`. This section will
-be updated with the exact commit and remote result after the transaction.
+The validated batch and initial report were committed as:
+
+- `08767ff` — `Publish benchmark uncertainty and AI analysis batch`
+
+The sandboxed push failed because DNS resolution for `github.com` was blocked.
+The narrowly approved outside-sandbox `git push origin main` succeeded:
+
+```text
+760f3ef..08767ff  main -> main
+```
+
+This report update is committed separately so the durable record contains the
+observed remote result. No S3 fallback, AWS CLI, Terraform, or OpenTofu command
+was used.
