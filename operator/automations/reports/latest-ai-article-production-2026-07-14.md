@@ -66,4 +66,10 @@ The first sandboxed preview-server bind returned `EPERM`; the same repository-lo
 
 Pre-existing untracked blocked reports and `operator/diy-project-blogs/projects/heading-aware-retrieval/` were not modified or staged. Only this batch's three articles, three assets, evidence project, editorial review, and durable report are in scope for the automation commit.
 
-Run report written at 2026-07-14T14:11:43Z. Commit and push results are appended after version-control completion.
+Run report written at 2026-07-14T14:11:43Z.
+
+## Version control
+
+- Batch commit: `e494311` (`Publish multilingual token, Hy3, and GitHub Models articles`)
+- Push: successful to `origin/main` (`ecd1443..e494311`)
+- The initial sandboxed push failed DNS resolution; the authorized network retry succeeded.
