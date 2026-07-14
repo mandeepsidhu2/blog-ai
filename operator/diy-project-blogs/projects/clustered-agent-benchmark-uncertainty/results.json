@@ -1,0 +1,164 @@
+{
+  "generatedAt": "2026-07-13T17:08:47.430Z",
+  "estimand": "Mean paired success-rate difference, agent B minus agent A",
+  "trueTreatmentEffect": 0.05,
+  "dataGeneratingProcess": "Repository difficulty is shared by both agents; repository-level treatment heterogeneity induces dependence among paired task deltas.",
+  "scenarios": [
+    {
+      "label": "heterogeneity-0",
+      "repositoryCount": 40,
+      "taskCount": 320,
+      "heterogeneityHalfWidth": 0,
+      "methods": {
+        "naive": {
+          "coverage": 0.94,
+          "coverageMonteCarloSE": 0.006855654600401047,
+          "meanIntervalWidth": 0.15332148326427755,
+          "absoluteCoverageError": 0.010000000000000009
+        },
+        "taskBootstrap": {
+          "coverage": 0.9383333333333334,
+          "coverageMonteCarloSE": 0.0069440555446660555,
+          "meanIntervalWidth": 0.15136061197916623,
+          "absoluteCoverageError": 0.011666666666666603
+        },
+        "clusterBootstrap": {
+          "coverage": 0.9325,
+          "coverageMonteCarloSE": 0.007242452968435487,
+          "meanIntervalWidth": 0.14909850260416635,
+          "absoluteCoverageError": 0.01749999999999996
+        }
+      }
+    },
+    {
+      "label": "heterogeneity-0.1",
+      "repositoryCount": 40,
+      "taskCount": 320,
+      "heterogeneityHalfWidth": 0.1,
+      "methods": {
+        "naive": {
+          "coverage": 0.9466666666666667,
+          "coverageMonteCarloSE": 0.006486453119700634,
+          "meanIntervalWidth": 0.15282388043290956,
+          "absoluteCoverageError": 0.0033333333333332993
+        },
+        "taskBootstrap": {
+          "coverage": 0.9425,
+          "coverageMonteCarloSE": 0.006720227550710864,
+          "meanIntervalWidth": 0.1507693359374996,
+          "absoluteCoverageError": 0.007499999999999951
+        },
+        "clusterBootstrap": {
+          "coverage": 0.9408333333333333,
+          "coverageMonteCarloSE": 0.006810896430366946,
+          "meanIntervalWidth": 0.15131490885416618,
+          "absoluteCoverageError": 0.009166666666666656
+        }
+      }
+    },
+    {
+      "label": "heterogeneity-0.2",
+      "repositoryCount": 40,
+      "taskCount": 320,
+      "heterogeneityHalfWidth": 0.2,
+      "methods": {
+        "naive": {
+          "coverage": 0.9166666666666666,
+          "coverageMonteCarloSE": 0.00797855923130282,
+          "meanIntervalWidth": 0.1528810807617115,
+          "absoluteCoverageError": 0.033333333333333326
+        },
+        "taskBootstrap": {
+          "coverage": 0.9141666666666667,
+          "coverageMonteCarloSE": 0.00808630386426241,
+          "meanIntervalWidth": 0.15080794270833295,
+          "absoluteCoverageError": 0.03583333333333327
+        },
+        "clusterBootstrap": {
+          "coverage": 0.935,
+          "coverageMonteCarloSE": 0.00711658860222602,
+          "meanIntervalWidth": 0.16192649739583287,
+          "absoluteCoverageError": 0.014999999999999902
+        }
+      }
+    },
+    {
+      "label": "clusters-10",
+      "repositoryCount": 10,
+      "taskCount": 80,
+      "heterogeneityHalfWidth": 0.2,
+      "methods": {
+        "naive": {
+          "coverage": 0.9191666666666667,
+          "coverageMonteCarloSE": 0.007868677650213088,
+          "meanIntervalWidth": 0.3056549973249932,
+          "absoluteCoverageError": 0.030833333333333268
+        },
+        "taskBootstrap": {
+          "coverage": 0.9166666666666666,
+          "coverageMonteCarloSE": 0.00797855923130282,
+          "meanIntervalWidth": 0.3000820312499997,
+          "absoluteCoverageError": 0.033333333333333326
+        },
+        "clusterBootstrap": {
+          "coverage": 0.9041666666666667,
+          "coverageMonteCarloSE": 0.00849751461485237,
+          "meanIntervalWidth": 0.3031338541666663,
+          "absoluteCoverageError": 0.04583333333333328
+        }
+      }
+    },
+    {
+      "label": "clusters-20",
+      "repositoryCount": 20,
+      "taskCount": 160,
+      "heterogeneityHalfWidth": 0.2,
+      "methods": {
+        "naive": {
+          "coverage": 0.9158333333333334,
+          "coverageMonteCarloSE": 0.00801470725650085,
+          "meanIntervalWidth": 0.21628879365702705,
+          "absoluteCoverageError": 0.03416666666666657
+        },
+        "taskBootstrap": {
+          "coverage": 0.9191666666666667,
+          "coverageMonteCarloSE": 0.007868677650213088,
+          "meanIntervalWidth": 0.21340625000000002,
+          "absoluteCoverageError": 0.030833333333333268
+        },
+        "clusterBootstrap": {
+          "coverage": 0.925,
+          "coverageMonteCarloSE": 0.007603453162872772,
+          "meanIntervalWidth": 0.2239811197916663,
+          "absoluteCoverageError": 0.02499999999999991
+        }
+      }
+    },
+    {
+      "label": "clusters-80",
+      "repositoryCount": 80,
+      "taskCount": 640,
+      "heterogeneityHalfWidth": 0.2,
+      "methods": {
+        "naive": {
+          "coverage": 0.925,
+          "coverageMonteCarloSE": 0.007603453162872772,
+          "meanIntervalWidth": 0.10809691008299746,
+          "absoluteCoverageError": 0.02499999999999991
+        },
+        "taskBootstrap": {
+          "coverage": 0.9208333333333333,
+          "coverageMonteCarloSE": 0.007794191510111638,
+          "meanIntervalWidth": 0.10637962239583323,
+          "absoluteCoverageError": 0.029166666666666674
+        },
+        "clusterBootstrap": {
+          "coverage": 0.9408333333333333,
+          "coverageMonteCarloSE": 0.006810896430366946,
+          "meanIntervalWidth": 0.115276595052083,
+          "absoluteCoverageError": 0.009166666666666656
+        }
+      }
+    }
+  ]
+}

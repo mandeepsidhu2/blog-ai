@@ -1,0 +1,13 @@
+{
+  "seed": 20260713,
+  "monteCarloRepeats": 1200,
+  "bootstrapRepeats": 400,
+  "confidenceLevel": 0.95,
+  "tasksPerRepository": 8,
+  "baseSuccessProbability": 0.45,
+  "trueTreatmentEffect": 0.05,
+  "repositoryDifficultyHalfWidth": 0.12,
+  "primaryRepositoryCount": 40,
+  "heterogeneityHalfWidths": [0, 0.1, 0.2],
+  "clusterCountAblation": [10, 20, 40, 80]
+}

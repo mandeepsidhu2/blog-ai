@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" data-text-fit="bounded" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title id="title">GPT-Live full-duplex evaluation surface</title>
+  <desc id="desc">A four-lane fieldbook chart mapping conversation timing, tool execution, reasoning continuity, and safety timing to measurable release signals, alongside public Full-Duplex-Bench v3 reference values.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1280" height="720" fill="#080c12"/>
+    <rect width="1280" height="720" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset="1" stop-color="#15233d"/></linearGradient>
+  </defs>
+
+  <style>
+    text{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;fill:#e8f0ff}.kicker{font-size:15px;letter-spacing:2px;fill:#82b6ff}.title{font-family:ui-sans-serif,system-ui,sans-serif;font-size:31px;font-weight:750}.sub{font-size:14px;fill:#a8bad4}.lane{font-size:16px;font-weight:700}.metric{font-size:13px;fill:#d5e0f1}.small{font-size:11px;fill:#91a5c3}.value{font-size:21px;font-weight:800}.foot{font-size:12px;fill:#a8bad4}
+  </style>
+  <text x="52" y="45" class="kicker">VOICE SYSTEM DECISION SURFACE • JULY 13, 2026</text>
+  <text x="52" y="84" class="title" textLength="696" lengthAdjust="spacingAndGlyphs">Full duplex changes the evaluation unit from turns to events</text>
+  <text x="52" y="111" class="sub" textLength="696" lengthAdjust="spacingAndGlyphs">A release gate needs independent floors for timing, task execution, continuity, and safety—not one latency score.</text>
+
+  <g transform="translate(52 146)">
+    <rect width="760" height="112" rx="8" fill="#101c31" stroke="#2c4163"/>
+    <rect width="14" height="112" rx="7" fill="#62d7ff"/>
+    <text x="34" y="31" class="lane">01 CONVERSATION TIMING</text>
+    <text x="34" y="59" class="metric">false floor takes • repair capture • stop latency • backchannel precision</text>
+    <line x1="34" y1="79" x2="720" y2="79" stroke="#29405f"/>
+    <circle cx="72" cy="94" r="5" fill="#62d7ff"/><circle cx="260" cy="94" r="5" fill="#62d7ff"/><circle cx="448" cy="94" r="5" fill="#62d7ff"/><circle cx="636" cy="94" r="5" fill="#62d7ff"/>
+  </g>
+  <g transform="translate(52 272)">
+    <rect width="760" height="112" rx="8" fill="#101c31" stroke="#2c4163"/>
+    <rect width="14" height="112" rx="7" fill="#61e3ba"/>
+    <text x="34" y="31" class="lane">02 TOOL EXECUTION</text>
+    <text x="34" y="59" class="metric">selection F1 • argument accuracy • verified task state • commit latency</text>
+    <line x1="34" y1="79" x2="720" y2="79" stroke="#29405f"/>
+    <circle cx="72" cy="94" r="5" fill="#61e3ba"/><circle cx="260" cy="94" r="5" fill="#61e3ba"/><circle cx="448" cy="94" r="5" fill="#61e3ba"/><circle cx="636" cy="94" r="5" fill="#61e3ba"/>
+  </g>
+  <g transform="translate(52 398)">
+    <rect width="760" height="112" rx="8" fill="#101c31" stroke="#2c4163"/>
+    <rect width="14" height="112" rx="7" fill="#f7c65d"/>
+    <text x="34" y="31" class="lane">03 REASONING CONTINUITY</text>
+    <text x="34" y="59" class="metric">delegation handle • cancellation • state return • stale-action prevention</text>
+    <line x1="34" y1="79" x2="720" y2="79" stroke="#29405f"/>
+    <circle cx="72" cy="94" r="5" fill="#f7c65d"/><circle cx="260" cy="94" r="5" fill="#f7c65d"/><circle cx="448" cy="94" r="5" fill="#f7c65d"/><circle cx="636" cy="94" r="5" fill="#f7c65d"/>
+  </g>
+  <g transform="translate(52 524)">
+    <rect width="760" height="112" rx="8" fill="#101c31" stroke="#2c4163"/>
+    <rect width="14" height="112" rx="7" fill="#ff8f83"/>
+    <text x="34" y="31" class="lane">04 SAFETY TIMING</text>
+    <text x="34" y="59" class="metric">barge-in recall • false alarms • refusal quality • action confirmation</text>
+    <line x1="34" y1="79" x2="720" y2="79" stroke="#29405f"/>
+    <circle cx="72" cy="94" r="5" fill="#ff8f83"/><circle cx="260" cy="94" r="5" fill="#ff8f83"/><circle cx="448" cy="94" r="5" fill="#ff8f83"/><circle cx="636" cy="94" r="5" fill="#ff8f83"/>
+  </g>
+
+  <g transform="translate(842 146)">
+    <rect width="386" height="490" rx="8" fill="#0d192c" stroke="#395071"/>
+    <text x="24" y="34" class="lane">PUBLIC REFERENCE • FDB-v3</text>
+    <text x="24" y="58" class="small">Earlier systems; not GPT-Live measurements</text>
+    <text x="24" y="104" class="small">GPT-Realtime tool selection F1</text><text x="294" y="107" class="value" fill="#61e3ba">0.876</text>
+    <rect x="24" y="119" width="330" height="8" rx="4" fill="#263954"/><rect x="24" y="119" width="289" height="8" rx="4" fill="#61e3ba"/>
+    <text x="24" y="168" class="small">Argument accuracy</text><text x="294" y="171" class="value" fill="#61e3ba">0.680</text>
+    <rect x="24" y="183" width="330" height="8" rx="4" fill="#263954"/><rect x="24" y="183" width="224" height="8" rx="4" fill="#61e3ba"/>
+    <text x="24" y="232" class="small">Pass@1</text><text x="294" y="235" class="value" fill="#61e3ba">0.600</text>
+    <rect x="24" y="247" width="330" height="8" rx="4" fill="#263954"/><rect x="24" y="247" width="198" height="8" rx="4" fill="#61e3ba"/>
+    <text x="24" y="296" class="small">Interruption rate</text><text x="284" y="299" class="value" fill="#ff8f83">13.5%</text>
+    <rect x="24" y="311" width="330" height="8" rx="4" fill="#263954"/><rect x="24" y="311" width="45" height="8" rx="4" fill="#ff8f83"/>
+    <line x1="24" y1="350" x2="354" y2="350" stroke="#395071"/>
+    <text x="24" y="382" class="small">Gemini Live 3.1 benchmark latency</text>
+    <text x="24" y="414" class="metric">first word</text><text x="284" y="414" class="metric">3.95 s</text>
+    <text x="24" y="442" class="metric">tool call</text><text x="284" y="442" class="metric">2.21 s</text>
+    <text x="24" y="470" class="metric">completion</text><text x="284" y="470" class="metric">4.25 s</text>
+  </g>
+  <text x="52" y="677" class="foot">Sources: OpenAI GPT-Live release/system card (2026-07-08); Full-Duplex-Bench v3 paper/code (2026-04-06 / 2026-05-20).</text>
+  <text x="52" y="699" class="foot">Decision: upgrade the event-stream evaluator now; wait for a documented GPT-Live API contract before model migration.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 14px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1256" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1279" height="719" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

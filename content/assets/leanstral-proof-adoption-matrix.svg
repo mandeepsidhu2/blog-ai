@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" data-text-fit="bounded" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title id="title">Leanstral 1.5 evidence and adoption matrix</title>
+  <desc id="desc">Benchmark bars for PutnamBench, FATE-H, FATE-X, and FLTEval beside a production trust envelope that assigns probabilistic proof search to the model and deterministic acceptance to Lean checking and review.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1280" height="720" fill="#080c12"/>
+    <rect width="1280" height="720" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#091121"/><stop offset="1" stop-color="#1d1738"/></linearGradient></defs>
+
+  <style>
+    text{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;fill:#eef0ff}.kicker{font-size:15px;letter-spacing:2px;fill:#b9a6ff}.title{font-family:ui-sans-serif,system-ui,sans-serif;font-size:31px;font-weight:750}.sub{font-size:14px;fill:#b5b8d2}.panel{font-size:17px;font-weight:700}.label{font-size:13px;fill:#d9daec}.value{font-size:20px;font-weight:800}.small{font-size:11px;fill:#9ea4c2}.gate{font-size:14px;font-weight:700}.foot{font-size:12px;fill:#aeb3cc}
+  </style>
+  <text x="52" y="45" class="kicker">FORMAL PROOF ADOPTION MATRIX • JULY 13, 2026</text>
+  <text x="52" y="84" class="title" textLength="504" lengthAdjust="spacingAndGlyphs">Let the model search broadly; keep acceptance narrow</text>
+  <text x="52" y="111" class="sub" textLength="504" lengthAdjust="spacingAndGlyphs">Provider-reported results justify a pilot. Kernel checks, statement ownership, and dependency policy define production trust.</text>
+
+  <g transform="translate(52 148)">
+    <rect width="568" height="500" rx="8" fill="#11172b" stroke="#423b68"/>
+    <text x="24" y="36" class="panel">A  RELEASE EVIDENCE</text>
+    <text x="24" y="60" class="small">Different benchmarks and attempt budgets; bars share a 0–100% visual scale only</text>
+    <text x="24" y="108" class="label">PutnamBench • 587 / 672</text><text x="476" y="108" class="value" fill="#75e6c4">87.4%</text>
+    <rect x="24" y="122" width="514" height="12" rx="6" fill="#2b3150"/><rect x="24" y="122" width="449" height="12" rx="6" fill="#75e6c4"/>
+    <text x="24" y="178" class="label">FATE-H • 100 problems</text><text x="476" y="178" class="value" fill="#75e6c4">87%</text>
+    <rect x="24" y="192" width="514" height="12" rx="6" fill="#2b3150"/><rect x="24" y="192" width="447" height="12" rx="6" fill="#75e6c4"/>
+    <text x="24" y="248" class="label">FATE-X • 100 problems</text><text x="476" y="248" class="value" fill="#f1c75b">34%</text>
+    <rect x="24" y="262" width="514" height="12" rx="6" fill="#2b3150"/><rect x="24" y="262" width="175" height="12" rx="6" fill="#f1c75b"/>
+    <text x="24" y="318" class="label">FLTEval pass@1</text><text x="464" y="318" class="value" fill="#8fb4ff">28.9%</text>
+    <rect x="24" y="332" width="514" height="12" rx="6" fill="#2b3150"/><rect x="24" y="332" width="149" height="12" rx="6" fill="#8fb4ff"/>
+    <text x="24" y="388" class="label">FLTEval pass@8</text><text x="464" y="388" class="value" fill="#b9a6ff">43.2%</text>
+    <rect x="24" y="402" width="514" height="12" rx="6" fill="#2b3150"/><rect x="24" y="402" width="222" height="12" rx="6" fill="#b9a6ff"/>
+    <line x1="24" y1="444" x2="538" y2="444" stroke="#423b68"/>
+    <text x="24" y="472" class="small">119B total • 6.5B active/token • 128 experts / 4 active • 256k max context</text>
+  </g>
+
+  <g transform="translate(652 148)">
+    <rect width="576" height="500" rx="8" fill="#11172b" stroke="#423b68"/>
+    <text x="24" y="36" class="panel">B  PRODUCTION TRUST ENVELOPE</text>
+    <g transform="translate(24 76)">
+      <rect width="528" height="78" rx="8" fill="#1c2440" stroke="#7665b3"/>
+      <text x="18" y="29" class="gate" fill="#b9a6ff" textLength="220" lengthAdjust="spacingAndGlyphs">PROBABILISTIC • MODEL MAY PROPOSE</text>
+      <text x="18" y="56" class="label">search • repair • retrieve lemmas • sample proof paths</text>
+    </g>
+    <path d="M288 165 V199" stroke="#b9a6ff" stroke-width="3"/><path d="M280 191 L288 201 L296 191" fill="none" stroke="#b9a6ff" stroke-width="3"/>
+    <g transform="translate(24 208)">
+      <rect width="528" height="78" rx="8" fill="#19263b" stroke="#5aa58f"/>
+      <text x="18" y="29" class="gate" fill="#75e6c4" textLength="220" lengthAdjust="spacingAndGlyphs">DETERMINISTIC • CLEAN CHECKOUT</text>
+      <text x="18" y="56" class="label">pinned Lean + Mathlib • allowed imports • kernel check</text>
+    </g>
+    <path d="M288 297 V331" stroke="#75e6c4" stroke-width="3"/><path d="M280 323 L288 333 L296 323" fill="none" stroke="#75e6c4" stroke-width="3"/>
+    <g transform="translate(24 340)">
+      <rect width="528" height="78" rx="8" fill="#31202d" stroke="#b76a76"/>
+      <text x="18" y="29" class="gate" fill="#ff9da8" textLength="220" lengthAdjust="spacingAndGlyphs">HUMAN-OWNED • SPECIFICATION + MERGE</text>
+      <text x="18" y="56" class="label">statement diff • axiom policy • intent review • authorization</text>
+    </g>
+    <g transform="translate(24 442)">
+      <rect width="250" height="32" rx="6" fill="#3a2630"/><text x="14" y="21" class="small">ROLL BACK: review time regresses</text>
+      <rect x="278" width="250" height="32" rx="6" fill="#3a2630"/><text x="292" y="21" class="small">BLOCK: statement or axiom drift</text>
+    </g>
+  </g>
+  <text x="52" y="680" class="foot">Sources: Mistral Leanstral 1.5 release/model card (2026-07-02); FLTEval; PutnamBench; FATE-H/X.</text>
+  <text x="52" y="702" class="foot">Comparability limit: task sets, Lean environments, prompts, and test-time budgets differ; these bars are not a normalized leaderboard.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 14px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1256" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1279" height="719" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

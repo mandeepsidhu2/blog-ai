@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" data-text-fit="bounded" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+<title id="title">Confidence interval coverage under repository-clustered coding tasks</title>
+<desc id="desc">Two-panel result chart showing 95 percent interval coverage for task-normal, task-bootstrap, and repository-bootstrap estimators as treatment heterogeneity and repository count change. Error bars show 1.96 Monte Carlo standard errors across 1,200 simulated datasets.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1280" height="720" fill="#080c12"/>
+    <rect width="1280" height="720" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07101f"/><stop offset="1" stop-color="#10213b"/></linearGradient></defs>
+
+<style>
+text{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;fill:#e5eefc}.eyebrow{font-size:15px;letter-spacing:2px;fill:#8fb7ff}.title{font-family:ui-sans-serif,system-ui,sans-serif;font-size:31px;font-weight:700}.subtitle{font-size:15px;fill:#a9bad3}.panel-title{font-size:17px;font-weight:700}.axis{font-size:12px;fill:#9fb0c9}.label{font-size:11px;fill:#c8d5e8}.legend{font-size:13px;fill:#c8d5e8}.note{font-size:13px;fill:#9fb0c9}
+</style>
+<text x="56" y="45" class="eyebrow">MONTE CARLO RESULT • 1,200 REPEATS PER CELL</text>
+<text x="56" y="82" class="title">The correct resampling unit depends on the dependency structure</text>
+<text x="56" y="108" class="subtitle">Points are empirical 95% interval coverage; vertical bars are ±1.96 Monte Carlo SE; horizontal reference is nominal 95%.</text>
+<circle cx="166" cy="129" r="6" fill="#ff8a65"/><text x="180" y="134" class="legend">Task normal</text>
+<circle cx="426" cy="129" r="6" fill="#f6c453"/><text x="440" y="134" class="legend">Task bootstrap</text>
+<circle cx="686" cy="129" r="6" fill="#5eead4"/><text x="700" y="134" class="legend">Repository bootstrap</text>
+<rect x="42" y="158" width="582" height="480" rx="8" fill="#111b32" stroke="#2b3b5c"/>
+<text x="66" y="192" class="panel-title">A  Fixed 40 repositories; heterogeneity changes</text>
+<line x1="100" y1="502.2222222222221" x2="604" y2="502.2222222222221" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="90" y="506.2222222222221" class="axis" text-anchor="end">90%</text>
+<line x1="100" y1="420.44444444444423" x2="604" y2="420.44444444444423" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="90" y="424.44444444444423" class="axis" text-anchor="end">92%</text>
+<line x1="100" y1="338.6666666666668" x2="604" y2="338.6666666666668" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="90" y="342.6666666666668" class="axis" text-anchor="end">94%</text>
+<line x1="100" y1="297.7777777777779" x2="604" y2="297.7777777777779" stroke="#102938"/>
+<text x="90" y="301.7777777777779" class="axis" text-anchor="end">95%</text>
+<line x1="100" y1="256.88888888888897" x2="604" y2="256.88888888888897" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="90" y="260.88888888888897" class="axis" text-anchor="end">96%</text>
+<line x1="169.33333333333331" y1="283.7239272202528" x2="169.33333333333331" y2="393.60940611308087" stroke="#ff8a65" stroke-width="2"/>
+<line x1="164.33333333333331" y1="283.7239272202528" x2="174.33333333333331" y2="283.7239272202528" stroke="#ff8a65" stroke-width="2"/>
+<line x1="164.33333333333331" y1="393.60940611308087" x2="174.33333333333331" y2="393.60940611308087" stroke="#ff8a65" stroke-width="2"/>
+<circle cx="169.33333333333331" cy="338.6666666666668" r="6" fill="#ff8a65"/>
+<line x1="193.33333333333331" y1="289.8302772230734" x2="193.33333333333331" y2="401.13268573988927" stroke="#f6c453" stroke-width="2"/>
+<line x1="188.33333333333331" y1="289.8302772230734" x2="198.33333333333331" y2="289.8302772230734" stroke="#f6c453" stroke-width="2"/>
+<line x1="188.33333333333331" y1="401.13268573988927" x2="198.33333333333331" y2="401.13268573988927" stroke="#f6c453" stroke-width="2"/>
+<circle cx="193.33333333333331" cy="345.4814814814813" r="6" fill="#f6c453"/>
+<line x1="217.33333333333331" y1="311.29070581029833" x2="217.33333333333331" y2="427.37596085636824" stroke="#5eead4" stroke-width="2"/>
+<line x1="212.33333333333331" y1="311.29070581029833" x2="222.33333333333331" y2="311.29070581029833" stroke="#5eead4" stroke-width="2"/>
+<line x1="212.33333333333331" y1="427.37596085636824" x2="222.33333333333331" y2="427.37596085636824" stroke="#5eead4" stroke-width="2"/>
+<circle cx="217.33333333333331" cy="369.33333333333326" r="6" fill="#5eead4"/>
+<text x="193.33333333333331" y="609" class="label" text-anchor="middle">No cluster</text>
+<text x="193.33333333333331" y="626" class="label" text-anchor="middle">heterogeneity</text>
+<line x1="331.99999999999994" y1="259.42353067209973" x2="331.99999999999994" y2="363.391284142715" stroke="#ff8a65" stroke-width="2"/>
+<line x1="326.99999999999994" y1="259.42353067209973" x2="336.99999999999994" y2="259.42353067209973" stroke="#ff8a65" stroke-width="2"/>
+<line x1="326.99999999999994" y1="363.391284142715" x2="336.99999999999994" y2="363.391284142715" stroke="#ff8a65" stroke-width="2"/>
+<circle cx="331.99999999999994" cy="311.4074074074074" r="6" fill="#ff8a65"/>
+<line x1="355.99999999999994" y1="274.58704746914754" x2="355.99999999999994" y2="382.3018414197412" stroke="#f6c453" stroke-width="2"/>
+<line x1="350.99999999999994" y1="274.58704746914754" x2="360.99999999999994" y2="274.58704746914754" stroke="#f6c453" stroke-width="2"/>
+<line x1="350.99999999999994" y1="382.3018414197412" x2="360.99999999999994" y2="382.3018414197412" stroke="#f6c453" stroke-width="2"/>
+<circle cx="355.99999999999994" cy="328.44444444444434" r="6" fill="#f6c453"/>
+<line x1="379.99999999999994" y1="280.6752217337584" x2="379.99999999999994" y2="389.84329678476024" stroke="#5eead4" stroke-width="2"/>
+<line x1="374.99999999999994" y1="280.6752217337584" x2="384.99999999999994" y2="280.6752217337584" stroke="#5eead4" stroke-width="2"/>
+<line x1="374.99999999999994" y1="389.84329678476024" x2="384.99999999999994" y2="389.84329678476024" stroke="#5eead4" stroke-width="2"/>
+<circle cx="379.99999999999994" cy="335.25925925925935" r="6" fill="#5eead4"/>
+<text x="355.99999999999994" y="609" class="label" text-anchor="middle">Moderate heterogeneity</text>
+<line x1="494.66666666666663" y1="370.132127381251" x2="494.66666666666663" y2="498.0160207668974" stroke="#ff8a65" stroke-width="2"/>
+<line x1="489.66666666666663" y1="370.132127381251" x2="499.66666666666663" y2="370.132127381251" stroke="#ff8a65" stroke-width="2"/>
+<line x1="489.66666666666663" y1="498.0160207668974" x2="499.66666666666663" y2="498.0160207668974" stroke="#ff8a65" stroke-width="2"/>
+<circle cx="494.66666666666663" cy="434.0740740740742" r="6" fill="#ff8a65"/>
+<line x1="518.6666666666666" y1="379.49086017168315" x2="518.6666666666666" y2="509.10173242090923" stroke="#f6c453" stroke-width="2"/>
+<line x1="513.6666666666666" y1="379.49086017168315" x2="523.6666666666666" y2="379.49086017168315" stroke="#f6c453" stroke-width="2"/>
+<line x1="513.6666666666666" y1="509.10173242090923" x2="523.6666666666666" y2="509.10173242090923" stroke="#f6c453" stroke-width="2"/>
+<circle cx="518.6666666666666" cy="444.2962962962962" r="6" fill="#f6c453"/>
+<line x1="542.6666666666666" y1="302.0771885887377" x2="542.6666666666666" y2="416.14503363348393" stroke="#5eead4" stroke-width="2"/>
+<line x1="537.6666666666666" y1="302.0771885887377" x2="547.6666666666666" y2="302.0771885887377" stroke="#5eead4" stroke-width="2"/>
+<line x1="537.6666666666666" y1="416.14503363348393" x2="547.6666666666666" y2="416.14503363348393" stroke="#5eead4" stroke-width="2"/>
+<circle cx="542.6666666666666" cy="359.11111111111086" r="6" fill="#5eead4"/>
+<text x="518.6666666666666" y="609" class="label" text-anchor="middle">Strong heterogeneity</text>
+<rect x="656" y="158" width="582" height="480" rx="8" fill="#111b32" stroke="#2b3b5c"/>
+<text x="680" y="192" class="panel-title">B  Strong heterogeneity; repository count changes</text>
+<line x1="714" y1="502.2222222222221" x2="1218" y2="502.2222222222221" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="704" y="506.2222222222221" class="axis" text-anchor="end">90%</text>
+<line x1="714" y1="420.44444444444423" x2="1218" y2="420.44444444444423" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="704" y="424.44444444444423" class="axis" text-anchor="end">92%</text>
+<line x1="714" y1="338.6666666666668" x2="1218" y2="338.6666666666668" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="704" y="342.6666666666668" class="axis" text-anchor="end">94%</text>
+<line x1="714" y1="297.7777777777779" x2="1218" y2="297.7777777777779" stroke="#102938"/>
+<text x="704" y="301.7777777777779" class="axis" text-anchor="end">95%</text>
+<line x1="714" y1="256.88888888888897" x2="1218" y2="256.88888888888897" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="704" y="260.88888888888897" class="axis" text-anchor="end">96%</text>
+<line x1="763" y1="360.7905205680106" x2="763" y2="486.9131831356928" stroke="#ff8a65" stroke-width="2"/>
+<line x1="758" y1="360.7905205680106" x2="768" y2="360.7905205680106" stroke="#ff8a65" stroke-width="2"/>
+<line x1="758" y1="486.9131831356928" x2="768" y2="486.9131831356928" stroke="#ff8a65" stroke-width="2"/>
+<circle cx="763" cy="423.85185185185173" r="6" fill="#ff8a65"/>
+<line x1="787" y1="370.132127381251" x2="787" y2="498.0160207668974" stroke="#f6c453" stroke-width="2"/>
+<line x1="782" y1="370.132127381251" x2="792" y2="370.132127381251" stroke="#f6c453" stroke-width="2"/>
+<line x1="782" y1="498.0160207668974" x2="792" y2="498.0160207668974" stroke="#f6c453" stroke-width="2"/>
+<circle cx="787" cy="434.0740740740742" r="6" fill="#f6c453"/>
+<line x1="811" y1="417.0842147251771" x2="811" y2="553.2861556451932" stroke="#5eead4" stroke-width="2"/>
+<line x1="806" y1="417.0842147251771" x2="816" y2="417.0842147251771" stroke="#5eead4" stroke-width="2"/>
+<line x1="806" y1="553.2861556451932" x2="816" y2="553.2861556451932" stroke="#5eead4" stroke-width="2"/>
+<circle cx="811" cy="485.1851851851851" r="6" fill="#5eead4"/>
+<text x="787" y="609" class="label" text-anchor="middle">10 repositories</text>
+<line x1="885" y1="373.2498364818266" x2="885" y2="501.7131264811359" stroke="#ff8a65" stroke-width="2"/>
+<line x1="880" y1="373.2498364818266" x2="890" y2="373.2498364818266" stroke="#ff8a65" stroke-width="2"/>
+<line x1="880" y1="501.7131264811359" x2="890" y2="501.7131264811359" stroke="#ff8a65" stroke-width="2"/>
+<circle cx="885" cy="437.4814814814812" r="6" fill="#ff8a65"/>
+<line x1="909" y1="360.7905205680106" x2="909" y2="486.9131831356928" stroke="#f6c453" stroke-width="2"/>
+<line x1="904" y1="360.7905205680106" x2="914" y2="360.7905205680106" stroke="#f6c453" stroke-width="2"/>
+<line x1="904" y1="486.9131831356928" x2="914" y2="486.9131831356928" stroke="#f6c453" stroke-width="2"/>
+<circle cx="909" cy="423.85185185185173" r="6" fill="#f6c453"/>
+<line x1="933" y1="339.06423669647893" x2="933" y2="460.9357633035206" stroke="#5eead4" stroke-width="2"/>
+<line x1="928" y1="339.06423669647893" x2="938" y2="339.06423669647893" stroke="#5eead4" stroke-width="2"/>
+<line x1="928" y1="460.9357633035206" x2="938" y2="460.9357633035206" stroke="#5eead4" stroke-width="2"/>
+<circle cx="933" cy="399.9999999999998" r="6" fill="#5eead4"/>
+<text x="909" y="609" class="label" text-anchor="middle">20 repositories</text>
+<line x1="1007" y1="370.132127381251" x2="1007" y2="498.0160207668974" stroke="#ff8a65" stroke-width="2"/>
+<line x1="1002" y1="370.132127381251" x2="1012" y2="370.132127381251" stroke="#ff8a65" stroke-width="2"/>
+<line x1="1002" y1="498.0160207668974" x2="1012" y2="498.0160207668974" stroke="#ff8a65" stroke-width="2"/>
+<circle cx="1007" cy="434.0740740740742" r="6" fill="#ff8a65"/>
+<line x1="1031" y1="379.49086017168315" x2="1031" y2="509.10173242090923" stroke="#f6c453" stroke-width="2"/>
+<line x1="1026" y1="379.49086017168315" x2="1036" y2="379.49086017168315" stroke="#f6c453" stroke-width="2"/>
+<line x1="1026" y1="509.10173242090923" x2="1036" y2="509.10173242090923" stroke="#f6c453" stroke-width="2"/>
+<circle cx="1031" cy="444.2962962962962" r="6" fill="#f6c453"/>
+<line x1="1055" y1="302.0771885887377" x2="1055" y2="416.14503363348393" stroke="#5eead4" stroke-width="2"/>
+<line x1="1050" y1="302.0771885887377" x2="1060" y2="302.0771885887377" stroke="#5eead4" stroke-width="2"/>
+<line x1="1050" y1="416.14503363348393" x2="1060" y2="416.14503363348393" stroke="#5eead4" stroke-width="2"/>
+<circle cx="1055" cy="359.11111111111086" r="6" fill="#5eead4"/>
+<text x="1031" y="609" class="label" text-anchor="middle">Strong heterogeneity</text>
+<line x1="1129" y1="339.06423669647893" x2="1129" y2="460.9357633035206" stroke="#ff8a65" stroke-width="2"/>
+<line x1="1124" y1="339.06423669647893" x2="1134" y2="339.06423669647893" stroke="#ff8a65" stroke-width="2"/>
+<line x1="1124" y1="460.9357633035206" x2="1134" y2="460.9357633035206" stroke="#ff8a65" stroke-width="2"/>
+<circle cx="1129" cy="399.9999999999998" r="6" fill="#ff8a65"/>
+<line x1="1153" y1="354.5726542324446" x2="1153" y2="479.5014198416298" stroke="#f6c453" stroke-width="2"/>
+<line x1="1148" y1="354.5726542324446" x2="1158" y2="354.5726542324446" stroke="#f6c453" stroke-width="2"/>
+<line x1="1148" y1="479.5014198416298" x2="1158" y2="479.5014198416298" stroke="#f6c453" stroke-width="2"/>
+<circle cx="1153" cy="417.0370370370372" r="6" fill="#f6c453"/>
+<line x1="1177" y1="280.6752217337584" x2="1177" y2="389.84329678476024" stroke="#5eead4" stroke-width="2"/>
+<line x1="1172" y1="280.6752217337584" x2="1182" y2="280.6752217337584" stroke="#5eead4" stroke-width="2"/>
+<line x1="1172" y1="389.84329678476024" x2="1182" y2="389.84329678476024" stroke="#5eead4" stroke-width="2"/>
+<circle cx="1177" cy="335.25925925925935" r="6" fill="#5eead4"/>
+<text x="1153" y="609" class="label" text-anchor="middle">80 repositories</text>
+<text x="56" y="678" class="note">Negative result: with only 10 repositories, the percentile repository bootstrap covered 90.4%—worse than task-level methods.</text>
+<text x="56" y="700" class="note">Scope: hierarchical Bernoulli simulation, 8 tasks/repository, true mean effect +5 points; not an estimate of any named benchmark.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 14px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1256" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1279" height="719" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "hypothesis": "When paired coding-agent task outcomes share repository-level treatment heterogeneity, task-independent confidence intervals will fall below 95% coverage while repository-clustered resampling will stay materially closer to nominal coverage.",
+  "claimBoundary": "The evidence supports estimator selection for the declared hierarchical Bernoulli simulation only; it does not measure a named benchmark, prove universal repository dependence, or replace empirical correlation diagnostics on production evaluation data.",
+  "design": {
+    "baselines": [
+      "Task-independent paired normal interval",
+      "Percentile bootstrap resampling individual task deltas"
+    ],
+    "controls": [
+      "Zero repository-level treatment heterogeneity independence control",
+      "Repository-count ablation at 10, 20, 40, and 80 clusters"
+    ],
+    "repeats": 1200
+  },
+  "reproduction": {
+    "commands": [
+      "node operator/diy-project-blogs/projects/clustered-agent-benchmark-uncertainty/run-experiment.mjs",
+      "node operator/diy-project-blogs/projects/clustered-agent-benchmark-uncertainty/render-figure.mjs"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run-experiment.mjs",
+    "render-figure.mjs",
+    "raw-results.json",
+    "results.json",
+    "output.txt",
+    "clustered-agent-benchmark-uncertainty.svg"
+  ]
+}

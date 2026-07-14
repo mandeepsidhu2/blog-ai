@@ -1,0 +1,21 @@
+clustered agent benchmark uncertainty simulation
+repeats=1200 bootstrap_repeats=400 true_effect=0.050
+label repos tasks heterogeneity method coverage mcse width abs_error
+heterogeneity-0 40 320 0.00 naive 0.940 0.007 0.153 0.010
+heterogeneity-0 40 320 0.00 taskBootstrap 0.938 0.007 0.151 0.012
+heterogeneity-0 40 320 0.00 clusterBootstrap 0.932 0.007 0.149 0.017
+heterogeneity-0.1 40 320 0.10 naive 0.947 0.006 0.153 0.003
+heterogeneity-0.1 40 320 0.10 taskBootstrap 0.943 0.007 0.151 0.007
+heterogeneity-0.1 40 320 0.10 clusterBootstrap 0.941 0.007 0.151 0.009
+heterogeneity-0.2 40 320 0.20 naive 0.917 0.008 0.153 0.033
+heterogeneity-0.2 40 320 0.20 taskBootstrap 0.914 0.008 0.151 0.036
+heterogeneity-0.2 40 320 0.20 clusterBootstrap 0.935 0.007 0.162 0.015
+clusters-10 10 80 0.20 naive 0.919 0.008 0.306 0.031
+clusters-10 10 80 0.20 taskBootstrap 0.917 0.008 0.300 0.033
+clusters-10 10 80 0.20 clusterBootstrap 0.904 0.008 0.303 0.046
+clusters-20 20 160 0.20 naive 0.916 0.008 0.216 0.034
+clusters-20 20 160 0.20 taskBootstrap 0.919 0.008 0.213 0.031
+clusters-20 20 160 0.20 clusterBootstrap 0.925 0.008 0.224 0.025
+clusters-80 80 640 0.20 naive 0.925 0.008 0.108 0.025
+clusters-80 80 640 0.20 taskBootstrap 0.921 0.008 0.106 0.029
+clusters-80 80 640 0.20 clusterBootstrap 0.941 0.007 0.115 0.009

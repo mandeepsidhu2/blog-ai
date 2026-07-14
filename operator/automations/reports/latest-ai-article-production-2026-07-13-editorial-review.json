@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "repository-clustered-coding-agent-benchmark-uncertainty",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The hierarchical Bernoulli process was designed to expose repository-level effect heterogeneity, so the result may say more about the chosen simulation than about any deployed coding benchmark.",
+      "unsupportedClaimRisk": "The weakest claim was an implied repository-count cutoff; four balanced cluster-count cells cannot establish a portable threshold for unbalanced real evaluations.",
+      "reproductionBarrier": "The 1,200 by 400 nested Monte Carlo run is computationally nontrivial, and directional replication requires preserving the seeded generator, interval definitions, and balanced cluster design.",
+      "revisions": [
+        "Replaced the absolute resample-repositories title and added the explicit falsification that the cluster method did not win across controls.",
+        "Removed the 30-to-40 repository heuristic and made method disagreement, rather than cluster count alone, the provisional-use trigger."
+      ]
+    },
+    {
+      "slug": "gpt-live-full-duplex-evaluation",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 5,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "GPT-Live is currently a consumer product release without public benchmark scores or an API contract, so an engineering article risks projecting behavior from earlier realtime systems onto an unavailable deployment target.",
+      "unsupportedClaimRisk": "The weakest claim was that teams could treat the consumer experience as an API preview; transport, policy, serving snapshot, tools, and enterprise controls may differ materially.",
+      "reproductionBarrier": "A faithful duplex evaluation needs timestamped audio and tool events, realistic speakers, transport telemetry, and consented language and accent coverage that many existing voice harnesses do not retain.",
+      "revisions": [
+        "Added an explicit non-transfer boundary between the ChatGPT consumer behavior and any future API model sharing the family name.",
+        "Added a sourced requirement-by-requirement decision matrix separating evaluation-now cases from deployment cases that must wait."
+      ]
+    },
+    {
+      "slug": "leanstral-1-5-proof-engineering-adoption",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "Most headline measurements are provider-reported and use different proof tasks and test-time budgets, so they establish pilot value but not a normalized advantage over other theorem-proving systems.",
+      "unsupportedClaimRisk": "The weakest claim treated the pass-at-eight lift as a capability gain; correlated retries and early stopping mean it is only a result under a larger search budget.",
+      "reproductionBarrier": "Reproducing the results requires exact Lean and Mathlib revisions, Dockerized benchmark tasks, model weights or API access, sampling settings, and substantial proof compilation and review capacity.",
+      "revisions": [
+        "Reframed the 14.3-point pass-at-eight gain as search-budget yield and rejected an independence or causal compute interpretation.",
+        "Added the September 30, 2026 Labs endpoint retirement to the adoption boundary and required an export or self-hosting path for pilots."
+      ]
+    }
+  ]
+}
