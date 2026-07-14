@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "multilingual-token-budget-audit",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "Translated-to-English token ratios mix tokenizer segmentation with legitimate translation-length and phrasing differences, so they cannot isolate a causal tokenizer penalty.",
+      "unsupportedClaimRisk": "The weakest wording called the remaining ratio a tokenizer tax, which over-attributed an operational capacity measurement to vocabulary design alone.",
+      "reproductionBarrier": "Reproduction requires pinned copies of fourteen MMMLU translations, the aligned MMLU archive, HumanEval, tiktoken 0.13.0, and preservation of the answer-key exclusion and question-clustered bootstrap rules; production traffic remains unavailable.",
+      "revisions": [
+        "Added a character-ratio-to-English column and decomposition showing where translation length and segmentation point in different directions.",
+        "Replaced the causal tokenizer-tax framing with the narrower claim that the experiment measures aligned payload capacity demand and explicitly excludes model-quality conclusions."
+      ]
+    },
+    {
+      "slug": "hy3-open-model-deployment-boundary",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The most favorable quality and serving evidence is provider- or framework-published, while no independent local deployment was possible on the required large-memory hardware.",
+      "unsupportedClaimRisk": "The weakest claim described Hy3 as compute-efficient for its capability class even though active parameters do not establish workload-level cost efficiency.",
+      "reproductionBarrier": "A faithful pilot requires four to eight 141–192 GB accelerators, approximately 590 GB of BF16 weights, a current source or development serving image, pinned parsers, and a workload-specific evaluation set.",
+      "revisions": [
+        "Removed the unmeasured efficiency claim and separated selective expert compute from demonstrated cost efficiency.",
+        "Added a no-local-measurement disclosure plus predeclared cost-matched smaller-model and hosted-API baselines with latency and accepted-completion stop conditions."
+      ]
+    },
+    {
+      "slug": "github-models-retirement-migration",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 5,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "Some low-volume prototypes should be retired instead of gaining a generalized provider abstraction whose maintenance cost could exceed the workload's value.",
+      "unsupportedClaimRisk": "The weakest claim treated July 16 as a deterministic failover test deadline even though GitHub promises only a brief brownout without an exact observation window.",
+      "reproductionBarrier": "A complete migration inventory must recover hidden prompt, evaluation, catalog, BYOK, and organization-policy state for which GitHub does not promise one uniform export path.",
+      "revisions": [
+        "Changed July 16 to a failover-readiness deadline and required synthetic timeout, disconnect, quota, and ambiguous-completion tests before relying on either brownout.",
+        "Added a four-surface decommission ledger and made shutdown or reduced-function mode an explicit successful outcome for unowned, low-value prototypes."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "hypothesis": "Across the 14 professionally translated MMMLU locales, o200k_base will reduce the paired token-count ratio to English versus cl100k_base in every locale and lower the median non-English inflation by at least 20 percentage points, while changing total HumanEval prompt tokens by less than 5%.",
+  "claimBoundary": "The evidence supports token-count and character-proxy conclusions for pinned cl100k_base and o200k_base encodings on the declared subject-stratified MMMLU payloads and HumanEval prompts. It does not measure model quality, other providers' tokenizers, chat-template overhead, billed tokens, latency, or user traffic.",
+  "design": {
+    "baselines": [
+      "cl100k_base token counts on the same aligned payloads",
+      "ceil(Unicode code points / 4) character proxy"
+    ],
+    "controls": [
+      "Aligned English source payload for every translated question",
+      "HumanEval code prompts as an out-of-domain negative control",
+      "Latin-script versus non-Latin-script subgroup ablation"
+    ],
+    "repeats": 5000
+  },
+  "reproduction": {
+    "commands": [
+      "python3 -m pip install --target /tmp/blog-ai-tiktoken-0130 -r operator/diy-project-blogs/projects/multilingual-token-cost-audit/requirements.txt",
+      "PYTHONPATH=/tmp/blog-ai-tiktoken-0130 TIKTOKEN_CACHE_DIR=/tmp/blog-ai-tiktoken-cache python3 operator/diy-project-blogs/projects/multilingual-token-cost-audit/run-experiment.py --mmmlu-dir /tmp/mmmlu-tokenizer-study --mmlu-test-dir /tmp/mmmlu-tokenizer-study/data/test --human-eval /tmp/mmmlu-tokenizer-study/HumanEval.jsonl.gz",
+      "python3 operator/diy-project-blogs/projects/multilingual-token-cost-audit/render-figure.py"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "requirements.txt",
+    "run-experiment.py",
+    "render-figure.py",
+    "source-manifest.json",
+    "raw-results.jsonl",
+    "results.json",
+    "output.txt",
+    "multilingual-token-cost-audit.svg"
+  ]
+}

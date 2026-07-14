@@ -1,0 +1,9 @@
+selected_questions=1124
+paired_translated_prompts=15736
+initial_answer_mismatches=24
+excluded_questions=16
+languages_improved=14/14
+median_cl100k_inflation_percent=64.270
+median_o200k_inflation_percent=28.964
+median_ratio_point_reduction=0.3839
+humaneval_o200k_change_percent=0.005

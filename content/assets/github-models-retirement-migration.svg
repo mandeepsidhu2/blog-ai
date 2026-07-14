@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" data-visual-quality="publication" data-text-fit="bounded" data-visual-system="fieldbook-v2">
+  <title>GitHub Models retirement migration timeline and contract diff</title>
+  <desc>Timeline marks July 16 and July 23 brownouts and July 30 retirement, with a matrix of identity, endpoint, deployment, quota, telemetry, and rollback changes.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1280" height="720" fill="#080c12"/>
+    <rect width="1280" height="720" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="66" y="58" fill="#101720" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="28" font-weight="700">GitHub Models: test the exit before the endpoint disappears</text>
+  <text x="66" y="88" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">Official July 1 notice · two failure rehearsals · four retired surfaces</text>
+
+  <text x="66" y="132" fill="#7dd3fc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" font-weight="700">MIGRATION CLOCK</text>
+  <line x1="112" y1="202" x2="1160" y2="202" stroke="#355b77" stroke-width="5"/>
+  <circle cx="160" cy="202" r="13" fill="#38bdf8"/>
+  <text x="160" y="171" text-anchor="middle" fill="#bae6fd" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">JUL 14</text>
+  <text x="160" y="236" text-anchor="middle" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">inventory + dual run</text>
+  <circle cx="430" cy="202" r="16" fill="#ffb84d"/>
+  <text x="430" y="171" text-anchor="middle" fill="#fde68a" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">JUL 16</text>
+  <text x="430" y="236" text-anchor="middle" fill="#fcd34d" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">BROWNOUT 1</text>
+  <circle cx="760" cy="202" r="16" fill="#ffb84d"/>
+  <text x="760" y="171" text-anchor="middle" fill="#fde68a" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">JUL 23</text>
+  <text x="760" y="236" text-anchor="middle" fill="#fcd34d" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">BROWNOUT 2</text>
+  <circle cx="1110" cy="202" r="18" fill="#fb7185"/>
+  <text x="1110" y="171" text-anchor="middle" fill="#fecdd3" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">JUL 30</text>
+  <text x="1110" y="236" text-anchor="middle" fill="#fda4af" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">FULL RETIREMENT</text>
+
+  <rect x="66" y="274" width="1148" height="304" rx="8" fill="#102235" stroke="#24445f"/>
+  <text x="88" y="306" fill="#a7f3d0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" font-weight="700">CONTRACT DIFF — VERIFY, DO NOT ASSUME</text>
+  <text x="88" y="342" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">SURFACE</text>
+  <text x="340" y="342" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">GITHUB MODELS</text>
+  <text x="690" y="342" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">FOUNDRY / DIRECT PROVIDER</text>
+  <text x="1090" y="342" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">PROOF</text>
+
+  <line x1="88" y1="356" x2="1190" y2="356" stroke="#355b77"/>
+  <text x="88" y="382" fill="#253240" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">identity</text>
+  <text x="340" y="382" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">GitHub token / org policy</text>
+  <text x="690" y="382" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">API key or Entra ID</text>
+  <text x="1090" y="382" fill="#ffb84d" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">auth test</text>
+  <line x1="88" y1="396" x2="1190" y2="396" stroke="#24445f"/>
+  <text x="88" y="422" fill="#253240" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">model unit</text>
+  <text x="340" y="422" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">catalog model</text>
+  <text x="690" y="422" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">deployment + resolved version</text>
+  <text x="1090" y="422" fill="#ffb84d" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">trace</text>
+  <line x1="88" y1="436" x2="1190" y2="436" stroke="#24445f"/>
+  <text x="88" y="462" fill="#253240" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">limits</text>
+  <text x="340" y="462" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">GitHub plan/catalog policy</text>
+  <text x="690" y="462" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">region + quota + rate headers</text>
+  <text x="1090" y="462" fill="#ffb84d" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">load test</text>
+  <line x1="88" y1="476" x2="1190" y2="476" stroke="#24445f"/>
+  <text x="88" y="502" fill="#253240" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">behavior</text>
+  <text x="340" y="502" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">prompt + eval defaults</text>
+  <text x="690" y="502" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">filters + schemas + tool parser</text>
+  <text x="1090" y="502" fill="#ffb84d" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">dual run</text>
+  <line x1="88" y1="516" x2="1190" y2="516" stroke="#24445f"/>
+  <text x="88" y="542" fill="#253240" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">rollback</text>
+  <text x="340" y="542" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">available only until Jul 30</text>
+  <text x="690" y="542" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">second provider or reduced mode</text>
+  <text x="1090" y="542" fill="#34d399" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">rehearse</text>
+
+  <text x="66" y="624" fill="#101720" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" font-weight="700">READY ON JULY 23 =</text>
+  <text x="272" y="624" fill="#a7f3d0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16">0 runtime dependence + attributable telemetry + non-retiring fallback</text>
+  <text x="66" y="661" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">Retired: playground · model catalog · inference API · BYOK endpoints</text>
+  <text x="66" y="688" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">Sources: GitHub Changelog 2026-07-01 · Microsoft Foundry endpoint docs · OpenTelemetry GenAI conventions.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 14px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1256" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1279" height="719" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

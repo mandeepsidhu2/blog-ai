@@ -1,0 +1,365 @@
+{
+  "generatedAt": "2026-07-14",
+  "sources": [
+    {
+      "name": "mmlu_AR-XY.csv",
+      "bytes": 9829263,
+      "sha256": "3c60bb57926cc33dc58d57f70884c8199142944b971659753edfab54b90e51d4"
+    },
+    {
+      "name": "mmlu_BN-BD.csv",
+      "bytes": 16286391,
+      "sha256": "c2054362b43ca2d2a2d4544ee0c64c6eb1fae5d461d0a460c8e40aaefda4bbbf"
+    },
+    {
+      "name": "mmlu_DE-DE.csv",
+      "bytes": 7813137,
+      "sha256": "819cb422a3bcae4fabc302d3a938f1fd17be368770c8cb1d6cd299784a0f80c1"
+    },
+    {
+      "name": "mmlu_ES-LA.csv",
+      "bytes": 7638282,
+      "sha256": "7026c2120f3a4b68641f725818e47f35529f61c094f280c52fa019fadb060071"
+    },
+    {
+      "name": "mmlu_FR-FR.csv",
+      "bytes": 8110686,
+      "sha256": "9e306e122e61513f2f0cdfae7eaceaaebac86e5bfa1ddbe63ec4e8562729ca50"
+    },
+    {
+      "name": "mmlu_HI-IN.csv",
+      "bytes": 16190141,
+      "sha256": "2901b1633e80d66c47ea3fc5d38fcb5c545d00d741b7c7d7705a559227143109"
+    },
+    {
+      "name": "mmlu_ID-ID.csv",
+      "bytes": 7112650,
+      "sha256": "4270643b50bfde7812db5d5c26c273e773d4cbc32868d001195caab0217120e1"
+    },
+    {
+      "name": "mmlu_IT-IT.csv",
+      "bytes": 7599360,
+      "sha256": "42c59e0902f0915b0e172aaa7d2e8f3bbf91f469983e900bba7441082d859996"
+    },
+    {
+      "name": "mmlu_JA-JP.csv",
+      "bytes": 8019567,
+      "sha256": "b2daf62034489b88411af91ad955e8ec513bd7d3129c9eb0319036160bd18032"
+    },
+    {
+      "name": "mmlu_KO-KR.csv",
+      "bytes": 7666949,
+      "sha256": "432e06531c26ca68374ba3fc460e5889e5add58341d179bc19ea6cb46b14aaa5"
+    },
+    {
+      "name": "mmlu_PT-BR.csv",
+      "bytes": 7211320,
+      "sha256": "926107573af1491c0e77df2bd6815c521f2203dd4a4a5b54fad5ea1733ce9c9c"
+    },
+    {
+      "name": "mmlu_SW-KE.csv",
+      "bytes": 6886483,
+      "sha256": "41bd52c6cc68e07afab298a3611e08d4745f18d884fd635b72faab55f769fb53"
+    },
+    {
+      "name": "mmlu_YO-NG.csv",
+      "bytes": 8922419,
+      "sha256": "0193d8dcb83e1f443a7459bc2a1f171e951781256c83611c64468e9ee8407711"
+    },
+    {
+      "name": "mmlu_ZH-CN.csv",
+      "bytes": 5582888,
+      "sha256": "cb4354776463e0414597a4685588d72eb5cb6a1d79caf3efa0c9e0c2764786f1"
+    },
+    {
+      "name": "abstract_algebra_test.csv",
+      "bytes": 17358,
+      "sha256": "4be89c0fb1d2419722e88880f6da3da95750367185ecd36f6492a6f74785cf64"
+    },
+    {
+      "name": "anatomy_test.csv",
+      "bytes": 29844,
+      "sha256": "966dfd5c4579885ebdb8c05d6754ae5834f672632586d8595be3c0f9360e6f4e"
+    },
+    {
+      "name": "astronomy_test.csv",
+      "bytes": 42999,
+      "sha256": "87c9c3cb5a55395c70dd9ed521dd7d2629fd4ff236c5ab647102e007f52a9341"
+    },
+    {
+      "name": "business_ethics_test.csv",
+      "bytes": 31394,
+      "sha256": "cd3fc3a85a34cb17e6c5b2fb68ea61e7800b31120d92934019f1e17f4832fbd4"
+    },
+    {
+      "name": "clinical_knowledge_test.csv",
+      "bytes": 56562,
+      "sha256": "06a1ea973000d5ef5d2664c4ac1c68d0423f1cab6b3b682be7942633740811f1"
+    },
+    {
+      "name": "college_biology_test.csv",
+      "bytes": 45351,
+      "sha256": "e1204cb9d19887ea266145f038b5d4cc1fbc33d7efce186259c4ecca1cbe3119"
+    },
+    {
+      "name": "college_chemistry_test.csv",
+      "bytes": 22314,
+      "sha256": "4d61d7887f845b887c52ac928b6dffdcf2468d79f3d0fbb4d1731092a51d2552"
+    },
+    {
+      "name": "college_computer_science_test.csv",
+      "bytes": 40401,
+      "sha256": "d53a1d0d1c4362dacf92a4ff1d6a755beb5a87f24a7301c3c4391fcacc6530b4"
+    },
+    {
+      "name": "college_mathematics_test.csv",
+      "bytes": 22429,
+      "sha256": "8b5bef14d4209c7918eaf947e4f12a5ae9470567722d8ba9761302d733e8ac71"
+    },
+    {
+      "name": "college_medicine_test.csv",
+      "bytes": 78334,
+      "sha256": "9c533cfff89edaa317b2e79bbabcdd5e2e522e019679cb4a6475e5f2a1861b1e"
+    },
+    {
+      "name": "college_physics_test.csv",
+      "bytes": 27811,
+      "sha256": "079c3696eda22c13b0472de245c7bb4918315b59481964109a4f65d2a35b4243"
+    },
+    {
+      "name": "computer_security_test.csv",
+      "bytes": 24840,
+      "sha256": "8e40f809858db9dd8585036b53984e570b6101f72be2214b85e979c7fafa307f"
+    },
+    {
+      "name": "conceptual_physics_test.csv",
+      "bytes": 34992,
+      "sha256": "7b39a241bb20424fd2a4e0e37ce05d94865ffc44191d8be4063be0e973312256"
+    },
+    {
+      "name": "econometrics_test.csv",
+      "bytes": 44039,
+      "sha256": "10eb6b2d3a519a463872ef75902991b51ebf45865b29888e86d40228ace24029"
+    },
+    {
+      "name": "electrical_engineering_test.csv",
+      "bytes": 21595,
+      "sha256": "8b0d747a97cb2cbbd8926c8deb2cda6073da6d5d3cc099693aa7761be938f5e4"
+    },
+    {
+      "name": "elementary_mathematics_test.csv",
+      "bytes": 61602,
+      "sha256": "65a46a0e1927ea37aabd031ddcb6d81eef70a7eee1e9e0af94ec8e3fa21d728b"
+    },
+    {
+      "name": "formal_logic_test.csv",
+      "bytes": 46929,
+      "sha256": "bc2dc7373a664ae72e166dcbe3f7aaf1bb65b99f106f1831f335c53467f35248"
+    },
+    {
+      "name": "global_facts_test.csv",
+      "bytes": 16191,
+      "sha256": "a81058ee8e2385edaf42b8847ec9db01221fa4b16d262db415f3370884745ff9"
+    },
+    {
+      "name": "high_school_biology_test.csv",
+      "bytes": 102424,
+      "sha256": "cfaba2b58b9714d2a6983a90bce17f14cc44cfc8195b20f8f65fef70d21331b9"
+    },
+    {
+      "name": "high_school_chemistry_test.csv",
+      "bytes": 53918,
+      "sha256": "0e3d94da331d1eb3cafecd64a6f0f64e6fd2410b0a76676b2c0728dc5c1374f5"
+    },
+    {
+      "name": "high_school_computer_science_test.csv",
+      "bytes": 42281,
+      "sha256": "63806168fb0e5a72fe5bfb880f19816d8997e28d3f312c6b1831f4d40f432059"
+    },
+    {
+      "name": "high_school_european_history_test.csv",
+      "bytes": 266888,
+      "sha256": "09983655452c3c40ba466050ec82252f02a235e5946734f4d73b73688fc9509b"
+    },
+    {
+      "name": "high_school_geography_test.csv",
+      "bytes": 37386,
+      "sha256": "c6acdaa9d94c88cdefb9dd569e376733d9ba670c07db12cdff36ccdc18c2ab0c"
+    },
+    {
+      "name": "high_school_government_and_politics_test.csv",
+      "bytes": 61553,
+      "sha256": "fbd7a89eb2c7806097e18b40950e44e0580e6f97cd151f01a216bb575c2d7903"
+    },
+    {
+      "name": "high_school_macroeconomics_test.csv",
+      "bytes": 108402,
+      "sha256": "354b12cc74d2806c44d1fea42efba04ec12f10233e5169466080a1d1a6f8bba5"
+    },
+    {
+      "name": "high_school_mathematics_test.csv",
+      "bytes": 48584,
+      "sha256": "fe8f7a154834bba30947401ba37ea6c7afdcfba82ddc341c79b5d3016991d290"
+    },
+    {
+      "name": "high_school_microeconomics_test.csv",
+      "bytes": 70131,
+      "sha256": "a250cc4976654e479cecdb7b66046ce2412df3e5e1b9c3d145ed344eae9a2256"
+    },
+    {
+      "name": "high_school_physics_test.csv",
+      "bytes": 56252,
+      "sha256": "573e0f8d8309e4669f53a4b13248a908507b6d5d4c97c977f7bb9814658fee54"
+    },
+    {
+      "name": "high_school_psychology_test.csv",
+      "bytes": 146542,
+      "sha256": "88c33b6b0ade567d07b8b5b074effdb52f31d773541fd71e86cb0d85a8daf7bf"
+    },
+    {
+      "name": "high_school_statistics_test.csv",
+      "bytes": 105978,
+      "sha256": "d62843d2fd084d6af1c8a0a6491d0aa642c34a7a68476605b9b3db5841e63d3f"
+    },
+    {
+      "name": "high_school_us_history_test.csv",
+      "bytes": 292834,
+      "sha256": "0338dea3b11881be53c2208ae8dbb571c792c0dca6f0b36a352147c0be81625e"
+    },
+    {
+      "name": "high_school_world_history_test.csv",
+      "bytes": 373770,
+      "sha256": "7787343ae18e4e1ef833c8630c0c914c62f42c2f35d8b90f4bec2eecccfc161e"
+    },
+    {
+      "name": "human_aging_test.csv",
+      "bytes": 40617,
+      "sha256": "01299d7e0ae4a8d082daeecc140445ce7393b464040bd810b0a60a370ae5502e"
+    },
+    {
+      "name": "human_sexuality_test.csv",
+      "bytes": 29052,
+      "sha256": "43ca779587725f126d07733b33ba339ce27cca6f85056872eccf4b0377e28a90"
+    },
+    {
+      "name": "international_law_test.csv",
+      "bytes": 50691,
+      "sha256": "51b3a6d74cc84651b2355d2823c30d993015ddfe8ef39725da4e0442f29489fc"
+    },
+    {
+      "name": "jurisprudence_test.csv",
+      "bytes": 31375,
+      "sha256": "bf7a770aebfbdb181abc2c26ffd7a01ab31f93c7e2dfe6924c57c7bca4a0dff6"
+    },
+    {
+      "name": "logical_fallacies_test.csv",
+      "bytes": 46290,
+      "sha256": "3fe8b48c74832525556455d49960cc0c3cff37496783348043ff69a1863c2244"
+    },
+    {
+      "name": "machine_learning_test.csv",
+      "bytes": 31698,
+      "sha256": "05984b90f887a7da12b3dd8e41e6c34fa856b2c939ea3124975d90910ceb2af0"
+    },
+    {
+      "name": "management_test.csv",
+      "bytes": 17457,
+      "sha256": "4a535a11bb480a09a302e86d157ae2d33e054cfa00e4265fe300a9408b87ec6b"
+    },
+    {
+      "name": "marketing_test.csv",
+      "bytes": 57435,
+      "sha256": "ecf0ae0ae906194d033ca7d7746eaf201232eccb78ee24147e737473f751233d"
+    },
+    {
+      "name": "medical_genetics_test.csv",
+      "bytes": 18520,
+      "sha256": "cc30c698e94f12c00e610a39c62d1a1d9587fa53c005359317346081f722c5e6"
+    },
+    {
+      "name": "miscellaneous_test.csv",
+      "bytes": 129221,
+      "sha256": "061b283bb264072321d848b3b7f409a932a11ffa023fc94898dd31d2a4c80c7e"
+    },
+    {
+      "name": "moral_disputes_test.csv",
+      "bytes": 99902,
+      "sha256": "673f5e9054f55fc5e165a3ed01e1b13eb1ee5a3405055818b50532e05de9bfdd"
+    },
+    {
+      "name": "moral_scenarios_test.csv",
+      "bytes": 361484,
+      "sha256": "128d7bd823d793f8b7faf28f98f4b3c737b3e84d4b42c06c13458d36075a423a"
+    },
+    {
+      "name": "nutrition_test.csv",
+      "bytes": 85926,
+      "sha256": "309432be237ac2b659acd10fdd4347d32cdc60aa9daeafbac78486a8744fa0b6"
+    },
+    {
+      "name": "philosophy_test.csv",
+      "bytes": 72820,
+      "sha256": "a0f0c6fc9e4f08c04ff3a339996c4ed688a9fbe75d205fff4b9d3549fb49fa1e"
+    },
+    {
+      "name": "prehistory_test.csv",
+      "bytes": 82193,
+      "sha256": "8d44938332ea3d199cfa51a18ef69af972aa33ca4af7b5f5bc62e768a31f949a"
+    },
+    {
+      "name": "professional_accounting_test.csv",
+      "bytes": 118484,
+      "sha256": "27071efa2f8fd8502d01e80b8d7c69439586019f59e416ce039968417ef41355"
+    },
+    {
+      "name": "professional_law_test.csv",
+      "bytes": 1867637,
+      "sha256": "eeb81cac576a5f537485b6befd25837b55f64b57e9b2a7e409210d7c8d608820"
+    },
+    {
+      "name": "professional_medicine_test.csv",
+      "bytes": 211585,
+      "sha256": "a034bf0dda10cb0848bdd3097eb1547d61ca2dac9e9b871563691621c38d51e9"
+    },
+    {
+      "name": "professional_psychology_test.csv",
+      "bytes": 212333,
+      "sha256": "99785591dfe18717736c0c296c9d9840c832f98749060975f7e2d976ad204bf7"
+    },
+    {
+      "name": "public_relations_test.csv",
+      "bytes": 26236,
+      "sha256": "3712f955d0c38b073b188a175a8d9a6ce64601f0ae9c98d8cfc37461c4cb5933"
+    },
+    {
+      "name": "security_studies_test.csv",
+      "bytes": 199745,
+      "sha256": "ab7634702670ee0d5e98b852f5bcfad2821ff9a2e909d223de05422c948f6638"
+    },
+    {
+      "name": "sociology_test.csv",
+      "bytes": 61540,
+      "sha256": "f6c464600032aa2bb53294ad53217fbb650601eee206af947b3ce4c587ff5bed"
+    },
+    {
+      "name": "us_foreign_policy_test.csv",
+      "bytes": 26047,
+      "sha256": "2821ee009a2b1b7d4adc5a212a0bad7fe05d377455de0fe0841beab8f00142e1"
+    },
+    {
+      "name": "virology_test.csv",
+      "bytes": 34689,
+      "sha256": "4355b9d79142da0e44a767a495a277733fd89ad67236cbbe3f42ff3a6d46b483"
+    },
+    {
+      "name": "world_religions_test.csv",
+      "bytes": 21156,
+      "sha256": "3be96b2465419289c4fe0c8a0d003003facd243c8982c6daafc6ac90a40bd507"
+    },
+    {
+      "name": "HumanEval.jsonl.gz",
+      "bytes": 44877,
+      "sha256": "b796127e635a67f93fb35c04f4cb03cf06f38c8072ee7cee8833d7bee06979ef"
+    }
+  ]
+}

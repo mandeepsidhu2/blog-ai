@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" data-visual-quality="publication" data-text-fit="bounded" data-visual-system="fieldbook-v2">
+  <title>Hy3 deployment decision surface</title>
+  <desc>Evidence graphic showing 295 billion total versus 21 billion active parameters, the 590 gigabyte BF16 weight footprint, supported GPU layouts, and measured vLLM latency tails.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1280" height="720" fill="#080c12"/>
+    <rect width="1280" height="720" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="68" y="58" fill="#101720" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="28" font-weight="700">Hy3: selective compute, full-model memory</text>
+  <text x="68" y="88" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">July 6, 2026 release · provider specs + vLLM/SGLang serving evidence</text>
+
+  <text x="68" y="136" fill="#7dd3fc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" font-weight="700">PARAMETER GEOMETRY</text>
+  <rect x="68" y="158" width="600" height="42" rx="6" fill="#17314a"/>
+  <rect x="68" y="158" width="43" height="42" rx="6" fill="#38bdf8"/>
+  <text x="78" y="185" fill="#06131e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="700">21B</text>
+  <text x="126" y="185" fill="#102938" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">active per token</text>
+  <text x="560" y="185" fill="#101720" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">295B total</text>
+  <line x1="68" y1="216" x2="668" y2="216" stroke="#ffb84d" stroke-width="8"/>
+  <text x="68" y="242" fill="#ffb84d" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16">≈590 GB BF16 weights before KV cache + runtime overhead</text>
+
+  <text x="724" y="136" fill="#a7f3d0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" font-weight="700">DOCUMENTED FIT</text>
+  <line x1="724" y1="171" x2="1180" y2="171" stroke="#24445f"/>
+  <text x="724" y="198" fill="#253240" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">8 × H200 / H20-3e 141 GB</text>
+  <text x="1145" y="198" text-anchor="end" fill="#34d399" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">FIT</text>
+  <line x1="724" y1="211" x2="1180" y2="211" stroke="#24445f"/>
+  <text x="724" y="238" fill="#253240" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">4 × B200 / GB200 192 GB</text>
+  <text x="1145" y="238" text-anchor="end" fill="#34d399" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">FIT</text>
+  <line x1="724" y1="251" x2="1180" y2="251" stroke="#24445f"/>
+  <text x="724" y="278" fill="#253240" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">8 × H100 / A100 80 GB</text>
+  <text x="1145" y="278" text-anchor="end" fill="#fb7185" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">NO BF16 + KV</text>
+
+  <text x="68" y="326" fill="#c4b5fd" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" font-weight="700">ONE MEASURED FP8 SERVING POINT</text>
+  <text x="68" y="352" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">4×GB300 · TP4 · concurrency 32 · 160 random 8192→1024 prompts · MTP=2</text>
+  <line x1="160" y1="400" x2="1140" y2="400" stroke="#24445f" stroke-width="2"/>
+  <line x1="160" y1="388" x2="160" y2="412" stroke="#40515f"/>
+  <line x1="486" y1="388" x2="486" y2="412" stroke="#40515f"/>
+  <line x1="813" y1="388" x2="813" y2="412" stroke="#40515f"/>
+  <line x1="1140" y1="388" x2="1140" y2="412" stroke="#40515f"/>
+  <text x="160" y="432" text-anchor="middle" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">0 s</text>
+  <text x="486" y="432" text-anchor="middle" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">5 s</text>
+  <text x="813" y="432" text-anchor="middle" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">10 s</text>
+  <text x="1140" y="432" text-anchor="middle" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">15 s TTFT</text>
+  <circle cx="193" cy="400" r="9" fill="#38bdf8"/>
+  <text x="193" y="377" text-anchor="middle" fill="#7dd3fc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">p50 0.506 s</text>
+  <circle cx="1110" cy="400" r="10" fill="#fb7185"/>
+  <text x="1110" y="377" text-anchor="middle" fill="#fda4af" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">p99 14.54 s</text>
+
+  <rect x="68" y="472" width="1144" height="112" rx="8" fill="#102235" stroke="#24445f"/>
+  <text x="92" y="502" fill="#101720" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700">THROUGHPUT SNAPSHOT</text>
+  <text x="92" y="535" fill="#a7f3d0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="25" font-weight="700">934</text>
+  <text x="168" y="535" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">output tok/s</text>
+  <text x="370" y="535" fill="#a7f3d0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="25" font-weight="700">0.91</text>
+  <text x="450" y="535" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">requests/s</text>
+  <text x="650" y="535" fill="#a7f3d0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="25" font-weight="700">30.86</text>
+  <text x="750" y="535" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">ms median TPOT</text>
+  <text x="975" y="535" fill="#a7f3d0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="25" font-weight="700">0/160</text>
+  <text x="1080" y="535" fill="#334250" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">failed</text>
+  <text x="92" y="568" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">Not a BF16 result, not an application SLA, and not a quality benchmark.</text>
+
+  <path d="M68 628 H1212" stroke="#24445f"/>
+  <text x="68" y="658" fill="#ffb84d" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700">DECISION:</text>
+  <text x="168" y="658" fill="#253240" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">pilot when memory topology + parser/runtime pinning are already supportable.</text>
+  <text x="68" y="686" fill="#40515f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">Sources: Tencent Hy3 model card · vLLM recipe (2026-07-06) · SGLang cookbook.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 14px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1256" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1279" height="719" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

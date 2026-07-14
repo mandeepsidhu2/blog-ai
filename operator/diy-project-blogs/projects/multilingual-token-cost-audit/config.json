@@ -1,0 +1,12 @@
+{
+  "hypothesis": "Across the 14 professionally translated MMMLU locales, o200k_base will reduce the paired token-count ratio to English versus cl100k_base in every locale and lower the median non-English inflation by at least 20 percentage points, while changing total HumanEval prompt tokens by less than 5%.",
+  "seed": 20260714,
+  "samplePerSubject": 20,
+  "bootstrapRepeats": 5000,
+  "encodings": ["cl100k_base", "o200k_base"],
+  "locales": [
+    "AR-XY", "BN-BD", "DE-DE", "ES-LA", "FR-FR", "HI-IN", "ID-ID",
+    "IT-IT", "JA-JP", "KO-KR", "PT-BR", "SW-KE", "YO-NG", "ZH-CN"
+  ],
+  "latinScriptLocales": ["DE-DE", "ES-LA", "FR-FR", "ID-ID", "IT-IT", "PT-BR", "SW-KE", "YO-NG"]
+}

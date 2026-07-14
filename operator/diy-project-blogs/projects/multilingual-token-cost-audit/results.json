@@ -1,0 +1,596 @@
+{
+  "generatedAt": "2026-07-14",
+  "runtime": {
+    "python": "3.14",
+    "tiktoken": "0.13.0",
+    "modelInference": false,
+    "torch": false
+  },
+  "design": {
+    "translatedLocales": 14,
+    "subjects": 57,
+    "selectedQuestions": 1124,
+    "pairedTranslatedPrompts": 15736,
+    "bootstrapRepeats": 5000,
+    "sampling": "20 evenly spaced rows per subject (or all rows when smaller)"
+  },
+  "alignment": {
+    "subjects": 57,
+    "answerMismatchesInInitialSample": 24,
+    "excludedQuestionsForAnswerMismatch": 16,
+    "rowCountMismatches": []
+  },
+  "localeResults": {
+    "AR-XY": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 242037,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 2.4842398053967503,
+        "ratioCi95": [
+          2.450740965766808,
+          2.5178167504070057
+        ],
+        "inflationPercent": 148.42398053967503,
+        "characterRatioToAlignedEnglish": 0.8583371893496828,
+        "utf8ByteRatioToAlignedEnglish": 1.465697495479552,
+        "charactersPerToken": 1.4714898961728993,
+        "utf8BytesPerToken": 2.5184827113209964,
+        "char4MapePercent": 62.463382108920264
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 120201,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.2403875920995604,
+        "ratioCi95": [
+          1.2317367744284817,
+          1.249514511069052
+        ],
+        "inflationPercent": 24.03875920995604,
+        "characterRatioToAlignedEnglish": 0.8583371893496828,
+        "utf8ByteRatioToAlignedEnglish": 1.465697495479552,
+        "charactersPerToken": 2.962995316178734,
+        "utf8BytesPerToken": 5.071222369198259,
+        "char4MapePercent": 27.48870458893527
+      },
+      "treatment": {
+        "ratioPointReduction": 1.2438522132971899,
+        "inflationReductionPercent": 83.80399237202086,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "BN-BD": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 457258,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 4.693243284853586,
+        "ratioCi95": [
+          4.608874010525918,
+          4.772963443417465
+        ],
+        "inflationPercent": 369.3243284853586,
+        "characterRatioToAlignedEnglish": 0.9680047043399465,
+        "utf8ByteRatioToAlignedEnglish": 2.393954622398338,
+        "charactersPerToken": 0.8784100004811288,
+        "utf8BytesPerToken": 2.177363764001942,
+        "char4MapePercent": 76.88556321852305
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 148951,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.5370668482859677,
+        "ratioCi95": [
+          1.5229175361357963,
+          1.5508254460313378
+        ],
+        "inflationPercent": 53.70668482859677,
+        "characterRatioToAlignedEnglish": 0.9680047043399465,
+        "utf8ByteRatioToAlignedEnglish": 2.393954622398338,
+        "charactersPerToken": 2.6965914965324167,
+        "utf8BytesPerToken": 6.684191445508926,
+        "char4MapePercent": 34.69076786668564
+      },
+      "treatment": {
+        "ratioPointReduction": 3.156176436567618,
+        "inflationReductionPercent": 85.45812428635448,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "DE-DE": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 144150,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 1.4795389463096202,
+        "ratioCi95": [
+          1.465949179597934,
+          1.49304701316334
+        ],
+        "inflationPercent": 47.953894630962026,
+        "characterRatioToAlignedEnglish": 1.1454971369078606,
+        "utf8ByteRatioToAlignedEnglish": 1.1617767283499403,
+        "charactersPerToken": 3.297315296566077,
+        "utf8BytesPerToken": 3.351848768643774,
+        "char4MapePercent": 20.635077011973216
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 121486,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.2536478649412832,
+        "ratioCi95": [
+          1.2454485676653348,
+          1.2619762895922872
+        ],
+        "inflationPercent": 25.36478649412832,
+        "characterRatioToAlignedEnglish": 1.1454971369078606,
+        "utf8ByteRatioToAlignedEnglish": 1.1617767283499403,
+        "charactersPerToken": 3.9124508173781343,
+        "utf8BytesPerToken": 3.9771578618112375,
+        "char4MapePercent": 14.027090488574828
+      },
+      "treatment": {
+        "ratioPointReduction": 0.22589108136833702,
+        "inflationReductionPercent": 47.105888501178725,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "ES-LA": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 132415,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 1.3590922620574983,
+        "ratioCi95": [
+          1.3494410306067546,
+          1.368892674755298
+        ],
+        "inflationPercent": 35.90922620574983,
+        "characterRatioToAlignedEnglish": 1.1155334798619547,
+        "utf8ByteRatioToAlignedEnglish": 1.1401122417573961,
+        "charactersPerToken": 3.4956387116263263,
+        "utf8BytesPerToken": 3.580855643242835,
+        "char4MapePercent": 16.65693555807899
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 115983,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.196860875487586,
+        "ratioCi95": [
+          1.1897345158020673,
+          1.2040783715527825
+        ],
+        "inflationPercent": 19.6860875487586,
+        "characterRatioToAlignedEnglish": 1.1155334798619547,
+        "utf8ByteRatioToAlignedEnglish": 1.1401122417573961,
+        "charactersPerToken": 3.990886595449333,
+        "utf8BytesPerToken": 4.088176715553141,
+        "char4MapePercent": 15.329626327919504
+      },
+      "treatment": {
+        "ratioPointReduction": 0.16223138656991232,
+        "inflationReductionPercent": 45.178190596581445,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "FR-FR": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 142677,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 1.4644202444857282,
+        "ratioCi95": [
+          1.4522330747720065,
+          1.4764109415802436
+        ],
+        "inflationPercent": 46.442024448572816,
+        "characterRatioToAlignedEnglish": 1.1557131702238417,
+        "utf8ByteRatioToAlignedEnglish": 1.2091668910860616,
+        "charactersPerToken": 3.3610673058727056,
+        "utf8BytesPerToken": 3.524590508631384,
+        "char4MapePercent": 18.86559388513621
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 124046,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.2800652178399687,
+        "ratioCi95": [
+          1.2718203573887137,
+          1.2883411342323625
+        ],
+        "inflationPercent": 28.006521783996874,
+        "characterRatioToAlignedEnglish": 1.1557131702238417,
+        "utf8ByteRatioToAlignedEnglish": 1.2091668910860616,
+        "charactersPerToken": 3.865880399206746,
+        "utf8BytesPerToken": 4.0539638521193755,
+        "char4MapePercent": 14.618510155985401
+      },
+      "treatment": {
+        "ratioPointReduction": 0.18435502664575942,
+        "inflationReductionPercent": 39.69573437736406,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "HI-IN": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 376422,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 3.86355191985959,
+        "ratioCi95": [
+          3.796570792777912,
+          3.9290073706523176
+        ],
+        "inflationPercent": 286.355191985959,
+        "characterRatioToAlignedEnglish": 0.9771699732006863,
+        "utf8ByteRatioToAlignedEnglish": 2.3482067287346595,
+        "charactersPerToken": 1.0771501134365153,
+        "utf8BytesPerToken": 2.5944046841045423,
+        "char4MapePercent": 71.96363411696179
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 137418,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.4180546096216953,
+        "ratioCi95": [
+          1.406867480115743,
+          1.4289081468612244
+        ],
+        "inflationPercent": 41.805460962169526,
+        "characterRatioToAlignedEnglish": 0.9771699732006863,
+        "utf8ByteRatioToAlignedEnglish": 2.3482067287346595,
+        "charactersPerToken": 2.9505814376573665,
+        "utf8BytesPerToken": 7.106718188301387,
+        "char4MapePercent": 28.700211561974022
+      },
+      "treatment": {
+        "ratioPointReduction": 2.4454973102378945,
+        "inflationReductionPercent": 85.40083709597296,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "ID-ID": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 136918,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 1.4053105338246312,
+        "ratioCi95": [
+          1.3930699757206109,
+          1.417639299997169
+        ],
+        "inflationPercent": 40.53105338246312,
+        "characterRatioToAlignedEnglish": 1.0539360286887616,
+        "utf8ByteRatioToAlignedEnglish": 1.0547166544838995,
+        "charactersPerToken": 3.193999328064973,
+        "utf8BytesPerToken": 3.2036985641040623,
+        "char4MapePercent": 22.886882350763198
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 113512,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.171361938373269,
+        "ratioCi95": [
+          1.1638875324334543,
+          1.1786263134998678
+        ],
+        "inflationPercent": 17.136193837326896,
+        "characterRatioToAlignedEnglish": 1.0539360286887616,
+        "utf8ByteRatioToAlignedEnglish": 1.0547166544838995,
+        "charactersPerToken": 3.852597082246811,
+        "utf8BytesPerToken": 3.86429628585524,
+        "char4MapePercent": 13.987433148214965
+      },
+      "treatment": {
+        "ratioPointReduction": 0.23394859545136226,
+        "inflationReductionPercent": 57.7208278412489,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "IT-IT": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 140129,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 1.4382678668568907,
+        "ratioCi95": [
+          1.425518814059884,
+          1.4510047777121158
+        ],
+        "inflationPercent": 43.826786685689065,
+        "characterRatioToAlignedEnglish": 1.1095903946632735,
+        "utf8ByteRatioToAlignedEnglish": 1.1243700226984188,
+        "charactersPerToken": 3.2856082609595445,
+        "utf8BytesPerToken": 3.337010897101956,
+        "char4MapePercent": 20.50028036682774
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 126559,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.3059975646502797,
+        "ratioCi95": [
+          1.2966400094498014,
+          1.3152463510784076
+        ],
+        "inflationPercent": 30.599756465027973,
+        "characterRatioToAlignedEnglish": 1.1095903946632735,
+        "utf8ByteRatioToAlignedEnglish": 1.1243700226984188,
+        "charactersPerToken": 3.637900109830198,
+        "utf8BytesPerToken": 3.69481427634542,
+        "char4MapePercent": 14.34503123550831
+      },
+      "treatment": {
+        "ratioPointReduction": 0.13227030220661096,
+        "inflationReductionPercent": 30.18024185875386,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "JA-JP": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 195612,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 2.007738968890166,
+        "ratioCi95": [
+          1.9812002271231866,
+          2.0343866005733324
+        ],
+        "inflationPercent": 100.77389688901661,
+        "characterRatioToAlignedEnglish": 0.48223822469007266,
+        "utf8ByteRatioToAlignedEnglish": 1.180036452121725,
+        "charactersPerToken": 1.0229331533852728,
+        "utf8BytesPerToken": 2.50885937468049,
+        "char4MapePercent": 72.73587193888392
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 149737,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.5451778011681423,
+        "ratioCi95": [
+          1.528916931543095,
+          1.5618069886699553
+        ],
+        "inflationPercent": 54.51778011681423,
+        "characterRatioToAlignedEnglish": 0.48223822469007266,
+        "utf8ByteRatioToAlignedEnglish": 1.180036452121725,
+        "charactersPerToken": 1.3363296980706172,
+        "utf8BytesPerToken": 3.2774998831284186,
+        "char4MapePercent": 65.39746316697955
+      },
+      "treatment": {
+        "ratioPointReduction": 0.4625611677220238,
+        "inflationReductionPercent": 45.9008912031503,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "KO-KR": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 190592,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 1.9562142688521897,
+        "ratioCi95": [
+          1.9310251952673099,
+          1.9813480641026815
+        ],
+        "inflationPercent": 95.62142688521898,
+        "characterRatioToAlignedEnglish": 0.5283585902404226,
+        "utf8ByteRatioToAlignedEnglish": 1.1066537144615858,
+        "charactersPerToken": 1.1502843770987239,
+        "utf8BytesPerToken": 2.4148127938213566,
+        "char4MapePercent": 69.71976435661495
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 125902,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.2992177986915154,
+        "ratioCi95": [
+          1.2875900125097544,
+          1.3102238346957469
+        ],
+        "inflationPercent": 29.921779869151543,
+        "characterRatioToAlignedEnglish": 0.5283585902404226,
+        "utf8ByteRatioToAlignedEnglish": 1.1066537144615858,
+        "charactersPerToken": 1.7413146733173421,
+        "utf8BytesPerToken": 3.6555733824720815,
+        "char4MapePercent": 55.714935211284825
+      },
+      "treatment": {
+        "ratioPointReduction": 0.6569964701606743,
+        "inflationReductionPercent": 68.70808055911074,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "PT-BR": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 131224,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 1.346867975654066,
+        "ratioCi95": [
+          1.3374160533120496,
+          1.3563166635996002
+        ],
+        "inflationPercent": 34.6867975654066,
+        "characterRatioToAlignedEnglish": 1.053704667707791,
+        "utf8ByteRatioToAlignedEnglish": 1.0859606432501059,
+        "charactersPerToken": 3.331860025605072,
+        "utf8BytesPerToken": 3.4417332195330124,
+        "char4MapePercent": 19.684814706597557
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 111674,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.152395104534291,
+        "ratioCi95": [
+          1.1464973616642096,
+          1.1580740346833038
+        ],
+        "inflationPercent": 15.239510453429105,
+        "characterRatioToAlignedEnglish": 1.053704667707791,
+        "utf8ByteRatioToAlignedEnglish": 1.0859606432501059,
+        "charactersPerToken": 3.9151458710174256,
+        "utf8BytesPerToken": 4.04425381019754,
+        "char4MapePercent": 15.134909378964453
+      },
+      "treatment": {
+        "ratioPointReduction": 0.19447287111977496,
+        "inflationReductionPercent": 56.065386478261736,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "SW-KE": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 170626,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 1.751285551529832,
+        "ratioCi95": [
+          1.732515277571516,
+          1.770718210570719
+        ],
+        "inflationPercent": 75.1285551529832,
+        "characterRatioToAlignedEnglish": 1.0316868143520928,
+        "utf8ByteRatioToAlignedEnglish": 1.0319412918862771,
+        "charactersPerToken": 2.50890251192667,
+        "utf8BytesPerToken": 2.5152790313316844,
+        "char4MapePercent": 38.05477762220535
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 135335,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.3965595525560852,
+        "ratioCi95": [
+          1.385625171289646,
+          1.4075869974447035
+        ],
+        "inflationPercent": 39.65595525560852,
+        "characterRatioToAlignedEnglish": 1.0316868143520928,
+        "utf8ByteRatioToAlignedEnglish": 1.0319412918862771,
+        "charactersPerToken": 3.1631433110429676,
+        "utf8BytesPerToken": 3.1711826209036835,
+        "char4MapePercent": 23.399818914689376
+      },
+      "treatment": {
+        "ratioPointReduction": 0.3547259989737468,
+        "inflationReductionPercent": 47.21586862031665,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "YO-NG": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 275334,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 2.8259963665848975,
+        "ratioCi95": [
+          2.7684287446737104,
+          2.881553146405896
+        ],
+        "inflationPercent": 182.59963665848974,
+        "characterRatioToAlignedEnglish": 1.0342390151734244,
+        "utf8ByteRatioToAlignedEnglish": 1.34476349401762,
+        "charactersPerToken": 1.558626976690129,
+        "utf8BytesPerToken": 2.031245687056448,
+        "char4MapePercent": 58.59362655932253
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 205506,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 2.1206736424989163,
+        "ratioCi95": [
+          2.079361063403807,
+          2.160245474984489
+        ],
+        "inflationPercent": 112.06736424989163,
+        "characterRatioToAlignedEnglish": 1.0342390151734244,
+        "utf8ByteRatioToAlignedEnglish": 1.34476349401762,
+        "charactersPerToken": 2.088226134516754,
+        "utf8BytesPerToken": 2.7214339240703436,
+        "char4MapePercent": 46.2958865278101
+      },
+      "treatment": {
+        "ratioPointReduction": 0.7053227240859812,
+        "inflationReductionPercent": 38.62673206766143,
+        "o200kUsesFewerTokens": true
+      }
+    },
+    "ZH-CN": {
+      "cl100k_base": {
+        "items": 1124,
+        "tokens": 149467,
+        "englishTokens": 97429,
+        "ratioToAlignedEnglish": 1.5341120200351024,
+        "ratioCi95": [
+          1.5181603853463719,
+          1.5503439266919927
+        ],
+        "inflationPercent": 53.41120200351024,
+        "characterRatioToAlignedEnglish": 0.37334673299014787,
+        "utf8ByteRatioToAlignedEnglish": 0.8409018774285385,
+        "charactersPerToken": 1.0364495172847519,
+        "utf8BytesPerToken": 2.339787377815839,
+        "char4MapePercent": 71.91488816637681
+      },
+      "o200k_base": {
+        "items": 1124,
+        "tokens": 108631,
+        "englishTokens": 96906,
+        "ratioToAlignedEnglish": 1.120993540131674,
+        "ratioCi95": [
+          1.112243116419708,
+          1.1292261830609764
+        ],
+        "inflationPercent": 12.099354013167396,
+        "characterRatioToAlignedEnglish": 0.37334673299014787,
+        "utf8ByteRatioToAlignedEnglish": 0.8409018774285385,
+        "charactersPerToken": 1.4260662241901483,
+        "utf8BytesPerToken": 3.2193480682309836,
+        "char4MapePercent": 62.900850346163054
+      },
+      "treatment": {
+        "ratioPointReduction": 0.4131184799034284,
+        "inflationReductionPercent": 77.34678576907478,
+        "o200kUsesFewerTokens": true
+      }
+    }
+  },
+  "aggregate": {
+    "languagesImproved": 14,
+    "languagesTotal": 14,
+    "medianRatioPointReduction": 0.3839222394385876,
+    "medianCl100kInflationPercent": 64.26987857824672,
+    "medianO200kInflationPercent": 28.96415082657421,
+    "latinMedianRatioPointReduction": 0.210181976244056,
+    "nonLatinMedianRatioPointReduction": 0.9504243417289321
+  },
+  "codeControl": {
+    "cl100k_base": {
+      "prompts": 164,
+      "tokens": 21537,
+      "medianTokens": 117.0,
+      "charactersPerToken": 3.431211403630961
+    },
+    "o200k_base": {
+      "prompts": 164,
+      "tokens": 21538,
+      "medianTokens": 117.0,
+      "charactersPerToken": 3.431052093973442
+    },
+    "o200kVsCl100kTokenChangePercent": 0.004643172215268443
+  },
+  "claimBoundary": "Token counts for pinned cl100k_base and o200k_base encodings on a deterministic, subject-stratified sample of professionally translated MMLU multiple-choice payloads. This does not measure model quality, provider billing wrappers, chat-template overhead, latency, or other tokenizers."
+}
