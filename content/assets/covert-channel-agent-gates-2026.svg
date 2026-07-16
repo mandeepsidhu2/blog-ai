@@ -24,7 +24,7 @@
     <rect x="484" y="130" width="150" height="88" rx="8" fill="#121a23" stroke="#9db4bd" stroke-width="2"/>
     <text x="559" y="164" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Tool calls</text>
     <text x="559" y="190" text-anchor="middle" font-size="13" fill="#53616c">metadata and payloads</text>
-    <rect x="702" y="130" width="184" height="88" rx="8" fill="#fff7ef" stroke="#bf4e30" stroke-width="2"/>
+    <rect x="702" y="130" width="184" height="88" rx="8" fill="#32191e" stroke="#ff657a" stroke-width="2"/>
     <text x="794" y="164" text-anchor="middle" font-size="17" font-weight="700" fill="#17202a">Trace gate</text>
     <text x="794" y="190" text-anchor="middle" font-size="13" fill="#53616c">capacity, provenance, route</text>
     <path d="M198 174 H266" stroke="#60717d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>

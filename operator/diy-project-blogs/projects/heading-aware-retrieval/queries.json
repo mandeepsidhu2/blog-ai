@@ -1,0 +1,14 @@
+[
+ {"id":"dropout","query":"how should dropout change as unique training data grows","relevant":"dropout-pressure-law-streaming-language-models"},
+ {"id":"routing","query":"route language models by accepted task cost and benchmark evidence","relevant":"gpt-5-6-model-routing-cost-benchmarks"},
+ {"id":"provenance","query":"verify AI generated media provenance before publishing","relevant":"ai-media-provenance-gates-2026"},
+ {"id":"mcp-auth","query":"bind agent tool authorization to MCP resources and token audience","relevant":"mcp-resource-authorization-gates-2026"},
+ {"id":"multimodal","query":"route text image and table retrieval in multimodal RAG","relevant":"measure-multimodal-retrieval-routing"},
+ {"id":"computer","query":"prevent unsafe computer use agent submissions in SaaS workflows","relevant":"computer-use-agent-action-gates-2026"},
+ {"id":"dependencies","query":"stop coding agents installing hallucinated package dependencies","relevant":"hallucinated-dependency-gates-2026"},
+ {"id":"context","query":"evaluate context boundary failure with local language models","relevant":"llm-context-boundary-evaluation"},
+ {"id":"commerce","query":"authorize AI agent payments before checkout","relevant":"agentic-commerce-payment-gates-2026"},
+ {"id":"science","query":"control plane for auditable AI science workbenches","relevant":"ai-science-workbenches-control-plane"},
+ {"id":"channels","query":"budget low amplitude MLP channel interventions during transformer training","relevant":"budgeted-guardrails-mlp-channel-interventions"},
+ {"id":"trace","query":"measure completeness of coding agent tool traces","relevant":"measure-agent-trace-completeness-gates"}
+]

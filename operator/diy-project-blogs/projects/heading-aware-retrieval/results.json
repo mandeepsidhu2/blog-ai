@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-07-11T12:45:49.284Z",
+  "corpusDocuments": 46,
+  "queries": 12,
+  "repeats": 5,
+  "summary": [
+    {
+      "mode": "fixed",
+      "n": 60,
+      "hit1": 0.7833333333333333,
+      "hit5": 1,
+      "mrr": 0.888888888888889,
+      "meanRank": 1.2333333333333334
+    },
+    {
+      "mode": "paragraph",
+      "n": 60,
+      "hit1": 0.6333333333333333,
+      "hit5": 0.9833333333333333,
+      "mrr": 0.7993055555555556,
+      "meanRank": 1.5333333333333334
+    },
+    {
+      "mode": "heading",
+      "n": 60,
+      "hit1": 0.6666666666666666,
+      "hit5": 0.9833333333333333,
+      "mrr": 0.8162698412698414,
+      "meanRank": 1.4833333333333334
+    }
+  ],
+  "byQuery": [
+    {
+      "query": "dropout",
+      "fixed": 1,
+      "paragraph": 1,
+      "heading": 1
+    },
+    {
+      "query": "routing",
+      "fixed": 1,
+      "paragraph": 0.8666666666666666,
+      "heading": 0.8666666666666666
+    },
+    {
+      "query": "provenance",
+      "fixed": 1,
+      "paragraph": 1,
+      "heading": 1
+    },
+    {
+      "query": "mcp-auth",
+      "fixed": 0.8,
+      "paragraph": 0.9,
+      "heading": 1
+    },
+    {
+      "query": "multimodal",
+      "fixed": 0.5,
+      "paragraph": 0.5,
+      "heading": 0.5
+    },
+    {
+      "query": "computer",
+      "fixed": 0.5,
+      "paragraph": 0.5,
+      "heading": 0.5
+    },
+    {
+      "query": "dependencies",
+      "fixed": 1,
+      "paragraph": 0.6,
+      "heading": 0.6
+    },
+    {
+      "query": "context",
+      "fixed": 1,
+      "paragraph": 1,
+      "heading": 1
+    },
+    {
+      "query": "commerce",
+      "fixed": 1,
+      "paragraph": 1,
+      "heading": 1
+    },
+    {
+      "query": "science",
+      "fixed": 1,
+      "paragraph": 0.9,
+      "heading": 1
+    },
+    {
+      "query": "channels",
+      "fixed": 1,
+      "paragraph": 1,
+      "heading": 1
+    },
+    {
+      "query": "trace",
+      "fixed": 0.8666666666666666,
+      "paragraph": 0.32499999999999996,
+      "heading": 0.3285714285714285
+    }
+  ],
+  "claimBoundary": "Lexical BM25 retrieval over this 46-article technical corpus and twelve authored information needs; no claim about neural embeddings, other corpora, or generated user traffic."
+}

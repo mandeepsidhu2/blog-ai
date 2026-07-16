@@ -1,19 +1,25 @@
 ---
-title: Evaluate an LLM Context Boundary with Local Models
-description: Run a local Qwen3.6 and Qwen embedding benchmark for grounded answers, abstention behavior, citation recall, and RAG failure cases.
+title: Build a Local RAG Context-Boundary Regression Harness
+description: Run an eight-case local Qwen regression suite for grounded answers, abstention, citation completeness, retrieval pressure, and RAG failure analysis.
 topic: Evaluation
 level: Advanced
 date: 2026-06-27
-readingTime: 34
+readingTime: 39
 tags: llm-evaluation, rag, local-models, grounding, embeddings, lm-studio
 image: /content/v1/assets/llm-context-boundary-evaluation.svg
-imageAlt: LLM context boundary evaluation chart showing decision accuracy, abstention accuracy, citation recall, score, and hallucination rate
+imageAlt: Case-level matrix for eight local RAG context-boundary tests showing decisions, citation recall, latency, and uncertainty limits
 evidenceMode: experiment
 ---
 
-Local models are useful only if we measure the boundary between what the context supports and what the model is willing to invent. This tutorial builds a small but serious evaluation harness for that boundary. The goal is not to produce a leaderboard number. The goal is to create a regression suite that engineers can run before changing a retriever, prompt, model, chunking strategy, or agent policy.
+Local models are useful only if we measure the boundary between what the context supports and what the model is willing to invent. This tutorial builds a small regression harness for that boundary. It is not a benchmark and it cannot certify a model from eight hand-reviewed cases. Its job is narrower: expose concrete grounding failures that engineers can rerun before changing a retriever, prompt, model, chunking strategy, or agent policy.
 
-The experiment uses LM Studio on a local M-series laptop. It runs Qwen embeddings to measure semantic pressure from support and distractor passages, then unloads the embedding model and runs Qwen3.6 35B for strict grounded judgment. That sequencing matters. On a 64 GB machine, keeping multiple large models loaded can create unstable behavior, slow responses, or empty final generations. The project treats model memory hygiene as part of the experiment, not as an afterthought.
+The recorded run uses LM Studio on a local M-series laptop. It runs Qwen embeddings to measure semantic pressure from support and distractor passages, then unloads the embedding model and runs Qwen3.6 35B for strict grounded judgment. That sequencing matters. On a 64 GB machine, keeping multiple large models loaded can create unstable behavior, slow responses, or empty final generations. The project treats model memory hygiene as part of the experiment, not as an afterthought.
+
+## Research Context
+
+RAG evaluation is not one scalar. [RAGAs](https://aclanthology.org/2024.eacl-demo.16/) separates retrieval quality, faithful use of retrieved passages, and answer quality. [RAGChecker](https://arxiv.org/abs/2408.08067) similarly diagnoses retrieval and generation modules rather than collapsing both into a final-answer score. This harness follows that decomposition in a deliberately smaller form: embedding margins describe retrieval pressure, while decision correctness, citation validity, citation recall, and term coverage describe generation behavior.
+
+Citation quality also needs its own failure surface. [ALCE](https://aclanthology.org/2023.emnlp-main.398/) evaluates citation correctness and completeness independently from answer fluency and correctness. The 2026 [RAGVUE](https://aclanthology.org/2026.eacl-demo.35/) work makes the same methodological point more broadly: aggregate metrics can hide whether a failure came from retrieval, reasoning, grounding, or judge calibration. The local suite therefore preserves every case result and raw response instead of treating the mean score as the conclusion.
 
 ## Research Question
 
@@ -53,7 +59,7 @@ for (const caseItem of cases) {
 }
 ```
 
-This is not cosmetic. The earlier lightweight experiments relied on whatever was already loaded in LM Studio. That is not reproducible. A local benchmark should declare the model state it needs and clean up after itself. Otherwise the next run inherits hidden memory pressure, stale loaded instances, or a manually loaded model from another task.
+This is not cosmetic. The earlier lightweight experiments relied on whatever was already loaded in LM Studio. That is not reproducible. A local regression run should declare the model state it needs and clean up after itself. Otherwise the next run inherits hidden memory pressure, stale loaded instances, or a manually loaded model from another task.
 
 ## Dataset Design
 
@@ -153,11 +159,11 @@ const score =
 
 This weighting is intentionally transparent. Decision correctness dominates because answering when the model should abstain is a release blocker. Citation recall comes next because a correct answer without the right support is not acceptable for production RAG. Term recall is smaller because it is a proxy for content coverage, not a substitute for human review.
 
-The weighting should be treated as a policy decision, not a universal formula. A medical, legal, or security workflow would likely assign even more weight to abstention and citation completeness. A low-risk internal summarizer might tolerate a lower citation recall while still blocking unsupported answers. The key is to document the weighting before running the benchmark so teams cannot move the goalposts after seeing a favorable or unfavorable model result.
+The weighting should be treated as a policy decision, not a universal formula. A medical, legal, or security workflow would likely assign even more weight to abstention and citation completeness. A low-risk internal summarizer might tolerate a lower citation recall while still blocking unsupported answers. The key is to document the weighting before running the suite so teams cannot move the goalposts after seeing a favorable or unfavorable model result.
 
 ## Results
 
-The local run completed eight cases with explicit model loading and cleanup. The aggregate metrics were:
+The recorded run completed eight cases with explicit model loading and cleanup. These are descriptive results from one prompt and one execution per case, not population estimates:
 
 ```output
 caseCount: 8
@@ -171,9 +177,36 @@ meanLatencyMs: 1017.775
 meanReasoningTokens: 0
 ```
 
-The strongest result is abstention behavior: the model correctly abstained on unsupported policy, conflicting policy, and unsupported benchmark claims. That matters because many RAG systems fail not by answering easy questions incorrectly, but by answering questions that should have been refused.
+The model abstained on the three cases labeled unsupported or conflicting. That is the desired behavior on this fixture, but `3/3` is too small to establish a dependable abstention rate. The result earns a larger regression run; it does not earn a production claim.
 
 The weaker result is citation recall. The tool-risk case answered correctly but missed the expected citations. The multi-hop observability case cited only one of two expected passages. That is a useful failure. It shows that answer correctness and citation completeness are not the same metric. A team shipping a grounded assistant should evaluate both.
+
+The case-level evidence makes the gap visible:
+
+| Case | Expected / actual route | Citation recall | Latency | Observed failure |
+| --- | --- | ---: | ---: | --- |
+| Supported RAG answer | answer / answer | 1.00 | 1267.9 ms | none observed |
+| Unsupported policy | abstain / abstain | 1.00 | 750.4 ms | no repeated-run evidence |
+| Conflicting policy | abstain / abstain | 1.00 | 989.2 ms | no repeated-run evidence |
+| Tool-risk controls | answer / answer | 0.00 | 1097.8 ms | emitted malformed citation id |
+| Recency trap | answer / answer | 1.00 | 978.7 ms | semantic margin only 0.061 |
+| Numeric extraction | answer / answer | 1.00 | 1095.6 ms | none observed |
+| Unsupported benchmark claim | abstain / abstain | 1.00 | 852.5 ms | no repeated-run evidence |
+| Multi-hop support | answer / answer | 0.50 | 1110.1 ms | omitted one required passage |
+
+## Evidence Boundary And Uncertainty
+
+Perfect observed decision accuracy is the easiest number here to misuse. With `8/8` correct decisions, a two-sided 95% Wilson interval is approximately `0.676` to `1.000`. The corresponding intervals are approximately `0.566` to `1.000` for the five answerable cases and `0.439` to `1.000` for the three abstention cases. Those ranges are wide because the sample is small. Reporting only `1.000` would imply more certainty than the run contains.
+
+The mean citation recall of `0.813` should not receive a conventional confidence interval from these eight rows. The cases are intentionally heterogeneous, there was one run per case, and the two citation failures have different mechanisms. The useful evidence is diagnostic: one response formatted a supplied id incorrectly, while one multi-hop response omitted a necessary source. A larger experiment should stratify those failure modes and repeat each case across sampling seeds or deterministic replicas.
+
+Three further boundaries matter:
+
+- The prompt, model build, and decoding configuration were not varied, so the run cannot separate model behavior from prompt behavior.
+- Latency comes from one local machine and one model-loading regime; it is useful for regression on that machine, not for serving-capacity estimates.
+- `meanReasoningTokens: 0` means the endpoint reported no reasoning-token count. It is not evidence that the model performed no internal reasoning.
+
+The next defensible experiment is a matrix rather than a larger pile of unrelated questions: at least 30 cases per failure class, repeated across prompt versions and model routes, with answer correctness, citation precision, citation recall, abstention calibration, and latency reported separately. Freeze the cases before comparing routes, and reserve incident-derived cases as a held-out regression set.
 
 ## Case-Level Findings
 
@@ -192,7 +225,7 @@ There are two practical fixes:
 - require citations for every material clause in the answer.
 - score citation precision and recall separately, then block release on either one.
 
-The benchmark is also small. Eight cases are enough to debug the harness, not enough to certify a product. A production suite should include dozens or hundreds of cases per route, with cases sampled from real incidents and reviewed by domain owners. The value of this first project is the methodology: controlled context, explicit expected behavior, model hygiene, and per-case artifacts that make failures inspectable.
+The suite is also small. Eight cases are enough to debug the harness, not enough to certify a product. A production suite should include dozens or hundreds of cases per route, with cases sampled from real incidents and reviewed by domain owners. The value of this first project is the methodology: controlled context, explicit expected behavior, model hygiene, and per-case artifacts that make failures inspectable.
 
 ## Production Readiness
 
@@ -205,7 +238,7 @@ To use this in a real RAG or agent release pipeline, treat the evaluation as a g
 - preserve the raw model JSON so failures can be reviewed without rerunning the model.
 - add adversarial cases from production incidents, not only happy-path examples.
 
-The model loading discipline should stay in the harness. A local server with limited RAM is a shared resource. If the benchmark leaves large models loaded, the next experiment starts with hidden state. Explicit unload/load phases make the run reproducible and keep the workstation usable.
+The model loading discipline should stay in the harness. A local server with limited RAM is a shared resource. If the harness leaves large models loaded, the next experiment starts with hidden state. Explicit unload/load phases make the run reproducible and keep the workstation usable.
 
 ## Reproducibility
 

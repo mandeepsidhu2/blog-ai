@@ -39,7 +39,7 @@
     <text x="220" y="438" font-size="19" font-weight="700" fill="#7d2a16">Stop</text>
     <text x="220" y="466" font-size="15" fill="#713321" textLength="182" lengthAdjust="spacingAndGlyphs">Leakage, unsafe action,</text>
     <text x="220" y="486" font-size="15" fill="#713321">or missing verifier</text>
-    <rect x="488" y="402" width="226" height="92" rx="8" fill="#f2f7f3" stroke="#4d9078" stroke-width="2"/>
+    <rect x="488" y="402" width="226" height="92" rx="8" fill="#16251f" stroke="#4d9078" stroke-width="2"/>
     <text x="520" y="438" font-size="19" font-weight="700" fill="#254e42">Review</text>
     <text x="520" y="466" font-size="15" fill="#345f52">High-impact claims</text>
     <text x="520" y="486" font-size="15" fill="#345f52">need expert signoff</text>

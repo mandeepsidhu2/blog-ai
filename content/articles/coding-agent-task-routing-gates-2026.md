@@ -49,6 +49,31 @@ Start by defining four routes.
 
 `decompose-first` is for large or ambiguous work. The first agent task should produce a plan, dependency map, test plan, or failure analysis, not a large patch. The implementation is split only after the team accepts the plan.
 
+## A Machine-Readable Route Contract
+
+Put the route decision in versioned policy rather than leaving it in onboarding prose. The contract below is intentionally small enough for code review and strict enough for a runner to enforce before an agent receives tools:
+
+```json
+{
+  "route": "agent-reviewed",
+  "taskClass": "dependency-update",
+  "risk": "medium",
+  "owner": "payments-platform",
+  "allowedTools": ["read_file", "edit_file", "run_tests"],
+  "writeScopes": ["services/payments", "tests/payments"],
+  "network": "approval-required",
+  "requiredEvidence": ["dependency-diff", "unit-tests", "security-scan"],
+  "budgets": {
+    "maxTokens": 120000,
+    "maxWallMinutes": 30,
+    "maxReviewMinutes": 45
+  },
+  "rollback": "close pull request and revoke task workspace"
+}
+```
+
+The runner should reject an undeclared tool, a write outside `writeScopes`, a missing evidence item, or a budget overrun. A human can still override the route, but the override should record an owner, reason, and expiration. That turns route changes into auditable policy changes instead of invisible prompt edits.
+
 ## Gate Inputs
 
 Every delegated task should carry routing metadata. The minimum useful set is risk level, owner, task class, expected files touched, expected diff size, required CI, security sensitivity, product-judgment need, token or credit budget, and expected review SLA.

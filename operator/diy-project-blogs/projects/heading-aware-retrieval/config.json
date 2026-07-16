@@ -1,0 +1,1 @@
+{"corpus":"content/articles/*.md","seed":20260711,"repeats":5,"topK":5,"fixedWords":180,"overlapWords":36,"bootstrapSamples":10000}

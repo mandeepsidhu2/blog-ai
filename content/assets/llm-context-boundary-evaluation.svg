@@ -1,56 +1,126 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
-  <title id="title">LLM context boundary evaluation results</title>
-  <desc id="desc">Bar chart showing decision accuracy, abstention accuracy, citation recall, mean score, and unsupported hallucination rate from a local LLM evaluation.</desc>
+  <title id="title">Local RAG context-boundary regression results</title>
+  <desc id="desc">Case-level matrix for eight local Qwen RAG tests showing correct answer or abstention routes, two citation failures, latency, and wide Wilson uncertainty intervals.</desc>
   <!-- fieldbook-visual-system:v2 -->
-  <defs id="fieldbook-v2-defs">
+  <defs>
     <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
     </pattern>
   </defs>
-  <g aria-hidden="true" data-fieldbook-frame="background">
-    <rect width="1600" height="900" fill="#080c12"/>
-    <rect width="1600" height="900" fill="url(#fieldbook-grid)" opacity="0.32"/>
+
+  <rect width="1600" height="900" fill="#080c12"/>
+  <rect width="1600" height="900" fill="url(#fieldbook-grid)" opacity="0.30"/>
+  <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+  <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+  <text class="fieldbook-kicker" x="1574" y="31" text-anchor="end">AI SYSTEMS FIELDBOOK / REGRESSION EVIDENCE</text>
+
+  <text class="title" x="80" y="92">RAG context-boundary regression</text>
+  <text class="subtitle" x="80" y="136">Eight hand-reviewed cases, one local execution each. Observed behavior, not model certification.</text>
+  <line x1="80" y1="156" x2="1520" y2="156" stroke="#2b3742" stroke-width="2"/>
+
+  <rect x="80" y="184" width="450" height="606" rx="8" fill="#101720" stroke="#334250" stroke-width="2"/>
+  <text class="section" x="112" y="226">OBSERVED SUMMARY</text>
+
+  <rect x="112" y="250" width="386" height="96" rx="8" fill="#11291f" stroke="#43d6a0" stroke-width="2"/>
+  <text class="metric" x="138" y="292">8 / 8</text>
+  <text class="metricLabel" x="278" y="286" textLength="208" lengthAdjust="spacingAndGlyphs">decision routes correct</text>
+  <text class="note" x="278" y="316">95% Wilson: 0.676 to 1.000</text>
+
+  <rect x="112" y="364" width="386" height="96" rx="8" fill="#102938" stroke="#52dcef" stroke-width="2"/>
+  <text class="metric" x="138" y="406">5 / 5</text>
+  <text class="metricLabel" x="278" y="400">answerable cases</text>
+  <text class="note" x="278" y="430">95% Wilson: 0.566 to 1.000</text>
+
+  <rect x="112" y="478" width="386" height="96" rx="8" fill="#211b35" stroke="#9b87ff" stroke-width="2"/>
+  <text class="metric" x="138" y="520">3 / 3</text>
+  <text class="metricLabel" x="278" y="514">abstention cases</text>
+  <text class="note" x="278" y="544">95% Wilson: 0.439 to 1.000</text>
+
+  <rect x="112" y="592" width="386" height="80" rx="8" fill="#302418" stroke="#ffb84d" stroke-width="2"/>
+  <text class="metricSmall" x="138" y="628">0.813</text>
+  <text class="metricLabel" x="278" y="626">mean citation recall</text>
+  <text class="note" x="278" y="652" textLength="208" lengthAdjust="spacingAndGlyphs">2 cases incomplete / invalid</text>
+
+  <rect x="112" y="690" width="386" height="72" rx="8" fill="#32191e" stroke="#ff657a" stroke-width="2"/>
+  <text class="warning" x="138" y="721">ONE PROMPT / NO REPEATS</text>
+  <text class="note" x="138" y="746" textLength="348" lengthAdjust="spacingAndGlyphs">Latency and rates do not generalize beyond this run.</text>
+
+  <rect x="562" y="184" width="958" height="606" rx="8" fill="#101720" stroke="#334250" stroke-width="2"/>
+  <text class="section" x="592" y="226">CASE-LEVEL RESULT MATRIX</text>
+  <rect x="592" y="246" width="898" height="52" rx="6" fill="#17212b"/>
+  <text class="column" x="612" y="279">CASE</text>
+  <text class="column" x="1000" y="279">ROUTE</text>
+  <text class="column" x="1148" y="279">DECISION</text>
+  <text class="column" x="1290" y="279">CITATION</text>
+  <text class="column" x="1420" y="279">LATENCY</text>
+
+  <g class="row">
+    <rect x="592" y="308" width="898" height="50" rx="5"/>
+    <text x="612" y="340">Supported RAG answer</text><text x="1000" y="340">answer</text>
+    <circle class="pass" cx="1188" cy="333" r="10"/><text x="1290" y="340">1.00</text><text x="1420" y="340" textLength="58" lengthAdjust="spacingAndGlyphs">1268 ms</text>
+  </g>
+  <g class="row alt">
+    <rect x="592" y="366" width="898" height="50" rx="5"/>
+    <text x="612" y="398">Unsupported policy</text><text x="1000" y="398">abstain</text>
+    <circle class="pass" cx="1188" cy="391" r="10"/><text x="1290" y="398">1.00</text><text x="1420" y="398">750 ms</text>
+  </g>
+  <g class="row">
+    <rect x="592" y="424" width="898" height="50" rx="5"/>
+    <text x="612" y="456">Conflicting policy</text><text x="1000" y="456">abstain</text>
+    <circle class="pass" cx="1188" cy="449" r="10"/><text x="1290" y="456">1.00</text><text x="1420" y="456">989 ms</text>
+  </g>
+  <g class="row failRow">
+    <rect x="592" y="482" width="898" height="50" rx="5"/>
+    <text x="612" y="514">Tool-risk controls</text><text x="1000" y="514">answer</text>
+    <circle class="pass" cx="1188" cy="507" r="10"/><text class="failText" x="1290" y="514">0.00</text><text x="1420" y="514" textLength="58" lengthAdjust="spacingAndGlyphs">1098 ms</text>
+  </g>
+  <g class="row alt">
+    <rect x="592" y="540" width="898" height="50" rx="5"/>
+    <text x="612" y="572">Recency trap</text><text x="1000" y="572">answer</text>
+    <circle class="pass" cx="1188" cy="565" r="10"/><text x="1290" y="572">1.00</text><text x="1420" y="572">979 ms</text>
+  </g>
+  <g class="row">
+    <rect x="592" y="598" width="898" height="50" rx="5"/>
+    <text x="612" y="630">Numeric extraction</text><text x="1000" y="630">answer</text>
+    <circle class="pass" cx="1188" cy="623" r="10"/><text x="1290" y="630">1.00</text><text x="1420" y="630" textLength="58" lengthAdjust="spacingAndGlyphs">1096 ms</text>
+  </g>
+  <g class="row alt">
+    <rect x="592" y="656" width="898" height="50" rx="5"/>
+    <text x="612" y="688">Unsupported benchmark claim</text><text x="1000" y="688">abstain</text>
+    <circle class="pass" cx="1188" cy="681" r="10"/><text x="1290" y="688">1.00</text><text x="1420" y="688">853 ms</text>
+  </g>
+  <g class="row warnRow">
+    <rect x="592" y="714" width="898" height="50" rx="5"/>
+    <text x="612" y="746">Multi-hop support</text><text x="1000" y="746">answer</text>
+    <circle class="pass" cx="1188" cy="739" r="10"/><text class="warnText" x="1290" y="746">0.50</text><text x="1420" y="746" textLength="58" lengthAdjust="spacingAndGlyphs">1110 ms</text>
   </g>
 
-  <rect x="80" y="74" width="1440" height="752" rx="8" fill="#10241f"/>
-  <text x="150" y="158" fill="#ffb84d" font-family="Inter, system-ui, sans-serif" font-size="54" font-weight="900">LLM Context Boundary Evaluation</text>
-  <text x="150" y="214" fill="#d7e7dc" font-family="Inter, system-ui, sans-serif" font-size="27" textLength="1358" lengthAdjust="spacingAndGlyphs">Eight local Qwen3.6 cases with supported, unsupported, conflicting, and distractor-heavy questions.</text>
-  <rect x="116" y="248" width="1316" height="468" rx="8" fill="#302418"/>
-  <line x1="180" y1="626" x2="1330" y2="626" stroke="#b9ad96" stroke-width="4"/>
-  <line x1="180" y1="304" x2="180" y2="626" stroke="#b9ad96" stroke-width="4"/>
-  <rect x="220" y="304" width="170" height="322" rx="8" fill="#43d6a0"/>
-  <rect x="462" y="304" width="170" height="322" rx="8" fill="#52dcef"/>
-  <rect x="704" y="366" width="170" height="260" rx="8" fill="#9b87ff"/>
-  <rect x="946" y="346" width="170" height="280" rx="8" fill="#ffb84d"/>
-  <rect x="1188" y="622" width="170" height="4" rx="2" fill="#ff657a"/>
-  <g font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="800" fill="#10241f" text-anchor="middle">
-    <text x="305" y="286">1.00</text>
-    <text x="547" y="286">1.00</text>
-    <text x="789" y="348">0.81</text>
-    <text x="1031" y="328">0.87</text>
-    <text x="1273" y="604">0.00</text>
-  </g>
-  <g font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="700" fill="#24342f" text-anchor="middle">
-    <text x="305" y="674">Decision</text>
-    <text x="547" y="674">Abstention</text>
-    <text x="789" y="674">Citation recall</text>
-    <text x="1031" y="674">Mean score</text>
-    <text x="1273" y="674">Hallucination</text>
-  </g>
-  <rect x="116" y="744" width="1316" height="58" rx="8" fill="#925d18"/>
-  <text x="150" y="782" fill="#10241f" font-family="Inter, system-ui, sans-serif" font-size="27" font-weight="800" textLength="1270" lengthAdjust="spacingAndGlyphs">Release signal: 100% decisions, zero unsupported hallucinations; citation recall is next gate.</text>
-  <style id="fieldbook-v2-theme">
-    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
-    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
-    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
-    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
-    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
-    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 18px !important; font-weight: 750 !important; }
+  <rect x="80" y="818" width="1440" height="52" rx="8" fill="#17212b" stroke="#334250"/>
+  <circle cx="112" cy="844" r="8" fill="#ff657a"/>
+  <text class="footer" x="132" y="852">Failure signal: one malformed citation id and one missing multi-hop source. Expand by failure class before comparing models.</text>
+
+  <style>
+    text { font-family: Inter, system-ui, sans-serif; letter-spacing: 0; }
+    .title { fill: #f7faf9; font-size: 54px; font-weight: 760; }
+    .subtitle { fill: #8d9aa6; font-size: 24px; }
+    .fieldbook-kicker, .section, .column { fill: #73818e; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-weight: 750; }
+    .fieldbook-kicker { font-size: 17px; }
+    .section { font-size: 18px; }
+    .column { font-size: 15px; }
+    .metric { fill: #f7faf9; font-size: 42px; font-weight: 780; }
+    .metricSmall { fill: #f7faf9; font-size: 34px; font-weight: 780; }
+    .metricLabel { fill: #e4eaed; font-size: 19px; font-weight: 700; }
+    .note { fill: #9aa6b1; font-size: 15px; }
+    .warning { fill: #ff8798; font-size: 17px; font-weight: 760; }
+    .row rect { fill: #121a23; stroke: #25313c; }
+    .row.alt rect { fill: #141d27; }
+    .row.failRow rect { fill: #28171c; stroke: #66313c; }
+    .row.warnRow rect { fill: #282116; stroke: #674e22; }
+    .row text { fill: #dfe6ea; font-size: 17px; }
+    .row .failText { fill: #ff8798; font-weight: 760; }
+    .row .warnText { fill: #ffc46b; font-weight: 760; }
+    .pass { fill: #43d6a0; }
+    .footer { fill: #cbd5db; font-size: 19px; }
   </style>
-  <g aria-hidden="true" data-fieldbook-frame="overlay">
-    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
-    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
-    <text class="fieldbook-kicker" x="1576" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / RESEARCH RESULT</text>
-    <rect x="0.5" y="0.5" width="1599" height="899" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
-  </g>
+  <rect x="0.5" y="0.5" width="1599" height="899" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
 </svg>

@@ -20,7 +20,7 @@
     <text x="154" y="188" text-anchor="middle" font-size="18" font-weight="700" fill="#1e3a8a">Context</text>
     <text x="154" y="216" text-anchor="middle" font-size="14" fill="#0f172a">source, bytecode</text>
     <text x="154" y="236" text-anchor="middle" font-size="14" fill="#0f172a">traces, storage</text>
-    <rect x="282" y="154" width="168" height="96" rx="7" fill="#cffafe" stroke="#52dcef"/>
+    <rect x="282" y="154" width="168" height="96" rx="7" fill="#102938" stroke="#52dcef"/>
     <text x="366" y="188" text-anchor="middle" font-size="18" font-weight="700" fill="#155e75">Replay</text>
     <text x="366" y="216" text-anchor="middle" font-size="14" fill="#0f172a">historical fork</text>
     <text x="366" y="236" text-anchor="middle" font-size="14" fill="#0f172a">exploit proof</text>

@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "hypothesis": "Heading-aware chunks will improve mean reciprocal rank and top-five recall over fixed overlapping windows and paragraph-only chunks under repeated lexical query perturbations.",
+  "claimBoundary": "The study covers BM25-style lexical retrieval over the committed 46-article technical corpus and twelve authored information needs; it does not establish gains for embeddings, arbitrary corpora, or organic production queries.",
+  "design": {"baselines":["180-word fixed windows with 36-word overlap","paragraph-only chunks"],"controls":["word-order reversal perturbation","generic production suffix perturbation","per-query failure inspection"],"repeats":5},
+  "reproduction":{"commands":["node operator/diy-project-blogs/projects/heading-aware-retrieval/run-experiment.mjs"]},
+  "artifacts":["config.json","queries.json","run-experiment.mjs","raw-results.json","results.json","output.txt","heading-aware-retrieval.svg"]
+}

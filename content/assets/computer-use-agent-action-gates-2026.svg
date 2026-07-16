@@ -71,7 +71,7 @@
     .observe { fill: #211b35; }
     .gate { fill: #302418; }
     .route { fill: #121a23; }
-    .warn { fill: #fffbeb; }
+    .warn { fill: #302418; }
     .block { fill: #32191e; }
     .metrics { fill: #17212b; }
     .boxTitle, .routeTitle, .metricTitle { font: 700 17px Inter, system-ui, sans-serif; fill: #0f172a; }
