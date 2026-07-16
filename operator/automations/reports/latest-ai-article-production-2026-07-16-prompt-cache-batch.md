@@ -130,5 +130,7 @@ Run report written at 2026-07-16T14:20:48Z.
 
 ## Version control
 
-- Batch commit: pending
-- Push: pending
+- Batch commit: `5ae4de9` (`Publish prompt cache, Muse Spark, and MCP analysis batch`)
+- Push: successful to `origin/main` (`f9774cc..5ae4de9`)
+- The initial sandboxed push failed DNS resolution; the authorized network
+  retry succeeded.
