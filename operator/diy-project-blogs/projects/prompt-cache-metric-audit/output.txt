@@ -1,0 +1,8 @@
+prompt cache metric audit
+articles=52 tokenizer=o200k_base seeds_per_cell=40 requests_per_run=12000
+design alignment cadence_seconds request_hit token_hit gap savings cost_ratio
+observed-size large-popular 30 0.476 0.547 +0.071 0.379 0.621
+observed-size independent 30 0.525 0.522 -0.003 0.350 0.650
+observed-size small-popular 30 0.554 0.522 -0.033 0.350 0.650
+fixed-size-control request_hit=0.532 token_hit=0.532 gap=+0.000
+uniform-popularity-control request_hit=0.190 token_hit=0.190 gap=-0.000

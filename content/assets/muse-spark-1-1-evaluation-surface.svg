@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" data-visual-quality="publication" data-text-fit="bounded" role="img" aria-labelledby="title desc" data-visual-system="fieldbook-v2">
+<title id="title">Muse Spark 1.1 evaluation and adoption surface</title>
+<desc id="desc">A comparison of provider-reported calibration, single-turn safety, multi-turn safety, coding scores, and unresolved production contract questions for Muse Spark 1.1.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1280" height="720" fill="#080c12"/>
+    <rect width="1280" height="720" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07101f"/><stop offset="1" stop-color="#10213b"/></linearGradient>
+  <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#5eead4"/><stop offset="1" stop-color="#8fb7ff"/></linearGradient>
+</defs>
+
+<style>
+text{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;fill:#e5eefc}
+.eyebrow{font-size:15px;letter-spacing:2px;fill:#8fb7ff}.title{font-family:ui-sans-serif,system-ui,sans-serif;font-size:31px;font-weight:700}.subtitle{font-size:14px;fill:#a9bad3}.panel{fill:#111b32;stroke:#2b3b5c}.panel-title{font-size:17px;font-weight:700}.label{font-size:13px;fill:#c8d5e8}.value{font-size:14px;font-weight:700}.note{font-size:12px;fill:#9fb0c9}.risk{fill:#ff8a65}.good{fill:#5eead4}.warn{fill:#f6c453}
+</style>
+<text x="56" y="45" class="eyebrow">JULY 9, 2026 • PROVIDER-REPORTED EVALUATION SURFACE</text>
+<text x="56" y="83" class="title">Muse Spark 1.1 merits a bounded agent pilot—not delegated authority</text>
+<text x="56" y="108" class="subtitle">Metrics come from heterogeneous setups; values are decision signals, not one normalized leaderboard.</text>
+
+<rect x="42" y="145" width="748" height="500" rx="8" class="panel"/>
+<text x="68" y="180" class="panel-title">Measured signals in Meta's evaluation report</text>
+<line x1="268" y1="205" x2="750" y2="205" stroke="#344464"/>
+<line x1="268" y1="205" x2="268" y2="584" stroke="#344464"/>
+<line x1="388" y1="205" x2="388" y2="584" stroke="#344464" stroke-dasharray="4 5"/>
+<line x1="508" y1="205" x2="508" y2="584" stroke="#344464" stroke-dasharray="4 5"/>
+<line x1="628" y1="205" x2="628" y2="584" stroke="#344464" stroke-dasharray="4 5"/>
+<line x1="748" y1="205" x2="748" y2="584" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="268" y="198" class="note" text-anchor="middle">0</text><text x="388" y="198" class="note" text-anchor="middle">25</text><text x="508" y="198" class="note" text-anchor="middle">50</text><text x="628" y="198" class="note" text-anchor="middle">75</text><text x="748" y="198" class="note" text-anchor="middle">100</text>
+
+<text x="68" y="244" class="label">SAVE single-turn safety</text>
+<rect x="268" y="225" width="435" height="24" rx="4" fill="url(#bar)"/><text x="716" y="243" class="value">90.7</text>
+<text x="68" y="305" class="label">SAVE multi-turn safety</text>
+<rect x="268" y="286" width="169" height="24" rx="4" class="warn"/><text x="450" y="304" class="value">35.3</text>
+<text x="68" y="366" class="label">Terminal-Bench 2.1</text>
+<rect x="268" y="347" width="384" height="24" rx="4" fill="url(#bar)"/><text x="665" y="365" class="value">80.0</text>
+<text x="68" y="427" class="label">SWE-Bench Pro</text>
+<rect x="268" y="408" width="295" height="24" rx="4" fill="url(#bar)"/><text x="576" y="426" class="value">61.5</text>
+<text x="68" y="488" class="label">DeepSWE v1.1</text>
+<rect x="268" y="469" width="256" height="24" rx="4" fill="url(#bar)"/><text x="537" y="487" class="value">53.3</text>
+<text x="68" y="549" class="label">HLE calibration error ↓</text>
+<rect x="268" y="530" width="112" height="24" rx="4" class="good"/><text x="393" y="548" class="value">23.4</text>
+<text x="68" y="607" class="note">Different tasks, attempts, prompts, and provenance; do not average these bars.</text>
+
+<rect x="816" y="145" width="422" height="500" rx="8" class="panel"/>
+<text x="842" y="180" class="panel-title">Pilot gate</text>
+<circle cx="858" cy="224" r="7" class="good"/><text x="878" y="229" class="label">Matched internal tasks</text>
+<circle cx="858" cy="268" r="7" class="good"/><text x="878" y="273" class="label">Exact API model + effort</text>
+<circle cx="858" cy="312" r="7" class="good"/><text x="878" y="317" class="label">Tool schema validity</text>
+<circle cx="858" cy="356" r="7" class="good"/><text x="878" y="361" class="label">Risk escalation recall</text>
+<circle cx="858" cy="400" r="7" class="good"/><text x="878" y="405" class="label">Cost per accepted task</text>
+<circle cx="858" cy="444" r="7" class="good"/><text x="878" y="449" class="label">Latency + rollback route</text>
+<line x1="842" y1="478" x2="1212" y2="478" stroke="#344464"/>
+<text x="842" y="510" class="panel-title">Unresolved before broad adoption</text>
+<path d="M850 539 L866 567 L834 567 Z" class="risk"/><text x="878" y="560" class="label">Preview contract and limits</text>
+<path d="M850 581 L866 609 L834 609 Z" class="risk"/><text x="878" y="602" class="label">Multi-turn safety transfer</text>
+<text x="842" y="630" class="note">Policy and side-effect authority stay outside the model.</text>
+<text x="56" y="687" class="note">Source: Meta Muse Spark 1.1 Evaluation Report, July 9, 2026. Scores shown exactly as reported; comparability limits remain.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 14px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1256" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1279" height="719" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

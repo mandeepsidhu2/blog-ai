@@ -1,0 +1,371 @@
+{
+  "revision": "fd213d3",
+  "tokenizer": "o200k_base",
+  "articleCount": 52,
+  "articles": [
+    {
+      "slug": "agent-app-consent-gates-2026",
+      "path": "content/articles/agent-app-consent-gates-2026.md",
+      "tokens": 3213,
+      "bytes": 17302,
+      "sha256": "62fc8a5f9e7696861ee31e884e96058c2c9a3cc1017d56a34f1d378c189478fc"
+    },
+    {
+      "slug": "agent-concurrency-release-gates-2026",
+      "path": "content/articles/agent-concurrency-release-gates-2026.md",
+      "tokens": 2878,
+      "bytes": 15379,
+      "sha256": "a7cc18a9adcf19b6221fd74fd96106268508384b3beda396e952c4a7168d978a"
+    },
+    {
+      "slug": "agent-delegation-release-gates-2026",
+      "path": "content/articles/agent-delegation-release-gates-2026.md",
+      "tokens": 2685,
+      "bytes": 14197,
+      "sha256": "65c11f6647c5abf69c172ce98e1d716c422b65cb25c3b32a22822e93200fa820"
+    },
+    {
+      "slug": "agent-trace-contracts-2026",
+      "path": "content/articles/agent-trace-contracts-2026.md",
+      "tokens": 2741,
+      "bytes": 13867,
+      "sha256": "567829abe7571071e94ccf4f5fedd549ee52d3e27b6ba3a5a282c22bfee22213"
+    },
+    {
+      "slug": "agentic-commerce-payment-gates-2026",
+      "path": "content/articles/agentic-commerce-payment-gates-2026.md",
+      "tokens": 2847,
+      "bytes": 15092,
+      "sha256": "58b1b7fb5870939848d662e7eeaa6a14a6342990fbf35cbe06cad942e94760dc"
+    },
+    {
+      "slug": "ai-agent-operating-systems-2026",
+      "path": "content/articles/ai-agent-operating-systems-2026.md",
+      "tokens": 3261,
+      "bytes": 16974,
+      "sha256": "0803bc9c91c99bc941a8f1f0771544cc6cbeeafbc95378d101c5fe510f9b1db7"
+    },
+    {
+      "slug": "ai-media-provenance-gates-2026",
+      "path": "content/articles/ai-media-provenance-gates-2026.md",
+      "tokens": 2946,
+      "bytes": 15865,
+      "sha256": "458b7a4f8175c959f6f41ed8672b41a3a1618c026ebb883e19519baf4a5093a2"
+    },
+    {
+      "slug": "ai-science-workbenches-control-plane",
+      "path": "content/articles/ai-science-workbenches-control-plane.md",
+      "tokens": 4338,
+      "bytes": 21187,
+      "sha256": "6e0895a9fe0de343ce8286051db2b14f8b33285b11add8f61103548dcf08961d"
+    },
+    {
+      "slug": "budgeted-guardrails-mlp-channel-interventions",
+      "path": "content/articles/budgeted-guardrails-mlp-channel-interventions.md",
+      "tokens": 2791,
+      "bytes": 13921,
+      "sha256": "ce6ff762a524d6c9082764359bb2288013870fbe0c107c3e941085662522ac02"
+    },
+    {
+      "slug": "coding-agent-rollout-gates-2026",
+      "path": "content/articles/coding-agent-rollout-gates-2026.md",
+      "tokens": 2733,
+      "bytes": 14355,
+      "sha256": "a685c6cc49f9355d5d2b9343d93eab7749f870cf9817ea63aba71cf719b2f75e"
+    },
+    {
+      "slug": "coding-agent-task-routing-gates-2026",
+      "path": "content/articles/coding-agent-task-routing-gates-2026.md",
+      "tokens": 2766,
+      "bytes": 14493,
+      "sha256": "d759f4c48e81b8218ae49f32a2bfa085107a46b751abf775148434a94e33520b"
+    },
+    {
+      "slug": "computer-use-agent-action-gates-2026",
+      "path": "content/articles/computer-use-agent-action-gates-2026.md",
+      "tokens": 2800,
+      "bytes": 14610,
+      "sha256": "732d0d80e16103d70d4e6d602ec6dd40a94438dba3fd87f155174ddf3582ddc5"
+    },
+    {
+      "slug": "covert-channel-agent-gates-2026",
+      "path": "content/articles/covert-channel-agent-gates-2026.md",
+      "tokens": 3116,
+      "bytes": 16532,
+      "sha256": "3fb3df5171acdebc0e1df93bff9ffeade47f2e8816707f2f087aae81dc0a7cc3"
+    },
+    {
+      "slug": "cybersecurity-agent-release-gates-2026",
+      "path": "content/articles/cybersecurity-agent-release-gates-2026.md",
+      "tokens": 3144,
+      "bytes": 16916,
+      "sha256": "e4b38a98e09e4fe84b070849ea99a100e541c1dc2742a0afda71687c21b782b2"
+    },
+    {
+      "slug": "dropout-pressure-law-streaming-language-models",
+      "path": "content/articles/dropout-pressure-law-streaming-language-models.md",
+      "tokens": 4743,
+      "bytes": 20340,
+      "sha256": "672d8d2ad37ce4dd704d8ec7069824ad04f7393a51b362f0695bac1a67cfa356"
+    },
+    {
+      "slug": "github-models-retirement-migration",
+      "path": "content/articles/github-models-retirement-migration.md",
+      "tokens": 3817,
+      "bytes": 19233,
+      "sha256": "d57ce21b5d87c1da595b35cdc7f1f9dc4039d73e42c8a38267b31070f149a7b8"
+    },
+    {
+      "slug": "gpt-5-6-model-routing-cost-benchmarks",
+      "path": "content/articles/gpt-5-6-model-routing-cost-benchmarks.md",
+      "tokens": 3805,
+      "bytes": 16515,
+      "sha256": "9ca7db6e384f873c843d24578ebb6c4f9e8c27b19662034d0ef977959589d36b"
+    },
+    {
+      "slug": "gpt-live-full-duplex-evaluation",
+      "path": "content/articles/gpt-live-full-duplex-evaluation.md",
+      "tokens": 3384,
+      "bytes": 16104,
+      "sha256": "6596133f4745d098547fa75667eacdc00d446269fd8fe74520463126fc476159"
+    },
+    {
+      "slug": "hallucinated-dependency-gates-2026",
+      "path": "content/articles/hallucinated-dependency-gates-2026.md",
+      "tokens": 2589,
+      "bytes": 13494,
+      "sha256": "0ace30eb0b5b3e305cd35192bf7a6baa25840833b9a6f519053484ed51152cf1"
+    },
+    {
+      "slug": "healthcare-agent-workflow-gates-2026",
+      "path": "content/articles/healthcare-agent-workflow-gates-2026.md",
+      "tokens": 2507,
+      "bytes": 13239,
+      "sha256": "74d18f4170f0b6a8db8d939688e6fa813721ce43ed87d3a27ec8daa618354d33"
+    },
+    {
+      "slug": "hy3-open-model-deployment-boundary",
+      "path": "content/articles/hy3-open-model-deployment-boundary.md",
+      "tokens": 3501,
+      "bytes": 15609,
+      "sha256": "40a57ec6c1b7449a69040340c7559995b3a888a50e6678a6c255df7aba726d67"
+    },
+    {
+      "slug": "inference-cost-release-gates-2026",
+      "path": "content/articles/inference-cost-release-gates-2026.md",
+      "tokens": 3015,
+      "bytes": 16017,
+      "sha256": "8d77973fc4ec7c4eb29b4cc8190df2f66a29381b6fb4e7cd5231bd52480568fe"
+    },
+    {
+      "slug": "leanstral-1-5-proof-engineering-adoption",
+      "path": "content/articles/leanstral-1-5-proof-engineering-adoption.md",
+      "tokens": 3569,
+      "bytes": 16129,
+      "sha256": "8e0f0ac9c19cbfdade85be867e556614f5dbe0511aefff7663db49a3c87921ba"
+    },
+    {
+      "slug": "llm-context-boundary-evaluation",
+      "path": "content/articles/llm-context-boundary-evaluation.md",
+      "tokens": 2661,
+      "bytes": 12822,
+      "sha256": "5c95fca0996bb84e4867d55a6f61616280be7409dfbf22b2b508647638133579"
+    },
+    {
+      "slug": "mcp-resource-authorization-gates-2026",
+      "path": "content/articles/mcp-resource-authorization-gates-2026.md",
+      "tokens": 2846,
+      "bytes": 15075,
+      "sha256": "72ce5ad0d7f7c4278cb684e69f5a77376f704c58eca992930e168ff19172569a"
+    },
+    {
+      "slug": "mcp-tool-catalog-gates-2026",
+      "path": "content/articles/mcp-tool-catalog-gates-2026.md",
+      "tokens": 3216,
+      "bytes": 16715,
+      "sha256": "1be0626315ce8e15ad3aab061c6d65a9b27ea6a7453e561a93e69d2a63c79e28"
+    },
+    {
+      "slug": "measure-agent-app-manifest-risk-gates",
+      "path": "content/articles/measure-agent-app-manifest-risk-gates.md",
+      "tokens": 3186,
+      "bytes": 15891,
+      "sha256": "5f1adb41ec64b2bab4991f074635ecbe416cc2597833c9a6911f41f5acd95fa0"
+    },
+    {
+      "slug": "measure-agent-concurrency-budget-gates",
+      "path": "content/articles/measure-agent-concurrency-budget-gates.md",
+      "tokens": 2997,
+      "bytes": 14474,
+      "sha256": "b1975195a4f28e06096f54d05dd69ce522a07b488b8f1467a1898763278ed6c5"
+    },
+    {
+      "slug": "measure-agent-delegation-release-gates",
+      "path": "content/articles/measure-agent-delegation-release-gates.md",
+      "tokens": 2916,
+      "bytes": 14090,
+      "sha256": "61677da434b8135b3b468645aa2895c28eb0b71320c8e47c869557a309dd7340"
+    },
+    {
+      "slug": "measure-agent-trace-completeness-gates",
+      "path": "content/articles/measure-agent-trace-completeness-gates.md",
+      "tokens": 3116,
+      "bytes": 14967,
+      "sha256": "fddf2af4d99ee1a64002fc19b375d75c42bb48a7eca3c2a7a808923b92df83b1"
+    },
+    {
+      "slug": "measure-agentic-commerce-payment-gates",
+      "path": "content/articles/measure-agentic-commerce-payment-gates.md",
+      "tokens": 3027,
+      "bytes": 15107,
+      "sha256": "26396bcb501bd4f2f0b6875b170309bc63d7fb7e602c661796c123e4fa119244"
+    },
+    {
+      "slug": "measure-ai-media-provenance-gates",
+      "path": "content/articles/measure-ai-media-provenance-gates.md",
+      "tokens": 3375,
+      "bytes": 17161,
+      "sha256": "a377a3cd776fb2081f303aad2ca5ce4bdc9f8f562eecd7a256679d98e0854fa4"
+    },
+    {
+      "slug": "measure-coding-agent-rollout-gates",
+      "path": "content/articles/measure-coding-agent-rollout-gates.md",
+      "tokens": 3085,
+      "bytes": 14497,
+      "sha256": "780cbb892f1faa1d63ae12e823d8c34145fc5968fbf50d2f8ccd4d59b8bbd152"
+    },
+    {
+      "slug": "measure-coding-agent-task-routing-gates",
+      "path": "content/articles/measure-coding-agent-task-routing-gates.md",
+      "tokens": 3006,
+      "bytes": 13967,
+      "sha256": "ff4b1356085dc5e17d6a55f6703ab2e0f9c3a8c36e042dd5ab7ba1786e5a5713"
+    },
+    {
+      "slug": "measure-computer-use-agent-action-gates",
+      "path": "content/articles/measure-computer-use-agent-action-gates.md",
+      "tokens": 3002,
+      "bytes": 15097,
+      "sha256": "2db37279e6d93e8208369498ecd6daa1013332861a3499e76559149e71ba37c6"
+    },
+    {
+      "slug": "measure-covert-channel-agent-traces",
+      "path": "content/articles/measure-covert-channel-agent-traces.md",
+      "tokens": 2947,
+      "bytes": 14724,
+      "sha256": "760e4cc1e8368e26c4e59bc8c6368144788e346c5ff110a6b9969daf56e4f0cd"
+    },
+    {
+      "slug": "measure-cybersecurity-agent-release-gates",
+      "path": "content/articles/measure-cybersecurity-agent-release-gates.md",
+      "tokens": 3082,
+      "bytes": 15836,
+      "sha256": "7f76cdf6c881163f4c533637d586b8a990e89b10bc09a992698ae793d5f56533"
+    },
+    {
+      "slug": "measure-hallucinated-dependency-gates",
+      "path": "content/articles/measure-hallucinated-dependency-gates.md",
+      "tokens": 2811,
+      "bytes": 14090,
+      "sha256": "07c5810d8556ec357cda93171812338316b1080dc3a88fa1e9ae15e1e56f7e02"
+    },
+    {
+      "slug": "measure-healthcare-agent-workflow-gates",
+      "path": "content/articles/measure-healthcare-agent-workflow-gates.md",
+      "tokens": 2973,
+      "bytes": 14689,
+      "sha256": "523c97affc12af8721981700489217f7d4638c48e3829a8d62133c390cb744a5"
+    },
+    {
+      "slug": "measure-mcp-token-audience-gates",
+      "path": "content/articles/measure-mcp-token-audience-gates.md",
+      "tokens": 3145,
+      "bytes": 15806,
+      "sha256": "79e2fbbb7e319e484aba2954b73fd60ec48484f9617b01a65d8c256a6b6a985c"
+    },
+    {
+      "slug": "measure-mcp-tool-catalog-gates",
+      "path": "content/articles/measure-mcp-tool-catalog-gates.md",
+      "tokens": 2966,
+      "bytes": 14457,
+      "sha256": "c65333b06d0d37a8327b4169c2e81f6330a33beadf6f66b7837399530271ebca"
+    },
+    {
+      "slug": "measure-multimodal-retrieval-routing",
+      "path": "content/articles/measure-multimodal-retrieval-routing.md",
+      "tokens": 3217,
+      "bytes": 16076,
+      "sha256": "822a3b5be09c5c136d43e64b559725757d6f253c209cce2f294a7d1e29922434"
+    },
+    {
+      "slug": "measure-personal-agent-access-gates",
+      "path": "content/articles/measure-personal-agent-access-gates.md",
+      "tokens": 3253,
+      "bytes": 16360,
+      "sha256": "15d67fe8d3001d962ac532c559a34f8da8f122b677f96714dfe590ed0fdff0c2"
+    },
+    {
+      "slug": "measure-scientific-agent-verifier-gates",
+      "path": "content/articles/measure-scientific-agent-verifier-gates.md",
+      "tokens": 2938,
+      "bytes": 14916,
+      "sha256": "e6a6107a733819bc4a64560780becc70f83c05c76e429da2edfe7e01da7dd7e9"
+    },
+    {
+      "slug": "measure-smart-contract-agent-patch-gates",
+      "path": "content/articles/measure-smart-contract-agent-patch-gates.md",
+      "tokens": 3091,
+      "bytes": 15352,
+      "sha256": "3b5ba60c8661167fe35843bcbb38d8ef054b503fb706fb05df470727f2ad9c22"
+    },
+    {
+      "slug": "measure-token-budget-routing",
+      "path": "content/articles/measure-token-budget-routing.md",
+      "tokens": 3363,
+      "bytes": 15712,
+      "sha256": "1c569bad0dfd81326df9797bc41eb75131b7f4de8c262700ebc237721a5639c3"
+    },
+    {
+      "slug": "multilingual-token-budget-audit",
+      "path": "content/articles/multilingual-token-budget-audit.md",
+      "tokens": 5170,
+      "bytes": 21916,
+      "sha256": "0998f378c550e29da18b6b6d7c82922febfb97000cf2050910eba2f003f9755d"
+    },
+    {
+      "slug": "multimodal-retrieval-gates-2026",
+      "path": "content/articles/multimodal-retrieval-gates-2026.md",
+      "tokens": 2656,
+      "bytes": 14140,
+      "sha256": "ec75ae5b3457a8d41dcc4b082a374dc595164250bbbd22c667753751e591e624"
+    },
+    {
+      "slug": "personal-agent-access-gates-2026",
+      "path": "content/articles/personal-agent-access-gates-2026.md",
+      "tokens": 2485,
+      "bytes": 13285,
+      "sha256": "ba237453c2461d451734e02712b1eef19f7a2eecb33f6ded30e228274953e104"
+    },
+    {
+      "slug": "repository-clustered-coding-agent-benchmark-uncertainty",
+      "path": "content/articles/repository-clustered-coding-agent-benchmark-uncertainty.md",
+      "tokens": 4218,
+      "bytes": 19263,
+      "sha256": "5adae8729e13aca27fe550cf514eeb55703346460235a5bba78537e1165d9d66"
+    },
+    {
+      "slug": "scientific-agent-verifier-gates-2026",
+      "path": "content/articles/scientific-agent-verifier-gates-2026.md",
+      "tokens": 2938,
+      "bytes": 15488,
+      "sha256": "001504f32ff3aea4618dc6e5d9c61f502a927d3375bceb5f27604ccec8cfc974"
+    },
+    {
+      "slug": "smart-contract-agent-audit-gates-2026",
+      "path": "content/articles/smart-contract-agent-audit-gates-2026.md",
+      "tokens": 2730,
+      "bytes": 14758,
+      "sha256": "f546e4e76448b0de4b9ee5325bcd17e7ba7813e73d51325d2c8742f5fb5743d4"
+    }
+  ]
+}

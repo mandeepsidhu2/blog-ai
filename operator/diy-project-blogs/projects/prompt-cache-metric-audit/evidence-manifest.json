@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "hypothesis": "When reusable prompt prefixes vary materially in token size, request hit rate will differ from token-weighted hit rate enough to change the inferred cost benefit of a prompt-cache configuration.",
+  "claimBoundary": "The evidence identifies metric divergence in a controlled LRU and sliding-TTL simulation built from one frozen article-size distribution. It does not measure any provider's private cache residency, latency, routing, or production request popularity.",
+  "design": {
+    "baselines": [
+      "Uncached input cost normalized to 1.0 per input token",
+      "Request hit rate as the conventional unweighted cache metric"
+    ],
+    "controls": [
+      "Fixed-size-prefix negative control where request and token hit rates should coincide",
+      "Uniform-popularity control where size-rank alignment should have no designed effect",
+      "Capacity ablation at 10%, 20%, and 40% of total prefix tokens",
+      "Sliding-TTL ablation at 5, 30, and 60 minutes"
+    ],
+    "repeats": 40
+  },
+  "reproduction": {
+    "commands": [
+      "PYTHONPATH=/tmp/blog-ai-prompt-cache-deps python3 operator/diy-project-blogs/projects/prompt-cache-metric-audit/build-workload.py",
+      "python3 operator/diy-project-blogs/projects/prompt-cache-metric-audit/run-experiment.py",
+      "python3 operator/diy-project-blogs/projects/prompt-cache-metric-audit/render-figure.py"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "workload.json",
+    "run-experiment.py",
+    "raw-results.json",
+    "results.json",
+    "output.txt",
+    "prompt-cache-metric-audit.svg"
+  ]
+}

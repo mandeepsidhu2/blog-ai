@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720"
+ width="1280" height="720" data-visual-quality="publication"
+ data-text-fit="bounded" role="img" aria-labelledby="title desc">
+<title id="title">Prompt-cache request hits, token hits, and cost savings diverge</title>
+<desc id="desc">Two grouped bar panels compare request hit rate, token-weighted hit rate,
+and modeled input-cost savings for workloads where large prefixes are popular,
+prefix size and popularity are independent, or small prefixes are popular.
+Values average 40 independently seeded traces of 12,000 requests.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#07101f"/><stop offset="1" stop-color="#10213b"/>
+</linearGradient></defs>
+<rect width="1280" height="720" fill="url(#bg)"/>
+<style>
+text{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;fill:#e5eefc}
+.eyebrow{font-size:15px;letter-spacing:2px;fill:#8fb7ff}
+.title{font-family:ui-sans-serif,system-ui,sans-serif;font-size:31px;font-weight:700}
+.subtitle{font-size:14px;fill:#a9bad3}
+.panel-title{font-size:17px;font-weight:700}
+.axis{font-size:12px;fill:#9fb0c9}
+.label{font-size:11px;fill:#c8d5e8}
+.legend{font-size:13px;fill:#c8d5e8}
+.value{font-size:11px;font-weight:700}
+.note{font-size:13px;fill:#9fb0c9}
+</style>
+<text x="56" y="44" class="eyebrow">CONTROLLED CACHE SIMULATION • 40 TRACES PER CELL</text>
+<text x="56" y="82" class="title">A high cache-hit rate can still save the wrong tokens</text>
+<text x="56" y="106" class="subtitle">o200k token sizes from 52 committed articles; Zipf request popularity; whole-prefix LRU.</text>
+<rect x="165" y="121" width="14" height="14" rx="3" fill="#f6c453"/><text x="187" y="133" class="legend">Request hit rate</text><rect x="445" y="121" width="14" height="14" rx="3" fill="#5eead4"/><text x="467" y="133" class="legend">Token-weighted hit rate</text><rect x="725" y="121" width="14" height="14" rx="3" fill="#8fb7ff"/><text x="747" y="133" class="legend">Input-cost savings</text>
+<rect x="42" y="154" width="582" height="486" rx="10" fill="#111b32" stroke="#2b3b5c"/>
+<text x="66" y="189" class="panel-title">20% capacity • 5m TTL • mean arrival 3s</text>
+<line x1="112" y1="570.0" x2="598" y2="570.0" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="102" y="574.0" class="axis" text-anchor="end">0%</text>
+<line x1="112" y1="499.6" x2="598" y2="499.6" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="102" y="503.6" class="axis" text-anchor="end">20%</text>
+<line x1="112" y1="429.2" x2="598" y2="429.2" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="102" y="433.2" class="axis" text-anchor="end">40%</text>
+<line x1="112" y1="358.8" x2="598" y2="358.8" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="102" y="362.8" class="axis" text-anchor="end">60%</text>
+<line x1="112" y1="288.4" x2="598" y2="288.4" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="102" y="292.4" class="axis" text-anchor="end">80%</text>
+<rect x="150.0" y="402.5778" width="24" height="167.42219999999998" rx="4" fill="#f6c453"/>
+<text x="162.0" y="395.5778" class="value" text-anchor="middle">47.6</text>
+<rect x="181.0" y="377.53936249404705" width="24" height="192.46063750595295" rx="4" fill="#5eead4"/>
+<text x="193.0" y="370.53936249404705" class="value" text-anchor="middle">54.7</text>
+<rect x="212.0" y="436.67026686816075" width="24" height="133.32973313183925" rx="4" fill="#8fb7ff"/>
+<text x="224.0" y="429.67026686816075" class="value" text-anchor="middle">37.9</text>
+<text x="193.0" y="594" class="label" text-anchor="middle">Large prefixes</text>
+<text x="193.0" y="611" class="label" text-anchor="middle">popular</text>
+<rect x="312.0" y="385.2425333333333" width="24" height="184.7574666666667" rx="4" fill="#f6c453"/>
+<text x="324.0" y="378.2425333333333" class="value" text-anchor="middle">52.5</text>
+<rect x="343.0" y="386.28361575309816" width="24" height="183.71638424690184" rx="4" fill="#5eead4"/>
+<text x="355.0" y="379.28361575309816" class="value" text-anchor="middle">52.2</text>
+<rect x="374.0" y="446.72615811606687" width="24" height="123.27384188393313" rx="4" fill="#8fb7ff"/>
+<text x="386.0" y="439.72615811606687" class="value" text-anchor="middle">35.0</text>
+<text x="355.0" y="594" class="label" text-anchor="middle">Size and</text>
+<text x="355.0" y="611" class="label" text-anchor="middle">popularity independent</text>
+<rect x="474.0" y="374.893" width="24" height="195.10700000000003" rx="4" fill="#f6c453"/>
+<text x="486.0" y="367.893" class="value" text-anchor="middle">55.4</text>
+<rect x="505.0" y="386.3856972380572" width="24" height="183.61430276194278" rx="4" fill="#5eead4"/>
+<text x="517.0" y="379.3856972380572" class="value" text-anchor="middle">52.2</text>
+<rect x="536.0" y="446.8435518237618" width="24" height="123.1564481762382" rx="4" fill="#8fb7ff"/>
+<text x="548.0" y="439.8435518237618" class="value" text-anchor="middle">35.0</text>
+<text x="517.0" y="594" class="label" text-anchor="middle">Small prefixes</text>
+<text x="517.0" y="611" class="label" text-anchor="middle">popular</text>
+<rect x="656" y="154" width="582" height="486" rx="10" fill="#111b32" stroke="#2b3b5c"/>
+<text x="680" y="189" class="panel-title">20% capacity • 30m TTL • mean arrival 180s</text>
+<line x1="726" y1="570.0" x2="1212" y2="570.0" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="716" y="574.0" class="axis" text-anchor="end">0%</text>
+<line x1="726" y1="499.6" x2="1212" y2="499.6" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="716" y="503.6" class="axis" text-anchor="end">20%</text>
+<line x1="726" y1="429.2" x2="1212" y2="429.2" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="716" y="433.2" class="axis" text-anchor="end">40%</text>
+<line x1="726" y1="358.8" x2="1212" y2="358.8" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="716" y="362.8" class="axis" text-anchor="end">60%</text>
+<line x1="726" y1="288.4" x2="1212" y2="288.4" stroke="#344464" stroke-dasharray="4 5"/>
+<text x="716" y="292.4" class="axis" text-anchor="end">80%</text>
+<rect x="764.0" y="420.41613333333333" width="24" height="149.58386666666667" rx="4" fill="#f6c453"/>
+<text x="776.0" y="413.41613333333333" class="value" text-anchor="middle">42.5</text>
+<rect x="795.0" y="396.346436035976" width="24" height="173.653563964024" rx="4" fill="#5eead4"/>
+<text x="807.0" y="389.346436035976" class="value" text-anchor="middle">49.3</text>
+<rect x="826.0" y="458.29840144137836" width="24" height="111.70159855862164" rx="4" fill="#8fb7ff"/>
+<text x="838.0" y="451.29840144137836" class="value" text-anchor="middle">31.7</text>
+<text x="807.0" y="594" class="label" text-anchor="middle">Large prefixes</text>
+<text x="807.0" y="611" class="label" text-anchor="middle">popular</text>
+<rect x="926.0" y="416.62260000000003" width="24" height="153.37739999999997" rx="4" fill="#f6c453"/>
+<text x="938.0" y="409.62260000000003" class="value" text-anchor="middle">43.6</text>
+<rect x="957.0" y="417.6731935514122" width="24" height="152.32680644858777" rx="4" fill="#5eead4"/>
+<text x="969.0" y="410.6731935514122" class="value" text-anchor="middle">43.3</text>
+<rect x="988.0" y="482.82417258412954" width="24" height="87.17582741587046" rx="4" fill="#8fb7ff"/>
+<text x="1000.0" y="475.82417258412954" class="value" text-anchor="middle">24.8</text>
+<text x="969.0" y="594" class="label" text-anchor="middle">Size and</text>
+<text x="969.0" y="611" class="label" text-anchor="middle">popularity independent</text>
+<rect x="1088.0" y="415.087" width="24" height="154.913" rx="4" fill="#f6c453"/>
+<text x="1100.0" y="408.087" class="value" text-anchor="middle">44.0</text>
+<rect x="1119.0" y="425.342286906707" width="24" height="144.657713093293" rx="4" fill="#5eead4"/>
+<text x="1131.0" y="418.342286906707" class="value" text-anchor="middle">41.1</text>
+<rect x="1150.0" y="491.6436299427097" width="24" height="78.35637005729029" rx="4" fill="#8fb7ff"/>
+<text x="1162.0" y="484.6436299427097" class="value" text-anchor="middle">22.3</text>
+<text x="1131.0" y="594" class="label" text-anchor="middle">Small prefixes</text>
+<text x="1131.0" y="611" class="label" text-anchor="middle">popular</text>
+<text x="56" y="678" class="note">Modeled billing: cache write 1.25× uncached input; cache read 0.10×; hits refresh TTL.</text>
+<text x="56" y="700" class="note">Scope: metric and policy behavior under the declared trace model—not provider latency or production cache residency.</text>
+</svg>

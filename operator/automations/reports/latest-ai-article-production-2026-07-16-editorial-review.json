@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "measure-prompt-cache-token-savings",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The article corpus and synthetic Zipf traces are controlled proxies rather than production cache traffic, so the measured gaps may not match a service with partial-prefix reuse, routing churn, or different popularity structure.",
+      "unsupportedClaimRisk": "The weakest claim was the temptation to turn a 7.1-point simulated metric gap into a general capacity rule; the evidence only establishes the measurement mechanism under the frozen workload and declared cache model.",
+      "reproductionBarrier": "Exact reproduction requires the frozen Git revision, tiktoken 0.13.0 and its o200k_base vocabulary, 7,560 repeated trace runs, and the declared bootstrap procedure; external validation additionally requires a de-identified production prefix trace.",
+      "revisions": [
+        "Corrected stale workload size statistics against results.json and added an explicit boundary that article sizes do not justify a production capacity recommendation.",
+        "Added the billing-model break-even derivation showing that the required token-hit fraction is about 21.7% under the declared write and read multipliers."
+      ]
+    },
+    {
+      "slug": "muse-spark-1-1-agent-api-pilot",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 5,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The central numbers come from Meta's own evaluation report and mixed harnesses, while this review did not obtain hands-on preview API evidence; a matched internal pilot could reverse the apparent ranking.",
+      "unsupportedClaimRisk": "The weakest claim was that strong calibration and agent benchmark rows make Muse Spark a credible route before route-specific pricing, reliability, limits, and accepted-task cost are publicly established.",
+      "reproductionBarrier": "A decision-grade replication needs preview API access, exact model and reasoning settings, equivalent adapters for competitors, hundreds of proprietary tasks, blind review, side-effect telemetry, and published pricing and limit data.",
+      "revisions": [
+        "Added an explicit no-local-API disclosure and identified pricing, limits, regions, timeout behavior, and version retention as unresolved decision variables.",
+        "Added pre-registered pilot thresholds and required throttling, timeout, malformed-result, partial-stream, and retry failure injection before broad traffic migration."
+      ]
+    },
+    {
+      "slug": "mcp-2026-07-28-stateless-migration",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The locked release candidate is not yet the final July 28 specification and SDK support can lag or diverge, so implementing directly from the draft could create a private dialect instead of reducing migration risk.",
+      "unsupportedClaimRisk": "The weakest claim was that session removal automatically improves horizontal scaling; application state, authority binding, retries, and SDK behavior can preserve or worsen the original coupling.",
+      "reproductionBarrier": "Validation requires two protocol implementations, a reviewed draft revision, final SDK artifacts when released, cross-SDK JSON Schema fixtures, OAuth issuers, durable task workers, and production-shaped retry and state-isolation tests.",
+      "revisions": [
+        "Added a final-artifact conformance gate with reviewed draft and SDK revision pinning, explicitly separating the scheduled release date from implementation readiness.",
+        "Strengthened state-handle guidance for model-visible identifiers and limited initial canaries to read-only or compensatable tools before privileged side effects."
+      ]
+    }
+  ]
+}

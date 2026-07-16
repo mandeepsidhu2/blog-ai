@@ -1,0 +1,15 @@
+{
+  "revision": "fd213d3",
+  "tokenizer": "o200k_base",
+  "seeds": 40,
+  "requestsPerRun": 12000,
+  "meanInterarrivalSeconds": [3.0, 30.0, 180.0],
+  "zipfAlpha": 1.05,
+  "capacityFractions": [0.1, 0.2, 0.4],
+  "ttlMinutes": [5, 30, 60],
+  "alignments": ["large-popular", "independent", "small-popular"],
+  "cacheWriteMultiplier": 1.25,
+  "cacheReadMultiplier": 0.1,
+  "bootstrapRepeats": 5000,
+  "bootstrapSeed": 20260716
+}
