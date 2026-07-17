@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="title desc" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+<title id="title">Repeated evaluation peeking inflates false-positive rates</title>
+<desc id="desc">Line chart of null false-positive rates at 400 paired tasks across four review cadences for fixed-horizon, naive repeated, and Bonferroni-controlled tests, based on 20,000 simulations per cell.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1280" height="720" fill="#080c12"/>
+    <rect width="1280" height="720" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+<style>text{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;fill:#e5eefc}.title{font:700 31px ui-sans-serif,system-ui,sans-serif}.sub,.note,.axis{fill:#9fb0c9}.sub{font-size:15px}.axis{font-size:13px}.label{font-size:14px}.value{font-size:13px;font-weight:700}.panel{fill:#111b32;stroke:#2b3b5c}</style>
+<text x="56" y="48" font-size="15" letter-spacing="2" fill="#8fb7ff">NULL EFFECT • 20,000 REPEATS PER CELL • MAX N=400</text>
+<text x="56" y="88" class="title">Every interim decision spends error budget</text>
+<text x="56" y="116" class="sub">Paired binary outcomes; two-sided McNemar normal approximation; 95% Wilson intervals in the article.</text>
+<rect x="42" y="148" width="902" height="500" rx="8" class="panel"/>
+<line x1="130" y1="580" x2="900" y2="580" stroke="#64748b"/><line x1="130" y1="190" x2="130" y2="580" stroke="#64748b"/>
+<g stroke="#30415e" stroke-dasharray="4 5">
+<line x1="130" y1="515" x2="900" y2="515"/><line x1="130" y1="450" x2="900" y2="450"/><line x1="130" y1="385" x2="900" y2="385"/><line x1="130" y1="320" x2="900" y2="320"/><line x1="130" y1="255" x2="900" y2="255"/><line x1="130" y1="190" x2="900" y2="190"/>
+</g>
+<g class="axis" text-anchor="end"><text x="116" y="585">0%</text><text x="116" y="520">5%</text><text x="116" y="455">10%</text><text x="116" y="390">15%</text><text x="116" y="325">20%</text><text x="116" y="260">25%</text><text x="116" y="195">30%</text></g>
+<g class="axis" text-anchor="middle"><text x="220" y="610">4 looks</text><text x="430" y="610">8 looks</text><text x="640" y="610">16 looks</text><text x="850" y="610">40 looks</text></g>
+<text x="515" y="635" class="axis" text-anchor="middle">Planned significance reviews (every 100, 50, 25, or 10 tasks)</text>
+<line x1="130" y1="515" x2="900" y2="515" stroke="#f6c453" stroke-width="2" stroke-dasharray="8 7"/><text x="890" y="507" class="axis" text-anchor="end" fill="#f6c453">nominal 5%</text>
+<polyline points="220,516.2 430,515.3 640,511.6 850,514.6" fill="none" stroke="#58a6ff" stroke-width="5"/>
+<polyline points="220,409.7 430,359.5 640,281.7 850,212.5" fill="none" stroke="#ff7b72" stroke-width="5"/>
+<polyline points="220,536.3 430,550.4 640,559.6 850,571.2" fill="none" stroke="#3fb950" stroke-width="5"/>
+<g fill="#58a6ff"><circle cx="220" cy="516.2" r="7"/><circle cx="430" cy="515.3" r="7"/><circle cx="640" cy="511.6" r="7"/><circle cx="850" cy="514.6" r="7"/></g>
+<g fill="#ff7b72"><circle cx="220" cy="409.7" r="7"/><circle cx="430" cy="359.5" r="7"/><circle cx="640" cy="281.7" r="7"/><circle cx="850" cy="212.5" r="7"/></g>
+<g fill="#3fb950"><circle cx="220" cy="536.3" r="7"/><circle cx="430" cy="550.4" r="7"/><circle cx="640" cy="559.6" r="7"/><circle cx="850" cy="571.2" r="7"/></g>
+<g class="value" text-anchor="middle"><text x="640" y="268">22.95%</text><text x="850" y="198">28.27%</text><text x="640" y="499">5.27%</text><text x="640" y="584">1.57%</text></g>
+<rect x="974" y="148" width="264" height="500" rx="8" class="panel"/>
+<text x="1000" y="188" font-size="18" font-weight="700">Focal: 16 looks</text>
+<rect x="1000" y="220" width="18" height="18" rx="3" fill="#58a6ff"/><text x="1032" y="235" class="label">Fixed horizon</text><text x="1000" y="263" font-size="26" font-weight="700">5.27%</text>
+<rect x="1000" y="300" width="18" height="18" rx="3" fill="#ff7b72"/><text x="1032" y="315" class="label">Naive peeking</text><text x="1000" y="343" font-size="26" font-weight="700">22.95%</text>
+<rect x="1000" y="380" width="18" height="18" rx="3" fill="#3fb950"/><text x="1032" y="395" class="label">Bonferroni</text><text x="1000" y="423" font-size="26" font-weight="700">1.57%</text>
+<line x1="1000" y1="455" x2="1212" y2="455" stroke="#344464"/>
+<text x="1000" y="488" class="label">Effect=0.2 detection</text><text x="1000" y="520" class="note">Fixed 44.66%</text><text x="1000" y="546" class="note">Naive 61.57%</text><text x="1000" y="572" class="note">Bonferroni 18.82%</text>
+<text x="1000" y="615" class="note" textLength="226" lengthAdjust="spacingAndGlyphs">Control error ≠ preserve power.</text>
+<text x="56" y="688" class="note" textLength="1211" lengthAdjust="spacingAndGlyphs">Source: sequential-eval-peeking-audit/aggregate-results.json · generated 2026-07-17 · synthetic paired Bernoulli process, not a named benchmark.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 14px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1256" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1279" height="719" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

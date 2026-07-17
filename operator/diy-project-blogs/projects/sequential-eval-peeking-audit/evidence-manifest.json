@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "hypothesis": "Under a true null effect, checking an unadjusted paired significance test every 25 tasks until 400 tasks will exceed the nominal 5% false-positive rate, while fixed-horizon and Bonferroni-controlled analyses will remain at or below 5%.",
+  "claimBoundary": "The study supports operating-characteristic claims for the specified paired Bernoulli simulation. It does not estimate any named model's quality, prove that Bonferroni is optimal, or cover dependence across benchmark tasks, judge-model errors, benchmark contamination, or adaptive task selection.",
+  "design": {
+    "baselines": [
+      "Fixed-horizon paired test performed once at the maximum task count",
+      "Naive repeated paired tests at every scheduled review using alpha 0.05"
+    ],
+    "controls": [
+      "Zero-effect null condition for false-positive calibration",
+      "Bonferroni alpha divided by the number of scheduled looks",
+      "Review-cadence ablation at 10, 25, 50, and 100 tasks",
+      "Maximum-sample ablation at 100, 200, 400, and 800 tasks"
+    ],
+    "repeats": 20000
+  },
+  "reproduction": {
+    "commands": [
+      "node operator/diy-project-blogs/projects/sequential-eval-peeking-audit/run-experiment.mjs",
+      "node operator/diy-project-blogs/projects/sequential-eval-peeking-audit/render-figure.mjs"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run-experiment.mjs",
+    "artifacts/aggregate-results.json",
+    "artifacts/focal-trials.csv",
+    "artifacts/false-positive-rate.svg"
+  ]
+}

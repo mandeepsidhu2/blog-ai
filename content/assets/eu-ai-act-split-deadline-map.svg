@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="title desc" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+<title id="title">EU AI Act split deadline map</title><desc id="desc">This timeline separates the August 2026 Article 50 transparency start and conditional December transition from stand-alone high-risk rules in December 2027 and product-embedded high-risk rules in August 2028.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1280" height="720" fill="#080c12"/>
+    <rect width="1280" height="720" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+<style>text{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;fill:#e5eefc}.title{font:700 31px ui-sans-serif,system-ui,sans-serif}.sub,.note{fill:#9fb0c9}.sub{font-size:15px}.note{font-size:13px}.panel{fill:#111b32;stroke:#2b3b5c}.date{font-size:19px;font-weight:700}.label{font-size:14px}.head{font-size:18px;font-weight:700}</style>
+<text x="56" y="48" font-size="15" letter-spacing="2" fill="#8fb7ff">EU AI ACT • DIGITAL OMNIBUS FINAL APPROVAL JUNE 29, 2026</text><text x="56" y="88" class="title">The high-risk deferral did not erase the August transparency track</text><text x="56" y="116" class="sub">Build separate obligation ledgers for interaction disclosure, synthetic-content marking, and high-risk lifecycle evidence.</text>
+<line x1="100" y1="335" x2="1180" y2="335" stroke="#64748b" stroke-width="5"/>
+<g><circle cx="180" cy="335" r="15" fill="#f6c453"/><circle cx="425" cy="335" r="15" fill="#ff9f68"/><circle cx="760" cy="335" r="15" fill="#5eead4"/><circle cx="1100" cy="335" r="15" fill="#8fb7ff"/></g>
+<rect x="70" y="165" width="330" height="135" rx="8" class="panel"/><text x="94" y="198" class="date">02 AUG 2026</text><text x="94" y="228" class="head">Article 50 applies</text><text x="94" y="254" class="note">Interaction disclosure</text><text x="94" y="278" class="note">Marking + deepfake/public-text labels</text><line x1="180" y1="300" x2="180" y2="320" stroke="#f6c453" stroke-width="3"/>
+<rect x="290" y="370" width="330" height="145" rx="8" class="panel"/><line x1="425" y1="350" x2="425" y2="370" stroke="#ff9f68" stroke-width="3"/><text x="314" y="405" class="date">02 DEC 2026</text><text x="314" y="435" class="head">Conditional transition</text><text x="314" y="461" class="note">Certain pre-existing marking systems</text><text x="314" y="485" class="note">Not a blanket Article 50 delay</text>
+<rect x="625" y="165" width="300" height="135" rx="8" class="panel"/><text x="649" y="198" class="date">02 DEC 2027</text><text x="649" y="228" class="head">Stand-alone high-risk</text><text x="649" y="254" class="note">Biometrics, education, employment,</text><text x="649" y="278" class="note" textLength="264" lengthAdjust="spacingAndGlyphs">essential services and other scoped uses</text><line x1="760" y1="300" x2="760" y2="320" stroke="#5eead4" stroke-width="3"/>
+<rect x="940" y="370" width="280" height="145" rx="8" class="panel"/><line x1="1100" y1="350" x2="1100" y2="370" stroke="#8fb7ff" stroke-width="3"/><text x="964" y="405" class="date">02 AUG 2028</text><text x="964" y="435" class="head">Embedded high-risk</text><text x="964" y="461" class="note">AI in regulated products</text><text x="964" y="485" class="note">Sectoral overlap still matters</text>
+<rect x="70" y="552" width="1150" height="88" rx="8" class="panel"/><text x="94" y="585" class="head">Immediate decision window</text><text x="94" y="614" class="label">27 JUL 2026 18:00 CEST — initial Transparency Code signatory deadline; voluntary code, mandatory underlying duties.</text>
+<text x="56" y="688" class="note">Sources: Council timeline; Commission Article 50 code + signing FAQ; EUR-Lex Regulation (EU) 2024/1689. Confirm application with counsel.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 14px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1256" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1279" height="719" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

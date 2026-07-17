@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "seedCount": 20000,
+  "maxTasks": [100, 200, 400, 800],
+  "lookEvery": [10, 25, 50, 100],
+  "logOddsEffects": [0, 0.1, 0.2],
+  "pairCorrelation": 0.55,
+  "alpha": 0.05,
+  "methods": ["fixed_horizon", "naive_peeking", "bonferroni_peeking"]
+}

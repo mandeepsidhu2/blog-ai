@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="title desc" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+<title id="title">Inkling deployment decision surface</title>
+<desc id="desc">A scale panel compares Inkling's total and active parameters with theoretical weight storage floors, while a benchmark panel shows four provider-reported scores and explicit comparability limits.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1280" height="720" fill="#080c12"/>
+    <rect width="1280" height="720" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+<style>text{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;fill:#e5eefc}.title{font:700 31px ui-sans-serif,system-ui,sans-serif}.sub,.note{fill:#9fb0c9}.sub{font-size:15px}.note{font-size:13px}.panel{fill:#111b32;stroke:#2b3b5c}.head{font-size:18px;font-weight:700}.label{font-size:14px}.metric{font-size:28px;font-weight:700}</style>
+<text x="56" y="48" font-size="15" letter-spacing="2" fill="#8fb7ff">INKLING • JULY 15, 2026 • OPEN-WEIGHT MULTIMODAL MOE</text><text x="56" y="88" class="title">41B active compute does not erase 975B resident weights</text><text x="56" y="116" class="sub">Pilot for multimodal adaptation; prove storage, interconnect, cache, and accepted-task economics before self-hosting.</text>
+<rect x="42" y="150" width="500" height="500" rx="8" class="panel"/><text x="70" y="188" class="head">Resident-scale floor</text>
+<text x="70" y="240" class="label">Total parameters</text><text x="70" y="276" class="metric">975B</text><rect x="220" y="242" width="280" height="28" rx="5" fill="#8fb7ff"/>
+<text x="70" y="326" class="label">Active per token</text><text x="70" y="362" class="metric">41B</text><rect x="220" y="328" width="12" height="28" rx="5" fill="#5eead4"/><text x="245" y="348" class="note">4.2% of total</text>
+<line x1="70" y1="398" x2="512" y2="398" stroke="#344464"/><text x="70" y="436" class="label">Theoretical weight floor</text>
+<text x="70" y="486" class="metric" fill="#f6c453">1.95 TB</text><text x="270" y="480" class="label">BF16</text><text x="270" y="502" class="note">before cache + runtime</text>
+<text x="70" y="554" class="metric" fill="#b8f56a">487.5 GB</text><text x="270" y="548" class="label">4-bit floor</text><text x="270" y="570" class="note">not a node recipe</text>
+<text x="70" y="618" class="note">66 layers · 6/256 routed experts + 2 shared</text>
+<rect x="570" y="150" width="668" height="500" rx="8" class="panel"/><text x="598" y="188" class="head">Provider-reported effort=0.99 signals</text>
+<g class="label"><text x="598" y="242">SWE-Bench Pro Public</text><text x="598" y="320">Terminal-Bench 2.1</text><text x="598" y="398">MCP Atlas</text><text x="598" y="476">MMMU Pro</text></g>
+<g fill="#5eead4"><rect x="820" y="220" width="206" height="28" rx="5"/><rect x="820" y="298" width="242" height="28" rx="5"/><rect x="820" y="376" width="282" height="28" rx="5"/><rect x="820" y="454" width="279" height="28" rx="5"/></g>
+<g font-size="15" font-weight="700"><text x="1040" y="241">54.3%</text><text x="1076" y="319">63.8%</text><text x="1116" y="397">74.1%</text><text x="1113" y="475">73.5%</text></g>
+<line x1="598" y1="520" x2="1210" y2="520" stroke="#344464"/><text x="598" y="552" class="label">Comparability boundary</text><text x="598" y="580" class="note">256K coding trajectory ceiling · internal Terminal harness</text><text x="598" y="605" class="note">named reasoning settings differ · no matched price/latency</text><text x="598" y="630" class="note">1M model context; Tinker currently exposes 64K / 256K</text>
+<text x="56" y="688" class="note">Sources: Thinking Machines release + Hugging Face model card, comparison generated July 14, 2026. Storage values are arithmetic lower bounds.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 14px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1256" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1279" height="719" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

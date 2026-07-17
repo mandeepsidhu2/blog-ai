@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "stop-peeking-at-llm-evals",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The simulation exposes an intentionally declared optional-stopping mechanism under one paired Bernoulli generator, but real LLM benchmarks have task clusters, judge error, model sampling, candidate selection, and metric multiplicity that could change every numeric operating rate.",
+      "unsupportedClaimRisk": "The weakest claim was that the fixed-horizon baseline itself represented an exactly calibrated five-percent McNemar procedure; the normal approximation produced a 5.27 percent point estimate, so the article now treats exact or continuity-corrected replication as mandatory before reuse.",
+      "reproductionBarrier": "Exact replication needs the declared deterministic generator and twenty thousand runs per cell; production transfer additionally needs a task-dependence model, judge and generation repeats, all candidate and metric selection paths, and implementation of the intended sequential boundary.",
+      "revisions": [
+        "Added an explicit boundary that the study demonstrates the stopping failure but does not certify Bonferroni or any replacement as a drop-in sequential release procedure.",
+        "Narrowed the fixed-horizon calibration claim, required exact or continuity-corrected McNemar replication, and disclosed that methods use distinct deterministic seed streams rather than paired per-repeat effects.",
+        "Added a separate exploratory-versus-confirmatory run ledger and explained why prompt selection, multiple metrics, and quietly extending a near-significant run create additional selection channels."
+      ]
+    },
+    {
+      "slug": "inkling-open-model-deployment-pilot",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 5,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "Without a hands-on Inkling endpoint or cluster run, the analysis cannot establish throughput, price-performance, memory residency, quantization quality, adaptation gain, or operational reliability, and the provider-reported benchmark table uses heterogeneous harnesses and reasoning budgets.",
+      "unsupportedClaimRisk": "The weakest claim was the visual implication that the 487.5 GB four-bit arithmetic floor described a feasible deployment; it excludes quantization metadata, non-quantized tensors, cache, runtime buffers, communication, and measured artifact size.",
+      "reproductionBarrier": "A decision-grade pilot needs access to the released revision and a managed or multi-node serving path, matched generated-token and reasoning budgets, production multimodal tasks, blinded acceptance review, failure injection, and published or measured cost and latency.",
+      "revisions": [
+        "Added a direct disclosure that no Inkling execution or cluster inspection was performed and relabeled BF16, four-bit, and active-parameter values as arithmetic floors rather than capacity measurements.",
+        "Required matched reasoning and token budgets in the pilot and added a parameter-matched smaller-model adaptation control to separate backbone value from adaptation data and platform effects.",
+        "Strengthened the adoption boundary around one-million-token context, release-day serving integrations, and safety-score non-transfer after fine-tuning."
+      ]
+    },
+    {
+      "slug": "eu-ai-act-split-deadlines-engineering",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "Regulatory engineering guidance can become wrong between drafting and deployment, and the operator role, territorial scope, exceptions, transition eligibility, final Official Journal text, and national enforcement posture require qualified legal interpretation rather than a technical timeline alone.",
+      "unsupportedClaimRisk": "The weakest claim was that the 2027 and 2028 dates were already consolidated binding law; on July 17 the procedure is completed but still awaiting Official Journal publication, so the article now separates adopted planning dates from legal reliance after entry into force.",
+      "reproductionBarrier": "Adoption requires an authoritative legal-source check, counsel-confirmed scope per product surface, a complete provider/deployer inventory, transformation tests across media channels, and retained evidence for disclosure, marking, detector error, and transition eligibility.",
+      "revisions": [
+        "Added the Legislative Observatory status and changed every high-risk date claim to an adopted planning date that must be verified against Official Journal publication before legal reliance.",
+        "Separated the voluntary Transparency Code from mandatory Article 50 duties and clarified that the conditional December 2026 transition is not a blanket delay.",
+        "Added an authoritative-source release gate and strengthened the distinction among user disclosure, machine-readable marking, deepfake labeling, and high-risk lifecycle evidence."
+      ]
+    }
+  ]
+}
