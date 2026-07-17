@@ -83,5 +83,6 @@ hero entrance animation settles to visible content.
 ## Final status
 
 The three-article batch is promoted and all content, build, site, SVG, XML,
-diff, and rendered-review gates pass. Commit and push identifiers are appended
-after the repository operations complete.
+diff, and rendered-review gates pass. Publication commit `4b4f736` was pushed
+to `origin/main` (`c46ec62..4b4f736`). A follow-up report-only commit records
+this durable outcome.
