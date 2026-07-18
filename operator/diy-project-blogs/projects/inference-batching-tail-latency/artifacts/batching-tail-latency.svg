@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img">
+<title>The same batching delay has opposite tail-latency effects</title>
+<desc>Two-panel bar chart comparing p95 latency for four batch policies under Poisson and synchronized burst traffic at 90 requests per second.</desc>
+<rect width="1200" height="675" fill="#0b1220"/>
+<text x="64" y="62" class="title">Arrival shape flips the batching decision</text>
+<text x="64" y="94" class="sub">p95 response latency · 90 requests/s · 60 independent traces · lower is better</text>
+<rect x="60" y="125" width="525" height="455" rx="10" fill="#111b2d" stroke="#2a3954"/>
+<rect x="615" y="125" width="525" height="455" rx="10" fill="#111b2d" stroke="#2a3954"/>
+<text x="86" y="162" class="panel">Poisson arrivals</text>
+<text x="641" y="162" class="panel">16-request synchronized bursts</text>
+<line x1="86" y1="482" x2="559" y2="482" stroke="#263650"/><line x1="641" y1="482" x2="1114" y2="482" stroke="#263650"/><text x="78" y="487" text-anchor="end" class="axis">0</text><line x1="86" y1="403.42857142857144" x2="559" y2="403.42857142857144" stroke="#263650"/><line x1="641" y1="403.42857142857144" x2="1114" y2="403.42857142857144" stroke="#263650"/><text x="78" y="408.42857142857144" text-anchor="end" class="axis">25</text><line x1="86" y1="324.8571428571429" x2="559" y2="324.8571428571429" stroke="#263650"/><line x1="641" y1="324.8571428571429" x2="1114" y2="324.8571428571429" stroke="#263650"/><text x="78" y="329.8571428571429" text-anchor="end" class="axis">50</text><line x1="86" y1="246.28571428571428" x2="559" y2="246.28571428571428" stroke="#263650"/><line x1="641" y1="246.28571428571428" x2="1114" y2="246.28571428571428" stroke="#263650"/><text x="78" y="251.28571428571428" text-anchor="end" class="axis">75</text><line x1="86" y1="167.71428571428572" x2="559" y2="167.71428571428572" stroke="#263650"/><line x1="641" y1="167.71428571428572" x2="1114" y2="167.71428571428572" stroke="#263650"/><text x="78" y="172.71428571428572" text-anchor="end" class="axis">100</text>
+<line x1="86" y1="403.42857142857144" x2="559" y2="403.42857142857144" stroke="#f7d154" stroke-width="2" stroke-dasharray="7 6"/>
+<line x1="641" y1="403.42857142857144" x2="1114" y2="403.42857142857144" stroke="#f7d154" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="1078" y="394.42857142857144" text-anchor="end" class="slo">25 ms SLO</text>
+<rect x="112" y="408.65690448022065" width="68" height="73.34309551977935" rx="6" fill="#ef6f6c"/>
+      <text x="146" y="396.65690448022065" text-anchor="middle" class="value">23.3 ms</text>
+      <text x="146" y="515" text-anchor="middle" class="axis">single</text>
+<rect x="217" y="442.44670924593663" width="68" height="39.55329075406337" rx="6" fill="#f4b860"/>
+      <text x="251" y="430.44670924593663" text-anchor="middle" class="value">12.6 ms</text>
+      <text x="251" y="515" text-anchor="middle" class="axis">4 / 0 ms</text>
+<rect x="322" y="442.4887845923283" width="68" height="39.51121540767173" rx="6" fill="#5bc0be"/>
+      <text x="356" y="430.4887845923283" text-anchor="middle" class="value">12.6 ms</text>
+      <text x="356" y="515" text-anchor="middle" class="axis">8 / 2 ms</text>
+<rect x="427" y="427.04700923770406" width="68" height="54.95299076229594" rx="6" fill="#5b8def"/>
+      <text x="461" y="415.04700923770406" text-anchor="middle" class="value">17.5 ms</text>
+      <text x="461" y="515" text-anchor="middle" class="axis">16 / 10 ms</text>
+<rect x="667" y="179.02857142849825" width="68" height="302.97142857150175" rx="6" fill="#ef6f6c"/>
+      <text x="701" y="167.02857142849825" text-anchor="middle" class="value">96.4 ms</text>
+      <text x="701" y="515" text-anchor="middle" class="axis">single</text>
+<rect x="772" y="379.8234957947425" width="68" height="102.17650420525752" rx="6" fill="#f4b860"/>
+      <text x="806" y="367.8234957947425" text-anchor="middle" class="value">32.5 ms</text>
+      <text x="806" y="515" text-anchor="middle" class="axis">4 / 0 ms</text>
+<rect x="877" y="413.8803820377299" width="68" height="68.11961796227013" rx="6" fill="#5bc0be"/>
+      <text x="911" y="401.8803820377299" text-anchor="middle" class="value">21.7 ms</text>
+      <text x="911" y="515" text-anchor="middle" class="axis">8 / 2 ms</text>
+<rect x="982" y="425.0346108772917" width="68" height="56.9653891227083" rx="6" fill="#5b8def"/>
+      <text x="1016" y="413.0346108772917" text-anchor="middle" class="value">18.1 ms</text>
+      <text x="1016" y="515" text-anchor="middle" class="axis">16 / 10 ms</text>
+<text x="323" y="555" text-anchor="middle" class="axis">max batch / max fill delay</text>
+<text x="878" y="555" text-anchor="middle" class="axis">max batch / max fill delay</text>
+<text x="60" y="625" class="note">Declared service curve: 5.5 + 0.9 × batch^0.72 ms. Simulation result, not a hardware benchmark.</text>
+<style>.title{font:700 29px ui-monospace,monospace;fill:#f2f6ff}.sub,.note{font:15px ui-monospace,monospace;fill:#9fb0ca}.panel{font:700 19px ui-monospace,monospace;fill:#e6edf7}.axis{font:13px ui-monospace,monospace;fill:#b8c5d9}.value{font:700 13px ui-monospace,monospace;fill:#f2f6ff}.slo{font:700 13px ui-monospace,monospace;fill:#f7d154}</style>
+</svg>

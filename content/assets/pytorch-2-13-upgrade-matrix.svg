@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
+<title>PyTorch 2.13 backend upgrade matrix</title>
+<desc>Matrix mapping PyTorch 2.13 changes to backend scope, reported signal, and a required validation gate before rollout.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+<text x="54" y="60" class="title">PyTorch 2.13 is a matrix, not one speedup</text>
+<text x="54" y="92" class="sub">Release signals → scoped workload → pre-rollout gate</text>
+<rect x="54" y="125" width="1092" height="470" rx="8" fill="#111c2e" stroke="#33445f"/>
+<rect x="54" y="125" width="1092" height="55" rx="8" fill="#1b2a42"/>
+<text x="80" y="160" class="head">Change</text><text x="345" y="160" class="head">Reported signal</text><text x="610" y="160" class="head">Scope</text><text x="865" y="160" class="head">Gate</text>
+<g class="row">
+<text x="80" y="220">MPS FlexAttention</text><text x="345" y="220">12.3× at 32K sparse</text><text x="610" y="220">Apple / 0.8% density</text><text x="865" y="220">dense + shape replay</text>
+<text x="80" y="278">LinearCrossEntropy</text><text x="345" y="278">up to 4× memory</text><text x="610" y="278">100K+ vocabulary</text><text x="865" y="278">loss + gradient parity</text>
+<text x="80" y="336">FSDP2 overlap</text><text x="345" y="336">no universal score</text><text x="610" y="336">distributed / opt-in</text><text x="865" y="336">fault injection</text>
+<text x="80" y="394">CuTeDSL / ROCm</text><text x="345" y="394">new compiler paths</text><text x="610" y="394">backend-specific</text><text x="865" y="394">compile + kernel parity</text>
+<text x="80" y="452">C++ / build</text><text x="345" y="452">C++20; Bazel removed</text><text x="610" y="452">extensions + CI</text><text x="865" y="452">image rebuild</text>
+<text x="80" y="510">Python wheels</text><text x="345" y="510">3.15t in; 3.13t out</text><text x="610" y="510">Linux package matrix</text><text x="865" y="510">dependency closure</text>
+</g>
+<line x1="325" y1="180" x2="325" y2="570" stroke="#2d405e"/><line x1="590" y1="180" x2="590" y2="570" stroke="#2d405e"/><line x1="845" y1="180" x2="845" y2="570" stroke="#2d405e"/>
+<line x1="54" y1="238" x2="1146" y2="238" stroke="#253752"/><line x1="54" y1="296" x2="1146" y2="296" stroke="#253752"/><line x1="54" y1="354" x2="1146" y2="354" stroke="#253752"/><line x1="54" y1="412" x2="1146" y2="412" stroke="#253752"/><line x1="54" y1="470" x2="1146" y2="470" stroke="#253752"/><line x1="54" y1="528" x2="1146" y2="528" stroke="#253752"/>
+<text x="54" y="638" class="note">Correctness first. Canary one workload–backend cell; keep 2.12.1 live for rollback.</text>
+<style>.title{font:700 29px ui-monospace,monospace;fill:#f2f6ff}.sub,.note{font:15px ui-monospace,monospace;fill:#9fb0c8}.head{font:700 16px ui-monospace,monospace;fill:#f4cc62}.row{font:14px ui-monospace,monospace;fill:#d5deeb}</style>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

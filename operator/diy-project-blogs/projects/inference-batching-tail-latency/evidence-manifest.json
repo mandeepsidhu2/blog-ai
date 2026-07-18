@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "hypothesis": "Initial hypothesis: at equal offered load, adding batch-formation delay would worsen 25 ms tail-latency attainment under bursty arrivals. The saved experiment falsified that direction for synchronized bursts and instead tests the narrowed interaction claim that a 10 ms fill window is a latency tax under Poisson traffic but a latency reducer when arrivals align in 16-request bursts.",
+  "claimBoundary": "The study supports mechanism and operating-characteristic claims for the declared discrete-event service model. It does not benchmark a named GPU, model server, neural network, or production trace, and its queue-delay values must be re-estimated on target hardware.",
+  "design": {
+    "baselines": [
+      "Single-request service with zero batching delay",
+      "Immediate batching with maximum batch size four"
+    ],
+    "controls": [
+      "Poisson arrivals matched on mean request rate",
+      "No-batch-efficiency service-time negative control",
+      "Offered-load ablation at 90, 140, and 220 requests per second",
+      "Maximum-delay ablation at 0, 2, 5, and 10 milliseconds"
+    ],
+    "repeats": 60
+  },
+  "reproduction": {
+    "commands": [
+      "node operator/diy-project-blogs/projects/inference-batching-tail-latency/run-experiment.mjs",
+      "node operator/diy-project-blogs/projects/inference-batching-tail-latency/render-figure.mjs"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run-experiment.mjs",
+    "artifacts/aggregate-results.json",
+    "artifacts/raw-seed-results.csv",
+    "artifacts/batching-tail-latency.svg"
+  ]
+}

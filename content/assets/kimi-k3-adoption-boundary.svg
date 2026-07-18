@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
+<title>Kimi K3 adoption boundary</title>
+<desc>Decision matrix showing which Kimi K3 signals support an API pilot now and which missing evidence blocks large-cluster self-hosting.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+<text x="60" y="62" class="title">Kimi K3: evaluate the API before the cluster</text>
+<text x="60" y="94" class="sub">July 16 release facts · benchmark comparability · operational decision</text>
+<rect x="60" y="130" width="340" height="450" rx="8" fill="#12243a" stroke="#3a79a8"/>
+<rect x="430" y="130" width="340" height="450" rx="8" fill="#27223a" stroke="#8066b3"/>
+<rect x="800" y="130" width="340" height="450" rx="8" fill="#33231f" stroke="#bf795f"/>
+<text x="86" y="172" class="head">API pilot now</text>
+<text x="456" y="172" class="head">Verify before routing</text>
+<text x="826" y="172" class="head">Block self-hosting</text>
+<g class="metric">
+<text x="86" y="222">1M-token context</text><text x="86" y="250">$3 / $15 per MTok</text><text x="86" y="278">cache hit: $0.30</text>
+<text x="86" y="330">Freeze 150–300 tasks</text><text x="86" y="358">measure $ / verified success</text><text x="86" y="386">new sessions only</text>
+<text x="456" y="222">mixed agent harnesses</text><text x="456" y="250">3-run PostTrain cells</text><text x="456" y="278">500 / 600 public tasks</text>
+<text x="456" y="330">history compaction control</text><text x="456" y="358">tool-schema parity</text><text x="456" y="386">independent safety evidence</text>
+<text x="826" y="222">2.8T total parameters</text><text x="826" y="250">16 / 896 active experts</text><text x="826" y="278">64+ accelerator guidance</text>
+<text x="826" y="330">report still forthcoming</text><text x="826" y="358">serving code pending</text><text x="826" y="386">resident-memory bill unknown</text>
+</g>
+<line x1="100" y1="430" x2="360" y2="430" stroke="#3a79a8"/><line x1="470" y1="430" x2="730" y2="430" stroke="#8066b3"/><line x1="840" y1="430" x2="1100" y2="430" stroke="#bf795f"/>
+<text x="86" y="468" class="decision">CANARY</text><text x="86" y="500" class="small">≤5% of eligible new sessions</text>
+<text x="456" y="468" class="decision">CONTROL</text><text x="456" y="500" class="small">same tools, verifier, budget</text>
+<text x="826" y="468" class="decision">WAIT</text><text x="826" y="500" class="small">weights + hashes + topology trace</text>
+<text x="60" y="625" class="note">Sparse activation reduces compute; it does not erase expert residence, routing, or communication.</text>
+<style>.title{font:700 29px ui-monospace,monospace;fill:#f3f7ff}.sub,.note{font:15px ui-monospace,monospace;fill:#a9b8ce}.head{font:700 19px ui-monospace,monospace;fill:#f3f7ff}.metric{font:15px ui-monospace,monospace;fill:#d5deec}.decision{font:700 18px ui-monospace,monospace;fill:#f6cf65}.small{font:14px ui-monospace,monospace;fill:#c2cede}</style>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

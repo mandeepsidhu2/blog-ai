@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "tune-inference-batching-arrival-shape",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The synchronized 16-request generator and synthetic sublinear service curve are too clean to represent production continuous batching, so the sign reversal may disappear under heterogeneous prompt and decode lengths.",
+      "unsupportedClaimRisk": "The weakest claim was that the discovered interaction was confirmatory; it was narrowed to exploratory mechanism evidence because the interaction claim was written only after the original directional hypothesis failed.",
+      "reproductionBarrier": "The Node simulation is easy to reproduce, but the consequential external test requires timestamped production traces and a hardware-derived batch service surface that many teams do not yet retain.",
+      "revisions": [
+        "Reclassified the saved run as exploratory mechanism evidence and required a preregistered follow-up on unseen traces and empirical service curves.",
+        "Added numeric no-efficiency-control outcomes showing identical 156.3 rps capacity and 28.9% drops rather than merely asserting that the control failed.",
+        "Corrected the artifact accounting from 5,040 aggregate cells to 84 aggregates and 5,040 seed-policy rows."
+      ]
+    },
+    {
+      "slug": "kimi-k3-api-first-evaluation",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "K3's launch-day coding and agent results may justify faster adoption than this cautious sequence, especially for organizations that only consume the managed API and never intend to host weights.",
+      "unsupportedClaimRisk": "The weakest wording treated Moonshot's 64-accelerator recommendation as a hard deployment floor; it was narrowed to provider guidance that does not establish a minimum or cost optimum.",
+      "reproductionBarrier": "Harness parity is difficult because published competitors use Kimi Code, Claude Code, Codex, Terminus 2, and mini-SWE-agent, while product tools and preserved thinking history may not be portable.",
+      "revisions": [
+        "Changed the self-host claim from a 64-accelerator floor to a recommended topology and explicitly marked smaller supported configurations as unknown.",
+        "Added a randomized incumbent control to the production canary so repository difficulty and traffic mix cannot masquerade as a K3 effect.",
+        "Changed open-model release wording to open-model commitment because complete self-hosting artifacts and technical details are not yet equally available."
+      ]
+    },
+    {
+      "slug": "pytorch-2-13-upgrade-matrix",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "A backend matrix may slow adoption of a well-tested framework release, while the article cannot independently verify the MPS and memory launch measurements without running the relevant hardware benchmarks.",
+      "unsupportedClaimRisk": "The weakest implication was that the launch speedups justified an early upgrade; it was narrowed to a cell-specific canary and all numbers remain explicitly attributed to PyTorch until target reproduction.",
+      "reproductionBarrier": "Organizations need multiple accelerator backends, compiler images, representative checkpoints, and pinned 2.12.1 baselines; a single developer workstation cannot validate distributed and cross-vendor cells.",
+      "revisions": [
+        "Replaced broad early-upgrade guidance with a cell-specific canary boundary and explicit target-SoC reproduction requirement.",
+        "Added checkpoint forward- and rollback-reader compatibility as a pre-performance gate, with serialization drift now blocking a row.",
+        "Elevated the tracked GPU-less ROCm-wheel compile regression into the reason utility hosts belong in the validation matrix."
+      ]
+    }
+  ]
+}

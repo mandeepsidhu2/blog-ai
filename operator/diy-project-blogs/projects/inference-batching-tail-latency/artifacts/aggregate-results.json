@@ -1,0 +1,4015 @@
+{
+  "generatedAt": "2026-07-18T15:00:28.103Z",
+  "claimBoundary": "Discrete-event operating characteristics for the declared arrival and service models; not a hardware benchmark.",
+  "config": {
+    "version": 1,
+    "durationSeconds": 60,
+    "warmupSeconds": 10,
+    "repeats": 60,
+    "ratesPerSecond": [
+      90,
+      140,
+      220
+    ],
+    "arrivalPatterns": [
+      "poisson",
+      "bursty"
+    ],
+    "burstSize": 16,
+    "burstSpreadMs": 0.4,
+    "queueTimeoutMs": 100,
+    "sloMs": 25,
+    "serviceModel": {
+      "baseMs": 5.5,
+      "perRequestMs": 0.9,
+      "batchExponent": 0.72
+    },
+    "policies": [
+      {
+        "name": "single",
+        "maxBatch": 1,
+        "maxDelayMs": 0
+      },
+      {
+        "name": "b4-now",
+        "maxBatch": 4,
+        "maxDelayMs": 0
+      },
+      {
+        "name": "b4-2ms",
+        "maxBatch": 4,
+        "maxDelayMs": 2
+      },
+      {
+        "name": "b8-2ms",
+        "maxBatch": 8,
+        "maxDelayMs": 2
+      },
+      {
+        "name": "b8-5ms",
+        "maxBatch": 8,
+        "maxDelayMs": 5
+      },
+      {
+        "name": "b16-5ms",
+        "maxBatch": 16,
+        "maxDelayMs": 5
+      },
+      {
+        "name": "b16-10ms",
+        "maxBatch": 16,
+        "maxDelayMs": 10
+      }
+    ]
+  },
+  "aggregate": [
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96233333333336,
+        "ci95Low": 89.57985010947861,
+        "ci95High": 90.34481655718811
+      },
+      "dropRate": {
+        "mean": 0.000003696311081540622,
+        "ci95Low": -0.0000035484586382789954,
+        "ci95High": 0.00001094108080136024
+      },
+      "meanLatencyMs": {
+        "mean": 10.795241859620186,
+        "ci95Low": 10.714871423908587,
+        "ci95High": 10.875612295331784
+      },
+      "p50LatencyMs": {
+        "mean": 8.250173379406654,
+        "ci95Low": 8.172498572588239,
+        "ci95High": 8.327848186225069
+      },
+      "p95LatencyMs": {
+        "mean": 23.33643948356615,
+        "ci95Low": 22.994819949586997,
+        "ci95High": 23.6780590175453
+      },
+      "p99LatencyMs": {
+        "mean": 33.53859185670162,
+        "ci95Low": 32.768702320475356,
+        "ci95High": 34.30848139292789
+      },
+      "sloAttainment": {
+        "mean": 0.961631271494242,
+        "ci95Low": 0.9592741648976133,
+        "ci95High": 0.9639883780908707
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 8.230413147595396,
+        "ci95Low": 8.219423609015927,
+        "ci95High": 8.241402686174865
+      },
+      "p50LatencyMs": {
+        "mean": 6.668712728632666,
+        "ci95Low": 6.622522927879177,
+        "ci95High": 6.714902529386156
+      },
+      "p95LatencyMs": {
+        "mean": 12.585137967201991,
+        "ci95Low": 12.574532690948837,
+        "ci95High": 12.595743243455145
+      },
+      "p99LatencyMs": {
+        "mean": 13.379839687984532,
+        "ci95Low": 13.36382962137118,
+        "ci95High": 13.395849754597885
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.141705810464792,
+        "ci95Low": 1.140042463733841,
+        "ci95High": 1.1433691571957427
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 9.180714002762498,
+        "ci95Low": 9.173776143263419,
+        "ci95High": 9.187651862261577
+      },
+      "p50LatencyMs": {
+        "mean": 8.400000000001455,
+        "ci95Low": 8.400000000001455,
+        "ci95High": 8.400000000001455
+      },
+      "p95LatencyMs": {
+        "mean": 12.57697764484777,
+        "ci95Low": 12.56556742117903,
+        "ci95High": 12.58838786851651
+      },
+      "p99LatencyMs": {
+        "mean": 13.452050347133142,
+        "ci95Low": 13.428530160265321,
+        "ci95High": 13.475570534000962
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.2443169573594868,
+        "ci95Low": 1.2421409578704126,
+        "ci95High": 1.246492956848561
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 9.17970773322458,
+        "ci95Low": 9.17283375391824,
+        "ci95High": 9.18658171253092
+      },
+      "p50LatencyMs": {
+        "mean": 8.400000000001455,
+        "ci95Low": 8.400000000001455,
+        "ci95High": 8.400000000001455
+      },
+      "p95LatencyMs": {
+        "mean": 12.571750356986467,
+        "ci95Low": 12.560746558842837,
+        "ci95High": 12.582754155130097
+      },
+      "p99LatencyMs": {
+        "mean": 13.441558693885721,
+        "ci95Low": 13.419214341651736,
+        "ci95High": 13.463903046119706
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.2445227548892819,
+        "ci95Low": 1.2423428712447373,
+        "ci95High": 1.2467026385338265
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 10.624958849655107,
+        "ci95Low": 10.618552308123103,
+        "ci95High": 10.63136539118711
+      },
+      "p50LatencyMs": {
+        "mean": 11.400000000001455,
+        "ci95Low": 11.400000000001455,
+        "ci95High": 11.400000000001455
+      },
+      "p95LatencyMs": {
+        "mean": 12.668347424152216,
+        "ci95Low": 12.655535050517997,
+        "ci95High": 12.681159797786435
+      },
+      "p99LatencyMs": {
+        "mean": 13.545937000390706,
+        "ci95Low": 13.520395000179077,
+        "ci95High": 13.571479000602336
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.395655461701741,
+        "ci95Low": 1.392722203957904,
+        "ci95High": 1.398588719445578
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 10.624958849655107,
+        "ci95Low": 10.618552308123103,
+        "ci95High": 10.63136539118711
+      },
+      "p50LatencyMs": {
+        "mean": 11.400000000001455,
+        "ci95Low": 11.400000000001455,
+        "ci95High": 11.400000000001455
+      },
+      "p95LatencyMs": {
+        "mean": 12.668347424152216,
+        "ci95Low": 12.655535050517997,
+        "ci95High": 12.681159797786435
+      },
+      "p99LatencyMs": {
+        "mean": 13.545937000390706,
+        "ci95Low": 13.520395000179077,
+        "ci95High": 13.571479000602336
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.395655461701741,
+        "ci95Low": 1.392722203957904,
+        "ci95High": 1.398588719445578
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 13.066190899316764,
+        "ci95Low": 13.054284546115104,
+        "ci95High": 13.078097252518424
+      },
+      "p50LatencyMs": {
+        "mean": 12.922007064354784,
+        "ci95Low": 12.895576773436586,
+        "ci95High": 12.948437355272981
+      },
+      "p95LatencyMs": {
+        "mean": 17.48504251527599,
+        "ci95Low": 17.485042515275733,
+        "ci95High": 17.485042515276245
+      },
+      "p99LatencyMs": {
+        "mean": 17.941887789405882,
+        "ci95Low": 17.941887789405882,
+        "ci95High": 17.941887789405882
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.6454087319920747,
+        "ci95Low": 1.6418363791045092,
+        "ci95High": 1.6489810848796402
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.66300000000004,
+        "ci95Low": 139.27977783967694,
+        "ci95High": 140.04622216032314
+      },
+      "dropRate": {
+        "mean": 0.0035802641620158227,
+        "ci95Low": 0.0030664626866999407,
+        "ci95High": 0.004094065637331705
+      },
+      "meanLatencyMs": {
+        "mean": 31.247209660855155,
+        "ci95Low": 30.62345731259401,
+        "ci95High": 31.8709620091163
+      },
+      "p50LatencyMs": {
+        "mean": 24.550567940166033,
+        "ci95Low": 24.012650937507022,
+        "ci95High": 25.088484942825044
+      },
+      "p95LatencyMs": {
+        "mean": 79.63819920192667,
+        "ci95Low": 77.8666533841131,
+        "ci95High": 81.40974501974023
+      },
+      "p99LatencyMs": {
+        "mean": 97.85872969466637,
+        "ci95Low": 96.70102108478552,
+        "ci95High": 99.01643830454721
+      },
+      "sloAttainment": {
+        "mean": 0.5098614956098166,
+        "ci95Low": 0.5006156221179124,
+        "ci95High": 0.5191073691017208
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 140.16666666666663,
+        "ci95Low": 139.74671329022115,
+        "ci95High": 140.5866200431121
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 9.078628567447595,
+        "ci95Low": 9.068689644146101,
+        "ci95High": 9.088567490749089
+      },
+      "p50LatencyMs": {
+        "mean": 8.79266126948678,
+        "ci95Low": 8.775759289689464,
+        "ci95High": 8.809563249284096
+      },
+      "p95LatencyMs": {
+        "mean": 13.139913308465081,
+        "ci95Low": 13.1294420184837,
+        "ci95High": 13.150384598446461
+      },
+      "p99LatencyMs": {
+        "mean": 14.103053573272307,
+        "ci95Low": 14.078279396237617,
+        "ci95High": 14.127827750306997
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.3204188014461582,
+        "ci95Low": 1.318550711185543,
+        "ci95High": 1.3222868917067734
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 140.16666666666663,
+        "ci95Low": 139.74671329022115,
+        "ci95High": 140.5866200431121
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 9.63521456466916,
+        "ci95Low": 9.628586996019523,
+        "ci95High": 9.641842133318798
+      },
+      "p50LatencyMs": {
+        "mean": 8.982463831081986,
+        "ci95Low": 8.982463831081986,
+        "ci95High": 8.982463831081986
+      },
+      "p95LatencyMs": {
+        "mean": 13.170993006520197,
+        "ci95Low": 13.16067970834548,
+        "ci95High": 13.181306304694914
+      },
+      "p99LatencyMs": {
+        "mean": 14.161863294519511,
+        "ci95Low": 14.140176335109247,
+        "ci95High": 14.183550253929775
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.437511411645689,
+        "ci95Low": 1.4353755712166938,
+        "ci95High": 1.4396472520746844
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 140.16666666666663,
+        "ci95Low": 139.74671329022115,
+        "ci95High": 140.5866200431121
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 9.62237895481332,
+        "ci95Low": 9.615812474726125,
+        "ci95High": 9.628945434900514
+      },
+      "p50LatencyMs": {
+        "mean": 8.982463831081986,
+        "ci95Low": 8.982463831081986,
+        "ci95High": 8.982463831081986
+      },
+      "p95LatencyMs": {
+        "mean": 13.144310737573596,
+        "ci95Low": 13.133674098734637,
+        "ci95High": 13.154947376412554
+      },
+      "p99LatencyMs": {
+        "mean": 14.053400344238344,
+        "ci95Low": 14.035244175810655,
+        "ci95High": 14.071556512666033
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.4389497290412265,
+        "ci95Low": 1.4367555595935952,
+        "ci95High": 1.4411438984888578
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 140.16666666666663,
+        "ci95Low": 139.74671329022115,
+        "ci95High": 140.5866200431121
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 10.588379169706807,
+        "ci95Low": 10.583187415280772,
+        "ci95High": 10.593570924132841
+      },
+      "p50LatencyMs": {
+        "mean": 11.164645529456145,
+        "ci95Low": 11.154121704788277,
+        "ci95High": 11.175169354124012
+      },
+      "p95LatencyMs": {
+        "mean": 13.20009433416056,
+        "ci95Low": 13.187932473240242,
+        "ci95High": 13.21225619508088
+      },
+      "p99LatencyMs": {
+        "mean": 14.166680683110553,
+        "ci95Low": 14.14545921730624,
+        "ci95High": 14.187902148914866
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.6085090803889963,
+        "ci95Low": 1.605631352702962,
+        "ci95High": 1.6113868080750307
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 140.16666666666663,
+        "ci95Low": 139.74671329022115,
+        "ci95High": 140.5866200431121
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 10.588379169706807,
+        "ci95Low": 10.583187415280772,
+        "ci95High": 10.593570924132841
+      },
+      "p50LatencyMs": {
+        "mean": 11.164645529456145,
+        "ci95Low": 11.154121704788277,
+        "ci95High": 11.175169354124012
+      },
+      "p95LatencyMs": {
+        "mean": 13.20009433416056,
+        "ci95Low": 13.187932473240242,
+        "ci95High": 13.21225619508088
+      },
+      "p99LatencyMs": {
+        "mean": 14.166680683110553,
+        "ci95Low": 14.14545921730624,
+        "ci95High": 14.187902148914866
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.6085090803889963,
+        "ci95Low": 1.605631352702962,
+        "ci95High": 1.6113868080750307
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 140.16666666666663,
+        "ci95Low": 139.74671329022115,
+        "ci95High": 140.5866200431121
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 12.421732773252536,
+        "ci95Low": 12.410040392879868,
+        "ci95High": 12.433425153625205
+      },
+      "p50LatencyMs": {
+        "mean": 12.004800223136348,
+        "ci95Low": 11.988724254414015,
+        "ci95High": 12.020876191858681
+      },
+      "p95LatencyMs": {
+        "mean": 17.48504251527629,
+        "ci95Low": 17.48504251527629,
+        "ci95High": 17.48504251527629
+      },
+      "p99LatencyMs": {
+        "mean": 18.355650158047684,
+        "ci95Low": 18.342487647569897,
+        "ci95High": 18.36881266852547
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.8851512534692625,
+        "ci95Low": 1.8811108175427302,
+        "ci95High": 1.8891916893957947
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.25166666666667,
+        "ci95Low": 156.24115432614698,
+        "ci95High": 156.26217900718635
+      },
+      "dropRate": {
+        "mean": 0.2889641890036943,
+        "ci95Low": 0.28730139707619406,
+        "ci95High": 0.29062698093119455
+      },
+      "meanLatencyMs": {
+        "mean": 97.556140149474,
+        "ci95Low": 97.45239035186198,
+        "ci95High": 97.65988994708603
+      },
+      "p50LatencyMs": {
+        "mean": 100.24941309749214,
+        "ci95Low": 100.19160860419028,
+        "ci95High": 100.307217590794
+      },
+      "p95LatencyMs": {
+        "mean": 105.95030880925255,
+        "ci95Low": 105.94374922450338,
+        "ci95High": 105.95686839400172
+      },
+      "p99LatencyMs": {
+        "mean": 106.31289470003564,
+        "ci95Low": 106.31023842364628,
+        "ci95High": 106.315550976425
+      },
+      "sloAttainment": {
+        "mean": 0.00022189673833664754,
+        "ci95Low": 0.000040018493454263326,
+        "ci95High": 0.00040377498321903177
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.77066666666667,
+        "ci95Low": 219.2556149265974,
+        "ci95High": 220.28571840673595
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 10.170164144836424,
+        "ci95Low": 10.161421415009507,
+        "ci95High": 10.17890687466334
+      },
+      "p50LatencyMs": {
+        "mean": 10.155353415624965,
+        "ci95Low": 10.143767315535761,
+        "ci95High": 10.16693951571417
+      },
+      "p95LatencyMs": {
+        "mean": 14.090949611680328,
+        "ci95Low": 14.073181903961544,
+        "ci95High": 14.108717319399112
+      },
+      "p99LatencyMs": {
+        "mean": 16.39191751034138,
+        "ci95Low": 16.32904945795206,
+        "ci95High": 16.4547855627307
+      },
+      "sloAttainment": {
+        "mean": 0.9999817222624647,
+        "ci95Low": 0.9999706022372946,
+        "ci95High": 0.9999928422876349
+      },
+      "meanBatchSize": {
+        "mean": 1.7150719423952168,
+        "ci95Low": 1.7121475382299918,
+        "ci95High": 1.7179963465604418
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.77066666666667,
+        "ci95Low": 219.2556149265974,
+        "ci95High": 220.28571840673595
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 10.379725682721281,
+        "ci95Low": 10.37156184062478,
+        "ci95High": 10.387889524817782
+      },
+      "p50LatencyMs": {
+        "mean": 9.979334276383026,
+        "ci95Low": 9.964461777257675,
+        "ci95High": 9.994206775508378
+      },
+      "p95LatencyMs": {
+        "mean": 14.118172358288332,
+        "ci95Low": 14.101369619581694,
+        "ci95High": 14.13497509699497
+      },
+      "p99LatencyMs": {
+        "mean": 16.345266062622734,
+        "ci95Low": 16.277888650024362,
+        "ci95High": 16.412643475221106
+      },
+      "sloAttainment": {
+        "mean": 0.9999771114370417,
+        "ci95Low": 0.9999567798299929,
+        "ci95High": 0.9999974430440906
+      },
+      "meanBatchSize": {
+        "mean": 1.8208177879929517,
+        "ci95Low": 1.8179301021282426,
+        "ci95High": 1.8237054738576608
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.77066666666667,
+        "ci95Low": 219.2556149265974,
+        "ci95High": 220.28571840673595
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 10.27758681041472,
+        "ci95Low": 10.270503818228415,
+        "ci95High": 10.284669802601025
+      },
+      "p50LatencyMs": {
+        "mean": 9.90728544777218,
+        "ci95Low": 9.893758476884857,
+        "ci95High": 9.920812418659503
+      },
+      "p95LatencyMs": {
+        "mean": 13.885934889176406,
+        "ci95Low": 13.875481348785767,
+        "ci95High": 13.896388429567045
+      },
+      "p99LatencyMs": {
+        "mean": 14.921060141096586,
+        "ci95Low": 14.905510696302086,
+        "ci95High": 14.936609585891086
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.8268174275467572,
+        "ci95Low": 1.8237868182400323,
+        "ci95High": 1.8298480368534822
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.77066666666667,
+        "ci95Low": 219.2556149265974,
+        "ci95High": 220.28571840673595
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 10.766086877189236,
+        "ci95Low": 10.76065609046585,
+        "ci95High": 10.771517663912622
+      },
+      "p50LatencyMs": {
+        "mean": 10.973285831289832,
+        "ci95Low": 10.964006364272501,
+        "ci95High": 10.982565298307163
+      },
+      "p95LatencyMs": {
+        "mean": 13.939409550467765,
+        "ci95Low": 13.929412337689609,
+        "ci95High": 13.949406763245921
+      },
+      "p99LatencyMs": {
+        "mean": 14.99215335350397,
+        "ci95Low": 14.97449922492972,
+        "ci95High": 15.009807482078218
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.9847030566414972,
+        "ci95Low": 1.9814233104886614,
+        "ci95High": 1.987982802794333
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.77066666666667,
+        "ci95Low": 219.2556149265974,
+        "ci95High": 220.28571840673595
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 10.766081819604722,
+        "ci95Low": 10.760671093830473,
+        "ci95High": 10.77149254537897
+      },
+      "p50LatencyMs": {
+        "mean": 10.97351492813832,
+        "ci95Low": 10.964251788118196,
+        "ci95High": 10.982778068158444
+      },
+      "p95LatencyMs": {
+        "mean": 13.939498086777773,
+        "ci95Low": 13.92942233425279,
+        "ci95High": 13.949573839302756
+      },
+      "p99LatencyMs": {
+        "mean": 14.991869602946371,
+        "ci95Low": 14.974064303918354,
+        "ci95High": 15.009674901974389
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 1.984723224764044,
+        "ci95Low": 1.9814318973564453,
+        "ci95High": 1.9880145521716428
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.77066666666667,
+        "ci95Low": 219.2556149265974,
+        "ci95High": 220.28571840673595
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 11.899230090922442,
+        "ci95Low": 11.89106536064605,
+        "ci95High": 11.907394821198835
+      },
+      "p50LatencyMs": {
+        "mean": 11.548822770926593,
+        "ci95Low": 11.537959127279215,
+        "ci95High": 11.55968641457397
+      },
+      "p95LatencyMs": {
+        "mean": 17.492164588987542,
+        "ci95Low": 17.484777457256598,
+        "ci95High": 17.499551720718486
+      },
+      "p99LatencyMs": {
+        "mean": 18.398646565928082,
+        "ci95Low": 18.380330980715037,
+        "ci95High": 18.416962151141128
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 2.2363390351236943,
+        "ci95Low": 2.232337510016413,
+        "ci95High": 2.2403405602309756
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 51.39900103624245,
+        "ci95Low": 51.397027120134226,
+        "ci95High": 51.40097495235068
+      },
+      "p50LatencyMs": {
+        "mean": 54.09999999999682,
+        "ci95Low": 53.766321579755136,
+        "ci95High": 54.4336784202385
+      },
+      "p95LatencyMs": {
+        "mean": 96.40000000002328,
+        "ci95Low": 96.40000000002328,
+        "ci95High": 96.40000000002328
+      },
+      "p99LatencyMs": {
+        "mean": 96.40000000002328,
+        "ci95Low": 96.40000000002328,
+        "ci95High": 96.40000000002328
+      },
+      "sloAttainment": {
+        "mean": 0.25001110617203776,
+        "ci95Low": 0.24999061293456637,
+        "ci95High": 0.25003159940950914
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 21.183321132925887,
+        "ci95Low": 21.18279186802871,
+        "ci95High": 21.183850397823065
+      },
+      "p50LatencyMs": {
+        "mean": 20.263775578811146,
+        "ci95Low": 20.24153035079501,
+        "ci95High": 20.28602080682728
+      },
+      "p95LatencyMs": {
+        "mean": 32.51070588349103,
+        "ci95Low": 32.51070588349103,
+        "ci95High": 32.51070588349103
+      },
+      "p99LatencyMs": {
+        "mean": 32.510705883498304,
+        "ci95Low": 32.510705883498304,
+        "ci95High": 32.510705883498304
+      },
+      "sloAttainment": {
+        "mean": 0.562517572036904,
+        "ci95Low": 0.5624860633926675,
+        "ci95High": 0.5625490806811405
+      },
+      "meanBatchSize": {
+        "mean": 3.199924956945339,
+        "ci95Low": 3.199849669876109,
+        "ci95High": 3.200000244014569
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 18.05444255607797,
+        "ci95Low": 18.053949008669914,
+        "ci95High": 18.054936103486025
+      },
+      "p50LatencyMs": {
+        "mean": 20.368568978743316,
+        "ci95Low": 20.082612812971405,
+        "ci95High": 20.654525144515226
+      },
+      "p95LatencyMs": {
+        "mean": 28.16755115761771,
+        "ci95Low": 28.16755115761771,
+        "ci95High": 28.16755115761771
+      },
+      "p99LatencyMs": {
+        "mean": 28.167551157624985,
+        "ci95Low": 28.167551157624985,
+        "ci95High": 28.167551157624985
+      },
+      "sloAttainment": {
+        "mean": 0.7500110913793056,
+        "ci95Low": 0.7499848753716143,
+        "ci95High": 0.7500373073869968
+      },
+      "meanBatchSize": {
+        "mean": 3.9999259258717634,
+        "ci95Low": 3.999843503943801,
+        "ci95High": 4.000008347799726
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 14.593776475247855,
+        "ci95Low": 14.593487181188197,
+        "ci95High": 14.594065769307514
+      },
+      "p50LatencyMs": {
+        "mean": 15.87196006600134,
+        "ci95Low": 15.84971483798549,
+        "ci95High": 15.894205294017189
+      },
+      "p95LatencyMs": {
+        "mean": 21.674423897085944,
+        "ci95Low": 21.674423897085944,
+        "ci95High": 21.674423897085944
+      },
+      "p99LatencyMs": {
+        "mean": 21.67442389709322,
+        "ci95Low": 21.67442389709322,
+        "ci95High": 21.67442389709322
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 5.333190688344467,
+        "ci95Low": 5.333006397568409,
+        "ci95High": 5.333374979120524
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 14.083176520489154,
+        "ci95Low": 14.082936132395204,
+        "ci95High": 14.083416908583104
+      },
+      "p50LatencyMs": {
+        "mean": 15.668355709263233,
+        "ci95Low": 15.472473479970366,
+        "ci95High": 15.8642379385561
+      },
+      "p95LatencyMs": {
+        "mean": 18.644467394115054,
+        "ci95Low": 18.644467394115054,
+        "ci95High": 18.644467394115054
+      },
+      "p99LatencyMs": {
+        "mean": 18.644467394129606,
+        "ci95Low": 18.644467394129606,
+        "ci95High": 18.644467394129606
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 7.999654540141719,
+        "ci95Low": 7.9992385335800025,
+        "ci95High": 8.000070546703435
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 14.608582360656216,
+        "ci95Low": 14.60830314768601,
+        "ci95High": 14.608861573626422
+      },
+      "p50LatencyMs": {
+        "mean": 14.578675862689124,
+        "ci95Low": 14.55321560378576,
+        "ci95High": 14.604136121592488
+      },
+      "p95LatencyMs": {
+        "mean": 18.490385044628056,
+        "ci95Low": 18.490385044628056,
+        "ci95High": 18.490385044628056
+      },
+      "p99LatencyMs": {
+        "mean": 18.49038504463533,
+        "ci95Low": 18.49038504463533,
+        "ci95High": 18.49038504463533
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 7.999851888377529,
+        "ci95Low": 7.999475761677579,
+        "ci95High": 8.00022801507748
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 15.125058879612373,
+        "ci95Low": 15.124737969887377,
+        "ci95High": 15.12537978933737
+      },
+      "p50LatencyMs": {
+        "mean": 15.292017751162348,
+        "ci95Low": 15.263807616882985,
+        "ci95High": 15.32022788544171
+      },
+      "p95LatencyMs": {
+        "mean": 18.125351084498107,
+        "ci95Low": 18.125351084498107,
+        "ci95High": 18.125351084498107
+      },
+      "p99LatencyMs": {
+        "mean": 18.125351084498107,
+        "ci95Low": 18.125351084498107,
+        "ci95High": 18.125351084498107
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 15.998520710059173,
+        "ci95Low": 15.99678543881025,
+        "ci95High": 16.000255981308097
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 51.66530865437215,
+        "ci95Low": 51.65479219393176,
+        "ci95High": 51.67582511481253
+      },
+      "p50LatencyMs": {
+        "mean": 54.399999999996,
+        "ci95Low": 54.399999999996,
+        "ci95High": 54.399999999996
+      },
+      "p95LatencyMs": {
+        "mean": 96.40000000002328,
+        "ci95Low": 96.40000000002328,
+        "ci95High": 96.40000000002328
+      },
+      "p99LatencyMs": {
+        "mean": 96.40000000002328,
+        "ci95Low": 96.40000000002328,
+        "ci95High": 96.40000000002328
+      },
+      "sloAttainment": {
+        "mean": 0.2447182181933252,
+        "ci95Low": 0.24454186574738718,
+        "ci95High": 0.24489457063926323
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 21.184122338437692,
+        "ci95Low": 21.18366225163236,
+        "ci95High": 21.184582425243025
+      },
+      "p50LatencyMs": {
+        "mean": 20.28377557881104,
+        "ci95Low": 20.2837755788108,
+        "ci95High": 20.283775578811277
+      },
+      "p95LatencyMs": {
+        "mean": 32.51070588349103,
+        "ci95Low": 32.51070588349103,
+        "ci95High": 32.51070588349103
+      },
+      "p99LatencyMs": {
+        "mean": 32.510705883498304,
+        "ci95Low": 32.510705883498304,
+        "ci95High": 32.510705883498304
+      },
+      "sloAttainment": {
+        "mean": 0.5624641346267469,
+        "ci95Low": 0.5624321306442178,
+        "ci95High": 0.562496138609276
+      },
+      "meanBatchSize": {
+        "mean": 3.1999784005971232,
+        "ci95Low": 3.199948667393007,
+        "ci95High": 3.2000081338012394
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 18.05521818167647,
+        "ci95Low": 18.054788992372742,
+        "ci95High": 18.055647370980196
+      },
+      "p50LatencyMs": {
+        "mean": 20.62566336821328,
+        "ci95Low": 20.62566336821328,
+        "ci95High": 20.62566336821328
+      },
+      "p95LatencyMs": {
+        "mean": 28.16755115761771,
+        "ci95Low": 28.16755115761771,
+        "ci95High": 28.16755115761771
+      },
+      "p99LatencyMs": {
+        "mean": 28.167551157624985,
+        "ci95Low": 28.167551157624985,
+        "ci95High": 28.167551157624985
+      },
+      "sloAttainment": {
+        "mean": 0.7499767832458821,
+        "ci95Low": 0.7499558767926819,
+        "ci95High": 0.7499976896990823
+      },
+      "meanBatchSize": {
+        "mean": 3.9999920597109737,
+        "ci95Low": 3.9999764967444817,
+        "ci95High": 4.000007622677466
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 14.594157259176518,
+        "ci95Low": 14.593959935189988,
+        "ci95High": 14.594354583163048
+      },
+      "p50LatencyMs": {
+        "mean": 15.891960066001047,
+        "ci95Low": 15.891960066001047,
+        "ci95High": 15.891960066001047
+      },
+      "p95LatencyMs": {
+        "mean": 21.674423897085944,
+        "ci95Low": 21.674423897085944,
+        "ci95High": 21.674423897085944
+      },
+      "p99LatencyMs": {
+        "mean": 21.67442389709322,
+        "ci95Low": 21.67442389709322,
+        "ci95High": 21.67442389709322
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 5.333308626288296,
+        "ci95Low": 5.333252735582791,
+        "ci95High": 5.3333645169938
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 14.08354453657768,
+        "ci95Low": 14.083369429320124,
+        "ci95High": 14.083719643835236
+      },
+      "p50LatencyMs": {
+        "mean": 15.844467394115782,
+        "ci95Low": 15.844467394115782,
+        "ci95High": 15.844467394115782
+      },
+      "p95LatencyMs": {
+        "mean": 18.644467394115054,
+        "ci95Low": 18.644467394115054,
+        "ci95High": 18.644467394115054
+      },
+      "p99LatencyMs": {
+        "mean": 18.644467394129606,
+        "ci95Low": 18.644467394129606,
+        "ci95High": 18.644467394129606
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 7.9999206349206355,
+        "ci95Low": 7.99976507936508,
+        "ci95High": 8.000076190476191
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 14.608783570598932,
+        "ci95Low": 14.608753722717998,
+        "ci95High": 14.608813418479867
+      },
+      "p50LatencyMs": {
+        "mean": 14.578675862689064,
+        "ci95Low": 14.553215603785704,
+        "ci95High": 14.604136121592424
+      },
+      "p95LatencyMs": {
+        "mean": 18.490385044628056,
+        "ci95Low": 18.490385044628056,
+        "ci95High": 18.490385044628056
+      },
+      "p99LatencyMs": {
+        "mean": 18.49038504463533,
+        "ci95Low": 18.49038504463533,
+        "ci95High": 18.49038504463533
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 8.000047664442326,
+        "ci95Low": 7.999954242135367,
+        "ci95High": 8.000141086749284
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 15.125216320333246,
+        "ci95Low": 15.125100587137954,
+        "ci95High": 15.125332053528538
+      },
+      "p50LatencyMs": {
+        "mean": 15.292017751162348,
+        "ci95Low": 15.263807616882985,
+        "ci95High": 15.32022788544171
+      },
+      "p95LatencyMs": {
+        "mean": 18.125351084498107,
+        "ci95Low": 18.125351084498107,
+        "ci95High": 18.125351084498107
+      },
+      "p99LatencyMs": {
+        "mean": 18.125351084498107,
+        "ci95Low": 18.125351084498107,
+        "ci95High": 18.125351084498107
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 15.999587301587301,
+        "ci95Low": 15.999004787033241,
+        "ci95High": 16.000169816141362
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.24099999999996,
+        "ci95Low": 156.21333745611,
+        "ci95High": 156.26866254388992
+      },
+      "dropRate": {
+        "mean": 0.28976091262762194,
+        "ci95Low": 0.28973051633249086,
+        "ci95High": 0.289791308922753
+      },
+      "meanLatencyMs": {
+        "mean": 73.72450135116664,
+        "ci95Low": 73.70725129196755,
+        "ci95High": 73.74175141036572
+      },
+      "p50LatencyMs": {
+        "mean": 73.95944788206212,
+        "ci95Low": 73.93072710868503,
+        "ci95High": 73.98816865543921
+      },
+      "p95LatencyMs": {
+        "mean": 104.64070231654917,
+        "ci95Low": 104.61152983051922,
+        "ci95High": 104.66987480257912
+      },
+      "p99LatencyMs": {
+        "mean": 106.26710418153955,
+        "ci95Low": 106.26373302270618,
+        "ci95High": 106.27047534037293
+      },
+      "sloAttainment": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.98366666666666,
+        "ci95Low": 219.9466011421954,
+        "ci95High": 220.02073219113794
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 21.183617851409885,
+        "ci95Low": 21.183183926692084,
+        "ci95High": 21.184051776127685
+      },
+      "p50LatencyMs": {
+        "mean": 20.243775578811103,
+        "ci95Low": 20.21315514694847,
+        "ci95High": 20.274396010673737
+      },
+      "p95LatencyMs": {
+        "mean": 32.51070588349103,
+        "ci95Low": 32.51070588349103,
+        "ci95High": 32.51070588349103
+      },
+      "p99LatencyMs": {
+        "mean": 32.510705883498304,
+        "ci95Low": 32.510705883498304,
+        "ci95High": 32.510705883498304
+      },
+      "sloAttainment": {
+        "mean": 0.5624978156761019,
+        "ci95Low": 0.5624701262775944,
+        "ci95High": 0.5625255050746094
+      },
+      "meanBatchSize": {
+        "mean": 3.1999369420595674,
+        "ci95Low": 3.1998841205923982,
+        "ci95High": 3.1999897635267365
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.98366666666666,
+        "ci95Low": 219.9466011421954,
+        "ci95High": 220.02073219113794
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 18.05474606946449,
+        "ci95Low": 18.054337326896498,
+        "ci95High": 18.05515481203248
+      },
+      "p50LatencyMs": {
+        "mean": 20.11147458927335,
+        "ci95Low": 19.7178575275211,
+        "ci95High": 20.505091651025598
+      },
+      "p95LatencyMs": {
+        "mean": 28.16755115761771,
+        "ci95Low": 28.16755115761771,
+        "ci95High": 28.16755115761771
+      },
+      "p99LatencyMs": {
+        "mean": 28.167551157624985,
+        "ci95Low": 28.167551157624985,
+        "ci95High": 28.167551157624985
+      },
+      "sloAttainment": {
+        "mean": 0.7499965824717212,
+        "ci95Low": 0.7499733404559409,
+        "ci95High": 0.7500198244875015
+      },
+      "meanBatchSize": {
+        "mean": 3.9999292699580646,
+        "ci95Low": 3.999873913061481,
+        "ci95High": 3.999984626854648
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.98366666666666,
+        "ci95Low": 219.9466011421954,
+        "ci95High": 220.02073219113794
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 14.593910275191057,
+        "ci95Low": 14.593696003880583,
+        "ci95High": 14.594124546501531
+      },
+      "p50LatencyMs": {
+        "mean": 15.851960066001629,
+        "ci95Low": 15.821339634139385,
+        "ci95High": 15.882580497863874
+      },
+      "p95LatencyMs": {
+        "mean": 21.674423897085944,
+        "ci95Low": 21.674423897085944,
+        "ci95High": 21.674423897085944
+      },
+      "p99LatencyMs": {
+        "mean": 21.67442389709322,
+        "ci95Low": 21.67442389709322,
+        "ci95High": 21.67442389709322
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 5.333328834916604,
+        "ci95Low": 5.333244385215156,
+        "ci95High": 5.333413284618052
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.98366666666666,
+        "ci95Low": 219.9466011421954,
+        "ci95High": 220.02073219113794
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 14.083300555807254,
+        "ci95Low": 14.083124764228602,
+        "ci95High": 14.083476347385906
+      },
+      "p50LatencyMs": {
+        "mean": 15.492244024410684,
+        "ci95Low": 15.222613232098137,
+        "ci95High": 15.761874816723232
+      },
+      "p95LatencyMs": {
+        "mean": 18.644467394115054,
+        "ci95Low": 18.644467394115054,
+        "ci95High": 18.644467394115054
+      },
+      "p99LatencyMs": {
+        "mean": 18.644467394129606,
+        "ci95Low": 18.644467394129606,
+        "ci95High": 18.644467394129606
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 7.999696920692675,
+        "ci95Low": 7.9994614991948865,
+        "ci95High": 7.999932342190464
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.98366666666666,
+        "ci95Low": 219.9466011421954,
+        "ci95High": 220.02073219113794
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 14.608625478419041,
+        "ci95Low": 14.608459499226734,
+        "ci95High": 14.608791457611348
+      },
+      "p50LatencyMs": {
+        "mean": 14.5520091960223,
+        "ci95Low": 14.517312711670685,
+        "ci95High": 14.586705680373916
+      },
+      "p95LatencyMs": {
+        "mean": 18.490385044628056,
+        "ci95Low": 18.490385044628056,
+        "ci95High": 18.490385044628056
+      },
+      "p99LatencyMs": {
+        "mean": 18.49038504463533,
+        "ci95Low": 18.49038504463533,
+        "ci95High": 18.49038504463533
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 8.000020226522349,
+        "ci95Low": 7.999830781922034,
+        "ci95High": 8.000209671122663
+      }
+    },
+    {
+      "model": "batch-efficient",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 219.98366666666666,
+        "ci95Low": 219.9466011421954,
+        "ci95High": 220.02073219113794
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 15.125012453165322,
+        "ci95Low": 15.124818994435518,
+        "ci95High": 15.125205911895126
+      },
+      "p50LatencyMs": {
+        "mean": 15.238684417829791,
+        "ci95Low": 15.196635055751722,
+        "ci95High": 15.28073377990786
+      },
+      "p95LatencyMs": {
+        "mean": 18.125351084498107,
+        "ci95Low": 18.125351084498107,
+        "ci95High": 18.125351084498107
+      },
+      "p99LatencyMs": {
+        "mean": 18.125351084498107,
+        "ci95Low": 18.125351084498107,
+        "ci95High": 18.125351084498107
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "meanBatchSize": {
+        "mean": 15.998909090909091,
+        "ci95Low": 15.998085523343438,
+        "ci95High": 15.999732658474745
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96233333333336,
+        "ci95Low": 89.57985010947861,
+        "ci95High": 90.34481655718811
+      },
+      "dropRate": {
+        "mean": 0.000003696311081540622,
+        "ci95Low": -0.0000035484586382789954,
+        "ci95High": 0.00001094108080136024
+      },
+      "meanLatencyMs": {
+        "mean": 10.795241859620186,
+        "ci95Low": 10.714871423908587,
+        "ci95High": 10.875612295331784
+      },
+      "p50LatencyMs": {
+        "mean": 8.250173379406654,
+        "ci95Low": 8.172498572588239,
+        "ci95High": 8.327848186225069
+      },
+      "p95LatencyMs": {
+        "mean": 23.33643948356615,
+        "ci95Low": 22.994819949586997,
+        "ci95High": 23.6780590175453
+      },
+      "p99LatencyMs": {
+        "mean": 33.53859185670162,
+        "ci95Low": 32.768702320475356,
+        "ci95High": 34.30848139292789
+      },
+      "sloAttainment": {
+        "mean": 0.961631271494242,
+        "ci95Low": 0.9592741648976133,
+        "ci95High": 0.9639883780908707
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 12.322125114729749,
+        "ci95Low": 12.212055224249132,
+        "ci95High": 12.432195005210366
+      },
+      "p50LatencyMs": {
+        "mean": 8.426494019935005,
+        "ci95Low": 8.334154320151633,
+        "ci95High": 8.518833719718376
+      },
+      "p95LatencyMs": {
+        "mean": 29.639555841185636,
+        "ci95Low": 29.175337844269798,
+        "ci95High": 30.103773838101475
+      },
+      "p99LatencyMs": {
+        "mean": 42.899518657965444,
+        "ci95Low": 41.91246707949956,
+        "ci95High": 43.88657023643133
+      },
+      "sloAttainment": {
+        "mean": 0.9156994768758213,
+        "ci95Low": 0.9122857310376684,
+        "ci95High": 0.9191132227139742
+      },
+      "meanBatchSize": {
+        "mean": 1.217213161037361,
+        "ci95Low": 1.2137031335735589,
+        "ci95High": 1.2207231885011633
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 14.819412974185614,
+        "ci95Low": 14.708149935350448,
+        "ci95High": 14.93067601302078
+      },
+      "p50LatencyMs": {
+        "mean": 12.611057598976853,
+        "ci95Low": 12.51009637118174,
+        "ci95High": 12.712018826771965
+      },
+      "p95LatencyMs": {
+        "mean": 32.091528470628084,
+        "ci95Low": 31.63198776835693,
+        "ci95High": 32.55106917289924
+      },
+      "p99LatencyMs": {
+        "mean": 45.27306456055818,
+        "ci95Low": 44.29424383556089,
+        "ci95High": 46.251885285555474
+      },
+      "sloAttainment": {
+        "mean": 0.886636301096452,
+        "ci95Low": 0.8828260699805882,
+        "ci95High": 0.8904465322123157
+      },
+      "meanBatchSize": {
+        "mean": 1.3526919496279501,
+        "ci95Low": 1.3484910466342337,
+        "ci95High": 1.3568928526216666
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 14.933690449909554,
+        "ci95Low": 14.813083676653202,
+        "ci95High": 15.054297223165905
+      },
+      "p50LatencyMs": {
+        "mean": 12.612065060488325,
+        "ci95Low": 12.511032066677357,
+        "ci95High": 12.713098054299293
+      },
+      "p95LatencyMs": {
+        "mean": 32.763980374062676,
+        "ci95Low": 32.23082060358098,
+        "ci95High": 33.29714014454437
+      },
+      "p99LatencyMs": {
+        "mean": 48.102270087328634,
+        "ci95Low": 46.88763680832471,
+        "ci95High": 49.31690336633256
+      },
+      "sloAttainment": {
+        "mean": 0.8865837102367282,
+        "ci95Low": 0.8827768613102347,
+        "ci95High": 0.8903905591632217
+      },
+      "meanBatchSize": {
+        "mean": 1.3556099435027074,
+        "ci95Low": 1.3512937522685977,
+        "ci95High": 1.359926134736817
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 18.15687490623179,
+        "ci95Low": 18.035418170839105,
+        "ci95High": 18.278331641624472
+      },
+      "p50LatencyMs": {
+        "mean": 16.267202873215197,
+        "ci95Low": 16.18344950234699,
+        "ci95High": 16.350956244083406
+      },
+      "p95LatencyMs": {
+        "mean": 36.32944679802294,
+        "ci95Low": 35.80927004629061,
+        "ci95High": 36.84962354975528
+      },
+      "p99LatencyMs": {
+        "mean": 52.00517828293362,
+        "ci95Low": 50.798040166046384,
+        "ci95High": 53.21231639982086
+      },
+      "sloAttainment": {
+        "mean": 0.8384660413406946,
+        "ci95Low": 0.8345656976156843,
+        "ci95High": 0.8423663850657048
+      },
+      "meanBatchSize": {
+        "mean": 1.53820882542239,
+        "ci95Low": 1.5327928313142964,
+        "ci95High": 1.5436248195304836
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 18.161072046334386,
+        "ci95Low": 18.038210446787033,
+        "ci95High": 18.28393364588174
+      },
+      "p50LatencyMs": {
+        "mean": 16.267202873215197,
+        "ci95Low": 16.18344950234699,
+        "ci95High": 16.350956244083406
+      },
+      "p95LatencyMs": {
+        "mean": 36.32944679802294,
+        "ci95Low": 35.80927004629061,
+        "ci95High": 36.84962354975528
+      },
+      "p99LatencyMs": {
+        "mean": 52.06898870633707,
+        "ci95Low": 50.81914553150208,
+        "ci95High": 53.318831881172066
+      },
+      "sloAttainment": {
+        "mean": 0.8384623050269121,
+        "ci95Low": 0.834562986314475,
+        "ci95High": 0.8423616237393492
+      },
+      "meanBatchSize": {
+        "mean": 1.5382454632048086,
+        "ci95Low": 1.5328284473981428,
+        "ci95High": 1.5436624790114744
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 90,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.96266666666669,
+        "ci95Low": 89.58017166843591,
+        "ci95High": 90.34516166489747
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 22.82281793720156,
+        "ci95Low": 22.69047252611785,
+        "ci95High": 22.955163348285268
+      },
+      "p50LatencyMs": {
+        "mean": 21.76007665830651,
+        "ci95Low": 21.659484149230465,
+        "ci95High": 21.860669167382554
+      },
+      "p95LatencyMs": {
+        "mean": 41.98989891009818,
+        "ci95Low": 41.47326060524096,
+        "ci95High": 42.506537214955394
+      },
+      "p99LatencyMs": {
+        "mean": 57.74158039891451,
+        "ci95Low": 56.44749270213175,
+        "ci95High": 59.03566809569727
+      },
+      "sloAttainment": {
+        "mean": 0.671594799269663,
+        "ci95Low": 0.6675331200255462,
+        "ci95High": 0.6756564785137799
+      },
+      "meanBatchSize": {
+        "mean": 1.8075299913529033,
+        "ci95Low": 1.8009958309352223,
+        "ci95High": 1.8140641517705842
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.66300000000004,
+        "ci95Low": 139.27977783967694,
+        "ci95High": 140.04622216032314
+      },
+      "dropRate": {
+        "mean": 0.0035802641620158227,
+        "ci95Low": 0.0030664626866999407,
+        "ci95High": 0.004094065637331705
+      },
+      "meanLatencyMs": {
+        "mean": 31.247209660855155,
+        "ci95Low": 30.62345731259401,
+        "ci95High": 31.8709620091163
+      },
+      "p50LatencyMs": {
+        "mean": 24.550567940166033,
+        "ci95Low": 24.012650937507022,
+        "ci95High": 25.088484942825044
+      },
+      "p95LatencyMs": {
+        "mean": 79.63819920192667,
+        "ci95Low": 77.8666533841131,
+        "ci95High": 81.40974501974023
+      },
+      "p99LatencyMs": {
+        "mean": 97.85872969466637,
+        "ci95Low": 96.70102108478552,
+        "ci95High": 99.01643830454721
+      },
+      "sloAttainment": {
+        "mean": 0.5098614956098166,
+        "ci95Low": 0.5006156221179124,
+        "ci95High": 0.5191073691017208
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.71966666666668,
+        "ci95Low": 139.33352343373883,
+        "ci95High": 140.10580989959453
+      },
+      "dropRate": {
+        "mean": 0.0031770375825590077,
+        "ci95Low": 0.002691532515633594,
+        "ci95High": 0.0036625426494844215
+      },
+      "meanLatencyMs": {
+        "mean": 37.67460609798116,
+        "ci95Low": 36.96244741501895,
+        "ci95High": 38.38676478094337
+      },
+      "p50LatencyMs": {
+        "mean": 31.537620963630435,
+        "ci95Low": 30.89240461876495,
+        "ci95High": 32.18283730849592
+      },
+      "p95LatencyMs": {
+        "mean": 91.40548317284608,
+        "ci95Low": 89.59222667267389,
+        "ci95High": 93.21873967301826
+      },
+      "p99LatencyMs": {
+        "mean": 111.96705280448005,
+        "ci95Low": 110.55887895118707,
+        "ci95High": 113.37522665777303
+      },
+      "sloAttainment": {
+        "mean": 0.4051825398172337,
+        "ci95Low": 0.39699351717292986,
+        "ci95High": 0.4133715624615375
+      },
+      "meanBatchSize": {
+        "mean": 2.1591144302345104,
+        "ci95Low": 2.1417685716514265,
+        "ci95High": 2.1764602888175943
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.68766666666667,
+        "ci95Low": 139.30281317773517,
+        "ci95High": 140.07252015559817
+      },
+      "dropRate": {
+        "mean": 0.003404852336641625,
+        "ci95Low": 0.002902866534607977,
+        "ci95High": 0.003906838138675274
+      },
+      "meanLatencyMs": {
+        "mean": 39.691670478717505,
+        "ci95Low": 39.00072973364654,
+        "ci95High": 40.38261122378847
+      },
+      "p50LatencyMs": {
+        "mean": 33.63148075129205,
+        "ci95Low": 32.986068440458325,
+        "ci95High": 34.27689306212578
+      },
+      "p95LatencyMs": {
+        "mean": 92.38635218633478,
+        "ci95Low": 90.64211838739664,
+        "ci95High": 94.13058598527292
+      },
+      "p99LatencyMs": {
+        "mean": 112.37438570521547,
+        "ci95Low": 111.04229078019512,
+        "ci95High": 113.70648063023583
+      },
+      "sloAttainment": {
+        "mean": 0.36869121197799426,
+        "ci95Low": 0.3611865860586461,
+        "ci95High": 0.3761958378973424
+      },
+      "meanBatchSize": {
+        "mean": 2.362641223565313,
+        "ci95Low": 2.3454734206516803,
+        "ci95High": 2.3798090264789455
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.73533333333333,
+        "ci95Low": 139.3484647277212,
+        "ci95High": 140.12220193894547
+      },
+      "dropRate": {
+        "mean": 0.003065463950229263,
+        "ci95Low": 0.0025788430026847343,
+        "ci95High": 0.0035520848977737916
+      },
+      "meanLatencyMs": {
+        "mean": 44.069026625672066,
+        "ci95Low": 43.21331323029328,
+        "ci95High": 44.92474002105085
+      },
+      "p50LatencyMs": {
+        "mean": 35.37724516942944,
+        "ci95Low": 34.5541510564319,
+        "ci95High": 36.20033928242699
+      },
+      "p95LatencyMs": {
+        "mean": 108.28155733034649,
+        "ci95Low": 106.37356725028116,
+        "ci95High": 110.18954741041182
+      },
+      "p99LatencyMs": {
+        "mean": 132.7011507607901,
+        "ci95Low": 131.03620765882326,
+        "ci95High": 134.36609386275697
+      },
+      "sloAttainment": {
+        "mean": 0.3669957540196516,
+        "ci95Low": 0.35934315258697114,
+        "ci95High": 0.3746483554523321
+      },
+      "meanBatchSize": {
+        "mean": 2.6420801708917088,
+        "ci95Low": 2.6136128892211894,
+        "ci95High": 2.670547452562228
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.70633333333333,
+        "ci95Low": 139.3185836732857,
+        "ci95High": 140.09408299338097
+      },
+      "dropRate": {
+        "mean": 0.0032726775941976393,
+        "ci95Low": 0.0027899952226890525,
+        "ci95High": 0.003755359965706226
+      },
+      "meanLatencyMs": {
+        "mean": 46.91732668799573,
+        "ci95Low": 46.0871050618809,
+        "ci95High": 47.74754831411057
+      },
+      "p50LatencyMs": {
+        "mean": 38.513560521509895,
+        "ci95Low": 37.70728204750803,
+        "ci95High": 39.31983899551176
+      },
+      "p95LatencyMs": {
+        "mean": 110.15401978981636,
+        "ci95Low": 108.29292007447657,
+        "ci95High": 112.01511950515615
+      },
+      "p99LatencyMs": {
+        "mean": 133.38497325090157,
+        "ci95Low": 131.8690417474383,
+        "ci95High": 134.90090475436483
+      },
+      "sloAttainment": {
+        "mean": 0.3202664885998929,
+        "ci95Low": 0.3133919109937047,
+        "ci95High": 0.327141066206081
+      },
+      "meanBatchSize": {
+        "mean": 2.959222857715871,
+        "ci95Low": 2.929027236633702,
+        "ci95High": 2.9894184787980396
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.75533333333334,
+        "ci95Low": 139.3660252663411,
+        "ci95High": 140.14464140032558
+      },
+      "dropRate": {
+        "mean": 0.002923658360612151,
+        "ci95Low": 0.002458776829393039,
+        "ci95High": 0.003388539891831263
+      },
+      "meanLatencyMs": {
+        "mean": 49.58200092206324,
+        "ci95Low": 48.55467656210975,
+        "ci95High": 50.60932528201673
+      },
+      "p50LatencyMs": {
+        "mean": 38.67879267186127,
+        "ci95Low": 37.84716989536215,
+        "ci95High": 39.51041544836038
+      },
+      "p95LatencyMs": {
+        "mean": 125.50937752436523,
+        "ci95Low": 122.48496625453734,
+        "ci95High": 128.53378879419313
+      },
+      "p99LatencyMs": {
+        "mean": 163.90221416394462,
+        "ci95Low": 160.9244382971332,
+        "ci95High": 166.87999003075603
+      },
+      "sloAttainment": {
+        "mean": 0.318951458514066,
+        "ci95Low": 0.3119968804313016,
+        "ci95High": 0.3259060365968304
+      },
+      "meanBatchSize": {
+        "mean": 3.030323242342371,
+        "ci95Low": 2.995400704812489,
+        "ci95High": 3.0652457798722534
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 140,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.70133333333337,
+        "ci95Low": 139.3157431518391,
+        "ci95High": 140.08692351482765
+      },
+      "dropRate": {
+        "mean": 0.0033076110539229145,
+        "ci95Low": 0.002811203169699475,
+        "ci95High": 0.003804018938146354
+      },
+      "meanLatencyMs": {
+        "mean": 53.75825570403276,
+        "ci95Low": 52.77983916076485,
+        "ci95High": 54.736672247300675
+      },
+      "p50LatencyMs": {
+        "mean": 43.309979531525,
+        "ci95Low": 42.52820749935667,
+        "ci95High": 44.091751563693336
+      },
+      "p95LatencyMs": {
+        "mean": 128.93042866845502,
+        "ci95Low": 126.0986053977014,
+        "ci95High": 131.76225193920862
+      },
+      "p99LatencyMs": {
+        "mean": 166.37512393913437,
+        "ci95Low": 163.752979500737,
+        "ci95High": 168.99726837753173
+      },
+      "sloAttainment": {
+        "mean": 0.23154898231740834,
+        "ci95Low": 0.22621899515397542,
+        "ci95High": 0.23687896948084125
+      },
+      "meanBatchSize": {
+        "mean": 3.4820500322938557,
+        "ci95Low": 3.4441543413029403,
+        "ci95High": 3.519945723284771
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.25166666666667,
+        "ci95Low": 156.24115432614698,
+        "ci95High": 156.26217900718635
+      },
+      "dropRate": {
+        "mean": 0.2889641890036943,
+        "ci95Low": 0.28730139707619406,
+        "ci95High": 0.29062698093119455
+      },
+      "meanLatencyMs": {
+        "mean": 97.556140149474,
+        "ci95Low": 97.45239035186198,
+        "ci95High": 97.65988994708603
+      },
+      "p50LatencyMs": {
+        "mean": 100.24941309749214,
+        "ci95Low": 100.19160860419028,
+        "ci95High": 100.307217590794
+      },
+      "p95LatencyMs": {
+        "mean": 105.95030880925255,
+        "ci95Low": 105.94374922450338,
+        "ci95High": 105.95686839400172
+      },
+      "p99LatencyMs": {
+        "mean": 106.31289470003564,
+        "ci95Low": 106.31023842364628,
+        "ci95High": 106.315550976425
+      },
+      "sloAttainment": {
+        "mean": 0.00022189673833664754,
+        "ci95Low": 0.000040018493454263326,
+        "ci95High": 0.00040377498321903177
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.25000000000003,
+        "ci95Low": 156.23919410916048,
+        "ci95High": 156.26080589083958
+      },
+      "dropRate": {
+        "mean": 0.28897183259001474,
+        "ci95Low": 0.28731067374847336,
+        "ci95High": 0.29063299143155613
+      },
+      "meanLatencyMs": {
+        "mean": 111.53727577849662,
+        "ci95Low": 111.42310988174908,
+        "ci95High": 111.65144167524416
+      },
+      "p50LatencyMs": {
+        "mean": 113.90893518490908,
+        "ci95Low": 113.83027022202573,
+        "ci95High": 113.98760014779243
+      },
+      "p95LatencyMs": {
+        "mean": 124.35736016498362,
+        "ci95Low": 124.34015968770933,
+        "ci95High": 124.3745606422579
+      },
+      "p99LatencyMs": {
+        "mean": 125.34258564360431,
+        "ci95Low": 125.33454555339765,
+        "ci95High": 125.35062573381097
+      },
+      "sloAttainment": {
+        "mean": 0.00008746599743044609,
+        "ci95Low": 0.00000366832743736549,
+        "ci95High": 0.0001712636674235267
+      },
+      "meanBatchSize": {
+        "mean": 3.992656415515646,
+        "ci95Low": 3.991320740366224,
+        "ci95High": 3.9939920906650683
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.2506666666667,
+        "ci95Low": 156.23931358105443,
+        "ci95High": 156.26201975227895
+      },
+      "dropRate": {
+        "mean": 0.2889688970537245,
+        "ci95Low": 0.2873104143317184,
+        "ci95High": 0.29062737977573067
+      },
+      "meanLatencyMs": {
+        "mean": 111.56238080749193,
+        "ci95Low": 111.45337403958537,
+        "ci95High": 111.6713875753985
+      },
+      "p50LatencyMs": {
+        "mean": 113.95471568260182,
+        "ci95Low": 113.87821969105406,
+        "ci95High": 114.03121167414957
+      },
+      "p95LatencyMs": {
+        "mean": 124.36453821255421,
+        "ci95Low": 124.34663836286434,
+        "ci95High": 124.38243806224408
+      },
+      "p99LatencyMs": {
+        "mean": 125.34857393864256,
+        "ci95Low": 125.34094146485236,
+        "ci95High": 125.35620641243275
+      },
+      "sloAttainment": {
+        "mean": 0.00010241858678705458,
+        "ci95Low": 0.00001102352543740541,
+        "ci95High": 0.00019381364813670374
+      },
+      "meanBatchSize": {
+        "mean": 3.9942539265920263,
+        "ci95Low": 3.993114605116362,
+        "ci95High": 3.9953932480676904
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.25066666666666,
+        "ci95Low": 156.23673811981763,
+        "ci95High": 156.2645952135157
+      },
+      "dropRate": {
+        "mean": 0.2889687187518214,
+        "ci95Low": 0.2873049159761538,
+        "ci95High": 0.290632521527489
+      },
+      "meanLatencyMs": {
+        "mean": 129.00890774676577,
+        "ci95Low": 128.87413284511433,
+        "ci95High": 129.1436826484172
+      },
+      "p50LatencyMs": {
+        "mean": 131.248072826372,
+        "ci95Low": 131.1340140002063,
+        "ci95High": 131.36213165253773
+      },
+      "p95LatencyMs": {
+        "mean": 149.0305368017092,
+        "ci95Low": 148.99986743666236,
+        "ci95High": 149.06120616675602
+      },
+      "p99LatencyMs": {
+        "mean": 150.75809208280114,
+        "ci95Low": 150.74493350144823,
+        "ci95High": 150.77125066415405
+      },
+      "sloAttainment": {
+        "mean": 0.00006612665353657009,
+        "ci95Low": -0.000005787392584390117,
+        "ci95High": 0.0001380406996575303
+      },
+      "meanBatchSize": {
+        "mean": 7.961960475991641,
+        "ci95Low": 7.955556363308956,
+        "ci95High": 7.968364588674326
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.25999999999996,
+        "ci95Low": 156.24633786212556,
+        "ci95High": 156.27366213787437
+      },
+      "dropRate": {
+        "mean": 0.2889264326583981,
+        "ci95Low": 0.2872676201392562,
+        "ci95High": 0.29058524517754003
+      },
+      "meanLatencyMs": {
+        "mean": 128.9855849200897,
+        "ci95Low": 128.8510443334289,
+        "ci95High": 129.12012550675053
+      },
+      "p50LatencyMs": {
+        "mean": 131.23375942250334,
+        "ci95Low": 131.1169224274402,
+        "ci95High": 131.3505964175665
+      },
+      "p95LatencyMs": {
+        "mean": 149.05216998858992,
+        "ci95Low": 149.0178321912677,
+        "ci95High": 149.08650778591215
+      },
+      "p99LatencyMs": {
+        "mean": 150.75947224753128,
+        "ci95Low": 150.74807969887505,
+        "ci95High": 150.7708647961875
+      },
+      "sloAttainment": {
+        "mean": 0.00006186134414712326,
+        "ci95Low": -0.000008557190978246434,
+        "ci95High": 0.00013227987927249293
+      },
+      "meanBatchSize": {
+        "mean": 7.969026549924745,
+        "ci95Low": 7.963263167691423,
+        "ci95High": 7.9747899321580675
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.2473333333334,
+        "ci95Low": 156.22987783028086,
+        "ci95High": 156.26478883638592
+      },
+      "dropRate": {
+        "mean": 0.2889838245330901,
+        "ci95Low": 0.28731761591789906,
+        "ci95High": 0.2906500331482811
+      },
+      "meanLatencyMs": {
+        "mean": 162.1387548757367,
+        "ci95Low": 161.93905423329943,
+        "ci95High": 162.338455518174
+      },
+      "p50LatencyMs": {
+        "mean": 164.3188294062993,
+        "ci95Low": 164.12768054476481,
+        "ci95High": 164.5099782678338
+      },
+      "p95LatencyMs": {
+        "mean": 198.18328684145794,
+        "ci95Low": 198.11583878949494,
+        "ci95High": 198.25073489342094
+      },
+      "p99LatencyMs": {
+        "mean": 201.55713785645833,
+        "ci95Low": 201.53679665024788,
+        "ci95High": 201.57747906266877
+      },
+      "sloAttainment": {
+        "mean": 0.00003627719289364378,
+        "ci95Low": -0.000006778867134234997,
+        "ci95High": 0.00007933325292152255
+      },
+      "meanBatchSize": {
+        "mean": 15.58561972185969,
+        "ci95Low": 15.555180244337958,
+        "ci95High": 15.616059199381422
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "poisson",
+      "rate": 220,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.25233333333335,
+        "ci95Low": 156.23421584515816,
+        "ci95High": 156.27045082150855
+      },
+      "dropRate": {
+        "mean": 0.2889607320890962,
+        "ci95Low": 0.2872848598869582,
+        "ci95High": 0.29063660429123417
+      },
+      "meanLatencyMs": {
+        "mean": 162.1905290426237,
+        "ci95Low": 162.00759769618915,
+        "ci95High": 162.37346038905824
+      },
+      "p50LatencyMs": {
+        "mean": 164.38735230461663,
+        "ci95Low": 164.22195661576023,
+        "ci95High": 164.55274799347302
+      },
+      "p95LatencyMs": {
+        "mean": 198.27911611641713,
+        "ci95Low": 198.22034336606103,
+        "ci95High": 198.33788886677323
+      },
+      "p99LatencyMs": {
+        "mean": 201.56011296180702,
+        "ci95Low": 201.5365004824276,
+        "ci95High": 201.58372544118643
+      },
+      "sloAttainment": {
+        "mean": 0.00003414344008658648,
+        "ci95Low": -0.000004911577274770887,
+        "ci95High": 0.00007319845744794385
+      },
+      "meanBatchSize": {
+        "mean": 15.623919150619985,
+        "ci95Low": 15.598929442546888,
+        "ci95High": 15.648908858693082
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 51.39900103624245,
+        "ci95Low": 51.397027120134226,
+        "ci95High": 51.40097495235068
+      },
+      "p50LatencyMs": {
+        "mean": 54.09999999999682,
+        "ci95Low": 53.766321579755136,
+        "ci95High": 54.4336784202385
+      },
+      "p95LatencyMs": {
+        "mean": 96.40000000002328,
+        "ci95Low": 96.40000000002328,
+        "ci95High": 96.40000000002328
+      },
+      "p99LatencyMs": {
+        "mean": 96.40000000002328,
+        "ci95Low": 96.40000000002328,
+        "ci95High": 96.40000000002328
+      },
+      "sloAttainment": {
+        "mean": 0.25001110617203776,
+        "ci95Low": 0.24999061293456637,
+        "ci95High": 0.25003159940950914
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 59.79887656550484,
+        "ci95Low": 59.79679327727325,
+        "ci95High": 59.80095985373643
+      },
+      "p50LatencyMs": {
+        "mean": 55.5799999999985,
+        "ci95Low": 55.55775477198246,
+        "ci95High": 55.60224522801454
+      },
+      "p95LatencyMs": {
+        "mean": 97.19999999999709,
+        "ci95Low": 97.19999999999709,
+        "ci95High": 97.19999999999709
+      },
+      "p99LatencyMs": {
+        "mean": 97.19999999999709,
+        "ci95Low": 97.19999999999709,
+        "ci95High": 97.19999999999709
+      },
+      "sloAttainment": {
+        "mean": 0.06250278516966253,
+        "ci95Low": 0.06249199079992131,
+        "ci95High": 0.06251357953940374
+      },
+      "meanBatchSize": {
+        "mean": 3.199924956945339,
+        "ci95Low": 3.199849669876109,
+        "ci95High": 3.200000244014569
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 62.19880708000157,
+        "ci95Low": 62.19676926832445,
+        "ci95High": 62.20084489167869
+      },
+      "p50LatencyMs": {
+        "mean": 72.45999999999177,
+        "ci95Low": 71.19202200307045,
+        "ci95High": 73.72797799691308
+      },
+      "p95LatencyMs": {
+        "mean": 98.79999999998836,
+        "ci95Low": 98.79999999998836,
+        "ci95High": 98.79999999998836
+      },
+      "p99LatencyMs": {
+        "mean": 98.79999999999563,
+        "ci95Low": 98.79999999999563,
+        "ci95High": 98.79999999999563
+      },
+      "sloAttainment": {
+        "mean": 0.0000037061744866948336,
+        "ci95Low": -0.00000355792750722704,
+        "ci95High": 0.000010970276480616708
+      },
+      "meanBatchSize": {
+        "mean": 3.9999259258717634,
+        "ci95Low": 3.999843503943801,
+        "ci95High": 4.000008347799726
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 70.99854355304562,
+        "ci95Low": 70.99632817101771,
+        "ci95High": 71.00075893507353
+      },
+      "p50LatencyMs": {
+        "mean": 87.1799999999972,
+        "ci95Low": 87.15775477198136,
+        "ci95High": 87.20224522801303
+      },
+      "p95LatencyMs": {
+        "mean": 98.80000000000291,
+        "ci95Low": 98.80000000000291,
+        "ci95High": 98.80000000000291
+      },
+      "p99LatencyMs": {
+        "mean": 98.80000000000291,
+        "ci95Low": 98.80000000000291,
+        "ci95High": 98.80000000000291
+      },
+      "sloAttainment": {
+        "mean": 0.0000037061744866948336,
+        "ci95Low": -0.00000355792750722704,
+        "ci95High": 0.000010970276480616708
+      },
+      "meanBatchSize": {
+        "mean": 5.333190688344467,
+        "ci95Low": 5.333006397568409,
+        "ci95High": 5.333374979120524
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 76.59841182169693,
+        "ci95Low": 76.59614945888973,
+        "ci95High": 76.60067418450413
+      },
+      "p50LatencyMs": {
+        "mean": 96.93999999999693,
+        "ci95Low": 94.42628923416956,
+        "ci95High": 99.4537107658243
+      },
+      "p95LatencyMs": {
+        "mean": 102,
+        "ci95Low": 102,
+        "ci95High": 102
+      },
+      "p99LatencyMs": {
+        "mean": 102,
+        "ci95Low": 102,
+        "ci95High": 102
+      },
+      "sloAttainment": {
+        "mean": 0.0000037061744866948336,
+        "ci95Low": -0.00000355792750722704,
+        "ci95High": 0.000010970276480616708
+      },
+      "meanBatchSize": {
+        "mean": 7.999654540141719,
+        "ci95Low": 7.9992385335800025,
+        "ci95High": 8.000070546703435
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 88.79801568420903,
+        "ci95Low": 88.79543002935775,
+        "ci95High": 88.80060133906032
+      },
+      "p50LatencyMs": {
+        "mean": 86.57333333333203,
+        "ci95Low": 86.54787307442878,
+        "ci95High": 86.59879359223528
+      },
+      "p95LatencyMs": {
+        "mean": 102.19999999999709,
+        "ci95Low": 102.19999999999709,
+        "ci95High": 102.19999999999709
+      },
+      "p99LatencyMs": {
+        "mean": 102.20000000000073,
+        "ci95Low": 102.20000000000073,
+        "ci95High": 102.20000000000073
+      },
+      "sloAttainment": {
+        "mean": 0.0000037061744866948336,
+        "ci95Low": -0.00000355792750722704,
+        "ci95High": 0.000010970276480616708
+      },
+      "meanBatchSize": {
+        "mean": 7.999851888377529,
+        "ci95Low": 7.999475761677579,
+        "ci95High": 8.00022801507748
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 90,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 89.99066666666668,
+        "ci95Low": 89.95794291090215,
+        "ci95High": 90.02339042243122
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 105.39671992439496,
+        "ci95Low": 105.39270495640638,
+        "ci95High": 105.40073489238354
+      },
+      "p50LatencyMs": {
+        "mean": 105.5666666666657,
+        "ci95Low": 105.53845653238633,
+        "ci95High": 105.59487680094506
+      },
+      "p95LatencyMs": {
+        "mean": 108.40000000000146,
+        "ci95Low": 108.40000000000146,
+        "ci95High": 108.40000000000146
+      },
+      "p99LatencyMs": {
+        "mean": 108.40000000000146,
+        "ci95Low": 108.40000000000146,
+        "ci95High": 108.40000000000146
+      },
+      "sloAttainment": {
+        "mean": 0.0000037061744866948336,
+        "ci95Low": -0.00000355792750722704,
+        "ci95High": 0.000010970276480616708
+      },
+      "meanBatchSize": {
+        "mean": 15.998520710059173,
+        "ci95Low": 15.99678543881025,
+        "ci95High": 16.000255981308097
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 51.66530865437215,
+        "ci95Low": 51.65479219393176,
+        "ci95High": 51.67582511481253
+      },
+      "p50LatencyMs": {
+        "mean": 54.399999999996,
+        "ci95Low": 54.399999999996,
+        "ci95High": 54.399999999996
+      },
+      "p95LatencyMs": {
+        "mean": 96.40000000002328,
+        "ci95Low": 96.40000000002328,
+        "ci95High": 96.40000000002328
+      },
+      "p99LatencyMs": {
+        "mean": 96.40000000002328,
+        "ci95Low": 96.40000000002328,
+        "ci95High": 96.40000000002328
+      },
+      "sloAttainment": {
+        "mean": 0.2447182181933252,
+        "ci95Low": 0.24454186574738718,
+        "ci95High": 0.24489457063926323
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 60.143440592832356,
+        "ci95Low": 60.130170365109336,
+        "ci95High": 60.156710820555375
+      },
+      "p50LatencyMs": {
+        "mean": 55.599999999998545,
+        "ci95Low": 55.599999999998545,
+        "ci95High": 55.599999999998545
+      },
+      "p95LatencyMs": {
+        "mean": 97.19999999999709,
+        "ci95Low": 97.19999999999709,
+        "ci95High": 97.19999999999709
+      },
+      "p99LatencyMs": {
+        "mean": 99.9300382110624,
+        "ci95Low": 99.7939657637576,
+        "ci95High": 100.0661106583672
+      },
+      "sloAttainment": {
+        "mean": 0.05958190708642914,
+        "ci95Low": 0.059341638266277585,
+        "ci95High": 0.05982217590658069
+      },
+      "meanBatchSize": {
+        "mean": 3.2437159574521477,
+        "ci95Low": 3.241999968532744,
+        "ci95High": 3.2454319463715513
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 62.415351454453045,
+        "ci95Low": 62.40368994783905,
+        "ci95High": 62.42701296106704
+      },
+      "p50LatencyMs": {
+        "mean": 62.13215301924344,
+        "ci95Low": 61.60943788932957,
+        "ci95High": 62.65486814915731
+      },
+      "p95LatencyMs": {
+        "mean": 98.79999999998849,
+        "ci95Low": 98.79999999998824,
+        "ci95High": 98.79999999998873
+      },
+      "p99LatencyMs": {
+        "mean": 101.13003821106004,
+        "ci95Low": 100.99396576375527,
+        "ci95High": 101.26611065836481
+      },
+      "sloAttainment": {
+        "mean": 0.0032263168600308117,
+        "ci95Low": 0.002965413727149555,
+        "ci95High": 0.0034872199929120683
+      },
+      "meanBatchSize": {
+        "mean": 3.973920988792365,
+        "ci95Low": 3.9721319294115913,
+        "ci95High": 3.9757100481731387
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 71.57716676190604,
+        "ci95Low": 71.55483273867485,
+        "ci95High": 71.59950078513724
+      },
+      "p50LatencyMs": {
+        "mean": 86.80000000000291,
+        "ci95Low": 86.80000000000291,
+        "ci95High": 86.80000000000291
+      },
+      "p95LatencyMs": {
+        "mean": 98.80049331443928,
+        "ci95Low": 98.799526418144,
+        "ci95High": 98.80146021073456
+      },
+      "p99LatencyMs": {
+        "mean": 104.48814967328069,
+        "ci95Low": 104.34533546517677,
+        "ci95High": 104.6309638813846
+      },
+      "sloAttainment": {
+        "mean": 0.003350365233805206,
+        "ci95Low": 0.0031182182290242274,
+        "ci95High": 0.003582512238586185
+      },
+      "meanBatchSize": {
+        "mean": 5.46855078075205,
+        "ci95Low": 5.4638802790004535,
+        "ci95High": 5.473221282503647
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 76.46603259594374,
+        "ci95Low": 76.44494869964619,
+        "ci95High": 76.4871164922413
+      },
+      "p50LatencyMs": {
+        "mean": 74.62097120284874,
+        "ci95Low": 74.01149385511492,
+        "ci95High": 75.23044855058255
+      },
+      "p95LatencyMs": {
+        "mean": 102,
+        "ci95Low": 102,
+        "ci95High": 102
+      },
+      "p99LatencyMs": {
+        "mean": 105.28814967327817,
+        "ci95Low": 105.14533546517424,
+        "ci95High": 105.4309638813821
+      },
+      "sloAttainment": {
+        "mean": 0.0036954163361318433,
+        "ci95Low": 0.0034568496719336174,
+        "ci95High": 0.00393398300033007
+      },
+      "meanBatchSize": {
+        "mean": 7.748816990817797,
+        "ci95Low": 7.739331701460867,
+        "ci95High": 7.7583022801747274
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 89.49141287173165,
+        "ci95Low": 89.4299759355348,
+        "ci95High": 89.55284980792851
+      },
+      "p50LatencyMs": {
+        "mean": 86.96666666666685,
+        "ci95Low": 86.93845653238724,
+        "ci95High": 86.99487680094647
+      },
+      "p95LatencyMs": {
+        "mean": 106.1893910009088,
+        "ci95Low": 105.8883160923879,
+        "ci95High": 106.4904659094297
+      },
+      "p99LatencyMs": {
+        "mean": 110.83504418187506,
+        "ci95Low": 110.7035225435024,
+        "ci95High": 110.96656582024772
+      },
+      "sloAttainment": {
+        "mean": 0.0044692216721469065,
+        "ci95Low": 0.004157162903797499,
+        "ci95High": 0.004781280440496314
+      },
+      "meanBatchSize": {
+        "mean": 8.29304331035181,
+        "ci95Low": 8.281686893086171,
+        "ci95High": 8.30439972761745
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 140,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 139.99233333333333,
+        "ci95Low": 139.95308805063672,
+        "ci95High": 140.03157861602995
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencyMs": {
+        "mean": 102.30211682922116,
+        "ci95Low": 102.20985043650215,
+        "ci95High": 102.39438322194017
+      },
+      "p50LatencyMs": {
+        "mean": 105.02253679886765,
+        "ci95Low": 104.97305188045166,
+        "ci95High": 105.07202171728363
+      },
+      "p95LatencyMs": {
+        "mean": 108.4306096344523,
+        "ci95Low": 108.40591252202131,
+        "ci95High": 108.45530674688328
+      },
+      "p99LatencyMs": {
+        "mean": 111.83504418187835,
+        "ci95Low": 111.7035225435057,
+        "ci95High": 111.96656582025099
+      },
+      "sloAttainment": {
+        "mean": 0.005152816157168553,
+        "ci95Low": 0.00482175656804384,
+        "ci95High": 0.005483875746293265
+      },
+      "meanBatchSize": {
+        "mean": 13.812224418235388,
+        "ci95Low": 13.772896087256203,
+        "ci95High": 13.851552749214573
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "single",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.24099999999996,
+        "ci95Low": 156.21333745611,
+        "ci95High": 156.26866254388992
+      },
+      "dropRate": {
+        "mean": 0.28976091262762194,
+        "ci95Low": 0.28973051633249086,
+        "ci95High": 0.289791308922753
+      },
+      "meanLatencyMs": {
+        "mean": 73.72450135116664,
+        "ci95Low": 73.70725129196755,
+        "ci95High": 73.74175141036572
+      },
+      "p50LatencyMs": {
+        "mean": 73.95944788206212,
+        "ci95Low": 73.93072710868503,
+        "ci95High": 73.98816865543921
+      },
+      "p95LatencyMs": {
+        "mean": 104.64070231654917,
+        "ci95Low": 104.61152983051922,
+        "ci95High": 104.66987480257912
+      },
+      "p99LatencyMs": {
+        "mean": 106.26710418153955,
+        "ci95Low": 106.26373302270618,
+        "ci95High": 106.27047534037293
+      },
+      "sloAttainment": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanBatchSize": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b4-now",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.22266666666656,
+        "ci95Low": 156.19445961002387,
+        "ci95High": 156.25087372330924
+      },
+      "dropRate": {
+        "mean": 0.2898442459965934,
+        "ci95Low": 0.2897981474725829,
+        "ci95High": 0.2898903445206039
+      },
+      "meanLatencyMs": {
+        "mean": 92.31513835444102,
+        "ci95Low": 92.25782761484736,
+        "ci95High": 92.37244909403468
+      },
+      "p50LatencyMs": {
+        "mean": 92.50205964757639,
+        "ci95Low": 92.39019322747573,
+        "ci95High": 92.61392606767704
+      },
+      "p95LatencyMs": {
+        "mean": 123.38392918770472,
+        "ci95Low": 123.31678916538482,
+        "ci95High": 123.45106921002463
+      },
+      "p99LatencyMs": {
+        "mean": 125.19825072091768,
+        "ci95Low": 125.18778867901197,
+        "ci95High": 125.2087127628234
+      },
+      "sloAttainment": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanBatchSize": {
+        "mean": 3.998529454051848,
+        "ci95Low": 3.9984199407672003,
+        "ci95High": 3.998638967336496
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b4-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.2259999999999,
+        "ci95Low": 156.1978571373409,
+        "ci95High": 156.25414286265894
+      },
+      "dropRate": {
+        "mean": 0.28982908992951023,
+        "ci95Low": 0.28978044375983153,
+        "ci95High": 0.28987773609918893
+      },
+      "meanLatencyMs": {
+        "mean": 92.26968924641474,
+        "ci95Low": 92.21339001627662,
+        "ci95High": 92.32598847655287
+      },
+      "p50LatencyMs": {
+        "mean": 92.47311716204167,
+        "ci95Low": 92.38615037594505,
+        "ci95High": 92.5600839481383
+      },
+      "p95LatencyMs": {
+        "mean": 123.36370814492751,
+        "ci95Low": 123.29945599704202,
+        "ci95High": 123.42796029281301
+      },
+      "p99LatencyMs": {
+        "mean": 125.20150683418152,
+        "ci95Low": 125.19216005753607,
+        "ci95High": 125.21085361082696
+      },
+      "sloAttainment": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanBatchSize": {
+        "mean": 3.9998578838743404,
+        "ci95Low": 3.999774399317328,
+        "ci95High": 3.9999413684313527
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b8-2ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.22466666666656,
+        "ci95Low": 156.20200833892164,
+        "ci95High": 156.24732499441149
+      },
+      "dropRate": {
+        "mean": 0.2898350851121588,
+        "ci95Low": 0.2897830887541745,
+        "ci95High": 0.289887081470143
+      },
+      "meanLatencyMs": {
+        "mean": 116.97868777091894,
+        "ci95Low": 116.88141750691658,
+        "ci95High": 117.0759580349213
+      },
+      "p50LatencyMs": {
+        "mean": 118.18965888984603,
+        "ci95Low": 118.05233945283082,
+        "ci95High": 118.32697832686124
+      },
+      "p95LatencyMs": {
+        "mean": 147.54879134582842,
+        "ci95Low": 147.45149173375066,
+        "ci95High": 147.64609095790618
+      },
+      "p99LatencyMs": {
+        "mean": 150.43826149990622,
+        "ci95Low": 150.4070598649017,
+        "ci95High": 150.46946313491074
+      },
+      "sloAttainment": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanBatchSize": {
+        "mean": 7.998067729630609,
+        "ci95Low": 7.997787452448449,
+        "ci95High": 7.998348006812769
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b8-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.23199999999989,
+        "ci95Low": 156.20923019384531,
+        "ci95High": 156.25476980615446
+      },
+      "dropRate": {
+        "mean": 0.2898017523016421,
+        "ci95Low": 0.2897514909296672,
+        "ci95High": 0.28985201367361707
+      },
+      "meanLatencyMs": {
+        "mean": 116.93243297764558,
+        "ci95Low": 116.85253694122287,
+        "ci95High": 117.01232901406829
+      },
+      "p50LatencyMs": {
+        "mean": 118.01876543526353,
+        "ci95Low": 117.87012649655992,
+        "ci95High": 118.16740437396714
+      },
+      "p95LatencyMs": {
+        "mean": 147.52262775025258,
+        "ci95Low": 147.443737088283,
+        "ci95High": 147.60151841222216
+      },
+      "p99LatencyMs": {
+        "mean": 150.45705117238106,
+        "ci95Low": 150.43076295365947,
+        "ci95High": 150.48333939110265
+      },
+      "sloAttainment": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanBatchSize": {
+        "mean": 7.999715731373422,
+        "ci95Low": 7.999450198636568,
+        "ci95High": 7.999981264110277
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b16-5ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.30366666666652,
+        "ci95Low": 156.26660114219524,
+        "ci95High": 156.3407321911378
+      },
+      "dropRate": {
+        "mean": 0.2894761630548349,
+        "ci95Low": 0.2894273954566384,
+        "ci95High": 0.2895249306530314
+      },
+      "meanLatencyMs": {
+        "mean": 165.87873444438512,
+        "ci95Low": 165.76621535927484,
+        "ci95High": 165.9912535294954
+      },
+      "p50LatencyMs": {
+        "mean": 166.14120086325812,
+        "ci95Low": 165.99064642905284,
+        "ci95High": 166.2917552974634
+      },
+      "p95LatencyMs": {
+        "mean": 198.68003442525068,
+        "ci95Low": 198.59709688959245,
+        "ci95High": 198.7629719609089
+      },
+      "p99LatencyMs": {
+        "mean": 201.65006918374098,
+        "ci95Low": 201.6257355997249,
+        "ci95High": 201.67440276775707
+      },
+      "sloAttainment": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanBatchSize": {
+        "mean": 15.993270723468074,
+        "ci95Low": 15.992092420468806,
+        "ci95High": 15.994449026467342
+      }
+    },
+    {
+      "model": "no-batch-efficiency-control",
+      "pattern": "bursty",
+      "rate": 220,
+      "policy": "b16-10ms",
+      "repeats": 60,
+      "throughputRps": {
+        "mean": 156.30366666666652,
+        "ci95Low": 156.26660114219524,
+        "ci95High": 156.3407321911378
+      },
+      "dropRate": {
+        "mean": 0.2894761630548349,
+        "ci95Low": 0.2894273954566384,
+        "ci95High": 0.2895249306530314
+      },
+      "meanLatencyMs": {
+        "mean": 165.88468292107936,
+        "ci95Low": 165.76420700493145,
+        "ci95High": 166.00515883722727
+      },
+      "p50LatencyMs": {
+        "mean": 166.0399556363728,
+        "ci95Low": 165.87799208974698,
+        "ci95High": 166.20191918299864
+      },
+      "p95LatencyMs": {
+        "mean": 198.81174898957119,
+        "ci95Low": 198.71719931019544,
+        "ci95High": 198.90629866894693
+      },
+      "p99LatencyMs": {
+        "mean": 201.6651371782354,
+        "ci95Low": 201.63899115308337,
+        "ci95High": 201.69128320338743
+      },
+      "sloAttainment": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanBatchSize": {
+        "mean": 15.998466780238498,
+        "ci95Low": 15.99730929601079,
+        "ci95High": 15.999624264466206
+      }
+    }
+  ]
+}
