@@ -130,5 +130,8 @@ local-model inference, AWS, Terraform, Tofu, S3, or cloud mutation ran.
 
 ## Publication transaction
 
-Publication commit and push results will be recorded immediately after the
-authorized Git transaction completes.
+Publication commit `ee5e1cf` (`Publish batching, Kimi K3, and PyTorch 2.13
+batch`) was pushed to `origin/main` (`fb844df..ee5e1cf`). The sandboxed push
+failed at DNS resolution; the narrow authorized network retry succeeded. The
+normal GitHub/CodeBuild pipeline is responsible for rebuilding and publishing
+the website. No manual S3/AWS fallback was used.
