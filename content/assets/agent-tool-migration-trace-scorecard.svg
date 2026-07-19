@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title>Agent tool migration trace scorecard</title>
+  <desc>Two trace timelines compare broad repository browsing with a diff-anchored code-review workflow and show the reported production cost result.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="62" y="62" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="28" font-weight="700" fill="#0f172a">Same tools, different trace geometry</text>
+  <text x="62" y="94" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" fill="#475569">GitHub Copilot code review · July 10, 2026 · provider-reported mechanism</text>
+
+  <rect x="62" y="132" width="1076" height="188" rx="8" fill="#32191e" stroke="#be123c" stroke-width="2"/>
+  <text x="86" y="169" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" font-weight="700" fill="#9f1239">PORTED TOOLS + GENERIC CODING POSTURE</text>
+  <line x1="112" y1="236" x2="1080" y2="236" stroke="#f43f5e" stroke-width="4"/>
+  <circle cx="132" cy="236" r="18" fill="#be123c"/><text x="132" y="242" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="white">D</text>
+  <circle cx="294" cy="236" r="18" fill="#be123c"/><text x="294" y="242" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="white">G</text>
+  <circle cx="456" cy="236" r="24" fill="#be123c"/><text x="456" y="242" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="white">V</text>
+  <circle cx="618" cy="236" r="30" fill="#be123c"/><text x="618" y="242" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="white">G</text>
+  <circle cx="780" cy="236" r="36" fill="#be123c"/><text x="780" y="242" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="white">V</text>
+  <circle cx="942" cy="236" r="42" fill="#be123c"/><text x="942" y="242" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="white">?</text>
+  <text x="132" y="292" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#7f1d1d">diff</text>
+  <text x="294" y="292" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#7f1d1d">broad grep</text>
+  <text x="456" y="292" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#7f1d1d">wide view</text>
+  <text x="618" y="292" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#7f1d1d">more search</text>
+  <text x="780" y="292" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#7f1d1d">more context</text>
+  <text x="942" y="292" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#7f1d1d">loop</text>
+  <text x="1070" y="180" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" fill="#9f1239">cost ↑ · useful comments ↓</text>
+
+  <rect x="62" y="346" width="1076" height="188" rx="8" fill="#11291f" stroke="#43d6a0" stroke-width="2"/>
+  <text x="86" y="383" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" font-weight="700" fill="#115e59">SHARED TOOLS + REVIEW-SHAPED INSTRUCTIONS</text>
+  <line x1="112" y1="450" x2="946" y2="450" stroke="#14b8a6" stroke-width="4"/>
+  <circle cx="132" cy="450" r="18" fill="#43d6a0"/><text x="132" y="456" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="white">D</text>
+  <circle cx="294" cy="450" r="18" fill="#43d6a0"/><text x="294" y="456" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="white">Q</text>
+  <circle cx="456" cy="450" r="18" fill="#43d6a0"/><text x="456" y="456" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="white">G</text>
+  <circle cx="618" cy="450" r="18" fill="#43d6a0"/><text x="618" y="456" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="white">V</text>
+  <circle cx="780" cy="450" r="18" fill="#43d6a0"/><text x="780" y="456" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="white">✓</text>
+  <text x="132" y="500" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#134e4a">diff</text>
+  <text x="294" y="500" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#134e4a">question</text>
+  <text x="456" y="500" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#134e4a">batch narrow</text>
+  <text x="618" y="500" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#134e4a">focused view</text>
+  <text x="780" y="500" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#134e4a">decide</text>
+  <rect x="924" y="401" width="180" height="98" rx="8" fill="#43d6a0"/>
+  <text x="1014" y="438" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="28" font-weight="700" fill="white">~20% ↓</text>
+  <text x="1014" y="466" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#ccfbf1">average review cost</text>
+  <text x="1014" y="486" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#ccfbf1">quality signal not blocking</text>
+
+  <text x="62" y="582" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700" fill="#0f172a">Migration gate</text>
+  <text x="62" y="613" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" fill="#334155">Pair final quality with context growth, evidence-touch rate, error recovery, search→read alternation, and cost.</text>
+  <text x="62" y="645" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#64748b">D=diff · Q=review question · G=grep/glob · V=view · circle area represents accumulated context, qualitatively</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+{
+  "study": "retrieval-fusion-scale-audit",
+  "date": "2026-07-18",
+  "datasets": ["BEIR SciFact test", "BEIR NFCorpus test"],
+  "retrievers": ["BM25 unigram", "BM25 adjacent-word bigram"],
+  "fusion": ["raw score sum at 0.1x, 1x, and 10x", "per-query min-max score sum", "RRF k=10, 60, and 100"],
+  "negativeControl": "RRF of the unigram ranker with an identical copy",
+  "metrics": ["nDCG@10", "Recall@100", "MRR"],
+  "bootstrapSamples": 1000,
+  "seed": 20260718,
+  "runtime": "Python standard library; no Torch, accelerator, or model service"
+}

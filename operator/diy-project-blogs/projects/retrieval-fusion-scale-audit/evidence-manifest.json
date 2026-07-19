@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "hypothesis": "Across SciFact and NFCorpus, RRF at k=60 will improve nDCG@10 over the stronger individual lexical ranker while remaining invariant to a 100x relative score-scale sweep; an identical-ranker fusion control will show no gain.",
+  "claimBoundary": "The evidence identifies score-scale robustness and diversity limits for exact unigram/bigram lexical retrieval on two small public BEIR test sets. It does not establish gains for dense retrievers, learned fusion, approximate indexes, latency, or a private production corpus.",
+  "design": {
+    "baselines": [
+      "unigram BM25",
+      "adjacent-word bigram BM25",
+      "raw score sum",
+      "per-query min-max normalized score sum"
+    ],
+    "controls": [
+      "duplicate-ranker RRF negative control",
+      "0.1x to 10x bigram score-scale stress sweep",
+      "RRF k ablation at 10, 60, and 100",
+      "two datasets with fixed public test qrels"
+    ],
+    "repeats": 1000
+  },
+  "reproduction": {
+    "commands": [
+      "curl -L https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/scifact.zip -o /tmp/beir-data/scifact.zip",
+      "curl -L https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nfcorpus.zip -o /tmp/beir-data/nfcorpus.zip",
+      "unzip -q -o /tmp/beir-data/scifact.zip -d /tmp/beir-data && unzip -q -o /tmp/beir-data/nfcorpus.zip -d /tmp/beir-data",
+      "python3 run_experiment.py --data-dir /tmp/beir-data --out-dir . --bootstrap-samples 1000"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run_experiment.py",
+    "results.json",
+    "summary.csv",
+    "per_query_metrics.csv",
+    "retrieval-fusion-results.svg"
+  ]
+}

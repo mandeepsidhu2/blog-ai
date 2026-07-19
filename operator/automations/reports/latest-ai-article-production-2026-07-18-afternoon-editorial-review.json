@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "prove-ranker-complementarity-before-rrf",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "The second retriever is an intentionally weak adjacent-bigram BM25 system, so the negative RRF result may be obvious and says little about genuinely complementary dense-plus-sparse production stacks.",
+      "unsupportedClaimRisk": "The weakest claim was that low candidate overlap implied useful ranker complementarity; the revision measures unique relevant yield and shows that abundant set diversity contributed little judged relevance.",
+      "reproductionBarrier": "The runner is dependency-free, but exact reproduction depends on two externally hosted BEIR archives remaining available and byte-identical to the SHA-256 values saved with the run.",
+      "revisions": [
+        "Extended the controlled experiment with top-100 Jaccard overlap and bigram-only relevant-document counts, then reran and regenerated every saved result artifact.",
+        "Replaced overlap-based admission guidance with a held-out unique-relevant-yield gate, conditional query wins, ranker-removal ablation, and paired fused-versus-best uncertainty.",
+        "Narrowed the conclusion to score-scale robustness and weak-ranker harm for two exact lexical systems, explicitly rejecting transfer to dense or learned fusion."
+      ]
+    },
+    {
+      "slug": "claude-sonnet-5-effort-budget-canary",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "Sonnet 5's provider benchmarks and price gap are strong enough that an equal-budget canary may delay a clearly beneficial migration, especially for low-risk tasks with deterministic verification.",
+      "unsupportedClaimRisk": "The weakest implication was that lower list prices guarantee lower task cost; it was narrowed because the new tokenizer, effort setting, output length, caching, retries, and tool time all change the denominator.",
+      "reproductionBarrier": "A fair adoption test requires access to both model routes, exact tokenizer accounting, fixed effort controls, representative private tasks, stable tool harnesses, and blind task-level verification.",
+      "revisions": [
+        "Added a five-row dual-price cost calculation spanning 1.00x and 1.35x input-token replay, while explicitly marking output, cache, reasoning, and cross-tokenizer limits.",
+        "Separated quality noninferiority at equal effort from economic promotion under production policies and required the architecture decision to use post-August steady-state prices.",
+        "Restricted headline benchmark interpretation by recording the 89-task, five-attempt, harness, grader, effort, and 10-million-token methodology confounders."
+      ]
+    },
+    {
+      "slug": "trace-test-agent-tool-instruction-migrations",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "GitHub does not disclose absolute cost, sample size, model revision, confidence intervals, complete prompts, or quality denominators, so the reported 20 percent change is not independently reproducible.",
+      "unsupportedClaimRisk": "The weakest claim treated the production cost change as a portable effect size; the article now treats it only as a provider signal motivating local factorial attribution and preregistered noninferiority.",
+      "reproductionBarrier": "Teams need versioned prompt-visible tool definitions, full traces, frozen repository-clustered tasks, human defect adjudication, and both old and new implementations to attribute a migration correctly.",
+      "revisions": [
+        "Added a 2x2 old-versus-new tool and generic-versus-task-shaped instruction screen so implementation, wording, and interaction effects are not collapsed.",
+        "Added blinded earliest-sufficient-evidence annotation to quantify unnecessary calls, tokens, and wall time after the trace already supports or rejects a review comment.",
+        "Elevated GitHub's failed CLI transfer and best-of-five benchmark reporting into explicit adoption and methodological boundaries rather than generalizing the code-review win."
+      ]
+    }
+  ]
+}
