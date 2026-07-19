@@ -1,0 +1,33 @@
+{
+  "seed": 20260719,
+  "repeats": 80,
+  "durationSeconds": 300,
+  "warmupSeconds": 30,
+  "arrivalRatesPerSecond": [2.5, 4.0, 5.5],
+  "serverTokensPerSecond": 4000,
+  "tokenBudget": 12000,
+  "requestLimit": 16,
+  "queueTimeoutSeconds": 10,
+  "latencySloSeconds": 5,
+  "workloads": {
+    "heavy-tail": {
+      "shortProbability": 0.8,
+      "shortMedianTokens": 240,
+      "longMedianTokens": 3200,
+      "logSigma": 0.55,
+      "minTokens": 32,
+      "maxTokens": 8000
+    },
+    "fixed-control": {
+      "tokens": 900
+    }
+  },
+  "policies": [
+    {"name": "request-count-16", "kind": "count"},
+    {"name": "estimated-token-budget", "kind": "estimated", "scale": 1.0},
+    {"name": "estimated-budget-shortest-first", "kind": "estimated", "scale": 1.0, "queue": "shortest-estimate"},
+    {"name": "underestimated-token-budget", "kind": "estimated", "scale": 0.5},
+    {"name": "overestimated-token-budget", "kind": "estimated", "scale": 2.0},
+    {"name": "oracle-token-budget", "kind": "oracle"}
+  ]
+}

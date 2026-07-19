@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img">
+<title>Token-work admission changes short-request tail latency and overload</title>
+<desc>Bar chart and result matrix comparing request-count, estimated-token, underestimated-token, and oracle admission under a heavy-tailed output workload.</desc>
+<rect width="1200" height="675" fill="#0b1220"/>
+<text x="62" y="62" class="title">Count requests or budget token work?</text>
+<text x="62" y="95" class="sub">4.0 requests/s · 4,000 token/s processor-sharing server · 80 paired traces</text>
+<rect x="60" y="135" width="570" height="455" rx="10" fill="#111b2d" stroke="#2a3954"/>
+<text x="86" y="170" class="panel">Short-request p95 latency · lower is better</text>
+<line x1="86" y1="493" x2="602" y2="493" stroke="#263650"/><text x="78" y="498" text-anchor="end" class="axis">0s</text><line x1="86" y1="415.5" x2="602" y2="415.5" stroke="#263650"/><text x="78" y="420.5" text-anchor="end" class="axis">3s</text><line x1="86" y1="338" x2="602" y2="338" stroke="#263650"/><text x="78" y="343" text-anchor="end" class="axis">6s</text><line x1="86" y1="260.5" x2="602" y2="260.5" stroke="#263650"/><text x="78" y="265.5" text-anchor="end" class="axis">9s</text><line x1="86" y1="183" x2="602" y2="183" stroke="#263650"/><text x="78" y="188" text-anchor="end" class="axis">12s</text>
+<rect x="105" y="355.82689581517144" width="78" height="137.17310418482856" rx="6" fill="#ef6f6c"/>
+  <text x="144" y="343.82689581517144" text-anchor="middle" class="value">5.31s</text>
+  <text x="144" y="522" text-anchor="middle" class="axis">16 requests</text>
+<rect x="237" y="299.7388643123198" width="78" height="193.26113568768022" rx="6" fill="#5bc0be"/>
+  <text x="276" y="287.7388643123198" text-anchor="middle" class="value">7.48s</text>
+  <text x="276" y="522" text-anchor="middle" class="axis">estimate + FIFO</text>
+<rect x="369" y="474.20292027015967" width="78" height="18.797079729840334" rx="6" fill="#f4b860"/>
+  <text x="408" y="462.20292027015967" text-anchor="middle" class="value">0.73s</text>
+  <text x="408" y="522" text-anchor="middle" class="axis">estimate + short-first</text>
+<rect x="501" y="296.688161037802" width="78" height="196.311838962198" rx="6" fill="#5b8def"/>
+  <text x="540" y="284.688161037802" text-anchor="middle" class="value">7.60s</text>
+  <text x="540" y="522" text-anchor="middle" class="axis">oracle + FIFO</text>
+<rect x="660" y="135" width="480" height="455" rx="10" fill="#0f192a" stroke="#2a3954"/>
+<text x="690" y="170" class="panel">Admission consequence</text>
+<text x="690" y="197" class="sub">Remaining active work above 12,000 tokens</text>
+<rect x="700" y="225" width="405" height="48" rx="5" fill="#111b2d" stroke="#2a3954"/>
+  <text x="718" y="245" class="matrix">16 requests</text>
+  <text x="900" y="245" class="matrix">51.6% over budget</text>
+  <text x="900" y="264" class="muted">0.43% dropped</text>
+<rect x="700" y="291" width="405" height="48" rx="5" fill="#111b2d" stroke="#2a3954"/>
+  <text x="718" y="311" class="matrix">estimate + FIFO</text>
+  <text x="900" y="311" class="matrix">4.1% over budget</text>
+  <text x="900" y="330" class="muted">0.56% dropped</text>
+<rect x="700" y="357" width="405" height="48" rx="5" fill="#111b2d" stroke="#2a3954"/>
+  <text x="718" y="377" class="matrix">estimate + short-first</text>
+  <text x="900" y="377" class="matrix">3.3% over budget</text>
+  <text x="900" y="396" class="muted">0.61% dropped</text>
+<rect x="700" y="423" width="405" height="48" rx="5" fill="#111b2d" stroke="#2a3954"/>
+  <text x="718" y="443" class="matrix">oracle + FIFO</text>
+  <text x="900" y="443" class="matrix">0.0% over budget</text>
+  <text x="900" y="462" class="muted">0.57% dropped</text>
+<text x="62" y="630" class="note">Class estimates use 280 tokens for interactive requests and 3,600 for batch requests. Simulation, not hardware measurement.</text>
+<style>.title{font:700 29px ui-monospace,monospace;fill:#f2f6ff}.sub,.note,.muted{font:14px ui-monospace,monospace;fill:#9fb0ca}.panel{font:700 18px ui-monospace,monospace;fill:#e6edf7}.axis{font:12px ui-monospace,monospace;fill:#b8c5d9}.value{font:700 13px ui-monospace,monospace;fill:#f2f6ff}.matrix{font:14px ui-monospace,monospace;fill:#e6edf7}</style>
+</svg>

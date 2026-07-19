@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
+  <title>Muse Image evidence and adoption matrix</title>
+  <desc>A matrix separating Meta's disclosed image and video ranks from the local workflow tests required before adoption.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="58" y="58" class="title">Muse Image: rank is the start of the evaluation</text>
+  <text x="58" y="90" class="sub">Meta disclosures dated July 5–10, 2026 · green means disclosed · amber means local evidence required</text>
+  <line x1="58" y1="130" x2="1142" y2="130" stroke="#34435e" stroke-width="2"/>
+  <text x="76" y="164" class="head">WORKFLOW LANE</text>
+  <text x="360" y="164" class="head">DISCLOSED SIGNAL</text>
+  <text x="690" y="164" class="head">MISSING DECISION EVIDENCE</text>
+  <text x="1030" y="164" class="head">GATE</text>
+  <line x1="58" y1="181" x2="1142" y2="181" stroke="#34435e"/>
+  <g class="row">
+    <rect x="58" y="196" width="1084" height="78" fill="#111b2d"/>
+    <circle cx="86" cy="235" r="9" fill="#5bc0be"/>
+    <text x="108" y="230">Text → image</text><text x="108" y="250" class="muted">one-shot preference</text>
+    <text x="360" y="230">Arena rank #2</text><text x="360" y="250" class="muted">snapshot: 2026-07-05</text>
+    <text x="690" y="230">Elo, sample n, interval, job slices</text><text x="690" y="250" class="muted">provider page reports ordinal rank</text>
+    <text x="1030" y="240" class="gate">BLIND A/B</text>
+  </g>
+  <g class="row">
+    <rect x="58" y="282" width="1084" height="78" fill="#0f192a"/>
+    <circle cx="86" cy="321" r="9" fill="#5bc0be"/>
+    <text x="108" y="316">Single edit</text><text x="108" y="336" class="muted">target + preservation</text>
+    <text x="360" y="316">Arena rank #2</text><text x="360" y="336" class="muted">snapshot: 2026-07-05</text>
+    <text x="690" y="316">Non-target pixel and identity drift</text><text x="690" y="336" class="muted">nine/ten-category test plans available</text>
+    <text x="1030" y="326" class="gate">MASK TEST</text>
+  </g>
+  <g class="row">
+    <rect x="58" y="368" width="1084" height="78" fill="#111b2d"/>
+    <circle cx="86" cy="407" r="9" fill="#5bc0be"/>
+    <text x="108" y="402">Multi-reference</text><text x="108" y="422" class="muted">2–7 concept stress</text>
+    <text x="360" y="402">Arena rank #2</text><text x="360" y="422" class="muted">composition claimed</text>
+    <text x="690" y="402">Attribute leakage and consent ledger</text><text x="690" y="422" class="muted">public-account feature removed July 10</text>
+    <text x="1030" y="412" class="gate">AUTH + QA</text>
+  </g>
+  <g class="row">
+    <rect x="58" y="454" width="1084" height="78" fill="#0f192a"/>
+    <circle cx="86" cy="493" r="9" fill="#f4b860"/>
+    <text x="108" y="488">Tool-grounded</text><text x="108" y="508" class="muted">web · code · QR · charts</text>
+    <text x="360" y="488">Capability disclosed</text><text x="360" y="508" class="muted">no public pass rate</text>
+    <text x="690" y="488">Fact, scan, source and trace correctness</text><text x="690" y="508" class="muted">visual preference cannot verify artifacts</text>
+    <text x="1030" y="498" class="gate">EXACT CHECK</text>
+  </g>
+  <g class="row">
+    <rect x="58" y="540" width="1084" height="78" fill="#111b2d"/>
+    <circle cx="86" cy="579" r="9" fill="#f4b860"/>
+    <text x="108" y="574">Muse Video</text><text x="108" y="594" class="muted">native audio preview</text>
+    <text x="360" y="574">Arena rank #3</text><text x="360" y="594" class="muted">snapshot: 2026-07-05</text>
+    <text x="690" y="574">Availability, sync, fast-motion, SLO</text><text x="690" y="594" class="muted">Meta names current gaps</text>
+    <text x="1030" y="584" class="gate">HOLD</text>
+  </g>
+  <text x="58" y="650" class="note">Sources: Meta AI launch (July 7), Meta Newsroom update (July 10), I2I-Bench, MICE-Bench. Ranks are not cross-benchmark scores.</text>
+  <style>
+    .title{font:700 28px ui-monospace,monospace;fill:#f2f6ff}.sub,.note,.muted{font:13px ui-monospace,monospace;fill:#9fb0ca}
+    .head{font:700 12px ui-monospace,monospace;fill:#8fa5c6}.row text{font:15px ui-monospace,monospace;fill:#e6edf7}.row .muted{font-size:12px;fill:#9fb0ca}
+    .gate{font:700 13px ui-monospace,monospace;fill:#f7d154}
+  </style>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

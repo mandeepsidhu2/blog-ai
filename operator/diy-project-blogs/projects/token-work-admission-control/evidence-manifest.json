@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "hypothesis": "Under matched mean offered work with heavy-tailed completion lengths, class-estimated token-work admission will reduce short-request p95 latency and active-work oversubscription relative to a 16-request concurrency limit, while the advantage will shrink under a fixed-length negative control.",
+  "claimBoundary": "The evidence supports operating characteristics of the declared processor-sharing simulation and class-level token estimates. It does not establish GPU throughput, model quality, scheduler behavior, prefill/decode interference, or a universal token budget for production systems.",
+  "design": {
+    "baselines": [
+      "Fixed 16-request concurrent-admission limit under identical arrivals and output-token draws",
+      "Oracle token-work budget as a positive-control upper bound"
+    ],
+    "controls": [
+      "Fixed 900-token completion workload as a negative control for output-length heterogeneity",
+      "Half-scale and double-scale estimate ablations to expose calibration sensitivity",
+      "Shortest-estimate-first queue ablation to isolate FIFO head-of-line blocking"
+    ],
+    "repeats": 80
+  },
+  "reproduction": {
+    "commands": [
+      "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node operator/diy-project-blogs/projects/token-work-admission-control/run-experiment.mjs",
+      "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node operator/diy-project-blogs/projects/token-work-admission-control/render-figure.mjs"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run-experiment.mjs",
+    "artifacts/aggregate-results.json",
+    "artifacts/raw-repeat-results.csv",
+    "artifacts/raw-workload-summary.csv",
+    "artifacts/token-work-admission.svg"
+  ]
+}

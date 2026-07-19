@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "token-work-admission-control",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "The processor-sharing server omits token-step batching, KV-cache pressure, prefill interference, and hardware service curves, so the dramatic short-first result may be a property of the abstraction rather than a transferable production effect.",
+      "unsupportedClaimRisk": "The weakest claim was that a 12,000-token threshold represented meaningful overload; it is only a declared work envelope and was narrowed so no memory-capacity or optimal-budget interpretation remains.",
+      "reproductionBarrier": "Reproduction of the saved simulation is dependency-free, but production reproduction requires classified request traces, output-length estimates, cancellation data, and target-hardware service and memory measurements that many teams do not retain.",
+      "revisions": [
+        "Added a saved per-trace workload audit and reported mean, median, p95, p99, and long-class fraction so the fixed-length control and heavy-tail mechanism can be checked rather than inferred.",
+        "Narrowed the 12,000-token measure to a declared comparison threshold and explicitly rejected treating it as measured KV-cache capacity or an optimal production budget.",
+        "Reclassified pure shortest-estimate-first as a diagnostic control, not an adoption recommendation, and required an aged or weighted confirmatory policy with a predeclared long-job fairness margin."
+      ]
+    },
+    {
+      "slug": "muse-image-workflow-evaluation",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 5,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "Without a generally reproducible Muse API run, price, latency, or complete benchmark protocol, the release may be too immature for a production comparison and a careful team could simply wait for stable interfaces.",
+      "unsupportedClaimRisk": "The weakest claim was that teams should use Muse first for multi-step composition; the public evidence supports only a human-reviewed interactive pilot, not unattended adoption or superiority over an incumbent.",
+      "reproductionBarrier": "The cited launch surfaces are consumer products and provider reports; they do not expose a stable general API protocol, exact Arena denominators, or enterprise data terms needed to reproduce a matched production bake-off.",
+      "revisions": [
+        "Narrowed the recommendation from early workflow use to a consented, human-reviewed interactive pilot and kept unattended, regulated, and provenance-critical work on the incumbent path.",
+        "Added an explicit disclosure that no local or production API run was performed because the launch sources do not provide a reproducible general API protocol for the proposed evaluation.",
+        "Made product-surface changes reset the affected evaluation lane and added a stop rule when no evaluable production interface exists, using the July 10 reference-feature removal as the concrete boundary."
+      ]
+    },
+    {
+      "slug": "adaptive-red-team-agent-evaluation",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 5,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "GPT-Red is currently a provider announcement without the promised preprint, and the headline 84% versus 13% comparison may reflect unequal search budgets, internal-mirror artifacts, or correlated attempts rather than a portable attacker advantage.",
+      "unsupportedClaimRisk": "The weakest claim was that the headline effect size justified adding adaptive evaluation broadly; it was narrowed to an architecture-design signal with no effect-size or procurement claim until attempt budgets and holdout construction are disclosed.",
+      "reproductionBarrier": "The missing preprint blocks reproduction of attacker training, defender populations, compute, attempt accounting, human comparison budgets, scenario independence, and the exact Codex result cells.",
+      "revisions": [
+        "Withheld all GPT-Red effect-size and procurement conclusions pending the promised preprint, while preserving the launch as motivation for an adaptive evaluation lane.",
+        "Added the undisclosed human-versus-model search budget as an explicit confound and required success curves over attempts, wall time, and tokens instead of a final maximum.",
+        "Added a cost-benefit adoption boundary for lower-consequence systems and a rule that an insufficient preprint leaves the announcement as discovery evidence only."
+      ]
+    }
+  ]
+}

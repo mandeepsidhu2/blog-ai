@@ -1,0 +1,2226 @@
+{
+  "generatedAt": "2026-07-19T15:12:22.019Z",
+  "claimBoundary": "Processor-sharing simulation with declared workloads and class-level token estimates; not a hardware or model-quality benchmark.",
+  "config": {
+    "seed": 20260719,
+    "repeats": 80,
+    "durationSeconds": 300,
+    "warmupSeconds": 30,
+    "arrivalRatesPerSecond": [
+      2.5,
+      4,
+      5.5
+    ],
+    "serverTokensPerSecond": 4000,
+    "tokenBudget": 12000,
+    "requestLimit": 16,
+    "queueTimeoutSeconds": 10,
+    "latencySloSeconds": 5,
+    "workloads": {
+      "heavy-tail": {
+        "shortProbability": 0.8,
+        "shortMedianTokens": 240,
+        "longMedianTokens": 3200,
+        "logSigma": 0.55,
+        "minTokens": 32,
+        "maxTokens": 8000
+      },
+      "fixed-control": {
+        "tokens": 900
+      }
+    },
+    "policies": [
+      {
+        "name": "request-count-16",
+        "kind": "count"
+      },
+      {
+        "name": "estimated-token-budget",
+        "kind": "estimated",
+        "scale": 1
+      },
+      {
+        "name": "estimated-budget-shortest-first",
+        "kind": "estimated",
+        "scale": 1,
+        "queue": "shortest-estimate"
+      },
+      {
+        "name": "underestimated-token-budget",
+        "kind": "estimated",
+        "scale": 0.5
+      },
+      {
+        "name": "overestimated-token-budget",
+        "kind": "estimated",
+        "scale": 2
+      },
+      {
+        "name": "oracle-token-budget",
+        "kind": "oracle"
+      }
+    ]
+  },
+  "aggregate": [
+    {
+      "workload": "heavy-tail",
+      "rate": 2.5,
+      "policy": "request-count-16",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4963425925925926,
+        "ci95Low": 2.314814814814815,
+        "ci95High": 2.6592592592592594
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.5728917370149184,
+        "ci95Low": 0.3914985118148854,
+        "ci95High": 0.9780656623915138
+      },
+      "p95LatencySeconds": {
+        "mean": 2.8398982472163072,
+        "ci95Low": 1.9806896840587243,
+        "ci95High": 4.356481771887161
+      },
+      "p99LatencySeconds": {
+        "mean": 6.088620338599758,
+        "ci95Low": 3.2070602922095475,
+        "ci95High": 11.901372049450373
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "shortP95LatencySeconds": {
+        "mean": 0.48829012335037864,
+        "ci95Low": 0.3479884496570804,
+        "ci95High": 0.8485301784841965
+      },
+      "longP95LatencySeconds": {
+        "mean": 6.042904265474336,
+        "ci95Low": 3.2070602922095475,
+        "ci95High": 11.901372049450373
+      },
+      "sloAttainment": {
+        "mean": 0.984040070399914,
+        "ci95Low": 0.9564541213063764,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0.03206363251353628,
+        "ci95Low": 0.001213652050915844,
+        "ci95High": 0.1228996073684219
+      },
+      "meanActive": {
+        "mean": 1.4345705364594212,
+        "ci95Low": 0.9601590277401105,
+        "ci95High": 2.3451155183182464
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 2.5,
+      "policy": "estimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4963425925925926,
+        "ci95Low": 2.314814814814815,
+        "ci95High": 2.6592592592592594
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.5964362741736615,
+        "ci95Low": 0.3894823095627603,
+        "ci95High": 1.1174847089836768
+      },
+      "p95LatencySeconds": {
+        "mean": 2.881047018517281,
+        "ci95Low": 1.9682053442032839,
+        "ci95High": 5.144960572811087
+      },
+      "p99LatencySeconds": {
+        "mean": 5.179232083273456,
+        "ci95Low": 3.2151412050028227,
+        "ci95High": 8.620680903515861
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 0.699834682188291,
+        "ci95Low": 0,
+        "ci95High": 3.6158831728822562
+      },
+      "shortP95LatencySeconds": {
+        "mean": 0.9667673561810741,
+        "ci95Low": 0.3480000000000132,
+        "ci95High": 3.4772173242493167
+      },
+      "longP95LatencySeconds": {
+        "mean": 5.118960372102521,
+        "ci95Low": 3.2151412050028227,
+        "ci95High": 8.620680903515861
+      },
+      "sloAttainment": {
+        "mean": 0.9872651757409996,
+        "ci95Low": 0.9471228615863142,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0.006328910168190187,
+        "ci95Low": 0,
+        "ci95High": 0.0170773659244558
+      },
+      "meanActive": {
+        "mean": 1.2480038656082653,
+        "ci95Low": 0.9518828105357477,
+        "ci95High": 1.625707764098902
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 2.5,
+      "policy": "estimated-budget-shortest-first",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4963425925925926,
+        "ci95Low": 2.314814814814815,
+        "ci95High": 2.6592592592592594
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.5382721598335429,
+        "ci95Low": 0.3892236102012641,
+        "ci95High": 0.8059547746508083
+      },
+      "p95LatencySeconds": {
+        "mean": 2.7655312704788986,
+        "ci95Low": 1.9682053442032839,
+        "ci95High": 4.4765242040009525
+      },
+      "p99LatencySeconds": {
+        "mean": 5.303915964033516,
+        "ci95Low": 3.2151412050028227,
+        "ci95High": 8.833784808274281
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 0.06149959331932866,
+        "ci95Low": 0,
+        "ci95High": 0.8208527687989147
+      },
+      "shortP95LatencySeconds": {
+        "mean": 0.4211430291516442,
+        "ci95Low": 0.3410000000000082,
+        "ci95High": 0.5289104017870869
+      },
+      "longP95LatencySeconds": {
+        "mean": 5.247250337947018,
+        "ci95Low": 3.2151412050028227,
+        "ci95High": 8.771246410716472
+      },
+      "sloAttainment": {
+        "mean": 0.9869894483421578,
+        "ci95Low": 0.9580093312597201,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0.005863033376839767,
+        "ci95Low": 0,
+        "ci95High": 0.01677355604403155
+      },
+      "meanActive": {
+        "mean": 1.2388162255158024,
+        "ci95Low": 0.9519418340759805,
+        "ci95High": 1.60130351403959
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 2.5,
+      "policy": "underestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4963425925925926,
+        "ci95Low": 2.314814814814815,
+        "ci95High": 2.6592592592592594
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.5769033840306139,
+        "ci95Low": 0.3914985118148854,
+        "ci95High": 1.045128966747977
+      },
+      "p95LatencySeconds": {
+        "mean": 2.861761591072404,
+        "ci95Low": 1.9806896840587243,
+        "ci95High": 4.889446422065376
+      },
+      "p99LatencySeconds": {
+        "mean": 5.91172255079414,
+        "ci95Low": 3.2070602922095475,
+        "ci95High": 10.819981935874189
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 0.0853410941555901,
+        "ci95Low": 0,
+        "ci95High": 1.5115885444327333
+      },
+      "shortP95LatencySeconds": {
+        "mean": 0.5642043399929592,
+        "ci95Low": 0.3479884496570804,
+        "ci95High": 1.8447251368131248
+      },
+      "longP95LatencySeconds": {
+        "mean": 5.860939339383603,
+        "ci95Low": 3.2070602922095475,
+        "ci95High": 10.709315823480772
+      },
+      "sloAttainment": {
+        "mean": 0.9841993982617028,
+        "ci95Low": 0.9534883720930233,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0.028254509372023378,
+        "ci95Low": 0.001213652050915844,
+        "ci95High": 0.08890114088046469
+      },
+      "meanActive": {
+        "mean": 1.406216333844558,
+        "ci95Low": 0.9601590277401105,
+        "ci95High": 2.131791560326302
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 2.5,
+      "policy": "overestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4963425925925926,
+        "ci95Low": 2.314814814814815,
+        "ci95High": 2.6592592592592594
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.6373350472328532,
+        "ci95Low": 0.4002816586242027,
+        "ci95High": 1.1451378817860678
+      },
+      "p95LatencySeconds": {
+        "mean": 2.722189073497865,
+        "ci95Low": 1.7493321941923625,
+        "ci95High": 5.246342313079026
+      },
+      "p99LatencySeconds": {
+        "mean": 4.08658276830869,
+        "ci95Low": 2.5950452305241924,
+        "ci95High": 6.990300263247235
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 1.9271111226873536,
+        "ci95Low": 0.8239777767477676,
+        "ci95High": 4.4258106832539355
+      },
+      "shortP95LatencySeconds": {
+        "mean": 1.9217987986240406,
+        "ci95Low": 0.7332579102026102,
+        "ci95High": 4.511921254026667
+      },
+      "longP95LatencySeconds": {
+        "mean": 3.9099286350560183,
+        "ci95Low": 2.5357520818618866,
+        "ci95High": 6.990300263247235
+      },
+      "sloAttainment": {
+        "mean": 0.9933205694446056,
+        "ci95Low": 0.9393468118195957,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 0.8193866899363262,
+        "ci95Low": 0.6914075942454136,
+        "ci95High": 0.9662565985934767
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 2.5,
+      "policy": "oracle-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4963425925925926,
+        "ci95Low": 2.314814814814815,
+        "ci95High": 2.6592592592592594
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.6077322340104334,
+        "ci95Low": 0.3920681596718892,
+        "ci95High": 1.112702151152213
+      },
+      "p95LatencySeconds": {
+        "mean": 2.7929466131656357,
+        "ci95Low": 1.9085632584481544,
+        "ci95High": 5.114320047559417
+      },
+      "p99LatencySeconds": {
+        "mean": 4.659607668507188,
+        "ci95Low": 3.189048245271806,
+        "ci95High": 8.123567452622268
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 1.2279251233479345,
+        "ci95Low": 0,
+        "ci95High": 3.816247686085447
+      },
+      "shortP95LatencySeconds": {
+        "mean": 1.3737104096425905,
+        "ci95Low": 0.386718240029964,
+        "ci95High": 4.140649014289977
+      },
+      "longP95LatencySeconds": {
+        "mean": 4.5857961090260515,
+        "ci95Low": 3.102353155169368,
+        "ci95High": 8.123567452622268
+      },
+      "sloAttainment": {
+        "mean": 0.990147591218634,
+        "ci95Low": 0.9437229437229437,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 1.1242138663499224,
+        "ci95Low": 0.8900470678210398,
+        "ci95High": 1.4543086661503979
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 4,
+      "policy": "request-count-16",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9784259259259245,
+        "ci95Low": 3.7,
+        "ci95High": 4.266666666666667
+      },
+      "dropRate": {
+        "mean": 0.0043003193384847215,
+        "ci95Low": 0,
+        "ci95High": 0.03531438415159346
+      },
+      "meanLatencySeconds": {
+        "mean": 3.2665382948818156,
+        "ci95Low": 0.8892398520590304,
+        "ci95High": 8.027465408036676
+      },
+      "p95LatencySeconds": {
+        "mean": 13.140530941744746,
+        "ci95Low": 4.0980011429984415,
+        "ci95High": 22.215044407889195
+      },
+      "p99LatencySeconds": {
+        "mean": 23.19962553070697,
+        "ci95Low": 7.301277246720417,
+        "ci95High": 34.97830471927112
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 4.073368520638058,
+        "ci95Low": 0,
+        "ci95High": 9.645770394199388
+      },
+      "shortP95LatencySeconds": {
+        "mean": 5.309926613606267,
+        "ci95Low": 0.9320696257933605,
+        "ci95High": 10.733254960049976
+      },
+      "longP95LatencySeconds": {
+        "mean": 23.22422774329074,
+        "ci95Low": 7.767581964876371,
+        "ci95High": 34.82402613147538
+      },
+      "sloAttainment": {
+        "mean": 0.7796024613018393,
+        "ci95Low": 0.35793357933579334,
+        "ci95High": 0.967741935483871
+      },
+      "oversubscribedFraction": {
+        "mean": 0.5162138000878025,
+        "ci95Low": 0.1198063125444437,
+        "ci95High": 0.9624302705982152
+      },
+      "meanActive": {
+        "mean": 8.409253444065905,
+        "ci95Low": 3.440985729776458,
+        "ci95High": 14.555556300686908
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 4,
+      "policy": "estimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9732870370370366,
+        "ci95Low": 3.7074074074074073,
+        "ci95High": 4.2481481481481485
+      },
+      "dropRate": {
+        "mean": 0.0055748055341856015,
+        "ci95Low": 0,
+        "ci95High": 0.025293586269196026
+      },
+      "meanLatencySeconds": {
+        "mean": 3.368819603898527,
+        "ci95Low": 0.9988862219857846,
+        "ci95High": 6.445145015548433
+      },
+      "p95LatencySeconds": {
+        "mean": 8.830332228963675,
+        "ci95Low": 4.587901597662238,
+        "ci95High": 11.56234666488632
+      },
+      "p99LatencySeconds": {
+        "mean": 11.831884464655912,
+        "ci95Low": 7.083825984353638,
+        "ci95High": 14.693455492867685
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 7.112826131976019,
+        "ci95Low": 2.2128990939641824,
+        "ci95High": 9.318994738196551
+      },
+      "shortP95LatencySeconds": {
+        "mean": 7.4810762201682675,
+        "ci95Low": 2.4186624922487,
+        "ci95High": 9.745675368589957
+      },
+      "longP95LatencySeconds": {
+        "mean": 11.871255591289671,
+        "ci95Low": 6.9026184678087645,
+        "ci95High": 14.668359620980965
+      },
+      "sloAttainment": {
+        "mean": 0.7056921384099869,
+        "ci95Low": 0.3123262279888786,
+        "ci95High": 0.961789375582479
+      },
+      "oversubscribedFraction": {
+        "mean": 0.04110385301570373,
+        "ci95Low": 0.010168891458745633,
+        "ci95High": 0.07199546324658039
+      },
+      "meanActive": {
+        "mean": 3.48934925402202,
+        "ci95Low": 2.5422203380688435,
+        "ci95High": 4.327087559589907
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 4,
+      "policy": "estimated-budget-shortest-first",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9710648148148144,
+        "ci95Low": 3.7074074074074073,
+        "ci95High": 4.2481481481481485
+      },
+      "dropRate": {
+        "mean": 0.006130921210330148,
+        "ci95Low": 0,
+        "ci95High": 0.019792648444863337
+      },
+      "meanLatencySeconds": {
+        "mean": 1.4075474747661019,
+        "ci95Low": 0.7798581035181659,
+        "ci95High": 2.07002537338578
+      },
+      "p95LatencySeconds": {
+        "mean": 8.31209324542954,
+        "ci95Low": 3.7873723194252307,
+        "ci95High": 11.63494812066756
+      },
+      "p99LatencySeconds": {
+        "mean": 12.157616715380495,
+        "ci95Low": 8.00838399854797,
+        "ci95High": 15.02468514750953
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 4.702516312043173,
+        "ci95Low": 0.6273757102522382,
+        "ci95High": 8.386871290536192
+      },
+      "shortP95LatencySeconds": {
+        "mean": 0.7276288927680125,
+        "ci95Low": 0.5982306199581444,
+        "ci95High": 0.8509260475581897
+      },
+      "longP95LatencySeconds": {
+        "mean": 12.213460741653693,
+        "ci95Low": 8.00838399854797,
+        "ci95High": 14.995792282900737
+      },
+      "sloAttainment": {
+        "mean": 0.8957922939287897,
+        "ci95Low": 0.8306451612903226,
+        "ci95High": 0.9753320683111955
+      },
+      "oversubscribedFraction": {
+        "mean": 0.03315039824260628,
+        "ci95Low": 0.006574248002245485,
+        "ci95High": 0.06030431524749091
+      },
+      "meanActive": {
+        "mean": 3.2547958131373065,
+        "ci95Low": 2.493643403680903,
+        "ci95High": 3.9367094694995033
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 4,
+      "policy": "underestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9787037037037023,
+        "ci95Low": 3.7074074074074073,
+        "ci95High": 4.237037037037037
+      },
+      "dropRate": {
+        "mean": 0.004221037481059971,
+        "ci95Low": 0,
+        "ci95High": 0.017335766423357664
+      },
+      "meanLatencySeconds": {
+        "mean": 3.25711365917601,
+        "ci95Low": 0.9368366087469778,
+        "ci95High": 6.738447503120167
+      },
+      "p95LatencySeconds": {
+        "mean": 10.381947127939418,
+        "ci95Low": 4.174099482495734,
+        "ci95High": 14.723245309252604
+      },
+      "p99LatencySeconds": {
+        "mean": 16.039757371123056,
+        "ci95Low": 7.111426353113899,
+        "ci95High": 21.915772829820334
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 6.013570540865023,
+        "ci95Low": 0.5440680013826977,
+        "ci95High": 9.28742052352726
+      },
+      "shortP95LatencySeconds": {
+        "mean": 6.719433910145115,
+        "ci95Low": 1.3992818744067677,
+        "ci95High": 10.045465178288083
+      },
+      "longP95LatencySeconds": {
+        "mean": 16.104982718550257,
+        "ci95Low": 7.767581964876371,
+        "ci95High": 21.047764098572458
+      },
+      "sloAttainment": {
+        "mean": 0.7374222660768028,
+        "ci95Low": 0.3281393217231897,
+        "ci95High": 0.9658444022770398
+      },
+      "oversubscribedFraction": {
+        "mean": 0.34816358121242236,
+        "ci95Low": 0.11204991131213456,
+        "ci95High": 0.5921599946854468
+      },
+      "meanActive": {
+        "mean": 5.718574831978108,
+        "ci95Low": 3.2195500980480563,
+        "ci95High": 8.099907064137899
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 4,
+      "policy": "overestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9678240740740742,
+        "ci95Low": 3.7074074074074073,
+        "ci95High": 4.214814814814815
+      },
+      "dropRate": {
+        "mean": 0.006923594823046444,
+        "ci95Low": 0,
+        "ci95High": 0.026196928635953028
+      },
+      "meanLatencySeconds": {
+        "mean": 3.4498798358260316,
+        "ci95Low": 1.1081778672145333,
+        "ci95High": 6.274649126381273
+      },
+      "p95LatencySeconds": {
+        "mean": 8.297357606983686,
+        "ci95Low": 3.7883747178938165,
+        "ci95High": 10.146938760001063
+      },
+      "p99LatencySeconds": {
+        "mean": 9.626688398400168,
+        "ci95Low": 5.654110469178363,
+        "ci95High": 11.219859682166145
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 7.657968943737023,
+        "ci95Low": 2.951266970528337,
+        "ci95High": 9.49487952072485
+      },
+      "shortP95LatencySeconds": {
+        "mean": 7.90577280967633,
+        "ci95Low": 3.1175388162573583,
+        "ci95High": 9.785277676777099
+      },
+      "longP95LatencySeconds": {
+        "mean": 9.411058385985708,
+        "ci95Low": 5.393762912870571,
+        "ci95High": 11.168167855952788
+      },
+      "sloAttainment": {
+        "mean": 0.6974752858769855,
+        "ci95Low": 0.2884972170686456,
+        "ci95High": 0.963963963963964
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 1.9149709712500211,
+        "ci95Low": 1.5885645968017181,
+        "ci95High": 2.288254688526409
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 4,
+      "policy": "oracle-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9726851851851848,
+        "ci95Low": 3.7074074074074073,
+        "ci95High": 4.262962962962963
+      },
+      "dropRate": {
+        "mean": 0.005736082416176567,
+        "ci95Low": 0,
+        "ci95High": 0.018949181739879414
+      },
+      "meanLatencySeconds": {
+        "mean": 3.3467437665338693,
+        "ci95Low": 1.013941803086211,
+        "ci95High": 6.407008768691097
+      },
+      "p95LatencySeconds": {
+        "mean": 8.560379085261783,
+        "ci95Low": 4.280761329290115,
+        "ci95High": 10.944084506536754
+      },
+      "p99LatencySeconds": {
+        "mean": 10.909981399120834,
+        "ci95Low": 6.560406138669983,
+        "ci95High": 13.252569648419481
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 7.196246874895718,
+        "ci95Low": 2.532016970528332,
+        "ci95High": 9.407074278051773
+      },
+      "shortP95LatencySeconds": {
+        "mean": 7.599167959827019,
+        "ci95Low": 2.643863591605225,
+        "ci95High": 9.851164883423706
+      },
+      "longP95LatencySeconds": {
+        "mean": 10.889843406309245,
+        "ci95Low": 6.490540279579221,
+        "ci95High": 13.284621423708344
+      },
+      "sloAttainment": {
+        "mean": 0.7082199377490086,
+        "ci95Low": 0.2750689972401104,
+        "ci95High": 0.9639468690702088
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 3.1487274909634277,
+        "ci95Low": 2.367852898396019,
+        "ci95High": 3.9401801901746656
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 5.5,
+      "policy": "request-count-16",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 4.310462962962963,
+        "ci95Low": 3.862962962962963,
+        "ci95High": 4.681481481481481
+      },
+      "dropRate": {
+        "mean": 0.21219567177288826,
+        "ci95Low": 0.1362994350282486,
+        "ci95High": 0.2915319974143504
+      },
+      "meanLatencySeconds": {
+        "mean": 12.117068015656184,
+        "ci95Low": 10.226787624529832,
+        "ci95High": 13.11576814807388
+      },
+      "p95LatencySeconds": {
+        "mean": 26.835258499774646,
+        "ci95Low": 24.246954109741722,
+        "ci95High": 29.563893369042546
+      },
+      "p99LatencySeconds": {
+        "mean": 38.344551165865894,
+        "ci95Low": 34.98139054711335,
+        "ci95High": 40.853867365180605
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 9.947385681039922,
+        "ci95Low": 9.902701117924266,
+        "ci95High": 9.96958447250006
+      },
+      "shortP95LatencySeconds": {
+        "mean": 11.711274845890165,
+        "ci95Low": 11.325009863448969,
+        "ci95High": 11.994154474662707
+      },
+      "longP95LatencySeconds": {
+        "mean": 38.382616874861,
+        "ci95Low": 34.98139054711335,
+        "ci95High": 40.60634615102259
+      },
+      "sloAttainment": {
+        "mean": 0.043973914877191225,
+        "ci95Low": 0,
+        "ci95High": 0.18115942028985507
+      },
+      "oversubscribedFraction": {
+        "mean": 0.9491030373690821,
+        "ci95Low": 0.8533884614835784,
+        "ci95High": 0.985717921282097
+      },
+      "meanActive": {
+        "mean": 15.223557936677519,
+        "ci95Low": 14.068636980186337,
+        "ci95High": 15.747141483291335
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 5.5,
+      "policy": "estimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 4.983472222222222,
+        "ci95Low": 4.7,
+        "ci95High": 5.225925925925926
+      },
+      "dropRate": {
+        "mean": 0.08943132937203123,
+        "ci95Low": 0.0480225988700565,
+        "ci95High": 0.11787819253438114
+      },
+      "meanLatencySeconds": {
+        "mean": 9.164595936341382,
+        "ci95Low": 8.065768427323482,
+        "ci95High": 9.706759687110061
+      },
+      "p95LatencySeconds": {
+        "mean": 13.08483723662448,
+        "ci95Low": 12.41030036221656,
+        "ci95High": 13.607426135695874
+      },
+      "p99LatencySeconds": {
+        "mean": 16.284952692319536,
+        "ci95Low": 15.204499354037637,
+        "ci95High": 17.040126422248818
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 9.851412840019199,
+        "ci95Low": 9.727413267070688,
+        "ci95High": 9.900152524668357
+      },
+      "shortP95LatencySeconds": {
+        "mean": 10.385443325176276,
+        "ci95Low": 10.215635654640607,
+        "ci95High": 10.507228548739079
+      },
+      "longP95LatencySeconds": {
+        "mean": 16.65949435464047,
+        "ci95Low": 15.49405388418532,
+        "ci95High": 17.25754431477634
+      },
+      "sloAttainment": {
+        "mean": 0.03788077862926227,
+        "ci95Low": 0,
+        "ci95High": 0.15565345080763582
+      },
+      "oversubscribedFraction": {
+        "mean": 0.06264684590116226,
+        "ci95Low": 0.03116811420911846,
+        "ci95High": 0.09347108542539138
+      },
+      "meanActive": {
+        "mean": 4.908965500494728,
+        "ci95Low": 4.634737495285065,
+        "ci95High": 5.146814987036059
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 5.5,
+      "policy": "estimated-budget-shortest-first",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 5.145694444444446,
+        "ci95Low": 4.888888888888889,
+        "ci95High": 5.366666666666666
+      },
+      "dropRate": {
+        "mean": 0.05981641882030372,
+        "ci95Low": 0.0346045197740113,
+        "ci95High": 0.08151093439363817
+      },
+      "meanLatencySeconds": {
+        "mean": 2.0922077437994604,
+        "ci95Low": 1.9292221634938433,
+        "ci95High": 2.2174679830212316
+      },
+      "p95LatencySeconds": {
+        "mean": 12.673880268264902,
+        "ci95Low": 11.851286249277507,
+        "ci95High": 13.224211901631406
+      },
+      "p99LatencySeconds": {
+        "mean": 15.994174198819712,
+        "ci95Low": 15.016954415396256,
+        "ci95High": 16.963078960577292
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 8.990058827211428,
+        "ci95Low": 8.526672687970802,
+        "ci95High": 9.255752901565444
+      },
+      "shortP95LatencySeconds": {
+        "mean": 0.9207469903429244,
+        "ci95Low": 0.8405659158293588,
+        "ci95High": 1.0404608169884142
+      },
+      "longP95LatencySeconds": {
+        "mean": 16.44561838787333,
+        "ci95Low": 15.295039071047114,
+        "ci95High": 17.473760904977155
+      },
+      "sloAttainment": {
+        "mean": 0.8532836414053279,
+        "ci95Low": 0.8427389014296464,
+        "ci95High": 0.8686502177068215
+      },
+      "oversubscribedFraction": {
+        "mean": 0.05481709863495117,
+        "ci95Low": 0.028981922764641215,
+        "ci95High": 0.08423044132803198
+      },
+      "meanActive": {
+        "mean": 4.57718880093085,
+        "ci95Low": 4.402802540359551,
+        "ci95High": 4.724466120581788
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 5.5,
+      "policy": "underestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 5.002268518518517,
+        "ci95Low": 4.725925925925926,
+        "ci95High": 5.274074074074074
+      },
+      "dropRate": {
+        "mean": 0.08599887175930634,
+        "ci95Low": 0.05320600272851296,
+        "ci95High": 0.11656843483955469
+      },
+      "meanLatencySeconds": {
+        "mean": 9.827635217231016,
+        "ci95Low": 8.792358907561413,
+        "ci95High": 10.504561479753473
+      },
+      "p95LatencySeconds": {
+        "mean": 17.176951152053917,
+        "ci95Low": 16.13330536037418,
+        "ci95High": 18.387715006302585
+      },
+      "p99LatencySeconds": {
+        "mean": 23.49370770035471,
+        "ci95Low": 21.92880433398875,
+        "ci95High": 24.960606033784074
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 9.829768851718553,
+        "ci95Low": 9.717113135530369,
+        "ci95High": 9.8886376035951
+      },
+      "shortP95LatencySeconds": {
+        "mean": 10.846799295280867,
+        "ci95Low": 10.58421873704728,
+        "ci95High": 11.048483087379907
+      },
+      "longP95LatencySeconds": {
+        "mean": 24.16135391760249,
+        "ci95Low": 22.27854166117993,
+        "ci95High": 25.725044983111914
+      },
+      "sloAttainment": {
+        "mean": 0.04327830075958816,
+        "ci95Low": 0,
+        "ci95High": 0.15071428571428572
+      },
+      "oversubscribedFraction": {
+        "mean": 0.6226895768045665,
+        "ci95Low": 0.5324614946894344,
+        "ci95High": 0.7169827024352685
+      },
+      "meanActive": {
+        "mean": 9.226965236905809,
+        "ci95Low": 8.615188219458508,
+        "ci95High": 9.559553973022414
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 5.5,
+      "policy": "overestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 4.993055555555556,
+        "ci95Low": 4.729629629629629,
+        "ci95High": 5.211111111111111
+      },
+      "dropRate": {
+        "mean": 0.08765127544404089,
+        "ci95Low": 0.050764951321279554,
+        "ci95High": 0.12264150943396226
+      },
+      "meanLatencySeconds": {
+        "mean": 8.664514314284371,
+        "ci95Low": 7.81261989579231,
+        "ci95High": 9.261906933827337
+      },
+      "p95LatencySeconds": {
+        "mean": 10.691021639688921,
+        "ci95Low": 10.418599203510894,
+        "ci95High": 10.911258943313072
+      },
+      "p99LatencySeconds": {
+        "mean": 11.781172526090849,
+        "ci95Low": 11.433872375845112,
+        "ci95High": 12.223888360218972
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 9.842946753694791,
+        "ci95Low": 9.750847537842631,
+        "ci95High": 9.89171455415439
+      },
+      "shortP95LatencySeconds": {
+        "mean": 10.242128426024323,
+        "ci95Low": 10.103433467770131,
+        "ci95High": 10.347759300437467
+      },
+      "longP95LatencySeconds": {
+        "mean": 11.917619327825117,
+        "ci95Low": 11.470348603237767,
+        "ci95High": 12.285873907875754
+      },
+      "sloAttainment": {
+        "mean": 0.0390995101108295,
+        "ci95Low": 0,
+        "ci95High": 0.15514705882352942
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 2.7351193352848617,
+        "ci95Low": 2.5606507008936346,
+        "ci95High": 2.8905448714406488
+      }
+    },
+    {
+      "workload": "heavy-tail",
+      "rate": 5.5,
+      "policy": "oracle-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 5.010092592592592,
+        "ci95Low": 4.7481481481481485,
+        "ci95High": 5.2518518518518515
+      },
+      "dropRate": {
+        "mean": 0.08456252438499809,
+        "ci95Low": 0.052259887005649715,
+        "ci95High": 0.11936339522546419
+      },
+      "meanLatencySeconds": {
+        "mean": 8.900197630536137,
+        "ci95Low": 8.022200049350953,
+        "ci95High": 9.474040481351926
+      },
+      "p95LatencySeconds": {
+        "mean": 12.317402447386199,
+        "ci95Low": 11.717597904170333,
+        "ci95High": 12.719766780209625
+      },
+      "p99LatencySeconds": {
+        "mean": 14.211919424502327,
+        "ci95Low": 13.71177548896398,
+        "ci95High": 14.698974323796847
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 9.832134914076091,
+        "ci95Low": 9.731947318858602,
+        "ci95High": 9.891885960717133
+      },
+      "shortP95LatencySeconds": {
+        "mean": 10.370720160447664,
+        "ci95Low": 10.21931547385693,
+        "ci95High": 10.499439250111124
+      },
+      "longP95LatencySeconds": {
+        "mean": 14.363901712215917,
+        "ci95Low": 13.838751466997707,
+        "ci95High": 14.787250298037634
+      },
+      "sloAttainment": {
+        "mean": 0.04241073458959248,
+        "ci95Low": 0,
+        "ci95High": 0.14768552534900808
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 4.687717596512426,
+        "ci95Low": 4.295951839405786,
+        "ci95High": 5.131167253065127
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 2.5,
+      "policy": "request-count-16",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4922222222222215,
+        "ci95Low": 2.303703703703704,
+        "ci95High": 2.651851851851852
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.5038073397451146,
+        "ci95Low": 0.430202492109794,
+        "ci95High": 0.5913850321988251
+      },
+      "p95LatencySeconds": {
+        "mean": 1.19431159027503,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.6134710089505546
+      },
+      "p99LatencySeconds": {
+        "mean": 1.648249872812897,
+        "ci95Low": 1.060362866861837,
+        "ci95High": 2.5854956187098708
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "shortP95LatencySeconds": {
+        "mean": 1.19431159027503,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.6134710089505546
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 1.2521122882701297,
+        "ci95Low": 1.036481281033574,
+        "ci95High": 1.5068849665680515
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 2.5,
+      "policy": "estimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4922222222222215,
+        "ci95Low": 2.303703703703704,
+        "ci95High": 2.651851851851852
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.5037931134508147,
+        "ci95Low": 0.430202492109794,
+        "ci95High": 0.5913850321988251
+      },
+      "p95LatencySeconds": {
+        "mean": 1.19431159027503,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.6134710089505546
+      },
+      "p99LatencySeconds": {
+        "mean": 1.6474453327574647,
+        "ci95Low": 1.060362866861837,
+        "ci95High": 2.581799130983484
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "shortP95LatencySeconds": {
+        "mean": 1.19431159027503,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.6134710089505546
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 1.2520487952273007,
+        "ci95Low": 1.036481281033574,
+        "ci95High": 1.5068849665680515
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 2.5,
+      "policy": "estimated-budget-shortest-first",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4922222222222215,
+        "ci95Low": 2.303703703703704,
+        "ci95High": 2.651851851851852
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.5037931134508147,
+        "ci95Low": 0.430202492109794,
+        "ci95High": 0.5913850321988251
+      },
+      "p95LatencySeconds": {
+        "mean": 1.19431159027503,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.6134710089505546
+      },
+      "p99LatencySeconds": {
+        "mean": 1.6474453327574647,
+        "ci95Low": 1.060362866861837,
+        "ci95High": 2.581799130983484
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "shortP95LatencySeconds": {
+        "mean": 1.19431159027503,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.6134710089505546
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 1.2520487952273007,
+        "ci95Low": 1.036481281033574,
+        "ci95High": 1.5068849665680515
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 2.5,
+      "policy": "underestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4922222222222215,
+        "ci95Low": 2.303703703703704,
+        "ci95High": 2.651851851851852
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.5038073397451146,
+        "ci95Low": 0.430202492109794,
+        "ci95High": 0.5913850321988251
+      },
+      "p95LatencySeconds": {
+        "mean": 1.19431159027503,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.6134710089505546
+      },
+      "p99LatencySeconds": {
+        "mean": 1.648249872812897,
+        "ci95Low": 1.060362866861837,
+        "ci95High": 2.5854956187098708
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "shortP95LatencySeconds": {
+        "mean": 1.19431159027503,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.6134710089505546
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 1.2521122882701297,
+        "ci95Low": 1.036481281033574,
+        "ci95High": 1.5068849665680515
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 2.5,
+      "policy": "overestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4922222222222215,
+        "ci95Low": 2.303703703703704,
+        "ci95High": 2.651851851851852
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.4964593207982776,
+        "ci95Low": 0.42979610374247895,
+        "ci95High": 0.5723688617022451
+      },
+      "p95LatencySeconds": {
+        "mean": 1.143016803952063,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.3499999999999943
+      },
+      "p99LatencySeconds": {
+        "mean": 1.4617626017741179,
+        "ci95Low": 1.060362866861837,
+        "ci95High": 2.0513568278039145
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 0.0033046897930619325,
+        "ci95Low": 0,
+        "ci95High": 0.0965110175318955
+      },
+      "shortP95LatencySeconds": {
+        "mean": 1.143016803952063,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.3499999999999943
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 1.2163927193797803,
+        "ci95Low": 1.0285763972919997,
+        "ci95High": 1.4144640391566297
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 2.5,
+      "policy": "oracle-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 2.4922222222222215,
+        "ci95Low": 2.303703703703704,
+        "ci95High": 2.651851851851852
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 0.5037931134508147,
+        "ci95Low": 0.430202492109794,
+        "ci95High": 0.5913850321988251
+      },
+      "p95LatencySeconds": {
+        "mean": 1.19431159027503,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.6134710089505546
+      },
+      "p99LatencySeconds": {
+        "mean": 1.6474453327574647,
+        "ci95Low": 1.060362866861837,
+        "ci95High": 2.581799130983484
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "shortP95LatencySeconds": {
+        "mean": 1.19431159027503,
+        "ci95Low": 0.8488857634013698,
+        "ci95High": 1.6134710089505546
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 1,
+        "ci95Low": 1,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 1.2520487952273007,
+        "ci95Low": 1.036481281033574,
+        "ci95High": 1.5068849665680515
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 4,
+      "policy": "request-count-16",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9979629629629643,
+        "ci95Low": 3.7777777777777777,
+        "ci95High": 4.225925925925926
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 1.9689233673933149,
+        "ci95Low": 1.2648623370687273,
+        "ci95High": 3.515504611708366
+      },
+      "p95LatencySeconds": {
+        "mean": 4.621521937473991,
+        "ci95Low": 3.008032038495884,
+        "ci95High": 8.360762424017778
+      },
+      "p99LatencySeconds": {
+        "mean": 5.3742482602431405,
+        "ci95Low": 3.4951539886158685,
+        "ci95High": 9.2002836262905
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 1.1600004795471244,
+        "ci95Low": 0,
+        "ci95High": 4.760762424017784
+      },
+      "shortP95LatencySeconds": {
+        "mean": 4.621521937473991,
+        "ci95Low": 3.008032038495884,
+        "ci95High": 8.360762424017778
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.9552720775336144,
+        "ci95Low": 0.736697247706422,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 7.060208860278387,
+        "ci95Low": 4.708652465567393,
+        "ci95High": 9.541941934462015
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 4,
+      "policy": "estimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9979629629629643,
+        "ci95Low": 3.7777777777777777,
+        "ci95High": 4.225925925925926
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 1.8971266048084938,
+        "ci95Low": 1.2579240056913985,
+        "ci95High": 3.3581301274846913
+      },
+      "p95LatencySeconds": {
+        "mean": 4.349706317705078,
+        "ci95Low": 2.846212132820966,
+        "ci95High": 8.052191940004903
+      },
+      "p99LatencySeconds": {
+        "mean": 5.092532405373381,
+        "ci95Low": 3.390383488247352,
+        "ci95High": 8.813402830704433
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 1.4861006400767696,
+        "ci95Low": 0.044664600898840945,
+        "ci95High": 5.127191940004906
+      },
+      "shortP95LatencySeconds": {
+        "mean": 4.349706317705078,
+        "ci95Low": 2.846212132820966,
+        "ci95High": 8.052191940004903
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.9669676162485598,
+        "ci95Low": 0.7458715596330275,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 6.49385656297793,
+        "ci95Low": 4.604654495907308,
+        "ci95High": 8.391468883766048
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 4,
+      "policy": "estimated-budget-shortest-first",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9979629629629643,
+        "ci95Low": 3.7777777777777777,
+        "ci95High": 4.225925925925926
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 1.8971266048084938,
+        "ci95Low": 1.2579240056913985,
+        "ci95High": 3.3581301274846913
+      },
+      "p95LatencySeconds": {
+        "mean": 4.349706317705078,
+        "ci95Low": 2.846212132820966,
+        "ci95High": 8.052191940004903
+      },
+      "p99LatencySeconds": {
+        "mean": 5.092532405373381,
+        "ci95Low": 3.390383488247352,
+        "ci95High": 8.813402830704433
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 1.4861006400767696,
+        "ci95Low": 0.044664600898840945,
+        "ci95High": 5.127191940004906
+      },
+      "shortP95LatencySeconds": {
+        "mean": 4.349706317705078,
+        "ci95Low": 2.846212132820966,
+        "ci95High": 8.052191940004903
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.9669676162485598,
+        "ci95Low": 0.7458715596330275,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 6.49385656297793,
+        "ci95Low": 4.604654495907308,
+        "ci95High": 8.391468883766048
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 4,
+      "policy": "underestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9979629629629643,
+        "ci95Low": 3.7777777777777777,
+        "ci95High": 4.225925925925926
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 2.0898375804684894,
+        "ci95Low": 1.267183920980717,
+        "ci95High": 3.897325462129095
+      },
+      "p95LatencySeconds": {
+        "mean": 5.257719045626088,
+        "ci95Low": 3.008032038495884,
+        "ci95High": 9.451929791167132
+      },
+      "p99LatencySeconds": {
+        "mean": 6.136615844536822,
+        "ci95Low": 3.6110015598529017,
+        "ci95High": 10.439108467641447
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 0.3824454100500854,
+        "ci95Low": 0,
+        "ci95High": 3.6019297911671373
+      },
+      "shortP95LatencySeconds": {
+        "mean": 5.257719045626088,
+        "ci95Low": 3.008032038495884,
+        "ci95High": 9.451929791167132
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.9163673462808172,
+        "ci95Low": 0.690990990990991,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0.015172588408184024,
+        "ci95Low": 0,
+        "ci95High": 0.09100511364596868
+      },
+      "meanActive": {
+        "mean": 8.009232132996992,
+        "ci95Low": 4.792760643928881,
+        "ci95High": 12.386248862465116
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 4,
+      "policy": "overestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9979629629629643,
+        "ci95Low": 3.7777777777777777,
+        "ci95High": 4.225925925925926
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 1.5977090394032523,
+        "ci95Low": 1.1070045304270746,
+        "ci95High": 2.8916435089301675
+      },
+      "p95LatencySeconds": {
+        "mean": 3.6207726533277915,
+        "ci95Low": 2.24749582093456,
+        "ci95High": 7.20125299110579
+      },
+      "p99LatencySeconds": {
+        "mean": 4.304107567286198,
+        "ci95Low": 2.732490242686765,
+        "ci95High": 8.02877196239396
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 2.277549660933414,
+        "ci95Low": 0.9158683804851933,
+        "ci95High": 5.851252991105781
+      },
+      "shortP95LatencySeconds": {
+        "mean": 3.6207726533277915,
+        "ci95Low": 2.24749582093456,
+        "ci95High": 7.20125299110579
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.983342483732511,
+        "ci95Low": 0.7770642201834862,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 4.12917646866843,
+        "ci95Low": 3.498648869026024,
+        "ci95High": 4.823883789747526
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 4,
+      "policy": "oracle-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 3.9979629629629643,
+        "ci95Low": 3.7777777777777777,
+        "ci95High": 4.225925925925926
+      },
+      "dropRate": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanLatencySeconds": {
+        "mean": 1.8971266048084938,
+        "ci95Low": 1.2579240056913985,
+        "ci95High": 3.3581301274846913
+      },
+      "p95LatencySeconds": {
+        "mean": 4.349706317705078,
+        "ci95Low": 2.846212132820966,
+        "ci95High": 8.052191940004903
+      },
+      "p99LatencySeconds": {
+        "mean": 5.092532405373381,
+        "ci95Low": 3.390383488247352,
+        "ci95High": 8.813402830704433
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 1.4861006400767696,
+        "ci95Low": 0.044664600898840945,
+        "ci95High": 5.127191940004906
+      },
+      "shortP95LatencySeconds": {
+        "mean": 4.349706317705078,
+        "ci95Low": 2.846212132820966,
+        "ci95High": 8.052191940004903
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.9669676162485598,
+        "ci95Low": 0.7458715596330275,
+        "ci95High": 1
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 6.49385656297793,
+        "ci95Low": 4.604654495907308,
+        "ci95High": 8.391468883766048
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 5.5,
+      "policy": "request-count-16",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 4.50402777777778,
+        "ci95Low": 4.4222222222222225,
+        "ci95High": 4.5814814814814815
+      },
+      "dropRate": {
+        "mean": 0.1792673623523911,
+        "ci95Low": 0.13646055437100213,
+        "ci95High": 0.2247557003257329
+      },
+      "meanLatencySeconds": {
+        "mean": 12.738844290200941,
+        "ci95Low": 11.829178397299666,
+        "ci95High": 13.104351867792204
+      },
+      "p95LatencySeconds": {
+        "mean": 13.555042479335658,
+        "ci95Low": 13.522079699114897,
+        "ci95High": 13.576396875939139
+      },
+      "p99LatencySeconds": {
+        "mean": 13.590540829113005,
+        "ci95Low": 13.582329629198625,
+        "ci95High": 13.595870561806692
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 9.955715513580998,
+        "ci95Low": 9.922079699114875,
+        "ci95High": 9.97649014694133
+      },
+      "shortP95LatencySeconds": {
+        "mean": 13.555042479335658,
+        "ci95Low": 13.522079699114897,
+        "ci95High": 13.576396875939139
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.0011038920921538514,
+        "ci95Low": 0,
+        "ci95High": 0.03395311236863379
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 15.751556353815488,
+        "ci95Low": 15.421845221234978,
+        "ci95High": 15.919023409707334
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 5.5,
+      "policy": "estimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 4.500138888888892,
+        "ci95Low": 4.411111111111111,
+        "ci95High": 4.574074074074074
+      },
+      "dropRate": {
+        "mean": 0.1799741983877513,
+        "ci95Low": 0.13717128642501777,
+        "ci95High": 0.2254071661237785
+      },
+      "meanLatencySeconds": {
+        "mean": 12.104379676746241,
+        "ci95Low": 11.273630933972939,
+        "ci95High": 12.414548389398103
+      },
+      "p95LatencySeconds": {
+        "mean": 12.880438985473225,
+        "ci95Low": 12.851047298877944,
+        "ci95High": 12.901901491424155
+      },
+      "p99LatencySeconds": {
+        "mean": 12.915082807024197,
+        "ci95Low": 12.905501830025315,
+        "ci95High": 12.920801514773629
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 9.956296205392551,
+        "ci95Low": 9.927561099706509,
+        "ci95High": 9.977650464462677
+      },
+      "shortP95LatencySeconds": {
+        "mean": 12.880438985473225,
+        "ci95Low": 12.851047298877944,
+        "ci95High": 12.901901491424155
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.0014597377480167154,
+        "ci95Low": 0,
+        "ci95High": 0.04291497975708502
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 12.83517465466311,
+        "ci95Low": 12.581571648953537,
+        "ci95High": 12.953048493557084
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 5.5,
+      "policy": "estimated-budget-shortest-first",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 4.500138888888892,
+        "ci95Low": 4.411111111111111,
+        "ci95High": 4.574074074074074
+      },
+      "dropRate": {
+        "mean": 0.1799741983877513,
+        "ci95Low": 0.13717128642501777,
+        "ci95High": 0.2254071661237785
+      },
+      "meanLatencySeconds": {
+        "mean": 12.104379676746241,
+        "ci95Low": 11.273630933972939,
+        "ci95High": 12.414548389398103
+      },
+      "p95LatencySeconds": {
+        "mean": 12.880438985473225,
+        "ci95Low": 12.851047298877944,
+        "ci95High": 12.901901491424155
+      },
+      "p99LatencySeconds": {
+        "mean": 12.915082807024197,
+        "ci95Low": 12.905501830025315,
+        "ci95High": 12.920801514773629
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 9.956296205392551,
+        "ci95Low": 9.927561099706509,
+        "ci95High": 9.977650464462677
+      },
+      "shortP95LatencySeconds": {
+        "mean": 12.880438985473225,
+        "ci95Low": 12.851047298877944,
+        "ci95High": 12.901901491424155
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.0014597377480167154,
+        "ci95Low": 0,
+        "ci95High": 0.04291497975708502
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 12.83517465466311,
+        "ci95Low": 12.581571648953537,
+        "ci95High": 12.953048493557084
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 5.5,
+      "policy": "underestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 4.5203240740740736,
+        "ci95Low": 4.425925925925926,
+        "ci95High": 4.603703703703704
+      },
+      "dropRate": {
+        "mean": 0.17629084552608104,
+        "ci95Low": 0.13219616204690832,
+        "ci95High": 0.22320862396956245
+      },
+      "meanLatencySeconds": {
+        "mean": 14.820511981494667,
+        "ci95Low": 13.91438759668829,
+        "ci95High": 15.208665359616168
+      },
+      "p95LatencySeconds": {
+        "mean": 15.798927309636984,
+        "ci95Low": 15.77482060644374,
+        "ci95High": 15.818319402407099
+      },
+      "p99LatencySeconds": {
+        "mean": 15.839869932678619,
+        "ci95Low": 15.829685739755774,
+        "ci95High": 15.846537180145887
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 9.950333936921808,
+        "ci95Low": 9.926828311264842,
+        "ci95High": 9.968895120796503
+      },
+      "shortP95LatencySeconds": {
+        "mean": 15.798927309636984,
+        "ci95Low": 15.77482060644374,
+        "ci95High": 15.818319402407099
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.00027180528109516854,
+        "ci95Low": 0,
+        "ci95High": 0.0040453074433656954
+      },
+      "oversubscribedFraction": {
+        "mean": 0.2948330223152257,
+        "ci95Low": 0.13773052640609923,
+        "ci95High": 0.425525057524401
+      },
+      "meanActive": {
+        "mean": 25.35086327434812,
+        "ci95Low": 24.6414732658984,
+        "ci95High": 25.761813771374754
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 5.5,
+      "policy": "overestimated-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 4.48902777777778,
+        "ci95Low": 4.4222222222222225,
+        "ci95High": 4.562962962962963
+      },
+      "dropRate": {
+        "mean": 0.18200022607275843,
+        "ci95Low": 0.13859275053304904,
+        "ci95High": 0.2254071661237785
+      },
+      "meanLatencySeconds": {
+        "mean": 10.633655858381124,
+        "ci95Low": 9.838339569034963,
+        "ci95High": 10.898561131450101
+      },
+      "p95LatencySeconds": {
+        "mean": 11.310520320143889,
+        "ci95Low": 11.281570330016748,
+        "ci95High": 11.324965690333954
+      },
+      "p99LatencySeconds": {
+        "mean": 11.34205958099623,
+        "ci95Low": 11.328510660621305,
+        "ci95High": 11.346521299532988
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 9.96076280289237,
+        "ci95Low": 9.931570330016754,
+        "ci95High": 9.974965690333931
+      },
+      "shortP95LatencySeconds": {
+        "mean": 11.310520320143889,
+        "ci95Low": 11.281570330016748,
+        "ci95High": 11.324965690333954
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.002767527824147556,
+        "ci95Low": 0,
+        "ci95High": 0.060064935064935064
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 5.9624810511542155,
+        "ci95Low": 5.877642456091359,
+        "ci95High": 5.991492516444813
+      }
+    },
+    {
+      "workload": "fixed-control",
+      "rate": 5.5,
+      "policy": "oracle-token-budget",
+      "repeats": 80,
+      "throughputRps": {
+        "mean": 4.500138888888892,
+        "ci95Low": 4.411111111111111,
+        "ci95High": 4.574074074074074
+      },
+      "dropRate": {
+        "mean": 0.1799741983877513,
+        "ci95Low": 0.13717128642501777,
+        "ci95High": 0.2254071661237785
+      },
+      "meanLatencySeconds": {
+        "mean": 12.104379676746241,
+        "ci95Low": 11.273630933972939,
+        "ci95High": 12.414548389398103
+      },
+      "p95LatencySeconds": {
+        "mean": 12.880438985473225,
+        "ci95Low": 12.851047298877944,
+        "ci95High": 12.901901491424155
+      },
+      "p99LatencySeconds": {
+        "mean": 12.915082807024197,
+        "ci95Low": 12.905501830025315,
+        "ci95High": 12.920801514773629
+      },
+      "p95QueueWaitSeconds": {
+        "mean": 9.956296205392551,
+        "ci95Low": 9.927561099706509,
+        "ci95High": 9.977650464462677
+      },
+      "shortP95LatencySeconds": {
+        "mean": 12.880438985473225,
+        "ci95Low": 12.851047298877944,
+        "ci95High": 12.901901491424155
+      },
+      "longP95LatencySeconds": {
+        "mean": null
+      },
+      "sloAttainment": {
+        "mean": 0.0014597377480167154,
+        "ci95Low": 0,
+        "ci95High": 0.04291497975708502
+      },
+      "oversubscribedFraction": {
+        "mean": 0,
+        "ci95Low": 0,
+        "ci95High": 0
+      },
+      "meanActive": {
+        "mean": 12.83517465466311,
+        "ci95Low": 12.581571648953537,
+        "ci95High": 12.953048493557084
+      }
+    }
+  ]
+}
