@@ -187,8 +187,8 @@ authorized Git commit and push path only.
 
 ## Git publication
 
-- Batch commit: pending at report creation.
-- Push to `origin/main`: pending at report creation.
+- Batch commit: `8553dea` (`Publish retrieval fusion and agent analysis batch`).
+- Push to `origin/main`: succeeded (`e97db59..8553dea`).
 
-These two fields are updated in a follow-up durable report commit after the
-publication commit and push succeed.
+This publication evidence was recorded in a follow-up report-only commit so the
+batch commit itself remained atomic and reproducible.
