@@ -1,6 +1,6 @@
 # Latest AI Article Production — 2026-07-19
 
-Run completed: pending publication
+Run completed: 2026-07-19 11:22 EDT
 
 ## Outcome
 
@@ -146,8 +146,8 @@ authorized Git commit and push path.
 
 ## Git publication
 
-- Batch commit: pending.
-- Push to `origin/main`: pending.
+- Batch commit: `0c4a095` (`Publish token admission and AI analysis batch`).
+- Push to `origin/main`: succeeded (`94e5b01..0c4a095`).
 
 Publication details will be recorded in a report-only follow-up commit so the
 candidate batch remains atomic.
