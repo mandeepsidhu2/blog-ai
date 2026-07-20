@@ -1,0 +1,177 @@
+{
+  "config": {
+    "version": 1,
+    "seed": 20260720,
+    "requestsPerRepeat": 5000,
+    "repeats": 240,
+    "bootstrapSamples": 5000,
+    "deadlinesSeconds": [
+      2,
+      4,
+      8,
+      16
+    ],
+    "endpoints": {
+      "steady": {
+        "medianSeconds": 1.6,
+        "sigma": 0.25,
+        "tailProbability": 0,
+        "tailMedianSeconds": 12,
+        "tailSigma": 0.25
+      },
+      "fast_spiky": {
+        "medianSeconds": 0.9,
+        "sigma": 0.2,
+        "tailProbability": 0.06,
+        "tailMedianSeconds": 12,
+        "tailSigma": 0.25
+      }
+    }
+  },
+  "aggregates": [
+    {
+      "condition": "main",
+      "endpoint": "steady",
+      "deadline": 2,
+      "repeats": 240,
+      "successRate": 0.8141049999999996,
+      "completedOnlyP95": 1.9294270920893553,
+      "deadlineAwareP95": 2,
+      "latentP95": 2.4141038615416623,
+      "restrictedMean": 1.5935393895041687,
+      "timeoutRate": 0.18589499999999995
+    },
+    {
+      "condition": "main",
+      "endpoint": "fast_spiky",
+      "deadline": 2,
+      "repeats": 240,
+      "successRate": 0.9399516666666667,
+      "completedOnlyP95": 1.2509206863031685,
+      "deadlineAwareP95": 1.998857521989816,
+      "latentP95": 9.33068951247962,
+      "restrictedMean": 0.9832545674668638,
+      "timeoutRate": 0.06004833333333333
+    },
+    {
+      "condition": "no_tail_control",
+      "endpoint": "fast_spiky",
+      "deadline": 2,
+      "repeats": 240,
+      "successRate": 0.9999824999999997,
+      "completedOnlyP95": 1.2506882536066044,
+      "deadlineAwareP95": 1.250689398813056,
+      "latentP95": 1.250689398813056,
+      "restrictedMean": 0.9183470782146066,
+      "timeoutRate": 0.000017499999999998074
+    },
+    {
+      "condition": "main",
+      "endpoint": "steady",
+      "deadline": 4,
+      "repeats": 240,
+      "successRate": 0.9999033333333317,
+      "completedOnlyP95": 2.413970132378262,
+      "deadlineAwareP95": 2.4141038615416623,
+      "latentP95": 2.4141038615416623,
+      "restrictedMean": 1.6511261725548756,
+      "timeoutRate": 0.00009666666666665741
+    },
+    {
+      "condition": "main",
+      "endpoint": "fast_spiky",
+      "deadline": 4,
+      "repeats": 240,
+      "successRate": 0.9399675,
+      "completedOnlyP95": 1.2509743381787761,
+      "deadlineAwareP95": 3.990524188656482,
+      "latentP95": 9.33068951247962,
+      "restrictedMean": 1.10332082496798,
+      "timeoutRate": 0.0600325
+    },
+    {
+      "condition": "no_tail_control",
+      "endpoint": "fast_spiky",
+      "deadline": 4,
+      "repeats": 240,
+      "successRate": 1,
+      "completedOnlyP95": 1.250689398813056,
+      "deadlineAwareP95": 1.250689398813056,
+      "latentP95": 1.250689398813056,
+      "restrictedMean": 0.918348412375832,
+      "timeoutRate": 0
+    },
+    {
+      "condition": "main",
+      "endpoint": "steady",
+      "deadline": 8,
+      "repeats": 240,
+      "successRate": 1,
+      "completedOnlyP95": 2.4141038615416623,
+      "deadlineAwareP95": 2.4141038615416623,
+      "latentP95": 2.4141038615416623,
+      "restrictedMean": 1.6511471227383132,
+      "timeoutRate": 0
+    },
+    {
+      "condition": "main",
+      "endpoint": "fast_spiky",
+      "deadline": 8,
+      "repeats": 240,
+      "successRate": 0.9430916666666659,
+      "completedOnlyP95": 1.2587236567222648,
+      "deadlineAwareP95": 7.9699194956848265,
+      "latentP95": 9.33068951247962,
+      "restrictedMean": 1.3410788063130392,
+      "timeoutRate": 0.05690833333333334
+    },
+    {
+      "condition": "no_tail_control",
+      "endpoint": "fast_spiky",
+      "deadline": 8,
+      "repeats": 240,
+      "successRate": 1,
+      "completedOnlyP95": 1.250689398813056,
+      "deadlineAwareP95": 1.250689398813056,
+      "latentP95": 1.250689398813056,
+      "restrictedMean": 0.918348412375832,
+      "timeoutRate": 0
+    },
+    {
+      "condition": "main",
+      "endpoint": "steady",
+      "deadline": 16,
+      "repeats": 240,
+      "successRate": 1,
+      "completedOnlyP95": 2.4141038615416623,
+      "deadlineAwareP95": 2.4141038615416623,
+      "latentP95": 2.4141038615416623,
+      "restrictedMean": 1.6511471227383132,
+      "timeoutRate": 0
+    },
+    {
+      "condition": "main",
+      "endpoint": "fast_spiky",
+      "deadline": 16,
+      "repeats": 240,
+      "successRate": 0.9925458333333333,
+      "completedOnlyP95": 6.896810774392723,
+      "deadlineAwareP95": 9.33068951247962,
+      "latentP95": 9.33068951247962,
+      "restrictedMean": 1.590499727596331,
+      "timeoutRate": 0.007454166666666679
+    },
+    {
+      "condition": "no_tail_control",
+      "endpoint": "fast_spiky",
+      "deadline": 16,
+      "repeats": 240,
+      "successRate": 1,
+      "completedOnlyP95": 1.250689398813056,
+      "deadlineAwareP95": 1.250689398813056,
+      "latentP95": 1.250689398813056,
+      "restrictedMean": 0.918348412375832,
+      "timeoutRate": 0
+    }
+  ]
+}

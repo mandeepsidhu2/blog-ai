@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "seed": 20260720,
+  "requestsPerRepeat": 5000,
+  "repeats": 240,
+  "bootstrapSamples": 5000,
+  "deadlinesSeconds": [2, 4, 8, 16],
+  "endpoints": {
+    "steady": {"medianSeconds": 1.6, "sigma": 0.25, "tailProbability": 0, "tailMedianSeconds": 12, "tailSigma": 0.25},
+    "fast_spiky": {"medianSeconds": 0.9, "sigma": 0.2, "tailProbability": 0.06, "tailMedianSeconds": 12, "tailSigma": 0.25}
+  }
+}

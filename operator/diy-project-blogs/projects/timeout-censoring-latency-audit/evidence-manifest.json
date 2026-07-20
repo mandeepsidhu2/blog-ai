@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hypothesis": "When one model endpoint has a fast body and an asymmetric timeout tail, completed-only p95 latency will rank it ahead of a steadier endpoint even when a deadline-aware p95 and completion rate rank it behind; the reversal should disappear when the tail is ablated.",
+  "claimBoundary": "The study demonstrates estimator behavior under the declared synthetic latency distributions and deadlines. It does not estimate any named provider's latency, prove that deadline-aware p95 alone is sufficient, or select a universal timeout.",
+  "design": {
+    "baselines": ["steady endpoint with lognormal latency and no injected long-tail component", "latent uncensored p95 computed from every simulated completion time"],
+    "controls": ["fast endpoint with the six-percent long-tail component removed", "paired random draws shared by endpoint conditions within every repeat", "deadline sweep at 2, 4, 8, and 16 seconds"],
+    "repeats": 240
+  },
+  "reproduction": {
+    "commands": [
+      "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node run-experiment.mjs",
+      "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node render-figure.mjs"
+    ]
+  },
+  "artifacts": ["config.json", "run-experiment.mjs", "repeat-results.csv", "aggregate-results.json", "statistical-analysis.json", "focal-summary.txt", "timeout-censoring-ranking.svg"]
+}

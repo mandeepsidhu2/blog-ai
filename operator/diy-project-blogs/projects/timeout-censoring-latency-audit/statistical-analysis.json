@@ -1,0 +1,68 @@
+{
+  "focalDeadline": 8,
+  "comparison": "fast_spiky minus steady",
+  "comparisons": {
+    "successRate": {
+      "mean": -0.05690833333333334,
+      "ciLow": -0.05731916666666667,
+      "ciHigh": -0.056485833333333395
+    },
+    "completedOnlyP95": {
+      "mean": -1.1553802048193968,
+      "ciLow": -1.1567354087679595,
+      "ciHigh": -1.15400097668993
+    },
+    "deadlineAwareP95": {
+      "mean": 5.555815634143161,
+      "ciLow": 5.500301499540189,
+      "ciHigh": 5.585336210329438
+    },
+    "latentP95": {
+      "mean": 6.916585650937969,
+      "ciLow": 6.819642479002805,
+      "ciHigh": 6.998018770452626
+    },
+    "restrictedMean": {
+      "mean": -0.3100683164252747,
+      "ciLow": -0.31308767465738707,
+      "ciHigh": -0.3070697976793006
+    },
+    "timeoutRate": {
+      "mean": 0.05690833333333334,
+      "ciLow": 0.056476666666666696,
+      "ciHigh": 0.05731666666666665
+    }
+  },
+  "noTailControlComparison": {
+    "successRate": {
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    },
+    "completedOnlyP95": {
+      "mean": -1.1634144627286065,
+      "ciLow": -1.164673700519791,
+      "ciHigh": -1.1621381784294988
+    },
+    "deadlineAwareP95": {
+      "mean": -1.1634144627286065,
+      "ciLow": -1.1646944956924161,
+      "ciHigh": -1.1621746343408756
+    },
+    "latentP95": {
+      "mean": -1.1634144627286065,
+      "ciLow": -1.1647173836559328,
+      "ciHigh": -1.1621660645267469
+    },
+    "restrictedMean": {
+      "mean": -0.7327987103624825,
+      "ciLow": -0.7331865420979672,
+      "ciHigh": -0.7324168865099259
+    },
+    "timeoutRate": {
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    }
+  }
+}

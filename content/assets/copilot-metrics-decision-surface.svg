@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title id="title">Copilot metrics decision surface</title>
+  <desc id="desc">Four evidence bands separate activity telemetry from delivery, quality, and causal attribution, with a release arrow requiring all layers.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="630" fill="#080c12"/>
+    <rect width="1200" height="630" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+  <text x="66" y="62" fill="#f3efe5" font-family="Georgia,serif" font-size="31" font-weight="700">Activity is instrumentation. Outcome needs a join.</text><text x="66" y="95" fill="#9eb0c1" font-family="Georgia,serif" font-size="16">GitHub Copilot metrics API additions · July 17, 2026</text>
+  <g font-family="Georgia,serif">
+    <rect x="66" y="132" width="238" height="360" rx="8" fill="#12283a" stroke="#2f5068"/><text x="88" y="168" fill="#70d6c9" font-size="19" font-weight="700">1 · EXPOSURE</text><text x="88" y="208" fill="#d8e1e8" font-size="15">repo-day agent PRs</text><text x="88" y="238" fill="#d8e1e8" font-size="15">review suggestions</text><text x="88" y="268" fill="#d8e1e8" font-size="15">active app users</text><text x="88" y="298" fill="#d8e1e8" font-size="15">sessions · prompts</text><text x="88" y="328" fill="#d8e1e8" font-size="15">input/output tokens</text><rect x="88" y="376" width="193" height="72" rx="6" fill="#0d1e2c"/><text x="104" y="404" fill="#f2c96b" font-size="14">Valid: reach, cost,</text><text x="104" y="428" fill="#f2c96b" font-size="14">telemetry health</text>
+    <path d="M318 312 L352 312" stroke="#68859c" stroke-width="4"/><path d="M344 303 L354 312 L344 321" fill="none" stroke="#68859c" stroke-width="4"/>
+    <rect x="366" y="132" width="238" height="360" rx="8" fill="#12283a" stroke="#2f5068"/><text x="388" y="168" fill="#9fbaff" font-size="19" font-weight="700">2 · OUTCOMES</text><text x="388" y="208" fill="#d8e1e8" font-size="15">cycle and review time</text><text x="388" y="238" fill="#d8e1e8" font-size="15">deployment flow</text><text x="388" y="268" fill="#d8e1e8" font-size="15">rework burden</text><text x="388" y="298" fill="#d8e1e8" font-size="15">developer experience</text><text x="388" y="328" fill="#d8e1e8" font-size="15">customer value</text><rect x="388" y="376" width="193" height="72" rx="6" fill="#0d1e2c"/><text x="404" y="404" fill="#f2c96b" font-size="14">Join by repository,</text><text x="404" y="428" fill="#f2c96b" font-size="14">day, task, cohort</text>
+    <path d="M618 312 L652 312" stroke="#68859c" stroke-width="4"/><path d="M644 303 L654 312 L644 321" fill="none" stroke="#68859c" stroke-width="4"/>
+    <rect x="666" y="132" width="238" height="360" rx="8" fill="#12283a" stroke="#2f5068"/><text x="688" y="168" fill="#ff9187" font-size="19" font-weight="700">3 · GUARDRAILS</text><text x="688" y="208" fill="#d8e1e8" font-size="15">escaped defects</text><text x="688" y="238" fill="#d8e1e8" font-size="15">security severity</text><text x="688" y="268" fill="#d8e1e8" font-size="15">rollback changes</text><text x="688" y="298" fill="#d8e1e8" font-size="15">privacy exposure</text><text x="688" y="328" fill="#d8e1e8" font-size="15">review overload</text><rect x="688" y="376" width="193" height="72" rx="6" fill="#0d1e2c"/><text x="704" y="404" fill="#f2c96b" font-size="14">No trade hidden by</text><text x="704" y="428" fill="#f2c96b" font-size="14">an activity average</text>
+    <path d="M918 312 L952 312" stroke="#68859c" stroke-width="4"/><path d="M944 303 L954 312 L944 321" fill="none" stroke="#68859c" stroke-width="4"/>
+    <rect x="966" y="132" width="168" height="360" rx="8" fill="#17354a" stroke="#4b7894"/><text x="986" y="168" fill="#f3efe5" font-size="18" font-weight="700">4 · ATTRIBUTE</text><text x="986" y="215" fill="#d8e1e8" font-size="14">randomize</text><text x="986" y="243" fill="#d8e1e8" font-size="14">or stagger</text><text x="986" y="271" fill="#d8e1e8" font-size="14">check pre-trends</text><text x="986" y="299" fill="#d8e1e8" font-size="14" textLength="136" lengthAdjust="spacingAndGlyphs">cluster uncertainty</text><rect x="986" y="376" width="128" height="72" rx="6" fill="#0d1e2c"/><text x="1001" y="404" fill="#70d6c9" font-size="14">Then claim</text><text x="1001" y="428" fill="#70d6c9" font-size="14">an effect</text>
+  </g>
+  <rect x="66" y="532" width="1068" height="46" rx="8" fill="#2b2030" stroke="#6f506e"/><text x="88" y="561" fill="#f0d9ef" font-family="Georgia,serif" font-size="16">Never rank people by prompts, tokens, sessions, suggestions, or agent pull requests.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="629" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

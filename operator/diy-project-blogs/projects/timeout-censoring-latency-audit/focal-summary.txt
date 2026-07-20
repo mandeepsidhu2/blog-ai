@@ -1,0 +1,8 @@
+Timeout-censoring latency audit
+repeats=240 requests_per_repeat=5000 focal_deadline_seconds=8
+steady: success=100.00% completed_p95=2.414s deadline_p95=2.414s latent_p95=2.414s timeout=0.00%
+fast_spiky: success=94.31% completed_p95=1.259s deadline_p95=7.970s latent_p95=9.331s timeout=5.69%
+completed_only_p95_delta=-1.155s 95%CI[-1.157,-1.154]
+deadline_aware_p95_delta=5.556s 95%CI[5.500,5.585]
+success_rate_delta=-5.69pp 95%CI[-5.73,-5.65]
+no_tail_completed_p95_delta=-1.163s

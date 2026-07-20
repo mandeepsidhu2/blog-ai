@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title id="title">VoiceEQ adoption surface by evaluation domain</title>
+  <desc id="desc">A four-column matrix shows public benchmark signals, comparability limits, and local release tests for text-to-speech, speech-to-speech, speech understanding, and speech recognition.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="630" fill="#080c12"/>
+    <rect width="1200" height="630" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="62" y="58" fill="#f5f0e6" font-family="Georgia,serif" font-size="31" font-weight="700">A voice benchmark is a profile, not one rank</text>
+  <text x="62" y="91" fill="#9fb1c2" font-family="Georgia,serif" font-size="16">July 15, 2026 release evidence → production-specific confirmation</text>
+  <g font-family="Georgia,serif">
+    <rect x="62" y="122" width="1076" height="398" rx="8" fill="#102334" stroke="#31516b"/>
+    <line x1="62" y1="204" x2="1138" y2="204" stroke="#31516b"/><line x1="62" y1="304" x2="1138" y2="304" stroke="#31516b"/><line x1="62" y1="408" x2="1138" y2="408" stroke="#31516b"/>
+    <line x1="270" y1="122" x2="270" y2="520" stroke="#31516b"/><line x1="487" y1="122" x2="487" y2="520" stroke="#31516b"/><line x1="704" y1="122" x2="704" y2="520" stroke="#31516b"/><line x1="921" y1="122" x2="921" y2="520" stroke="#31516b"/>
+    <text x="82" y="154" fill="#d6e0e8" font-size="15" font-weight="700">DECISION LAYER</text><text x="292" y="154" fill="#71d4c7" font-size="18" font-weight="700">TTS</text><text x="509" y="154" fill="#f4c86a" font-size="18" font-weight="700">STS</text><text x="726" y="154" fill="#9cb8ff" font-size="18" font-weight="700">UNDERSTANDING</text><text x="943" y="154" fill="#ff8e83" font-size="18" font-weight="700">ASR</text>
+    <text x="82" y="236" fill="#f5f0e6" font-size="16" font-weight="700">Public signal</text><text x="292" y="232" fill="#d6e0e8" font-size="14">785,679 ratings</text><text x="292" y="256" fill="#9fb1c2" font-size="13">7 capability groups</text><text x="509" y="232" fill="#d6e0e8" font-size="14">48,053 ratings</text><text x="509" y="256" fill="#9fb1c2" font-size="13">audio vs transcript</text><text x="726" y="232" fill="#d6e0e8" font-size="14">label scoring</text><text x="726" y="256" fill="#9fb1c2" font-size="13">emotion · speaker · fake</text><text x="943" y="232" fill="#d6e0e8" font-size="14">WER stress slices</text><text x="943" y="256" fill="#9fb1c2" font-size="13" textLength="183" lengthAdjust="spacingAndGlyphs">accent · noise · overlap</text>
+    <text x="82" y="338" fill="#f5f0e6" font-size="16" font-weight="700">Do not infer</text><text x="292" y="338" fill="#ffb3ab" font-size="14">interactive success</text><text x="509" y="338" fill="#ffb3ab" font-size="14">safe task completion</text><text x="726" y="338" fill="#ffb3ab" font-size="14">deployment fairness</text><text x="943" y="338" fill="#ffb3ab" font-size="14">agent uses affect</text><text x="292" y="367" fill="#9fb1c2" font-size="13">or target-language fit</text><text x="509" y="367" fill="#9fb1c2" font-size="13">from naturalness</text><text x="726" y="367" fill="#9fb1c2" font-size="13">from aggregate accuracy</text><text x="943" y="367" fill="#9fb1c2" font-size="13" textLength="183" lengthAdjust="spacingAndGlyphs">from transcript quality</text>
+    <text x="82" y="444" fill="#f5f0e6" font-size="16" font-weight="700">Local release test</text><text x="292" y="444" fill="#d6e0e8" font-size="14">critical strings</text><text x="292" y="469" fill="#9fb1c2" font-size="13">identity · edit time</text><text x="509" y="444" fill="#d6e0e8" font-size="14">task + interruption</text><text x="509" y="469" fill="#9fb1c2" font-size="13">handoff · turn latency</text><text x="726" y="444" fill="#d6e0e8" font-size="14">slice error costs</text><text x="726" y="469" fill="#9fb1c2" font-size="13">abstain · human review</text><text x="943" y="444" fill="#d6e0e8" font-size="14">channel-matched WER</text><text x="943" y="469" fill="#9fb1c2" font-size="13" textLength="183" lengthAdjust="spacingAndGlyphs">critical-field accuracy</text>
+  </g>
+  <rect x="62" y="550" width="1076" height="36" rx="8" fill="#173347"/><text x="82" y="574" fill="#d9e6ef" font-family="Georgia,serif" font-size="15">Adopt the taxonomy broadly. Adopt a model only after a versioned, population-matched, loss-weighted canary.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="629" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

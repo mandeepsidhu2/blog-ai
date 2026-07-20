@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "measure-timeout-censoring-latency",
+      "verdict": "publish-ready",
+      "scores": {"questionValue": 5, "technicalDepth": 5, "evidenceTraceability": 5, "methodologicalRigor": 4, "decisionUsefulness": 5, "clarityDensity": 4, "visualEvidence": 5},
+      "strongestCounterargument": "The simulator deliberately creates asymmetric censoring with fixed distribution parameters, so it demonstrates a possible ranking reversal but cannot establish how often the mechanism occurs in real model endpoints.",
+      "unsupportedClaimRisk": "The weakest claim was that a deadline-aware percentile solves censored latency evaluation; the revision now calls it a descriptive boundary statistic, preserves latent p95 only as an oracle, and refuses to select a universal estimator.",
+      "reproductionBarrier": "The dependency-free run is straightforward, but production confirmation needs request-level terminal records, exact client and server cancellation semantics, workload strata, stable request identifiers, and authorized paired or randomized traffic.",
+      "revisions": [
+        "Added the no-tail ablation and explained that it tests agreement between conditional and deadline-aware rankings rather than forcing the endpoints to have identical body latency.",
+        "Separated deadline-aware p95 from Kaplan-Meier estimation and added the independence and cancellation assumptions that block extrapolation beyond the deadline.",
+        "Added an A/A lane, fixed-denominator logging contract, and joint success-quality-latency rollback criteria instead of recommending one scalar latency threshold.",
+        "Preserved the negative result that restricted mean observed time can still favor a fast body despite a release-blocking timeout fraction."
+      ]
+    },
+    {
+      "slug": "evaluate-real-world-voiceeq-adoption",
+      "verdict": "publish-ready",
+      "scores": {"questionValue": 5, "technicalDepth": 4, "evidenceTraceability": 5, "methodologicalRigor": 4, "decisionUsefulness": 5, "clarityDensity": 4, "visualEvidence": 5},
+      "strongestCounterargument": "More than one million human ratings may be substantially more reliable than the small local listening study this article requests, and local reweighting can introduce organizational preference bias rather than improve validity.",
+      "unsupportedClaimRisk": "The weakest claim was that no voice system is broadly best; the revision confines that finding to the benchmark's evaluated configurations, factors, dates, and equal-weight scheme rather than treating specialization as universal.",
+      "reproductionBarrier": "Full independent reproduction requires exact prompts, generated clips, model and voice configurations, per-item outputs, rater assignments, demographic strata, analysis code, and versioned leaderboards that are not all exposed together.",
+      "revisions": [
+        "Separated rating totals from unique clips, raters, and effective sample size so the headline volume cannot be mistaken for independent observations.",
+        "Added construct-specific automation boundaries using displayed human-judge correlations and retained human evaluation for identity, acting fit, and other perceptual judgments.",
+        "Added a product decision matrix with exact critical-field, interruption, handoff, fairness, latency, and privacy gates beyond the public factors.",
+        "Narrowed public leaderboard use to candidate selection and required preregistered workload weights before local scoring."
+      ]
+    },
+    {
+      "slug": "copilot-usage-metrics-without-productivity-theater",
+      "verdict": "publish-ready",
+      "scores": {"questionValue": 5, "technicalDepth": 4, "evidenceTraceability": 5, "methodologicalRigor": 4, "decisionUsefulness": 5, "clarityDensity": 5, "visualEvidence": 5},
+      "strongestCounterargument": "Demanding randomized or staggered causal evidence can delay useful enablement even when repository teams already report clear value and the immediate decision is support allocation rather than scientific attribution.",
+      "unsupportedClaimRisk": "The weakest claim was that repository telemetry measures AI readiness; the revision identifies that phrase as provider framing without a released construct definition and treats the API only as an observability foundation.",
+      "reproductionBarrier": "A credible analysis requires governed joins across repository identity, team assignment, work items, deployments, incidents, review burden, quality findings, surveys, eligibility changes, and API schema history.",
+      "revisions": [
+        "Rebuilt the comparison around each field's native denominator and explicitly retained null app activity instead of silently coercing missing or inapplicable reports to zero.",
+        "Added an A/A validation phase and cluster-level uncertainty requirement before any randomized encouragement or staggered rollout effect is interpreted.",
+        "Added privacy suppression, minimum cohort, retention, and employment-use prohibitions because repository granularity can expose small teams and sensitive projects.",
+        "Separated immediate support and cost uses from causal productivity claims so low-risk adoption can proceed without overstating evidence."
+      ]
+    }
+  ]
+}
