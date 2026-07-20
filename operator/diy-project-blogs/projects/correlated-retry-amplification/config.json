@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "seedBase": 20260719,
+  "repeats": 200,
+  "durationSeconds": 300,
+  "drainSeconds": 30,
+  "tickSeconds": 0.1,
+  "providerCapacityPerSecond": 100,
+  "requestDeadlineSeconds": 20,
+  "loadsPerSecond": [60, 85],
+  "faultShapes": {
+    "independent": {
+      "failureProbability": 0.0357142857
+    },
+    "correlated": {
+      "goodToBadProbabilityPerTick": 0.0025,
+      "badToGoodProbabilityPerTick": 0.05,
+      "badStateFailureProbability": 0.75
+    },
+    "none": {
+      "failureProbability": 0
+    }
+  },
+  "policies": [
+    "no_retry",
+    "immediate_three",
+    "exponential_no_jitter",
+    "exponential_full_jitter",
+    "budgeted_full_jitter"
+  ],
+  "retryBudget": {
+    "tokensPerSecond": 8,
+    "capacity": 16
+  }
+}

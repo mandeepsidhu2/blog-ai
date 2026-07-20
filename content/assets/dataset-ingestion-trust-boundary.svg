@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title>Dataset ingestion trust boundary after the July 2026 Hugging Face incident</title>
+  <desc>Evidence matrix connecting initial artifact execution, worker compromise, credential theft, lateral movement, and recovery to specific engineering controls.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="58" y="58" font-family="Inter, system-ui, sans-serif" font-size="30" font-weight="700" fill="#17212B">Treat dataset ingestion as hostile execution</text>
+  <text x="58" y="91" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#53606A">July 16 disclosure signals mapped to local controls · mapping is an engineering inference</text>
+
+  <line x1="102" y1="168" x2="1090" y2="168" stroke="#B9B1A5" stroke-width="3"/>
+  <circle cx="112" cy="168" r="12" fill="#C44536"/>
+  <circle cx="355" cy="168" r="12" fill="#ffb84d"/>
+  <circle cx="598" cy="168" r="12" fill="#C08A22"/>
+  <circle cx="841" cy="168" r="12" fill="#7B61A8"/>
+  <circle cx="1080" cy="168" r="12" fill="#287D6A"/>
+  <text x="112" y="136" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#8F2D23">ARTIFACT</text>
+  <text x="355" y="136" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#9A5705">WORKER</text>
+  <text x="598" y="136" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#85610E">IDENTITY</text>
+  <text x="841" y="136" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#604681">CLUSTER</text>
+  <text x="1080" y="136" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#1D6455">RECOVERY</text>
+
+  <rect x="48" y="214" width="216" height="284" rx="8" fill="#FFF" stroke="#D7CEC1"/>
+  <rect x="282" y="214" width="216" height="284" rx="8" fill="#FFF" stroke="#D7CEC1"/>
+  <rect x="516" y="214" width="216" height="284" rx="8" fill="#FFF" stroke="#D7CEC1"/>
+  <rect x="750" y="214" width="216" height="284" rx="8" fill="#FFF" stroke="#D7CEC1"/>
+  <rect x="984" y="214" width="168" height="284" rx="8" fill="#FFF" stroke="#D7CEC1"/>
+
+  <text x="70" y="250" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#17212B">2 execution paths</text>
+  <text x="70" y="282" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#53606A">remote loader</text>
+  <text x="70" y="306" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#53606A">template injection</text>
+  <rect x="70" y="338" width="172" height="2" fill="#C44536"/>
+  <text x="70" y="373" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="650" fill="#8F2D23">CONTROL</text>
+  <text x="70" y="402" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">fixed formats first</text>
+  <text x="70" y="426" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">pin revision + digest</text>
+  <text x="70" y="450" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">reject remote code</text>
+
+  <text x="304" y="250" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#17212B">node escalation</text>
+  <text x="304" y="282" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#53606A">worker boundary lost</text>
+  <rect x="304" y="338" width="172" height="2" fill="#ffb84d"/>
+  <text x="304" y="373" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="650" fill="#9A5705">CONTROL</text>
+  <text x="304" y="402" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">ephemeral sandbox</text>
+  <text x="304" y="426" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">non-root + seccomp</text>
+  <text x="304" y="450" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">no host mounts</text>
+
+  <text x="538" y="250" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#17212B">credentials reached</text>
+  <text x="538" y="282" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#53606A">service identities</text>
+  <rect x="538" y="338" width="172" height="2" fill="#C08A22"/>
+  <text x="538" y="373" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="650" fill="#85610E">CONTROL</text>
+  <text x="538" y="402" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">no static secrets</text>
+  <text x="538" y="426" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">job-scoped identity</text>
+  <text x="538" y="450" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">deny metadata</text>
+
+  <text x="772" y="250" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#17212B">multiple clusters</text>
+  <text x="772" y="282" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#53606A">lateral movement</text>
+  <rect x="772" y="338" width="172" height="2" fill="#7B61A8"/>
+  <text x="772" y="373" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="650" fill="#604681">CONTROL</text>
+  <text x="772" y="402" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">separate account</text>
+  <text x="772" y="426" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">deny egress</text>
+  <text x="772" y="450" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">no control-plane path</text>
+
+  <text x="1006" y="250" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#17212B">17,000+</text>
+  <text x="1006" y="278" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#53606A">events reviewed</text>
+  <rect x="1006" y="338" width="124" height="2" fill="#287D6A"/>
+  <text x="1006" y="373" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="650" fill="#1D6455">CONTROL</text>
+  <text x="1006" y="402" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">immutable trace</text>
+  <text x="1006" y="426" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">signed outputs</text>
+  <text x="1006" y="450" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#34404B">clean rebuild</text>
+
+  <rect x="48" y="528" width="1104" height="82" rx="8" fill="#17212B"/>
+  <text x="70" y="560" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#121a23">PROMOTION RULE</text>
+  <text x="70" y="589" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#E7ECEF">Untrusted artifact → no-secret cell → quarantine digest → separate verifier → immutable promoted generation</text>
+  <text x="1140" y="650" text-anchor="end" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#737B82">incident facts: Hugging Face, 2026-07-16 · controls: local synthesis</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

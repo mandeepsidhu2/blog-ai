@@ -1,0 +1,6 @@
+Focal cell: 85 requests/s, correlated failures, 200 matched repeats
+budgeted_full_jitter: success=0.9447 attempts/request=1.086 p95=0.117s peak=134.0/s overload_failures=2681.5
+exponential_full_jitter: success=0.9691 attempts/request=1.208 p95=0.306s peak=263.2/s overload_failures=5017.9
+exponential_no_jitter: success=0.9703 attempts/request=1.229 p95=0.520s peak=248.9/s overload_failures=5542.0
+immediate_three: success=0.9605 attempts/request=1.223 p95=0.100s peak=277.1/s overload_failures=5603.5
+no_retry: success=0.8974 attempts/request=1.000 p95=0.000s peak=117.6/s overload_failures=1750.7

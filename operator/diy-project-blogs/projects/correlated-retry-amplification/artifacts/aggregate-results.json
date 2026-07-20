@@ -1,0 +1,1694 @@
+{
+  "config": {
+    "version": 1,
+    "seedBase": 20260719,
+    "repeats": 200,
+    "durationSeconds": 300,
+    "drainSeconds": 30,
+    "tickSeconds": 0.1,
+    "providerCapacityPerSecond": 100,
+    "requestDeadlineSeconds": 20,
+    "loadsPerSecond": [
+      60,
+      85
+    ],
+    "faultShapes": {
+      "independent": {
+        "failureProbability": 0.0357142857
+      },
+      "correlated": {
+        "goodToBadProbabilityPerTick": 0.0025,
+        "badToGoodProbabilityPerTick": 0.05,
+        "badStateFailureProbability": 0.75
+      },
+      "none": {
+        "failureProbability": 0
+      }
+    },
+    "policies": [
+      "no_retry",
+      "immediate_three",
+      "exponential_no_jitter",
+      "exponential_full_jitter",
+      "budgeted_full_jitter"
+    ],
+    "retryBudget": {
+      "tokensPerSecond": 8,
+      "capacity": 16
+    }
+  },
+  "rowCount": 4800,
+  "aggregateCellCount": 30,
+  "aggregates": [
+    {
+      "load_per_second": 60,
+      "fault_shape": "correlated",
+      "policy": "budgeted_full_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9667502198543084,
+        "ci95": [
+          0.9643662938456405,
+          0.9691341458629763
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0253984293610616,
+        "ci95": [
+          1.0247192362847946,
+          1.0260776224373287
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 97.735,
+        "ci95": [
+          97.06671429228534,
+          98.40328570771466
+        ]
+      },
+      "overload_failures": {
+        "mean": 290.44,
+        "ci95": [
+          285.9641969709364,
+          294.91580302906357
+        ]
+      },
+      "retries_denied": {
+        "mean": 576.255,
+        "ci95": [
+          534.6923205210836,
+          617.8176794789164
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.048488333333333335,
+        "ci95": [
+          0.04509781962669749,
+          0.05187884703996918
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "correlated",
+      "policy": "exponential_full_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9787977761927243,
+        "ci95": [
+          0.9771231508605697,
+          0.980472401524879
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0866908487239193,
+        "ci95": [
+          1.0815697447205692,
+          1.0918119527272694
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.007975000000000364,
+        "ci95": [
+          0.00396848267188312,
+          0.011981517328117607
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 183.62,
+        "ci95": [
+          181.06925278367143,
+          186.17074721632858
+        ]
+      },
+      "overload_failures": {
+        "mean": 915.95,
+        "ci95": [
+          866.5755172743844,
+          965.3244827256157
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.048488333333333335,
+        "ci95": [
+          0.04509781962669749,
+          0.05187884703996918
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "correlated",
+      "policy": "exponential_no_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9841616773452395,
+        "ci95": [
+          0.982731093943219,
+          0.98559226074726
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0867207061970379,
+        "ci95": [
+          1.0816356343948228,
+          1.091805777999253
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.15,
+        "ci95": [
+          0.11816468254931436,
+          0.18183531745068562
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 171.15,
+        "ci95": [
+          168.7200166429422,
+          173.5799833570578
+        ]
+      },
+      "overload_failures": {
+        "mean": 889.415,
+        "ci95": [
+          842.1825714522874,
+          936.6474285477125
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.048488333333333335,
+        "ci95": [
+          0.04509781962669749,
+          0.05187884703996918
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "correlated",
+      "policy": "immediate_three",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9736366925496598,
+        "ci95": [
+          0.9717222096735654,
+          0.9755511754257542
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0886062590172123,
+        "ci95": [
+          1.0834696368550705,
+          1.0937428811793541
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0005,
+        "ci95": [
+          -0.00047999999999999996,
+          0.00148
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 195.66,
+        "ci95": [
+          193.0032355123356,
+          198.3167644876644
+        ]
+      },
+      "overload_failures": {
+        "mean": 1020.49,
+        "ci95": [
+          967.3126394028474,
+          1073.6673605971525
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.048488333333333335,
+        "ci95": [
+          0.04509781962669749,
+          0.05187884703996918
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "correlated",
+      "policy": "no_retry",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9511909591721751,
+        "ci95": [
+          0.9486751873714866,
+          0.9537067309728636
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 87.745,
+        "ci95": [
+          87.2740345212109,
+          88.21596547878912
+        ]
+      },
+      "overload_failures": {
+        "mean": 230.32,
+        "ci95": [
+          227.02251321819466,
+          233.61748678180533
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.048488333333333335,
+        "ci95": [
+          0.04509781962669749,
+          0.05187884703996918
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "independent",
+      "policy": "budgeted_full_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.999819673476048,
+        "ci95": [
+          0.9998023482918023,
+          0.9998369986602939
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0551835506393714,
+        "ci95": [
+          1.0548849870496628,
+          1.05548211422908
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.08609999999999855,
+        "ci95": [
+          0.08134132610845782,
+          0.09085867389153929
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 99.67,
+        "ci95": [
+          98.96548562019163,
+          100.37451437980837
+        ]
+      },
+      "overload_failures": {
+        "mean": 329.59,
+        "ci95": [
+          325.4691207145042,
+          333.71087928549576
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.615,
+        "ci95": [
+          0.4081334171124348,
+          0.8218665828875652
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "independent",
+      "policy": "exponential_full_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9998410708931483,
+        "ci95": [
+          0.9998286295847834,
+          0.9998535122015133
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0553508968580008,
+        "ci95": [
+          1.0550613351297897,
+          1.0556404585862118
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.09,
+        "ci95": [
+          0.08583177851455098,
+          0.09416822148544901
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 99.745,
+        "ci95": [
+          98.94142312203874,
+          100.54857687796127
+        ]
+      },
+      "overload_failures": {
+        "mean": 331.515,
+        "ci95": [
+          327.3049363260285,
+          335.7250636739715
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "independent",
+      "policy": "exponential_no_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9997978227581611,
+        "ci95": [
+          0.9997833926266486,
+          0.9998122528896736
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0562807665172316,
+        "ci95": [
+          1.0559313775401542,
+          1.056630155494309
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.4339999999999964,
+        "ci95": [
+          0.41063677669893806,
+          0.4573632233010547
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 95.625,
+        "ci95": [
+          95.0626010866934,
+          96.1873989133066
+        ]
+      },
+      "overload_failures": {
+        "mean": 352.375,
+        "ci95": [
+          347.44533644669906,
+          357.30466355330094
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "independent",
+      "policy": "immediate_three",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9996999192152767,
+        "ci95": [
+          0.999681440121425,
+          0.9997183983091283
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.056810542384563,
+        "ci95": [
+          1.0564756861959779,
+          1.0571453985731483
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.09102499999999963,
+        "ci95": [
+          0.08705952784120034,
+          0.09499047215879892
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 104.815,
+        "ci95": [
+          103.69636953519765,
+          105.93363046480235
+        ]
+      },
+      "overload_failures": {
+        "mean": 359.945,
+        "ci95": [
+          354.83813578737096,
+          365.051864212629
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "independent",
+      "policy": "no_retry",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.952016169862863,
+        "ci95": [
+          0.9517640855881865,
+          0.9522682541375395
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 87.13,
+        "ci95": [
+          86.71056699578463,
+          87.54943300421536
+        ]
+      },
+      "overload_failures": {
+        "mean": 228.805,
+        "ci95": [
+          225.87734741746564,
+          231.73265258253437
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "none",
+      "policy": "budgeted_full_jitter",
+      "repeats": 80,
+      "success_rate": {
+        "mean": 0.99998822607935,
+        "ci95": [
+          0.9999796841106486,
+          0.9999967680480514
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0141038741079607,
+        "ci95": [
+          1.013787585593723,
+          1.0144201626221983
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 95.6625,
+        "ci95": [
+          94.34080144884449,
+          96.9841985511555
+        ]
+      },
+      "overload_failures": {
+        "mean": 254.1875,
+        "ci95": [
+          248.26536071437403,
+          260.109639285626
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.125,
+        "ci95": [
+          -0.01609225817335158,
+          0.2660922581733516
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "none",
+      "policy": "exponential_full_jitter",
+      "repeats": 80,
+      "success_rate": {
+        "mean": 0.9999944593453843,
+        "ci95": [
+          0.9999903168912992,
+          0.9999986017994694
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0141738241681089,
+        "ci95": [
+          1.0138485098347927,
+          1.014499138501425
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 95.8625,
+        "ci95": [
+          94.50997966275614,
+          97.21502033724386
+        ]
+      },
+      "overload_failures": {
+        "mean": 255.3375,
+        "ci95": [
+          249.28411693316892,
+          261.3908830668311
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "none",
+      "policy": "exponential_no_jitter",
+      "repeats": 80,
+      "success_rate": {
+        "mean": 0.9999785607267938,
+        "ci95": [
+          0.9999692427621564,
+          0.9999878786914312
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0149329303069314,
+        "ci95": [
+          1.0145595979256283,
+          1.0153062626882345
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 92.8625,
+        "ci95": [
+          91.80049503118042,
+          93.92450496881958
+        ]
+      },
+      "overload_failures": {
+        "mean": 269.3,
+        "ci95": [
+          262.3731259575477,
+          276.2268740424523
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "none",
+      "policy": "immediate_three",
+      "repeats": 80,
+      "success_rate": {
+        "mean": 0.9999611478199236,
+        "ci95": [
+          0.9999479777876661,
+          0.9999743178521812
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0149426533396295,
+        "ci95": [
+          1.0145764864625915,
+          1.0153088202166676
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 99.3125,
+        "ci95": [
+          97.496545727204,
+          101.128454272796
+        ]
+      },
+      "overload_failures": {
+        "mean": 269.7875,
+        "ci95": [
+          262.9725102410527,
+          276.60248975894734
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 60,
+      "fault_shape": "none",
+      "policy": "no_retry",
+      "repeats": 80,
+      "success_rate": {
+        "mean": 0.9873250524845896,
+        "ci95": [
+          0.9870540019444547,
+          0.9875961030247244
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 88.1625,
+        "ci95": [
+          87.33193440233457,
+          88.99306559766542
+        ]
+      },
+      "overload_failures": {
+        "mean": 228.2375,
+        "ci95": [
+          223.20177726988896,
+          233.27322273011106
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "correlated",
+      "policy": "budgeted_full_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9446920284873542,
+        "ci95": [
+          0.9423366490893124,
+          0.9470474078853961
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0863888587353012,
+        "ci95": [
+          1.0861591051384833,
+          1.086618612332119
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.117,
+        "ci95": [
+          0.11178093098272929,
+          0.12221906901727073
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 134.025,
+        "ci95": [
+          133.48412295771186,
+          134.56587704228815
+        ]
+      },
+      "overload_failures": {
+        "mean": 2681.545,
+        "ci95": [
+          2667.9493630504444,
+          2695.1406369495558
+        ]
+      },
+      "retries_denied": {
+        "mean": 1382.21,
+        "ci95": [
+          1322.5240800963836,
+          1441.8959199036165
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.048490000000000005,
+        "ci95": [
+          0.0453422987989274,
+          0.05163770120107261
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "correlated",
+      "policy": "exponential_full_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9691009636674679,
+        "ci95": [
+          0.9670560791290772,
+          0.9711458482058586
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.2081487451612967,
+        "ci95": [
+          1.2027125208581875,
+          1.2135849694644059
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.30632499999999896,
+        "ci95": [
+          0.30269888853220295,
+          0.30995111146779497
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 263.235,
+        "ci95": [
+          260.5757829470172,
+          265.8942170529828
+        ]
+      },
+      "overload_failures": {
+        "mean": 5017.92,
+        "ci95": [
+          4895.577931358892,
+          5140.262068641108
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.048490000000000005,
+        "ci95": [
+          0.0453422987989274,
+          0.05163770120107261
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "correlated",
+      "policy": "exponential_no_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9702665967861871,
+        "ci95": [
+          0.9683848397782038,
+          0.9721483537941704
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.228864776209662,
+        "ci95": [
+          1.2232020684855296,
+          1.2345274839337945
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.52,
+        "ci95": [
+          0.5005482997345713,
+          0.5394517002654288
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 248.935,
+        "ci95": [
+          246.25092292305627,
+          251.61907707694374
+        ]
+      },
+      "overload_failures": {
+        "mean": 5542.03,
+        "ci95": [
+          5416.934005782603,
+          5667.1259942173965
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.048490000000000005,
+        "ci95": [
+          0.0453422987989274,
+          0.05163770120107261
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "correlated",
+      "policy": "immediate_three",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9604749683137156,
+        "ci95": [
+          0.958294571375655,
+          0.9626553652517762
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.2227157280352088,
+        "ci95": [
+          1.217593850019615,
+          1.2278376060508025
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.1,
+        "ci95": [
+          0.1,
+          0.1
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 277.065,
+        "ci95": [
+          274.334644261549,
+          279.795355738451
+        ]
+      },
+      "overload_failures": {
+        "mean": 5603.495,
+        "ci95": [
+          5485.30961751313,
+          5721.680382486869
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.048490000000000005,
+        "ci95": [
+          0.0453422987989274,
+          0.05163770120107261
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "correlated",
+      "policy": "no_retry",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.8974450026229593,
+        "ci95": [
+          0.8952038262406727,
+          0.899686179005246
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 117.57,
+        "ci95": [
+          117.04560048143101,
+          118.09439951856898
+        ]
+      },
+      "overload_failures": {
+        "mean": 1750.715,
+        "ci95": [
+          1741.1134789380162,
+          1760.3165210619836
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.048490000000000005,
+        "ci95": [
+          0.0453422987989274,
+          0.05163770120107261
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "independent",
+      "policy": "budgeted_full_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9519655165359869,
+        "ci95": [
+          0.9514908098456532,
+          0.9524402232263207
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0940223700473912,
+        "ci95": [
+          1.093928802230676,
+          1.0941159378641065
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.2,
+        "ci95": [
+          0.2,
+          0.2
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 130.94,
+        "ci95": [
+          130.39766114988717,
+          131.48233885011282
+        ]
+      },
+      "overload_failures": {
+        "mean": 2723.035,
+        "ci95": [
+          2710.3476706870324,
+          2735.7223293129673
+        ]
+      },
+      "retries_denied": {
+        "mean": 1201.625,
+        "ci95": [
+          1188.6070524001068,
+          1214.6429475998932
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "independent",
+      "policy": "exponential_full_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9934655871536919,
+        "ci95": [
+          0.9933335142938909,
+          0.9935976600134929
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.1976178671474238,
+        "ci95": [
+          1.1963584507921334,
+          1.1988772835027142
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.3317249999999968,
+        "ci95": [
+          0.3252969841213859,
+          0.33815301587860763
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 173.955,
+        "ci95": [
+          172.43023736626117,
+          175.47976263373886
+        ]
+      },
+      "overload_failures": {
+        "mean": 4267.02,
+        "ci95": [
+          4229.492557624948,
+          4304.547442375053
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "independent",
+      "policy": "exponential_no_jitter",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9890488473762925,
+        "ci95": [
+          0.9888615676977661,
+          0.9892361270548189
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.2157884114588966,
+        "ci95": [
+          1.2144287645769172,
+          1.217148058340876
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 155.485,
+        "ci95": [
+          154.4206762506563,
+          156.54932374934373
+        ]
+      },
+      "overload_failures": {
+        "mean": 4846.92,
+        "ci95": [
+          4805.290594396228,
+          4888.549405603772
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "independent",
+      "policy": "immediate_three",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.9856992612995409,
+        "ci95": [
+          0.9854721212644921,
+          0.9859264013345896
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.2213413121375216,
+        "ci95": [
+          1.2199004206501645,
+          1.2227822036248788
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.1,
+        "ci95": [
+          0.1,
+          0.1
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 201.64,
+        "ci95": [
+          199.8398172501481,
+          203.44018274985189
+        ]
+      },
+      "overload_failures": {
+        "mean": 5082.585,
+        "ci95": [
+          5037.3037467818385,
+          5127.866253218162
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "independent",
+      "policy": "no_retry",
+      "repeats": 200,
+      "success_rate": {
+        "mean": 0.8981826100147826,
+        "ci95": [
+          0.8978053382385002,
+          0.898559881791065
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 117.875,
+        "ci95": [
+          117.40671876873209,
+          118.34328123126791
+        ]
+      },
+      "overload_failures": {
+        "mean": 1745.77,
+        "ci95": [
+          1735.8178508804738,
+          1755.7221491195262
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "none",
+      "policy": "budgeted_full_jitter",
+      "repeats": 80,
+      "success_rate": {
+        "mean": 0.9804525420185672,
+        "ci95": [
+          0.9799502818064993,
+          0.9809548022306351
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0854793380987338,
+        "ci95": [
+          1.0851046284741774,
+          1.08585404772329
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.12081249999999728,
+        "ci95": [
+          0.11195494480129359,
+          0.12967005519870098
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 134.9,
+        "ci95": [
+          134.06421352130184,
+          135.73578647869817
+        ]
+      },
+      "overload_failures": {
+        "mean": 2678.0625,
+        "ci95": [
+          2656.811561657724,
+          2699.313438342276
+        ]
+      },
+      "retries_denied": {
+        "mean": 480.825,
+        "ci95": [
+          467.63345299856235,
+          494.01654700143763
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "none",
+      "policy": "exponential_full_jitter",
+      "repeats": 80,
+      "success_rate": {
+        "mean": 0.9977354371904041,
+        "ci95": [
+          0.9976429256660899,
+          0.9978279487147184
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.1250191242367151,
+        "ci95": [
+          1.1236026501866032,
+          1.126435598286827
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.2475,
+        "ci95": [
+          0.23648792952244985,
+          0.25851207047755015
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 162.425,
+        "ci95": [
+          160.22789825255916,
+          164.62210174744087
+        ]
+      },
+      "overload_failures": {
+        "mean": 3245.875,
+        "ci95": [
+          3205.288575310818,
+          3286.461424689182
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "none",
+      "policy": "exponential_no_jitter",
+      "repeats": 80,
+      "success_rate": {
+        "mean": 0.994928148791811,
+        "ci95": [
+          0.9947582029985134,
+          0.9950980945851087
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.1413308123928114,
+        "ci95": [
+          1.139635816849055,
+          1.1430258079365678
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 146.3625,
+        "ci95": [
+          144.94395372259513,
+          147.7810462774049
+        ]
+      },
+      "overload_failures": {
+        "mean": 3733.425,
+        "ci95": [
+          3683.7385023930747,
+          3783.1114976069257
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "none",
+      "policy": "immediate_three",
+      "repeats": 80,
+      "success_rate": {
+        "mean": 0.9926888645628484,
+        "ci95": [
+          0.9924857748489788,
+          0.9928919542767181
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.1460610516453114,
+        "ci95": [
+          1.1442718696778256,
+          1.1478502336127971
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.1,
+        "ci95": [
+          0.1,
+          0.1
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 189.2875,
+        "ci95": [
+          186.41882728669233,
+          192.15617271330765
+        ]
+      },
+      "overload_failures": {
+        "mean": 3911.2125,
+        "ci95": [
+          3858.374279317352,
+          3964.0507206826483
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "load_per_second": 85,
+      "fault_shape": "none",
+      "policy": "no_retry",
+      "repeats": 80,
+      "success_rate": {
+        "mean": 0.9312091206314437,
+        "ci95": [
+          0.9306696408051384,
+          0.931748600457749
+        ]
+      },
+      "attempt_amplification": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "p95_latency_seconds": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "peak_attempts_per_second": {
+        "mean": 117.7375,
+        "ci95": [
+          116.92073461567108,
+          118.55426538432891
+        ]
+      },
+      "overload_failures": {
+        "mean": 1754.0875,
+        "ci95": [
+          1738.938865434072,
+          1769.236134565928
+        ]
+      },
+      "retries_denied": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "bad_tick_fraction": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  ]
+}

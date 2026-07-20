@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title>Nemotron 3 Embed checkpoint and runtime decision surface</title>
+  <desc>Comparison of 8B BF16, 1B BF16, and 1B NVFP4 across RTEB score, embedding dimension, model context, validated service context, and runtime boundary.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="58" y="58" font-family="Inter, system-ui, sans-serif" font-size="30" font-weight="700" fill="#16222B">One release, three deployment decisions</text>
+  <text x="58" y="91" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#52606D">Provider-reported July 16, 2026 signals · validate every cell on the target corpus and runtime</text>
+
+  <rect x="48" y="124" width="1104" height="444" rx="8" fill="#121a23" stroke="#D8D0C3"/>
+  <rect x="48" y="124" width="246" height="444" rx="8" fill="#EDE8DE"/>
+  <line x1="294" y1="124" x2="294" y2="568" stroke="#D8D0C3"/>
+  <line x1="580" y1="124" x2="580" y2="568" stroke="#D8D0C3"/>
+  <line x1="866" y1="124" x2="866" y2="568" stroke="#D8D0C3"/>
+  <line x1="48" y1="204" x2="1152" y2="204" stroke="#D8D0C3"/>
+  <line x1="48" y1="274" x2="1152" y2="274" stroke="#D8D0C3"/>
+  <line x1="48" y1="344" x2="1152" y2="344" stroke="#D8D0C3"/>
+  <line x1="48" y1="414" x2="1152" y2="414" stroke="#D8D0C3"/>
+  <line x1="48" y1="484" x2="1152" y2="484" stroke="#D8D0C3"/>
+
+  <text x="318" y="157" font-family="Inter, system-ui, sans-serif" font-size="19" font-weight="700" fill="#21313C">8B BF16</text>
+  <text x="604" y="157" font-family="Inter, system-ui, sans-serif" font-size="19" font-weight="700" fill="#21313C">1B BF16</text>
+  <text x="890" y="157" font-family="Inter, system-ui, sans-serif" font-size="19" font-weight="700" fill="#21313C">1B NVFP4</text>
+  <text x="318" y="184" font-family="ui-monospace, SFMono-Regular, monospace" font-size="13" fill="#7A4E00">quality-first</text>
+  <text x="604" y="184" font-family="ui-monospace, SFMono-Regular, monospace" font-size="13" fill="#216A5B">compatibility control</text>
+  <text x="890" y="184" font-family="ui-monospace, SFMono-Regular, monospace" font-size="13" fill="#5B58A5">Blackwell canary</text>
+
+  <text x="72" y="246" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="650" fill="#34404B">RTEB avg nDCG@10</text>
+  <text x="318" y="246" font-family="ui-monospace, SFMono-Regular, monospace" font-size="28" font-weight="700" fill="#ffb84d">78.5</text>
+  <text x="604" y="246" font-family="ui-monospace, SFMono-Regular, monospace" font-size="28" font-weight="700" fill="#23806D">72.38</text>
+  <text x="890" y="246" font-family="ui-monospace, SFMono-Regular, monospace" font-size="28" font-weight="700" fill="#6763C5">72.00</text>
+
+  <text x="72" y="316" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="650" fill="#34404B">Output width</text>
+  <text x="318" y="316" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20" fill="#21313C">4,096 dims</text>
+  <text x="604" y="316" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20" fill="#21313C">2,048 dims</text>
+  <text x="890" y="316" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20" fill="#21313C">2,048 dims</text>
+
+  <text x="72" y="386" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="650" fill="#34404B">Card maximum</text>
+  <text x="318" y="386" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20" fill="#21313C">32,768 tok</text>
+  <text x="604" y="386" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20" fill="#21313C">32,768 tok</text>
+  <text x="890" y="386" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20" fill="#21313C">32,768 tok</text>
+
+  <text x="72" y="456" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="650" fill="#34404B">Packaged validation</text>
+  <text x="318" y="456" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#69747D">not stated in NIM matrix</text>
+  <text x="604" y="456" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20" font-weight="700" fill="#B45309">4,096 tok</text>
+  <text x="890" y="456" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20" font-weight="700" fill="#B45309">4,096 start</text>
+
+  <text x="72" y="526" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="650" fill="#34404B">Runtime gate</text>
+  <text x="318" y="518" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#34404B">measure GPU + index</text>
+  <text x="318" y="540" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#34404B">as one system</text>
+  <text x="604" y="518" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#34404B">BF16 control across</text>
+  <text x="604" y="540" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#34404B">listed GPU families</text>
+  <text x="890" y="518" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#34404B">vLLM 0.25.0;</text>
+  <text x="890" y="540" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#34404B">0.23–0.24 known issues</text>
+
+  <rect x="48" y="592" width="1104" height="46" rx="8" fill="#17212B"/>
+  <text x="70" y="621" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="650" fill="#121a23">Decision: start at 1B BF16 → test NVFP4 on supported hardware → pay 2× vector width only for paired 8B gains</text>
+  <text x="1140" y="660" text-anchor="end" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#737B82">sources: NVIDIA cards, release note, NIM support matrix</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

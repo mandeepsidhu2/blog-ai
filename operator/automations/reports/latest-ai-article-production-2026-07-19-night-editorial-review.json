@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "budget-llm-retries-correlated-failures",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The queue-free 100 ms slot simulator can manufacture overload and does not represent provider-side queues, variable service time, regional recovery, or protocol-aware Retry-After behavior, so the numeric operating point may not transfer.",
+      "unsupportedClaimRisk": "The weakest claim was that an eight-retry-per-second token bucket was a suitable operating recommendation; only one nonzero refill rate and one burst capacity were measured, so the article now treats it solely as a mechanism treatment.",
+      "reproductionBarrier": "The dependency-free artifacts are easy to rerun, but production confirmation requires provider status semantics, the real layered retry stack, anonymized arrival and incident traces, service-time distributions, and a safe failure-injection proxy.",
+      "revisions": [
+        "Corrected the independent-fault control from 10% to the Markov process's 3.5714% stationary mean and regenerated all 4,800 repeat-policy rows, aggregates, intervals, and the figure.",
+        "Added the matched-mean correlation result showing 263.2 versus 174.0 peak attempts per second and 2.44 points lower completion, making temporal dependence rather than mean error rate the stronger mechanism claim.",
+        "Narrowed the retry-token treatment from a deployable setting to one tested point and required a preregistered refill-rate and burst-capacity sweep before production selection.",
+        "Preserved the negative result that full jitter lowered retry latency but increased the peak relative to deterministic backoff in the declared fault process."
+      ]
+    },
+    {
+      "slug": "nemotron-3-embed-deployment-canary",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "Without running the checkpoints on target GPUs and a private corpus, the article cannot establish whether 8B quality, 1B BF16 compatibility, or NVFP4 throughput wins for any specific deployment.",
+      "unsupportedClaimRisk": "The weakest public signal is NVIDIA's up-to-two-times NVFP4 throughput statement because the release summary does not expose a common hardware, batch, sequence, concurrency, runtime, and latency table; the article now treats it only as a canary hypothesis.",
+      "reproductionBarrier": "A credible adoption test needs supported NVIDIA hardware, pinned vLLM 0.25.0, all three large checkpoints, a representative judged query set, exact and ANN indexes, and enough temporary storage for dual-index migration.",
+      "revisions": [
+        "Separated the 32,768-token checkpoint capability from the 4,096-token NIM and evaluation boundary, preventing model-card context from being presented as packaged-service validation.",
+        "Added a four-cell old/new query-encoder by old/new document-index compatibility audit so the shared-space statement cannot be mistaken for safe in-place migration or rollback.",
+        "Added locally derived float-vector storage arithmetic and explicitly excluded ANN overhead and unmeasured self-hosting prices from the comparison.",
+        "Added fail-closed runtime conformance and rollback-rehearsal requirements before retrieval scoring."
+      ]
+    },
+    {
+      "slug": "isolate-ai-dataset-ingestion-workers",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The public incident account is provider-authored and still under assessment, so it cannot prove that any proposed topology or isolation control would have prevented the specific compromise.",
+      "unsupportedClaimRisk": "The weakest inference was that a separate account or cluster would have prevented lateral movement; the article now states that this counterfactual is unproven and conditions the benefit on peering, identity federation, metadata, and control-plane enforcement.",
+      "reproductionBarrier": "Adoption requires an inventory of executable ingestion paths, an isolated target account, production-equivalent workload identity, synthetic canary credentials, sandbox and network-policy support, and authorized escape testing.",
+      "revisions": [
+        "Separated incident facts from locally derived control mappings and added explicit denominator and ongoing-assessment limits instead of treating the disclosure as a measured architecture study.",
+        "Added a hostile-evidence matrix covering metadata access, path traversal, credential scope, mutable revisions, signature tampering, and private control-plane access with release-blocking outcomes.",
+        "Narrowed the cluster-separation recommendation to a blast-radius control whose effectiveness must be tested rather than an asserted incident counterfactual.",
+        "Added a four-tier execution matrix so fixed-format research workflows retain a fast path without silently admitting executable loaders."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "hypothesis": "At 85 original requests per second against 100 attempts per second of modeled capacity, three-attempt full-jitter retries under temporally correlated failures will more than double peak attempted load versus no retry; a shared retry budget will reduce that peak by at least 40% while retaining a higher completion rate than no retry.",
+  "claimBoundary": "The artifacts support a retry-load mechanism and a completion-versus-capacity trade-off inside the declared discrete-time stochastic simulator. They do not establish a universal retry count, token-bucket rate, provider recovery curve, production completion rate, or applicability to non-idempotent operations.",
+  "design": {
+    "baselines": [
+      "no_retry on the same original-request arrival and exogenous-fault trace",
+      "exponential_no_jitter with the same three-attempt ceiling"
+    ],
+    "controls": [
+      "independent per-attempt faults matched to the correlated process stationary mean",
+      "no-exogenous-fault negative control",
+      "60 requests/s lower-load ablation",
+      "shared retry-token budget ablation"
+    ],
+    "repeats": 200,
+    "pairing": "Policies within a load, fault-shape, and repeat cell share original arrivals and the exogenous fault trace.",
+    "exploratory": "Immediate retry and no-jitter comparisons diagnose synchronization and latency; the primary contrast is full jitter versus no retry and budgeted full jitter at 85 requests/s under correlated faults.",
+    "metrics": [
+      "original-request success rate within 20 seconds",
+      "attempt amplification",
+      "successful-request p95 latency",
+      "maximum rolling one-second attempted load",
+      "capacity-overflow failures",
+      "budget-denied retries"
+    ]
+  },
+  "reproduction": {
+    "runtime": "Python 3 standard library; no Torch, model, accelerator, or network service",
+    "commands": [
+      "python3 operator/diy-project-blogs/projects/correlated-retry-amplification/run_experiment.py",
+      "python3 operator/diy-project-blogs/projects/correlated-retry-amplification/analyze_results.py",
+      "python3 operator/diy-project-blogs/projects/correlated-retry-amplification/render_figure.py"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run_experiment.py",
+    "analyze_results.py",
+    "artifacts/repeat-results.csv",
+    "artifacts/aggregate-results.json",
+    "artifacts/statistical-analysis.json",
+    "artifacts/focal-summary.txt",
+    "artifacts/retry-policy-tradeoff.svg"
+  ]
+}

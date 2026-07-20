@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "bootstrapSamples": 5000,
+  "bootstrapSeed": 20260719,
+  "pairing": "same repeat, arrival trace, and fault trace within load and fault-shape cell",
+  "contrasts": [
+    {
+      "policyA": "exponential_full_jitter",
+      "policyB": "no_retry",
+      "metric": "success_rate",
+      "shape": "correlated",
+      "loadPerSecond": 85,
+      "repeats": 200,
+      "meanDelta": 0.07165596104450855,
+      "pairedBootstrap95": [
+        0.0712368533459213,
+        0.07209341439468392
+      ],
+      "wins": 200,
+      "ties": 0
+    },
+    {
+      "policyA": "exponential_full_jitter",
+      "policyB": "no_retry",
+      "metric": "peak_attempts_per_second",
+      "shape": "correlated",
+      "loadPerSecond": 85,
+      "repeats": 200,
+      "meanDelta": 145.665,
+      "pairedBootstrap95": [
+        142.905,
+        148.33
+      ],
+      "wins": 200,
+      "ties": 0
+    },
+    {
+      "policyA": "exponential_full_jitter",
+      "policyB": "no_retry",
+      "metric": "attempt_amplification",
+      "shape": "correlated",
+      "loadPerSecond": 85,
+      "repeats": 200,
+      "meanDelta": 0.20814874516129678,
+      "pairedBootstrap95": [
+        0.2027069504175961,
+        0.21365707443372375
+      ],
+      "wins": 200,
+      "ties": 0
+    },
+    {
+      "policyA": "budgeted_full_jitter",
+      "policyB": "exponential_full_jitter",
+      "metric": "success_rate",
+      "shape": "correlated",
+      "loadPerSecond": 85,
+      "repeats": 200,
+      "meanDelta": -0.024408935180113688,
+      "pairedBootstrap95": [
+        -0.02491518857309424,
+        -0.02393407199877394
+      ],
+      "wins": 0,
+      "ties": 0
+    },
+    {
+      "policyA": "budgeted_full_jitter",
+      "policyB": "exponential_full_jitter",
+      "metric": "peak_attempts_per_second",
+      "shape": "correlated",
+      "loadPerSecond": 85,
+      "repeats": 200,
+      "meanDelta": -129.21,
+      "pairedBootstrap95": [
+        -131.9,
+        -126.41
+      ],
+      "wins": 0,
+      "ties": 0
+    },
+    {
+      "policyA": "budgeted_full_jitter",
+      "policyB": "exponential_full_jitter",
+      "metric": "overload_failures",
+      "shape": "correlated",
+      "loadPerSecond": 85,
+      "repeats": 200,
+      "meanDelta": -2336.375,
+      "pairedBootstrap95": [
+        -2455.965,
+        -2217.425
+      ],
+      "wins": 0,
+      "ties": 0
+    },
+    {
+      "policyA": "exponential_full_jitter",
+      "policyB": "exponential_no_jitter",
+      "metric": "peak_attempts_per_second",
+      "shape": "correlated",
+      "loadPerSecond": 85,
+      "repeats": 200,
+      "meanDelta": 14.3,
+      "pairedBootstrap95": [
+        12.805,
+        15.795
+      ],
+      "wins": 185,
+      "ties": 5
+    },
+    {
+      "policyA": "exponential_full_jitter",
+      "policyB": "exponential_no_jitter",
+      "metric": "p95_latency_seconds",
+      "shape": "correlated",
+      "loadPerSecond": 85,
+      "repeats": 200,
+      "meanDelta": -0.21367500000000106,
+      "pairedBootstrap95": [
+        -0.23267500000000105,
+        -0.19767500000000104
+      ],
+      "wins": 0,
+      "ties": 0
+    },
+    {
+      "policyA": "exponential_full_jitter",
+      "policyB": "no_retry",
+      "metric": "peak_attempts_per_second",
+      "shape": "none",
+      "loadPerSecond": 85,
+      "repeats": 80,
+      "meanDelta": 44.6875,
+      "pairedBootstrap95": [
+        43.0625,
+        46.4125
+      ],
+      "wins": 80,
+      "ties": 0
+    }
+  ]
+}
