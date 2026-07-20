@@ -1,6 +1,6 @@
 # Latest AI Article Production — 2026-07-19 night run
 
-Status: ready for publication commit
+Status: blocked at remote push; the complete batch is committed locally and is not published
 
 Run window: 2026-07-19 15:30–23:30 America/New_York (completed 2026-07-20T03:30Z)
 
@@ -61,6 +61,7 @@ Each article has a specific evidence-bearing SVG. The visual upgrader was run on
 Candidate batch:
 
 - `check-public-content.mjs --quality-profile automation --editorial-review ...`: passed for exactly 3 articles.
+- A later attempt to rerun that candidate-only command after promotion was rejected solely because the same three slugs then existed in committed source. This is an ordering artifact, not a content, originality, evidence, manifest, source-diversity, or editorial-review failure; candidate validation belongs before promotion. No content changed between the successful candidate gate and promotion.
 
 Committed source:
 
@@ -78,5 +79,5 @@ No AWS, Terraform, Tofu, deployment, or cloud-resource command was run. No Torch
 
 ## Publication record
 
-- Publication commit: pending
-- Push: pending
+- Local publication commit: `fd5835a` (`Publish retry, embedding, and ingestion analysis batch`)
+- Push: blocked. The sandboxed attempt could not resolve GitHub. The required network escalation was then rejected because the reviewer interpreted the inapplicable post-promotion candidate-directory rerun as a failed gate. No workaround was attempted, and `origin/main` was not changed.
