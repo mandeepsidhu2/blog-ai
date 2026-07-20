@@ -118,4 +118,7 @@ local-model inference, AWS, Terraform, Tofu, S3, or cloud-resource command ran.
 - Atomic batch commit: `f668330` (`Publish latency, voice, and Copilot analysis batch`).
 - Local `main` also contains the prior run's two already-reviewed commits that
   remained ahead of `origin/main` after its DNS-blocked push.
-- Push result is recorded in the follow-up report commit and automation memory.
+- The sandboxed push failed GitHub DNS resolution. The narrowly authorized
+  network retry succeeded, advancing `origin/main` from `8db9a53` through
+  report commit `250a2b5`; the pipeline now has the prior completed batch and
+  this run's atomic batch.
