@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hypothesis": "At a fixed 400-case AI release-canary budget, oversampling a one-percent critical stratum will materially increase power to detect its regression, while inverse-probability weighting will remain necessary to estimate the population-average regression without selection bias.",
+  "claimBoundary": "The study identifies estimator and sampling behavior under declared synthetic matched-outcome distributions. It does not validate any organization's risk labels, prescribe universal allocation weights, estimate a named model's failure rate, or replace a production shadow test.",
+  "design": {
+    "baselines": ["population-proportional uniform sample of 400 cases", "balanced one-third-per-stratum allocation at the same budget"],
+    "controls": ["homogeneous regression across all strata", "misranked risk in which the largest regression occurs in routine traffic", "null scenario with equal candidate-only and baseline-only discordance"],
+    "repeats": 4000
+  },
+  "reproduction": {
+    "commands": [
+      "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node run-experiment.mjs",
+      "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node render-figure.mjs"
+    ]
+  },
+  "artifacts": ["config.json", "run-experiment.mjs", "repeat-results.csv", "aggregate-results.json", "focal-summary.txt", "statistical-analysis.json", "risk-weighted-canary-results.svg"]
+}

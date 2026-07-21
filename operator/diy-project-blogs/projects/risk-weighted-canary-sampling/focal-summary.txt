@@ -1,0 +1,17 @@
+repeats_per_cell=4000
+sample_budget=400
+uniform_critical_detection=0.0025 [0.0010, 0.0043]
+uniform_mean_critical_n=4.00
+uniform_weighted_bias=-0.000129
+uniform_naive_bias=-0.000129
+uniform_effective_n=400.0
+risk_weighted_critical_detection=0.9770 [0.9722, 0.9815]
+risk_weighted_mean_critical_n=79.99
+risk_weighted_weighted_bias=0.000161
+risk_weighted_naive_bias=0.039860
+risk_weighted_effective_n=256.4
+balanced_critical_detection=0.9995 [0.9988, 1.0000]
+balanced_mean_critical_n=133.26
+balanced_weighted_bias=0.000247
+balanced_naive_bias=0.066127
+balanced_effective_n=156.8

@@ -1,0 +1,348 @@
+{
+  "config": {
+    "seed": 20260720,
+    "repeats": 4000,
+    "sampleBudget": 400,
+    "bootstrapSamples": 5000,
+    "populationShares": {
+      "routine": 0.92,
+      "important": 0.07,
+      "critical": 0.01
+    },
+    "policies": {
+      "uniform": {
+        "routine": 0.92,
+        "important": 0.07,
+        "critical": 0.01
+      },
+      "risk_weighted": {
+        "routine": 0.55,
+        "important": 0.25,
+        "critical": 0.2
+      },
+      "balanced": {
+        "routine": 0.3333333333,
+        "important": 0.3333333333,
+        "critical": 0.3333333334
+      }
+    },
+    "scenarios": {
+      "heterogeneous": {
+        "routine": {
+          "baselineOnlyFailure": 0.01,
+          "candidateOnlyFailure": 0.012
+        },
+        "important": {
+          "baselineOnlyFailure": 0.02,
+          "candidateOnlyFailure": 0.055
+        },
+        "critical": {
+          "baselineOnlyFailure": 0.02,
+          "candidateOnlyFailure": 0.2
+        }
+      },
+      "homogeneous": {
+        "routine": {
+          "baselineOnlyFailure": 0.02,
+          "candidateOnlyFailure": 0.055
+        },
+        "important": {
+          "baselineOnlyFailure": 0.02,
+          "candidateOnlyFailure": 0.055
+        },
+        "critical": {
+          "baselineOnlyFailure": 0.02,
+          "candidateOnlyFailure": 0.055
+        }
+      },
+      "misranked": {
+        "routine": {
+          "baselineOnlyFailure": 0.02,
+          "candidateOnlyFailure": 0.2
+        },
+        "important": {
+          "baselineOnlyFailure": 0.02,
+          "candidateOnlyFailure": 0.055
+        },
+        "critical": {
+          "baselineOnlyFailure": 0.01,
+          "candidateOnlyFailure": 0.012
+        }
+      },
+      "null": {
+        "routine": {
+          "baselineOnlyFailure": 0.02,
+          "candidateOnlyFailure": 0.02
+        },
+        "important": {
+          "baselineOnlyFailure": 0.02,
+          "candidateOnlyFailure": 0.02
+        },
+        "critical": {
+          "baselineOnlyFailure": 0.02,
+          "candidateOnlyFailure": 0.02
+        }
+      }
+    }
+  },
+  "expected": {
+    "heterogeneous": 0.006090000000000001,
+    "homogeneous": 0.03500000000000001,
+    "misranked": 0.16807000000000002,
+    "null": 0
+  },
+  "aggregates": [
+    {
+      "scenario": "heterogeneous",
+      "policy": "uniform",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0.006090000000000001,
+      "criticalDetectionPower": 0.0025,
+      "criticalDetectionPowerCI": [
+        0.001,
+        0.00425
+      ],
+      "meanCriticalN": 4.00025,
+      "weightedDeltaMean": 0.0059612499999999995,
+      "weightedBias": -0.00012875000000000126,
+      "weightedMeanCI": [
+        0.005707484375000024,
+        0.006215625000000028
+      ],
+      "naiveDeltaMean": 0.0059612499999999995,
+      "naiveBias": -0.00012875000000000126,
+      "effectiveNMean": 400
+    },
+    {
+      "scenario": "heterogeneous",
+      "policy": "risk_weighted",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0.006090000000000001,
+      "criticalDetectionPower": 0.977,
+      "criticalDetectionPowerCI": [
+        0.97225,
+        0.9815
+      ],
+      "meanCriticalN": 79.99325,
+      "weightedDeltaMean": 0.006250869414486109,
+      "weightedBias": 0.00016086941448610788,
+      "weightedMeanCI": [
+        0.005952397050707545,
+        0.006532388101832425
+      ],
+      "naiveDeltaMean": 0.04595000000000008,
+      "naiveBias": 0.03986000000000008,
+      "effectiveNMean": 256.43059808354593
+    },
+    {
+      "scenario": "heterogeneous",
+      "policy": "balanced",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0.006090000000000001,
+      "criticalDetectionPower": 0.9995,
+      "criticalDetectionPowerCI": [
+        0.99875,
+        1
+      ],
+      "meanCriticalN": 133.2635,
+      "weightedDeltaMean": 0.006336861460098643,
+      "weightedBias": 0.0002468614600986425,
+      "weightedMeanCI": [
+        0.005976515022659059,
+        0.006731966861771512
+      ],
+      "naiveDeltaMean": 0.0722168749999995,
+      "naiveBias": 0.0661268749999995,
+      "effectiveNMean": 156.8373491259438
+    },
+    {
+      "scenario": "homogeneous",
+      "policy": "uniform",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0.03500000000000001,
+      "criticalDetectionPower": 0,
+      "criticalDetectionPowerCI": [
+        0,
+        0
+      ],
+      "meanCriticalN": 4.03875,
+      "weightedDeltaMean": 0.03494749999999998,
+      "weightedBias": -0.00005250000000003169,
+      "weightedMeanCI": [
+        0.03452935937499999,
+        0.03536751562499998
+      ],
+      "naiveDeltaMean": 0.03494749999999998,
+      "naiveBias": -0.00005250000000003169,
+      "effectiveNMean": 400
+    },
+    {
+      "scenario": "homogeneous",
+      "policy": "risk_weighted",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0.03500000000000001,
+      "criticalDetectionPower": 0.156,
+      "criticalDetectionPowerCI": [
+        0.14499375,
+        0.1670062499999999
+      ],
+      "meanCriticalN": 79.955,
+      "weightedDeltaMean": 0.03504727560051016,
+      "weightedBias": 0.00004727560051014795,
+      "weightedMeanCI": [
+        0.03453077969799029,
+        0.03558087872986709
+      ],
+      "naiveDeltaMean": 0.0350850000000001,
+      "naiveBias": 0.00008500000000009195,
+      "effectiveNMean": 256.4919355992374
+    },
+    {
+      "scenario": "homogeneous",
+      "policy": "balanced",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0.03500000000000001,
+      "criticalDetectionPower": 0.302,
+      "criticalDetectionPowerCI": [
+        0.288,
+        0.316
+      ],
+      "meanCriticalN": 133.434,
+      "weightedDeltaMean": 0.035185266068893495,
+      "weightedBias": 0.00018526606889348457,
+      "weightedMeanCI": [
+        0.0345121640366022,
+        0.03586299429336606
+      ],
+      "naiveDeltaMean": 0.03511500000000008,
+      "naiveBias": 0.00011500000000006644,
+      "effectiveNMean": 156.49305671779317
+    },
+    {
+      "scenario": "misranked",
+      "policy": "uniform",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0.16807000000000002,
+      "criticalDetectionPower": 0,
+      "criticalDetectionPowerCI": [
+        0,
+        0
+      ],
+      "meanCriticalN": 4.00425,
+      "weightedDeltaMean": 0.16844687500000036,
+      "weightedBias": 0.0003768750000003318,
+      "weightedMeanCI": [
+        0.167805578125,
+        0.1691168749999998
+      ],
+      "naiveDeltaMean": 0.16844687500000036,
+      "naiveBias": 0.0003768750000003318,
+      "effectiveNMean": 400
+    },
+    {
+      "scenario": "misranked",
+      "policy": "risk_weighted",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0.16807000000000002,
+      "criticalDetectionPower": 0.0015,
+      "criticalDetectionPowerCI": [
+        0.0005,
+        0.00275
+      ],
+      "meanCriticalN": 80.18475,
+      "weightedDeltaMean": 0.16760390448010593,
+      "weightedBias": -0.0004660955198940997,
+      "weightedMeanCI": [
+        0.16675494163429141,
+        0.16843965226730098
+      ],
+      "naiveDeltaMean": 0.10751187500000138,
+      "naiveBias": -0.060558124999998644,
+      "effectiveNMean": 256.3510875390333
+    },
+    {
+      "scenario": "misranked",
+      "policy": "balanced",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0.16807000000000002,
+      "criticalDetectionPower": 0.0105,
+      "criticalDetectionPowerCI": [
+        0.0075,
+        0.014
+      ],
+      "meanCriticalN": 133.566,
+      "weightedDeltaMean": 0.16786111444424487,
+      "weightedBias": -0.0002088855557551561,
+      "weightedMeanCI": [
+        0.16678644514764543,
+        0.16886255128921837
+      ],
+      "naiveDeltaMean": 0.07220374999999948,
+      "naiveBias": -0.09586625000000054,
+      "effectiveNMean": 156.60353659726562
+    },
+    {
+      "scenario": "null",
+      "policy": "uniform",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0,
+      "criticalDetectionPower": 0,
+      "criticalDetectionPowerCI": [
+        0,
+        0
+      ],
+      "meanCriticalN": 3.9925,
+      "weightedDeltaMean": -0.00018937499999999995,
+      "weightedBias": -0.00018937499999999995,
+      "weightedMeanCI": [
+        -0.0004987656249999996,
+        0.00010376562499999981
+      ],
+      "naiveDeltaMean": -0.00018937499999999995,
+      "naiveBias": -0.00018937499999999995,
+      "effectiveNMean": 400
+    },
+    {
+      "scenario": "null",
+      "policy": "risk_weighted",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0,
+      "criticalDetectionPower": 0.005,
+      "criticalDetectionPowerCI": [
+        0.003,
+        0.00725
+      ],
+      "meanCriticalN": 80.0435,
+      "weightedDeltaMean": 0.00014301040389445093,
+      "weightedBias": 0.00014301040389445093,
+      "weightedMeanCI": [
+        -0.00022727987738533037,
+        0.0005241691753139725
+      ],
+      "naiveDeltaMean": -0.000011875000000000234,
+      "naiveBias": -0.000011875000000000234,
+      "effectiveNMean": 256.59070547375063
+    },
+    {
+      "scenario": "null",
+      "policy": "balanced",
+      "repeats": 4000,
+      "expectedPopulationDelta": 0,
+      "criticalDetectionPower": 0.01325,
+      "criticalDetectionPowerCI": [
+        0.01,
+        0.01675
+      ],
+      "meanCriticalN": 133.278,
+      "weightedDeltaMean": -0.00016133938601046836,
+      "weightedBias": -0.00016133938601046836,
+      "weightedMeanCI": [
+        -0.0006371506512311166,
+        0.0003120033613503916
+      ],
+      "naiveDeltaMean": 0.000255,
+      "naiveBias": 0.000255,
+      "effectiveNMean": 156.85596656189244
+    }
+  ]
+}

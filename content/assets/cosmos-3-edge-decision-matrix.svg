@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title>Cosmos 3 Edge hardware and task decision matrix</title>
+  <desc>Comparison of published reasoner and generator measurements showing which Cosmos 3 Edge results can and cannot be compared.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="54" y="54" fill="#101720" font-size="27" font-weight="700" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">One checkpoint, different latency contracts</text>
+  <text x="54" y="82" fill="#40515f" font-size="13" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">Cosmos 3 Edge · July 20, 2026 · published batch-one measurements</text>
+  <rect x="54" y="112" width="852" height="52" rx="8" fill="#13253b"/>
+  <text x="72" y="144" fill="#253240" font-size="14" font-weight="700" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">REASONER · same 911-token image input · eager Transformers</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+    <text x="74" y="205" fill="#334250">T5000 128 GB</text><rect x="250" y="185" width="190" height="28" rx="6" fill="#22c55e"/><text x="456" y="205" fill="#101720">3.17 s · 42.6 tok/s</text>
+    <text x="74" y="250" fill="#334250">T3000 32 GB</text><rect x="250" y="230" width="229" height="28" rx="6" fill="#67e8f9"/><text x="495" y="250" fill="#101720">3.83 s · 36.3 tok/s</text>
+    <text x="74" y="295" fill="#334250">T2000 16 GB</text><rect x="250" y="275" width="431" height="28" rx="6" fill="#ffb84d"/><text x="697" y="295" fill="#101720">7.21 s · 19.6 tok/s</text>
+    <text x="74" y="340" fill="#334250">AGX Orin 64 GB</text><rect x="250" y="320" width="647" height="28" rx="6" fill="#a78bfa"/><text x="710" y="340" fill="#091525">10.81 s · 12.3 tok/s</text>
+  </g>
+  <rect x="54" y="382" width="852" height="104" rx="8" fill="#13253b" stroke="#334155"/>
+  <text x="72" y="411" fill="#101720" font-size="14" font-weight="700" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">GENERATOR · 189 frames · separate workload</text>
+  <text x="72" y="442" fill="#334250" font-size="13" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">H100 SXM: 27.64 s at 480p</text>
+  <text x="366" y="442" fill="#334250" font-size="13" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">T3000: 194.76 s at 832×480</text>
+  <text x="680" y="442" fill="#ffb84d" font-size="13" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">T2000: 101.20 s*</text>
+  <text x="72" y="469" fill="#40515f" font-size="12" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">*448×256 warm run: not directly comparable with 480p rows. Policy 15 Hz is another contract.</text>
+  <text x="54" y="518" fill="#40515f" font-size="12" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">Source: NVIDIA Cosmos 3 Edge model card, retrieved 2026-07-20.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

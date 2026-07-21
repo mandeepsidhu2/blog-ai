@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title>GitHub Code Quality cost and rollout surface</title>
+  <desc>Three-column matrix separating base licenses, deterministic Actions analysis, and metered AI capabilities with distinct rollout measurements.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="54" y="56" fill="#101720" font-size="28" font-weight="700" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">Three meters need three release controls</text>
+  <text x="54" y="84" fill="#40515f" font-size="13" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">GitHub Code Quality GA · July 20, 2026</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace">
+    <rect x="54" y="116" width="266" height="320" rx="8" fill="#11243a" stroke="#22c55e"/>
+    <text x="74" y="154" fill="#86efac" font-size="16" font-weight="700">BASE LICENSE</text>
+    <text x="74" y="196" fill="#101720" font-size="27" font-weight="800">$10</text>
+    <text x="74" y="219" fill="#334250" font-size="12">active committer / month</text>
+    <line x1="74" y1="244" x2="298" y2="244" stroke="#334155"/>
+    <text x="74" y="277" fill="#253240" font-size="13">Findings + scoring</text>
+    <text x="74" y="303" fill="#253240" font-size="13">Dashboards + rulesets</text>
+    <text x="74" y="329" fill="#253240" font-size="13">Merge quality gates</text>
+    <text x="74" y="382" fill="#40515f" font-size="12">CONTROL</text>
+    <text x="74" y="407" fill="#101720" font-size="13">Repository cohort</text>
+
+    <rect x="347" y="116" width="266" height="320" rx="8" fill="#11243a" stroke="#67e8f9"/>
+    <text x="367" y="154" fill="#67e8f9" font-size="16" font-weight="700">DETERMINISTIC</text>
+    <text x="367" y="196" fill="#101720" font-size="22" font-weight="800">Actions minutes</text>
+    <text x="367" y="219" fill="#334250" font-size="12">CodeQL quality analysis</text>
+    <line x1="367" y1="244" x2="591" y2="244" stroke="#334155"/>
+    <text x="367" y="277" fill="#253240" font-size="13">Maintainability</text>
+    <text x="367" y="303" fill="#253240" font-size="13">Reliability</text>
+    <text x="367" y="329" fill="#253240" font-size="13">Coverage enforcement</text>
+    <text x="367" y="382" fill="#40515f" font-size="12">CONTROL</text>
+    <text x="367" y="407" fill="#101720" font-size="13">Runtime + precision</text>
+
+    <rect x="640" y="116" width="266" height="320" rx="8" fill="#11243a" stroke="#ffb84d"/>
+    <text x="660" y="154" fill="#ffb84d" font-size="16" font-weight="700">METERED AI</text>
+    <text x="660" y="196" fill="#101720" font-size="22" font-weight="800">Usage based</text>
+    <text x="660" y="219" fill="#334250" font-size="12">amount varies by workload</text>
+    <line x1="660" y1="244" x2="884" y2="244" stroke="#334155"/>
+    <text x="660" y="277" fill="#253240" font-size="13">Copilot review</text>
+    <text x="660" y="303" fill="#253240" font-size="13">AI-assisted detection</text>
+    <text x="660" y="329" fill="#253240" font-size="13">Autofix generation</text>
+    <text x="660" y="382" fill="#40515f" font-size="12">CONTROL</text>
+    <text x="660" y="407" fill="#101720" font-size="13">Unique yield / dollar</text>
+  </g>
+  <rect x="54" y="462" width="852" height="42" rx="8" fill="#172b43"/>
+  <text x="480" y="489" text-anchor="middle" fill="#101720" font-size="14" font-weight="700" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">Pilot in observe-only mode before any organization-wide merge block</text>
+  <text x="54" y="526" fill="#40515f" font-size="12" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">Source: GitHub GA notice and Enterprise Cloud documentation, 2026-07-20.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

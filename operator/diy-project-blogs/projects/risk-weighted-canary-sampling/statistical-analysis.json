@@ -1,0 +1,12 @@
+{
+  "estimand": "population-weighted candidate-only minus baseline-only discordance",
+  "criticalTest": "one-sided exact sign test on matched critical-stratum discordances at alpha=0.05",
+  "intervals": "nonparametric bootstrap of 5000 repeat-level means",
+  "multiplicity": "three policies and four scenarios are reported descriptively; no family-wise confirmatory claim is made",
+  "confirmatoryScenario": "heterogeneous",
+  "controls": [
+    "homogeneous",
+    "misranked",
+    "null"
+  ]
+}

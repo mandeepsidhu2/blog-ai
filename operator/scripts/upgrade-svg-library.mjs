@@ -182,6 +182,19 @@ function normalizeSvg(svg) {
   return result;
 }
 
+function normalizeRootMarkers(svg) {
+  const root = svg.match(/<svg\b([^>]*)>/i)?.[0] || "";
+  const qualityMarkers = root.match(/\sdata-visual-quality=["'][^"']*["']/gi) || [];
+  const systemMarkers = root.match(/\sdata-visual-system=["'][^"']*["']/gi) || [];
+  if (qualityMarkers.length === 1 && systemMarkers.length === 1) return svg;
+  return svg.replace(/<svg\b([^>]*)>/i, (_match, attributes) => {
+    const cleaned = attributes
+      .replace(/\s+data-visual-quality=["'][^"']*["']/gi, "")
+      .replace(/\s+data-visual-system=["'][^"']*["']/gi, "");
+    return `<svg${cleaned} data-visual-quality="publication" data-visual-system="fieldbook-v2">`;
+  });
+}
+
 function visualType(fileName) {
   if (fileName.startsWith("measure-")) return "MEASURED RESULTS";
   if (fileName.includes("budgeted-guardrails") || fileName.includes("context-boundary")) {
@@ -375,7 +388,8 @@ function fitLongLabels(svg, width) {
 function upgradeSvg(svg, fileName) {
   const { width, height } = svgDimensions(svg, fileName);
   if (svg.includes(visualMarker)) {
-    let repaired = fitPanelLabels(removeOverlappingTopLegends(svg));
+    let repaired = normalizeRootMarkers(svg);
+    repaired = fitPanelLabels(removeOverlappingTopLegends(repaired));
     repaired = deepenLargeAccentPanels(removeMisplacedFrameDivider(repaired, height));
     repaired = fitCanvasLabels(repaired, width, height);
     return fitLongLabels(repaired, width).replace(/[ \t]+$/gm, "");
@@ -383,10 +397,7 @@ function upgradeSvg(svg, fileName) {
 
   let result = removeCanvasBackground(svg, width, height, fileName);
   result = normalizeSvg(result);
-  result = result.replace(
-    /<svg\b([^>]*)>/i,
-    `<svg$1 data-visual-quality="publication" data-visual-system="fieldbook-v2">`,
-  );
+  result = normalizeRootMarkers(result);
 
   const descEnd = result.indexOf("</desc>");
   if (descEnd === -1) throw new Error(`Missing <desc> in ${fileName}`);

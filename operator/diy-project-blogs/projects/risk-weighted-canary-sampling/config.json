@@ -1,0 +1,34 @@
+{
+  "seed": 20260720,
+  "repeats": 4000,
+  "sampleBudget": 400,
+  "bootstrapSamples": 5000,
+  "populationShares": {"routine": 0.92, "important": 0.07, "critical": 0.01},
+  "policies": {
+    "uniform": {"routine": 0.92, "important": 0.07, "critical": 0.01},
+    "risk_weighted": {"routine": 0.55, "important": 0.25, "critical": 0.20},
+    "balanced": {"routine": 0.3333333333, "important": 0.3333333333, "critical": 0.3333333334}
+  },
+  "scenarios": {
+    "heterogeneous": {
+      "routine": {"baselineOnlyFailure": 0.010, "candidateOnlyFailure": 0.012},
+      "important": {"baselineOnlyFailure": 0.020, "candidateOnlyFailure": 0.055},
+      "critical": {"baselineOnlyFailure": 0.020, "candidateOnlyFailure": 0.200}
+    },
+    "homogeneous": {
+      "routine": {"baselineOnlyFailure": 0.020, "candidateOnlyFailure": 0.055},
+      "important": {"baselineOnlyFailure": 0.020, "candidateOnlyFailure": 0.055},
+      "critical": {"baselineOnlyFailure": 0.020, "candidateOnlyFailure": 0.055}
+    },
+    "misranked": {
+      "routine": {"baselineOnlyFailure": 0.020, "candidateOnlyFailure": 0.200},
+      "important": {"baselineOnlyFailure": 0.020, "candidateOnlyFailure": 0.055},
+      "critical": {"baselineOnlyFailure": 0.010, "candidateOnlyFailure": 0.012}
+    },
+    "null": {
+      "routine": {"baselineOnlyFailure": 0.020, "candidateOnlyFailure": 0.020},
+      "important": {"baselineOnlyFailure": 0.020, "candidateOnlyFailure": 0.020},
+      "critical": {"baselineOnlyFailure": 0.020, "candidateOnlyFailure": 0.020}
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "detect-rare-ai-regressions-with-risk-weighted-canaries",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 5,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "The apparent gain can be manufactured by a taxonomy that already knows where the simulated regression lives; real organizations have noisy, stale risk labels, so the power result may not survive prospective use.",
+      "unsupportedClaimRisk": "The weakest initial claim implied that inverse-probability weighting repaired the canary generally; it repairs the population estimand under known nonzero selection probabilities but cannot repair misspecified strata or omitted traffic regions.",
+      "reproductionBarrier": "A reader can reproduce the simulation without dependencies, but applying it requires a versioned consequence taxonomy, paired evaluator stability, selection-probability logging, and a held-out incident family that many teams do not yet maintain.",
+      "revisions": [
+        "Added homogeneous, misranked-risk, and no-effect controls and made the misranked result central to the adoption boundary rather than a footnote.",
+        "Separated detection and prevalence into two release ledgers with preregistered stop rules, effective-sample requirements, and a population shadow stream.",
+        "Added held-out taxonomy validation, case-exposure tracking, and an explicit non-claim for adaptive allocation."
+      ]
+    },
+    {
+      "slug": "cosmos-3-edge-hardware-task-canary",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "Provider-published latency and benchmark tables may not transfer to a customer's sensors, thermals, runtime commit, or safety envelope, so a hardware matrix can create false precision despite careful transcription.",
+      "unsupportedClaimRisk": "The weakest initial wording treated 15 Hz policy operation and board-specific reasoner timings as one edge-performance story; the revision states that these are different configurations and cannot establish closed-loop safety.",
+      "reproductionBarrier": "Full reproduction requires NVIDIA boards, the pinned 4B weights and CUDA runtime, representative physical episodes, DROID-compatible policy plumbing, and safety review; no local hardware run was performed for this analysis.",
+      "revisions": [
+        "Split reasoner, generator, and policy evidence into separate workload contracts and flagged the T2000 resolution mismatch directly in the table and visual.",
+        "Added a three-phase offline, hardware-in-the-loop, and shadow-policy rollout with deterministic actuator constraints and concrete rollback triggers.",
+        "Added prompt-upsampler dependency, license, non-NVIDIA portability, power, thermal, and p95 unknowns to the adoption boundary."
+      ]
+    },
+    {
+      "slug": "github-code-quality-cost-rollout-canary",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "The article cannot calculate total cost or comparative accuracy without organization-specific active-committer definitions, Actions pricing, AI usage rates, repository builds, and labeled findings from incumbent analyzers.",
+      "unsupportedClaimRisk": "The weakest initial claim implied consolidation would improve quality operations; the revision makes consolidation conditional on supported-language coverage, analyzer parity, actionable precision, reliable builds, and export testing.",
+      "reproductionBarrier": "A decision-grade pilot needs billing telemetry, representative repositories, blinded expert labeling, existing analyzer exports, and two normal development cycles; public documentation alone cannot supply those measurements.",
+      "revisions": [
+        "Separated base licenses, deterministic Actions analysis, and metered AI into distinct budget caps and rollout controls instead of a blended per-developer estimate.",
+        "Added an observe-only analyzer-parity phase followed by a randomized incremental-AI cohort scored on unique accepted findings, latency, remediation success, and cost.",
+        "Added language blind spots, SARIF limits, fail-open versus fail-closed behavior, new-code thresholding, and export/restore rehearsal to the rollback plan."
+      ]
+    }
+  ]
+}

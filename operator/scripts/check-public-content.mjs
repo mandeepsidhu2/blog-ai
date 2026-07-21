@@ -348,6 +348,11 @@ async function validateImageAsset(filePath) {
   if (extension === ".svg") {
     const svg = buffer.toString("utf8");
     if (!/<svg\b/i.test(svg)) issues.push("SVG article image is missing an <svg> root.");
+    const rootAttributes = svg.match(/<svg\b([^>]*)>/i)?.[1] || "";
+    const attributeNames = [...rootAttributes.matchAll(/\s([:\w-]+)\s*=/g)].map((match) => match[1].toLowerCase());
+    if (new Set(attributeNames).size !== attributeNames.length) {
+      issues.push("SVG article image has duplicate root attributes and is not valid XML.");
+    }
     if (!/<title\b/i.test(svg)) issues.push("SVG article image needs a <title> for accessibility.");
     if (!/<desc\b/i.test(svg)) issues.push("SVG article image needs a <desc> for accessibility.");
     if (/href=["']https?:\/\//i.test(svg)) {
