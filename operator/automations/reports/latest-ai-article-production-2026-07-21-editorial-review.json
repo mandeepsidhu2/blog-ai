@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "audit-llm-cascades-by-workload",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The authored Bernoulli outcomes and confidence distributions guarantee a legible subgroup failure, so the experiment shows a possible mechanism rather than how often real model cascades exhibit it.",
+      "unsupportedClaimRisk": "The weakest initial claim implied workload-specific miscalibration caused the entire failure; the controls show global false approval remains 72.67% without the score shift, so the article now attributes the result jointly to heterogeneous skill and routing selection.",
+      "reproductionBarrier": "The dependency-free simulation is easy to repeat, but production confirmation requires prospective workload labels, blinded paired outcomes, request-level billed units, route scores, enough rare-workload cases, and a sealed threshold-selection protocol.",
+      "revisions": [
+        "Added exact calibrated-score and equal-skill control outcomes, narrowing miscalibration from necessary cause to an amplifier of the case-mix failure.",
+        "Added a constrained threshold-selection procedure with sealed evaluation, uncertainty-aware constraints, cost denominators, capacity limits, and monotonicity audits.",
+        "Retained the 19-of-600 workload-aware false approvals as a negative result rather than presenting subgroup thresholds as sufficient protection."
+      ]
+    },
+    {
+      "slug": "evaluate-ai-hardware-architects-without-simulator-leakage",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "ArchEval is a 20-task preprint and model results are confounded with different agent frameworks, so the reported L3 gap cannot establish a durable model ranking or general hardware-design capability.",
+      "unsupportedClaimRisk": "The weakest implication was that GPT-5.5 alone produced the best L3 result; the revision explicitly treats GPT-5.5 plus Codex as the measured system and requires model-by-framework parity cells before model attribution.",
+      "reproductionBarrier": "A decision-grade reproduction needs eight heterogeneous simulator environments, exact workloads and baselines, tool and feedback budgets, licensed design tools where applicable, clean replay, and domain experts to validate constraints and novelty.",
+      "revisions": [
+        "Added a two-axis model-by-framework parity study with matched simulator calls, context, wall time, retries, and starting artifacts.",
+        "Separated benchmark performance, engineering utility, and scientific novelty, adding structural prior-art review before any discovery claim.",
+        "Made L1, L2, and L3 separate procurement claims and refused a single blended ArchEval score."
+      ]
+    },
+    {
+      "slug": "pilot-roda-mcp-with-dataset-fitness-checks",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "The article asks for a substantial governance and snapshot layer around a read-only discovery tool, which could erase its speed advantage for low-risk public datasets with already mature provider documentation.",
+      "unsupportedClaimRisk": "The weakest initial implication was that richer verification is always required before any use; the article now confines the strict promotion path to training and governed evaluation while retaining lightweight read-only exploration.",
+      "reproductionBarrier": "RODA catalog and object state can change, and the tool does not itself pin registry revisions or dataset objects, so prompts are not reproducible without archived metadata, provider evidence, package revision, and object manifests.",
+      "revisions": [
+        "Added no-match and out-of-registry test sets so the pilot measures abstention and distinguishes catalog absence from dataset nonexistence.",
+        "Added an explicit reproduction packet containing returned metadata, package or repository revision, provider pages, and immutable object manifests.",
+        "Separated conversational discovery, first-100-KB parser inspection, legal verification, governed snapshotting, and task-fitness evidence."
+      ]
+    }
+  ]
+}

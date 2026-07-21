@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded"><title>ArchEval feedback and adoption boundary</title><desc>Comparison matrix for L1 full harness, L2 simulator container, and L3 agent-only evaluation with measured outcome boundaries.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g><style>.t{font:700 27px system-ui;fill:#101720}.s{font:15px system-ui;fill:#a9b6c8}.h{font:700 18px system-ui;fill:#101720}.b{font:15px system-ui;fill:#dbe4f0}.n{font:700 24px system-ui;fill:#2dd4bf}.warn{fill:#ffb84d}</style><text x="48" y="55" class="t" textLength="210" lengthAdjust="spacingAndGlyphs">ArchEval measures three different products</text><text x="48" y="84" class="s" textLength="210" lengthAdjust="spacingAndGlyphs">July 3, 2026 · 20 challenges · 8 simulators · do not average assistance levels</text><g transform="translate(48 118)"><rect width="270" height="330" rx="8" fill="#122033" stroke="#32445d"/><text x="24" y="40" class="h">L1 · full harness</text><text x="24" y="78" class="n">4 / 4</text><text x="24" y="102" class="s" textLength="234" lengthAdjust="spacingAndGlyphs">agents reach or beat baseline</text><text x="24" y="150" class="b">Prepared loop</text><text x="24" y="177" class="b" textLength="234" lengthAdjust="spacingAndGlyphs">Repeated simulator feedback</text><text x="24" y="220" class="h">Supports</text><text x="24" y="248" class="b">Measured search worker</text><text x="24" y="285" class="h">Does not support</text><text x="24" y="313" class="b">Autonomous judgment</text></g><g transform="translate(345 118)"><rect width="270" height="330" rx="8" fill="#122033" stroke="#32445d"/><text x="24" y="40" class="h">L2 · simulator code</text><text x="24" y="78" class="n">build the loop</text><text x="24" y="102" class="s" textLength="234" lengthAdjust="spacingAndGlyphs">tool/workflow failures emerge</text><text x="24" y="150" class="b">Source and constraints</text><text x="24" y="177" class="b">No prepared experiment</text><text x="24" y="220" class="h">Supports</text><text x="24" y="248" class="b">Workflow autonomy</text><text x="24" y="285" class="h">Decision metric</text><text x="24" y="313" class="b" textLength="234" lengthAdjust="spacingAndGlyphs">Clean replay + valid parse</text></g><g transform="translate(642 118)"><rect width="270" height="330" rx="8" fill="#122033" stroke="#32445d"/><text x="24" y="40" class="h">L3 · agent only</text><text x="24" y="78" class="n">1.21× · 65%</text><text x="24" y="102" class="s">best geomean · win rate</text><text x="24" y="150" class="b">Static evidence only</text><text x="24" y="177" class="b">No runnable feedback</text><text x="24" y="220" class="h">Hard boundary</text><text x="24" y="248" class="b">Modeling pass rate</text><text x="24" y="282" class="n warn">15%</text><text x="82" y="282" class="s">best reported</text></g><text x="48" y="500" class="s">Adopt for simulator-bounded exploration; require sealed L3 evidence for pre-feedback recommendations.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+<circle cx="330" cy="465" r="5" fill="#2dd4bf"/><circle cx="627" cy="465" r="5" fill="#f59e0b"/></svg>

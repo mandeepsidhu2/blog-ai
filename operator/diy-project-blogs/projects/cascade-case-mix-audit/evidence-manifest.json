@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "hypothesis": "A single confidence threshold can satisfy a population-average accuracy tolerance and save cost while repeatedly violating a preregistered accuracy tolerance in a rare, miscalibrated high-stakes stratum.",
+  "claimBoundary": "The saved experiment demonstrates a case-mix and calibration failure mechanism under declared synthetic Bernoulli outcomes; it does not measure a vendor model, select universal thresholds, or prove that stratum-aware routing transfers without prospective calibration.",
+  "design": {
+    "baselines": [
+      "strong model on every request",
+      "oracle router that observes which model would be correct"
+    ],
+    "controls": [
+      "calibrated-score control removes the critical confidence shift",
+      "equal-skill control removes the small-versus-strong accuracy gap",
+      "paired request stream shared by all routing policies"
+    ],
+    "repeats": 600
+  },
+  "reproduction": {
+    "commands": [
+      "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node operator/diy-project-blogs/projects/cascade-case-mix-audit/run-experiment.mjs"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run-experiment.mjs",
+    "repeat-results.csv",
+    "aggregate-results.json",
+    "statistical-analysis.json",
+    "output.txt",
+    "cascade-case-mix-results.svg"
+  ]
+}

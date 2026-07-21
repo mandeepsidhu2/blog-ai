@@ -1,0 +1,7 @@
+scenario=shifted
+repeats=600
+requests_per_repeat=12000
+strong_only global=95.42% critical=90.04% cost=$0.0200 strong_route=100.00% false_approval=0.00%
+global_threshold global=96.46% critical=75.64% cost=$0.0046 strong_route=3.95% false_approval=100.00%
+stratum_threshold global=97.76% critical=91.41% cost=$0.0049 strong_route=5.37% false_approval=3.17%
+oracle global=99.57% critical=97.04% cost=$0.0051 strong_route=6.85% false_approval=0.00%

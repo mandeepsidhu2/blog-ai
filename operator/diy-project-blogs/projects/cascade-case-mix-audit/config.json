@@ -1,0 +1,17 @@
+{
+  "seed": 20260721,
+  "repeats": 600,
+  "requestsPerRepeat": 12000,
+  "bootstrapSamples": 5000,
+  "strongCostPerRequest": 0.02,
+  "smallCostPerRequest": 0.004,
+  "globalAccuracyTolerancePoints": 0.5,
+  "stratumAccuracyTolerancePoints": 1.0,
+  "population": {"routine": 0.70, "important": 0.25, "critical": 0.05},
+  "policies": {
+    "strong_only": {"routine": 1.01, "important": 1.01, "critical": 1.01},
+    "global_threshold": {"routine": 0.62, "important": 0.62, "critical": 0.62},
+    "stratum_threshold": {"routine": 0.62, "important": 0.72, "critical": 0.90},
+    "oracle": null
+  }
+}
