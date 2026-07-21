@@ -129,5 +129,8 @@ lowered after rendered review found value labels too close to the subtitle.
 
 ## Publication record
 
-The publication commit and `git push origin main` result are recorded in the
-follow-up report commit after the Git transaction. No partial batch is allowed.
+Publication commit `59cc7f9` contains the complete three-article batch, three
+assets, deep evidence project, editorial review, durable report, and SVG harness
+correction. The sandboxed `git push origin main` attempt could not resolve
+GitHub; the narrowly authorized network retry succeeded and advanced
+`origin/main` from `9c486a3` to `59cc7f9`. No partial batch was published.
