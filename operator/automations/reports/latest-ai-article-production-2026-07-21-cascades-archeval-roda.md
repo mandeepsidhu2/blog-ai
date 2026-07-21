@@ -121,5 +121,7 @@ and the evidence-project SVG parse as XML and pass the visual-system check.
 
 Atomic batch commit `e3837db` contains the three articles, three public assets,
 deep evidence project, and editorial review. The durable report is committed
-separately so it can record that immutable batch identifier. No partial batch
-was published.
+separately so it can record that immutable batch identifier. The sandboxed
+push could not resolve GitHub; the narrowly authorized network retry succeeded
+and advanced `origin/main` from `9d01cee` through report commit `add9bc4`. No
+partial batch was published.
