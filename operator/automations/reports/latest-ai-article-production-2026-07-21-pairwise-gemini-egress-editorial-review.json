@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "audit-pairwise-llm-judges-order-swaps",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "The focal result is guaranteed by a transparent synthetic judge with an injected candidate preference, so it demonstrates a mechanism rather than establishing that a real production judge has a material residual bias after swapping.",
+      "unsupportedClaimRisk": "The weakest claim was that dropping discordant pairs is generally worse; the draft now states that drop and tie target different estimands and confines the observed bias increase to the declared generator.",
+      "reproductionBarrier": "A live reproduction lacks latent truth and must pay for blinded human adjudication across both consistent and discordant strata while preserving cluster structure and candidate blinding.",
+      "revisions": [
+        "Separated the order-consistent-subset estimand from the full-sample tie utility so readers cannot interpret either automatically as human win rate.",
+        "Added judge-call and reviewer-cost accounting, making clear that the controlled comparison isolates bias behavior rather than claiming swap evaluation is cost efficient.",
+        "Strengthened the calibration design to sample consistent candidate wins and losses instead of escalating only the visibly discordant cases."
+      ]
+    },
+    {
+      "slug": "migrate-gemini-3-6-flash-task-cost-replay",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "The price reduction, independent token measurement, and multiple benchmark gains already justify a broad migration, while a large internal replay delays savings and may reproduce provider work poorly.",
+      "unsupportedClaimRisk": "The weakest language treated reported benchmark improvements as if they carried inferential certainty; the article now labels them release-reported point estimates without repeat-level uncertainty and prohibits cross-benchmark averaging.",
+      "reproductionBarrier": "Teams need the same 3.5 configuration, sealed real tasks, billed thinking-token telemetry, objective verifiers, and enough severe-slice cases to distinguish a model change from tool or retry changes.",
+      "revisions": [
+        "Added no-tool and fixed-output accounting controls to separate base-model behavior and billing instrumentation from changed agent orchestration.",
+        "Changed the rollout from one alias migration to independently reversible capability cells for text, multimodal understanding, tools, and preview computer use.",
+        "Made the provider provenance and missing repeat-level uncertainty explicit beside the three focal benchmark gains."
+      ]
+    },
+    {
+      "slug": "audit-local-first-coding-agent-data-egress",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "SpaceXAI disabled default retention, promised deletion, and published the client source, so an extensive wire-level procurement program could overreact to an early beta version that no longer represents current behavior.",
+      "unsupportedClaimRisk": "The weakest possible inference was that visible upload modules imply current exfiltration; the article explicitly rejects that inference and requires version-, account-, binary-, and server-state-specific behavioral tests.",
+      "reproductionBarrier": "Wire behavior can depend on account tier and server flags, lawful payload inspection may be unavailable, and public sources do not reveal the affected population or independently verify deletion of previously retained data.",
+      "revisions": [
+        "Added a two-artifact comparison between the vendor binary and a pinned local source build so source transparency cannot certify a different executable.",
+        "Added server-policy replay and effective-flag archiving because reported behavior changed without a client update, making server state part of the tested version.",
+        "Separated transmission, retention, provenance, and authority into independent acceptance rows and narrowed all incident claims to the reported v0.2.93 evidence."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "hypothesis": "Evaluating both answer orders will remove a pure position effect, but it will not prevent false model promotion when the judge has candidate-correlated content or style bias; dropping discordant swaps will also hide the size of the unstable subset.",
+  "claimBoundary": "The experiment identifies failure mechanisms under declared stochastic judge and task parameters. It does not estimate the bias of a named judge model, prove a universal human-review rate, or establish that simulated style exposure matches any production workload.",
+  "design": {
+    "baselines": [
+      "latent truth reference for every paired answer",
+      "one judgment with the candidate always presented first",
+      "one judgment with randomized presentation order"
+    ],
+    "controls": [
+      "position-only control removes candidate-correlated style preference",
+      "style-only control removes position overrides",
+      "unbiased negative control removes both injected biases",
+      "all policies share the same latent truths and difficulty mix within each repeat"
+    ],
+    "repeats": 800
+  },
+  "reproduction": {
+    "commands": [
+      "node operator/diy-project-blogs/projects/pairwise-judge-swap-audit/run-experiment.mjs"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run-experiment.mjs",
+    "repeat-results.csv",
+    "aggregate-results.json",
+    "statistical-analysis.json",
+    "output.txt",
+    "pairwise-judge-swap-results.svg"
+  ]
+}

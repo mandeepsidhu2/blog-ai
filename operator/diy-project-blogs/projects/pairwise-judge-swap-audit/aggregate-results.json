@@ -1,0 +1,1380 @@
+{
+  "config": {
+    "seed": 20260721,
+    "repeats": 800,
+    "pairsPerRepeat": 500,
+    "bootstrapSamples": 5000,
+    "trueCandidateWinRate": 0.48,
+    "hardPairRate": 0.4,
+    "easyJudgeAccuracy": 0.86,
+    "hardJudgeAccuracy": 0.62,
+    "positionOverrideRate": 0.2,
+    "styleExposureRate": 0.35,
+    "styleFlipRate": 0.48,
+    "promotionThreshold": 0.52
+  },
+  "scenarios": {
+    "focal_both_biases": {
+      "position": 0.2,
+      "style": 0.48
+    },
+    "position_only_control": {
+      "position": 0.2,
+      "style": 0
+    },
+    "style_only_control": {
+      "position": 0,
+      "style": 0.48
+    },
+    "unbiased_negative_control": {
+      "position": 0,
+      "style": 0
+    }
+  },
+  "aggregates": [
+    {
+      "scenario": "focal_both_biases",
+      "policy": "single_candidate_first",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48025500000000076,
+          "ci95": [
+            0.4786250000000005,
+            0.48186250000000014
+          ]
+        },
+        "estimate": {
+          "mean": 0.6589599999999994,
+          "ci95": [
+            0.65746,
+            0.6604774999999986
+          ]
+        },
+        "biasPoints": {
+          "mean": 17.870500000000007,
+          "ci95": [
+            17.695249999999998,
+            18.044249999999987
+          ]
+        },
+        "promotion": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "focal_both_biases",
+      "policy": "randomized_single",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48025500000000076,
+          "ci95": [
+            0.4786274999999997,
+            0.48180750000000144
+          ]
+        },
+        "estimate": {
+          "mean": 0.5591549999999994,
+          "ci95": [
+            0.5576199999999991,
+            0.5606675000000001
+          ]
+        },
+        "biasPoints": {
+          "mean": 7.8899999999999935,
+          "ci95": [
+            7.705749999999997,
+            8.075499999999995
+          ]
+        },
+        "promotion": {
+          "mean": 0.95125,
+          "ci95": [
+            0.93625,
+            0.965
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "focal_both_biases",
+      "policy": "swap_drop_discordant",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48025500000000076,
+          "ci95": [
+            0.4786724999999999,
+            0.4818475000000009
+          ]
+        },
+        "estimate": {
+          "mean": 0.5744890733102199,
+          "ci95": [
+            0.5727539641750667,
+            0.5761957559792772
+          ]
+        },
+        "biasPoints": {
+          "mean": 9.423407331021984,
+          "ci95": [
+            9.244035126258936,
+            9.610345635660263
+          ]
+        },
+        "promotion": {
+          "mean": 0.99,
+          "ci95": [
+            0.9825,
+            0.99625
+          ]
+        },
+        "discordantRate": {
+          "mean": 0.1985724999999995,
+          "ci95": [
+            0.1973049999999996,
+            0.1998674999999994
+          ]
+        },
+        "coverage": {
+          "mean": 0.801427499999999,
+          "ci95": [
+            0.8001624999999991,
+            0.8026924999999975
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "focal_both_biases",
+      "policy": "swap_tie_aware",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48025500000000076,
+          "ci95": [
+            0.4786750000000015,
+            0.48188750000000086
+          ]
+        },
+        "estimate": {
+          "mean": 0.5596737500000001,
+          "ci95": [
+            0.5583125,
+            0.5610712500000001
+          ]
+        },
+        "biasPoints": {
+          "mean": 7.941874999999999,
+          "ci95": [
+            7.775749999999992,
+            8.115749999999997
+          ]
+        },
+        "promotion": {
+          "mean": 0.98125,
+          "ci95": [
+            0.97125,
+            0.99
+          ]
+        },
+        "discordantRate": {
+          "mean": 0.1985724999999995,
+          "ci95": [
+            0.19728499999999954,
+            0.1998149999999993
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "focal_both_biases",
+      "policy": "swap_escalate_discordant",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48025500000000076,
+          "ci95": [
+            0.4786175000000004,
+            0.48196500000000064
+          ]
+        },
+        "estimate": {
+          "mean": 0.5557574999999995,
+          "ci95": [
+            0.5542099999999992,
+            0.5572974999999992
+          ]
+        },
+        "biasPoints": {
+          "mean": 7.55024999999999,
+          "ci95": [
+            7.402000000000002,
+            7.695250000000005
+          ]
+        },
+        "promotion": {
+          "mean": 0.9475,
+          "ci95": [
+            0.9325,
+            0.9625
+          ]
+        },
+        "discordantRate": {
+          "mean": 0.1985724999999995,
+          "ci95": [
+            0.19731749999999956,
+            0.1998274999999996
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0.1985724999999995,
+          "ci95": [
+            0.1973074999999995,
+            0.19985749999999936
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "focal_both_biases",
+      "policy": "truth_reference",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48025500000000076,
+          "ci95": [
+            0.4786625000000009,
+            0.48179000000000066
+          ]
+        },
+        "estimate": {
+          "mean": 0.48025500000000076,
+          "ci95": [
+            0.47864250000000086,
+            0.48182
+          ]
+        },
+        "biasPoints": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "promotion": {
+          "mean": 0.0425,
+          "ci95": [
+            0.02875,
+            0.05625
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "position_only_control",
+      "policy": "single_candidate_first",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48017250000000095,
+          "ci95": [
+            0.47854750000000096,
+            0.481802500000001
+          ]
+        },
+        "estimate": {
+          "mean": 0.5917775000000003,
+          "ci95": [
+            0.5902524999999997,
+            0.5932950000000002
+          ]
+        },
+        "biasPoints": {
+          "mean": 11.160500000000004,
+          "ci95": [
+            10.99675000000001,
+            11.328750000000014
+          ]
+        },
+        "promotion": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "position_only_control",
+      "policy": "randomized_single",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48017250000000095,
+          "ci95": [
+            0.47859999999999986,
+            0.48177500000000095
+          ]
+        },
+        "estimate": {
+          "mean": 0.4914600000000002,
+          "ci95": [
+            0.4898550000000003,
+            0.4930150000000006
+          ]
+        },
+        "biasPoints": {
+          "mean": 1.1287499999999997,
+          "ci95": [
+            0.9572499999999984,
+            1.3009999999999997
+          ]
+        },
+        "promotion": {
+          "mean": 0.1,
+          "ci95": [
+            0.08,
+            0.1225
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "position_only_control",
+      "policy": "swap_drop_discordant",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48017250000000095,
+          "ci95": [
+            0.4785675000000003,
+            0.4818150000000008
+          ]
+        },
+        "estimate": {
+          "mean": 0.4897331184703528,
+          "ci95": [
+            0.4880051991159814,
+            0.4915069708239639
+          ]
+        },
+        "biasPoints": {
+          "mean": 0.9560618470353661,
+          "ci95": [
+            0.7815435935848712,
+            1.1285947699988923
+          ]
+        },
+        "promotion": {
+          "mean": 0.115,
+          "ci95": [
+            0.0925,
+            0.1375
+          ]
+        },
+        "discordantRate": {
+          "mean": 0.19997499999999968,
+          "ci95": [
+            0.19868499999999942,
+            0.2012349999999995
+          ]
+        },
+        "coverage": {
+          "mean": 0.8000249999999989,
+          "ci95": [
+            0.7987549999999995,
+            0.8013099999999982
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "position_only_control",
+      "policy": "swap_tie_aware",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48017250000000095,
+          "ci95": [
+            0.47857750000000115,
+            0.4817650000000006
+          ]
+        },
+        "estimate": {
+          "mean": 0.49179000000000045,
+          "ci95": [
+            0.4904062500000008,
+            0.4931812500000003
+          ]
+        },
+        "biasPoints": {
+          "mean": 1.1617500000000005,
+          "ci95": [
+            1.0026249999999999,
+            1.3143750000000005
+          ]
+        },
+        "promotion": {
+          "mean": 0.08375,
+          "ci95": [
+            0.065,
+            0.10375
+          ]
+        },
+        "discordantRate": {
+          "mean": 0.19997499999999968,
+          "ci95": [
+            0.19872249999999944,
+            0.20122249999999947
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "position_only_control",
+      "policy": "swap_escalate_discordant",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48017250000000095,
+          "ci95": [
+            0.4785775000000011,
+            0.48175750000000034
+          ]
+        },
+        "estimate": {
+          "mean": 0.4877025000000002,
+          "ci95": [
+            0.48620500000000066,
+            0.4893050000000002
+          ]
+        },
+        "biasPoints": {
+          "mean": 0.7529999999999991,
+          "ci95": [
+            0.6179999999999999,
+            0.8835
+          ]
+        },
+        "promotion": {
+          "mean": 0.0725,
+          "ci95": [
+            0.055,
+            0.09125
+          ]
+        },
+        "discordantRate": {
+          "mean": 0.19997499999999968,
+          "ci95": [
+            0.1987024999999994,
+            0.20125499999999935
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0.19997499999999968,
+          "ci95": [
+            0.1987174999999996,
+            0.20126249999999918
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "position_only_control",
+      "policy": "truth_reference",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48017250000000095,
+          "ci95": [
+            0.47857500000000053,
+            0.4817525000000012
+          ]
+        },
+        "estimate": {
+          "mean": 0.48017250000000095,
+          "ci95": [
+            0.478622500000001,
+            0.4817775000000001
+          ]
+        },
+        "biasPoints": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "promotion": {
+          "mean": 0.04625,
+          "ci95": [
+            0.0325,
+            0.06125
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "style_only_control",
+      "policy": "single_candidate_first",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.4798500000000015,
+          "ci95": [
+            0.47831250000000075,
+            0.4813900000000013
+          ]
+        },
+        "estimate": {
+          "mean": 0.5745899999999992,
+          "ci95": [
+            0.5730574999999993,
+            0.5760999999999997
+          ]
+        },
+        "biasPoints": {
+          "mean": 9.473999999999998,
+          "ci95": [
+            9.31724999999999,
+            9.629999999999994
+          ]
+        },
+        "promotion": {
+          "mean": 0.99,
+          "ci95": [
+            0.9825,
+            0.99625
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "style_only_control",
+      "policy": "randomized_single",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.4798500000000015,
+          "ci95": [
+            0.4783450000000009,
+            0.4813825000000008
+          ]
+        },
+        "estimate": {
+          "mean": 0.5745899999999992,
+          "ci95": [
+            0.5730999999999997,
+            0.5760474999999999
+          ]
+        },
+        "biasPoints": {
+          "mean": 9.473999999999998,
+          "ci95": [
+            9.315499999999998,
+            9.63325
+          ]
+        },
+        "promotion": {
+          "mean": 0.99,
+          "ci95": [
+            0.9825,
+            0.99625
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "style_only_control",
+      "policy": "swap_drop_discordant",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.4798500000000015,
+          "ci95": [
+            0.4783400000000006,
+            0.481367500000001
+          ]
+        },
+        "estimate": {
+          "mean": 0.5745899999999992,
+          "ci95": [
+            0.5731075000000003,
+            0.5760974999999998
+          ]
+        },
+        "biasPoints": {
+          "mean": 9.473999999999998,
+          "ci95": [
+            9.317749999999998,
+            9.6295
+          ]
+        },
+        "promotion": {
+          "mean": 0.99,
+          "ci95": [
+            0.9825,
+            0.99625
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "style_only_control",
+      "policy": "swap_tie_aware",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.4798500000000015,
+          "ci95": [
+            0.47829000000000055,
+            0.4813550000000016
+          ]
+        },
+        "estimate": {
+          "mean": 0.5745899999999992,
+          "ci95": [
+            0.5731000000000003,
+            0.5760350000000003
+          ]
+        },
+        "biasPoints": {
+          "mean": 9.473999999999998,
+          "ci95": [
+            9.311499999999995,
+            9.632249999999987
+          ]
+        },
+        "promotion": {
+          "mean": 0.99,
+          "ci95": [
+            0.9825,
+            0.99625
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "style_only_control",
+      "policy": "swap_escalate_discordant",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.4798500000000015,
+          "ci95": [
+            0.478347500000001,
+            0.48139250000000233
+          ]
+        },
+        "estimate": {
+          "mean": 0.5745899999999992,
+          "ci95": [
+            0.5730949999999998,
+            0.576095
+          ]
+        },
+        "biasPoints": {
+          "mean": 9.473999999999998,
+          "ci95": [
+            9.319749999999994,
+            9.632000000000001
+          ]
+        },
+        "promotion": {
+          "mean": 0.99,
+          "ci95": [
+            0.9825,
+            0.99625
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "style_only_control",
+      "policy": "truth_reference",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.4798500000000015,
+          "ci95": [
+            0.47828500000000107,
+            0.48139000000000104
+          ]
+        },
+        "estimate": {
+          "mean": 0.4798500000000015,
+          "ci95": [
+            0.47829750000000126,
+            0.4813725000000004
+          ]
+        },
+        "biasPoints": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "promotion": {
+          "mean": 0.02125,
+          "ci95": [
+            0.0125,
+            0.0325
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "unbiased_negative_control",
+      "policy": "single_candidate_first",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48112500000000025,
+          "ci95": [
+            0.4794899999999999,
+            0.4827450000000006
+          ]
+        },
+        "estimate": {
+          "mean": 0.49001500000000037,
+          "ci95": [
+            0.4884875,
+            0.4915724999999997
+          ]
+        },
+        "biasPoints": {
+          "mean": 0.888999999999999,
+          "ci95": [
+            0.7354999999999999,
+            1.0429999999999986
+          ]
+        },
+        "promotion": {
+          "mean": 0.08875,
+          "ci95": [
+            0.07,
+            0.10875
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "unbiased_negative_control",
+      "policy": "randomized_single",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48112500000000025,
+          "ci95": [
+            0.47951750000000054,
+            0.4827600000000003
+          ]
+        },
+        "estimate": {
+          "mean": 0.49001500000000037,
+          "ci95": [
+            0.48844750000000053,
+            0.49156999999999945
+          ]
+        },
+        "biasPoints": {
+          "mean": 0.888999999999999,
+          "ci95": [
+            0.7290000000000006,
+            1.045
+          ]
+        },
+        "promotion": {
+          "mean": 0.08875,
+          "ci95": [
+            0.06875,
+            0.10875
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "unbiased_negative_control",
+      "policy": "swap_drop_discordant",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48112500000000025,
+          "ci95": [
+            0.4795350000000002,
+            0.4827350000000004
+          ]
+        },
+        "estimate": {
+          "mean": 0.49001500000000037,
+          "ci95": [
+            0.4884350000000003,
+            0.49154250000000066
+          ]
+        },
+        "biasPoints": {
+          "mean": 0.888999999999999,
+          "ci95": [
+            0.7319999999999993,
+            1.0474999999999972
+          ]
+        },
+        "promotion": {
+          "mean": 0.08875,
+          "ci95": [
+            0.07,
+            0.10875
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "unbiased_negative_control",
+      "policy": "swap_tie_aware",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48112500000000025,
+          "ci95": [
+            0.47948000000000024,
+            0.48271249999999993
+          ]
+        },
+        "estimate": {
+          "mean": 0.49001500000000037,
+          "ci95": [
+            0.4884449999999994,
+            0.4916099999999999
+          ]
+        },
+        "biasPoints": {
+          "mean": 0.888999999999999,
+          "ci95": [
+            0.7315,
+            1.0485000000000009
+          ]
+        },
+        "promotion": {
+          "mean": 0.08875,
+          "ci95": [
+            0.07,
+            0.10875
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "unbiased_negative_control",
+      "policy": "swap_escalate_discordant",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48112500000000025,
+          "ci95": [
+            0.47955000000000053,
+            0.48281500000000094
+          ]
+        },
+        "estimate": {
+          "mean": 0.49001500000000037,
+          "ci95": [
+            0.48846000000000034,
+            0.49155000000000015
+          ]
+        },
+        "biasPoints": {
+          "mean": 0.888999999999999,
+          "ci95": [
+            0.7334999999999993,
+            1.0449999999999993
+          ]
+        },
+        "promotion": {
+          "mean": 0.08875,
+          "ci95": [
+            0.07,
+            0.10875
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "unbiased_negative_control",
+      "policy": "truth_reference",
+      "repeats": 800,
+      "metrics": {
+        "trueRate": {
+          "mean": 0.48112500000000025,
+          "ci95": [
+            0.4795000000000009,
+            0.48277250000000005
+          ]
+        },
+        "estimate": {
+          "mean": 0.48112500000000025,
+          "ci95": [
+            0.47954250000000015,
+            0.4827325000000009
+          ]
+        },
+        "biasPoints": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "promotion": {
+          "mean": 0.04625,
+          "ci95": [
+            0.0325,
+            0.06125
+          ]
+        },
+        "discordantRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        },
+        "coverage": {
+          "mean": 1,
+          "ci95": [
+            1,
+            1
+          ]
+        },
+        "escalationRate": {
+          "mean": 0,
+          "ci95": [
+            0,
+            0
+          ]
+        }
+      }
+    }
+  ]
+}

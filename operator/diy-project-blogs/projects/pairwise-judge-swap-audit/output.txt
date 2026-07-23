@@ -1,0 +1,9 @@
+repeats=800
+pairs_per_repeat=500
+true_candidate_probability=48.00%
+single_candidate_first estimate=65.90% bias=17.87pp false_promotion=100.00% discordant=0.00% coverage=100.00%
+randomized_single estimate=55.92% bias=7.89pp false_promotion=95.13% discordant=0.00% coverage=100.00%
+swap_drop_discordant estimate=57.45% bias=9.42pp false_promotion=99.00% discordant=19.86% coverage=80.14%
+swap_tie_aware estimate=55.97% bias=7.94pp false_promotion=98.13% discordant=19.86% coverage=100.00%
+swap_escalate_discordant estimate=55.58% bias=7.55pp false_promotion=94.75% discordant=19.86% coverage=100.00%
+truth_reference estimate=48.03% bias=0.00pp false_promotion=4.25% discordant=0.00% coverage=100.00%

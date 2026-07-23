@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
+  <title>Coding agent egress audit matrix</title>
+  <desc>Matrix separating public signals from verification requirements for local execution, outbound payload, retention, source transparency, and authority after the July 2026 Grok Build incident.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+  <style>
+    .title{font:700 28px system-ui;fill:#101720}.sub{font:15px system-ui;fill:#9fb0c6}.h{font:700 14px system-ui;fill:#e5e7eb}.l{font:700 15px system-ui;fill:#101720}.t{font:13px system-ui;fill:#334250}.ok{font:700 13px system-ui;fill:#2dd4bf}.warn{font:700 13px system-ui;fill:#ffb84d}
+  </style>
+
+  <text x="46" y="55" class="title" textLength="886" lengthAdjust="spacingAndGlyphs">“Local-first” spans four independently testable boundaries</text>
+  <text x="46" y="83" class="sub">July 2026 evidence · a clean claim in one row cannot certify another</text>
+  <text x="250" y="126" class="h">PUBLIC SIGNAL</text><text x="588" y="126" class="h">REQUIRED ACCEPTANCE EVIDENCE</text>
+  <line x1="46" y1="140" x2="914" y2="140" stroke="#42516a"/>
+  <text x="46" y="178" class="l">Execution</text><text x="250" y="170" class="ok">Tools run locally</text><text x="250" y="190" class="t">Enterprise lifecycle docs</text><text x="588" y="170" class="t">File/process trace; root boundary;</text><text x="588" y="190" class="t">extension and subagent inventory</text>
+  <line x1="46" y1="210" x2="914" y2="210" stroke="#243146"/>
+  <text x="46" y="248" class="l">Transmission</text><text x="250" y="240" class="warn">5.1 GB for 192 KB task</text><text x="250" y="260" class="t">Reported v0.2.93 capture · ≈26,000×</text><text x="588" y="240" class="t">Destinations, bytes, payload classes,</text><text x="588" y="260" class="t">history/ignored/out-of-root canaries</text>
+  <line x1="46" y1="280" x2="914" y2="280" stroke="#243146"/>
+  <text x="46" y="318" class="l">Retention</text><text x="250" y="310" class="ok">ZDR; default off July 12</text><text x="250" y="330" class="t">Deletion announced for retained coding data</text><text x="588" y="310" class="t">Tenant export, contract, deletion drill,</text><text x="588" y="330" class="t">provider evidence and incident notice</text>
+  <line x1="46" y1="350" x2="914" y2="350" stroke="#243146"/>
+  <text x="46" y="388" class="l">Provenance</text><text x="250" y="380" class="ok">Harness source July 15</text><text x="250" y="400" class="t">Local inference path available</text><text x="588" y="380" class="t">Pinned commit, SBOM, signed binary,</text><text x="588" y="400" class="t">reproducible build and behavior diff</text>
+  <line x1="46" y1="420" x2="914" y2="420" stroke="#243146"/>
+  <text x="46" y="458" class="l">Authority</text><text x="250" y="450" class="warn">Natural-language deny is insufficient</text><text x="250" y="470" class="t">History and extensions widen scope</text><text x="588" y="450" class="t">Filesystem sandbox, short-lived identity,</text><text x="588" y="470" class="t">network allowlist and side-effect approval</text>
+  <text x="46" y="514" class="sub">Approve exact artifact + account tier + destinations + payload policy + retention contract.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

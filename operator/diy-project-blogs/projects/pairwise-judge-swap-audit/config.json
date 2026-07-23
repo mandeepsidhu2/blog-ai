@@ -1,0 +1,14 @@
+{
+  "seed": 20260721,
+  "repeats": 800,
+  "pairsPerRepeat": 500,
+  "bootstrapSamples": 5000,
+  "trueCandidateWinRate": 0.48,
+  "hardPairRate": 0.4,
+  "easyJudgeAccuracy": 0.86,
+  "hardJudgeAccuracy": 0.62,
+  "positionOverrideRate": 0.2,
+  "styleExposureRate": 0.35,
+  "styleFlipRate": 0.48,
+  "promotionThreshold": 0.52
+}

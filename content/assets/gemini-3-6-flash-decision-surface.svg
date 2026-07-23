@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
+  <title>Gemini 3.6 Flash migration decision surface</title>
+  <desc>Comparison of Gemini 3.6 Flash and 3.5 Flash across output price, token use, DeepSWE, MLE-Bench, OSWorld-Verified, context, and unsupported outputs.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+  <style>
+    .title{font:700 28px system-ui;fill:#101720}.sub{font:15px system-ui;fill:#a9b6c8}.h{font:700 15px system-ui;fill:#e5e7eb}.l{font:14px system-ui;fill:#334250}.v{font:700 17px system-ui;fill:#101720}.small{font:13px system-ui;fill:#9fb0c6}
+  </style>
+
+  <text x="48" y="56" class="title" textLength="899" lengthAdjust="spacingAndGlyphs">3.6 Flash wins on task economics only if gains travel together</text>
+  <text x="48" y="84" class="sub">July 21, 2026 sources · compare within each row, not across benchmarks</text>
+  <text x="310" y="126" class="h">3.5 Flash</text><text x="494" y="126" class="h">3.6 Flash</text><text x="682" y="126" class="h">Migration signal</text>
+  <line x1="48" y1="140" x2="912" y2="140" stroke="#42516a"/>
+  <text x="48" y="176" class="l">Output price / 1M</text><text x="310" y="176" class="v">$9.00</text><text x="494" y="176" class="v">$7.50</text><rect x="682" y="158" width="138" height="18" rx="6" fill="#2dd4bf"/><text x="830" y="174" class="small">−16.7%</text>
+  <text x="48" y="224" class="l">AA output tokens</text><text x="310" y="224" class="v">reference</text><text x="494" y="224" class="v">17% fewer</text><rect x="682" y="206" width="142" height="18" rx="6" fill="#38bdf8"/>
+  <text x="48" y="272" class="l">DeepSWE</text><text x="310" y="272" class="v">37.0%</text><text x="494" y="272" class="v">49.0%</text><rect x="682" y="254" width="102" height="18" rx="6" fill="#a78bfa"/><text x="794" y="270" class="small">+12.0 pts</text>
+  <text x="48" y="320" class="l">MLE-Bench</text><text x="310" y="320" class="v">49.7%</text><text x="494" y="320" class="v">63.9%</text><rect x="682" y="302" width="120" height="18" rx="6" fill="#a78bfa"/><text x="812" y="318" class="small">+14.2 pts</text>
+  <text x="48" y="368" class="l">OSWorld-Verified</text><text x="310" y="368" class="v">78.4%</text><text x="494" y="368" class="v">83.0%</text><rect x="682" y="350" width="48" height="18" rx="6" fill="#a78bfa"/><text x="740" y="366" class="small">+4.6 pts</text>
+  <line x1="48" y1="394" x2="912" y2="394" stroke="#42516a"/>
+  <text x="48" y="430" class="l">Contract</text><text x="310" y="430" class="small">1M input · 64K output</text><text x="494" y="430" class="small">text output · tools · preview computer use</text>
+  <text x="48" y="466" class="l">Not a route for</text><text x="310" y="466" class="small">—</text><text x="494" y="466" class="small">Live API · audio generation · image generation</text>
+  <text x="48" y="512" class="sub">Gate on verified success, severe slices, terminal latency, and billed cost per completed workflow.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>
