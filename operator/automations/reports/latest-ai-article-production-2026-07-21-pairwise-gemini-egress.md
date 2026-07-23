@@ -160,7 +160,8 @@ cloud-resource command ran.
 
 ## Publication
 
-Publication commit: pending creation after this report.
+Publication commit: `3464c1b` (`Publish pairwise judge and current AI analysis
+batch`).
 
 Push target: `origin/main` through the authorized GitHub pipeline path. No S3
 fallback is used.
