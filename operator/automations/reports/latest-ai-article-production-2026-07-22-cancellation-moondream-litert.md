@@ -123,8 +123,11 @@ clean.
 
 ## Git publication
 
-The article-batch commit and push outcome are recorded in the final update to
-this report after the passing source set is committed and sent to `origin/main`.
+Committed the complete passing batch as `c90586d` (`Publish cancellation,
+Moondream, and LiteRT analysis batch`). The sandboxed push could not resolve
+GitHub; the authorized narrow outside-sandbox retry succeeded and advanced
+`origin/main` from `b87722c` to `c90586d`. The normal GitHub/CodeBuild pipeline
+is responsible for public deployment.
 
 ## Worktree boundary
 
