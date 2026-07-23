@@ -163,5 +163,6 @@ cloud-resource command ran.
 Publication commit: `3464c1b` (`Publish pairwise judge and current AI analysis
 batch`).
 
-Push target: `origin/main` through the authorized GitHub pipeline path. No S3
-fallback is used.
+Push result: successful to `origin/main` through `62309ef`. The sandboxed push
+could not resolve GitHub, so the authorized retry used narrow outside-sandbox
+network access. No S3 fallback was used.
