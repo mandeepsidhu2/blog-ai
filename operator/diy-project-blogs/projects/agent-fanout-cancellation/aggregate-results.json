@@ -1,0 +1,195 @@
+{
+  "config": {
+    "seed": 20260722,
+    "repeats": 240,
+    "bootstrapSamples": 5000,
+    "durationSeconds": 360,
+    "workers": 24,
+    "fanout": 6,
+    "deadlineSeconds": 6,
+    "serviceMedianSeconds": 2.4,
+    "serviceSigma": 0.55,
+    "scenarios": {
+      "steady": {
+        "arrivalRate": 1.25,
+        "burstPeriodSeconds": 0,
+        "burstMultiplier": 1
+      },
+      "bursty": {
+        "arrivalRate": 1.05,
+        "burstPeriodSeconds": 60,
+        "burstMultiplier": 2.1
+      },
+      "no_timeout_control": {
+        "arrivalRate": 1.25,
+        "burstPeriodSeconds": 0,
+        "burstMultiplier": 1,
+        "deadlineSeconds": 60
+      }
+    },
+    "policies": {
+      "no_cancel": {
+        "cancelQueued": false,
+        "runningCancelDelaySeconds": null
+      },
+      "queued_only": {
+        "cancelQueued": true,
+        "runningCancelDelaySeconds": null
+      },
+      "cooperative_1000ms": {
+        "cancelQueued": true,
+        "runningCancelDelaySeconds": 1
+      },
+      "cooperative_250ms": {
+        "cancelQueued": true,
+        "runningCancelDelaySeconds": 0.25
+      }
+    }
+  },
+  "aggregates": [
+    {
+      "scenario": "steady",
+      "policy": "no_cancel",
+      "repeats": 240,
+      "parents": 450.7083333333333,
+      "successRate": 0.4415411016859261,
+      "latencyP95": 5.84948567615233,
+      "workerSecondsPerParent": 16.773262262155285,
+      "orphanSecondsPerParent": 3.350223169151515,
+      "orphanShare": 0.1994134922563785,
+      "maxQueue": 77.55833333333334
+    },
+    {
+      "scenario": "steady",
+      "policy": "queued_only",
+      "repeats": 240,
+      "parents": 450.7083333333333,
+      "successRate": 0.47278581472786546,
+      "latencyP95": 5.845348480603533,
+      "workerSecondsPerParent": 16.56149327393752,
+      "orphanSecondsPerParent": 2.149480189564394,
+      "orphanShare": 0.13007425993106586,
+      "maxQueue": 67.5625
+    },
+    {
+      "scenario": "steady",
+      "policy": "cooperative_1000ms",
+      "repeats": 240,
+      "parents": 450.7083333333333,
+      "successRate": 0.5378561512284377,
+      "latencyP95": 5.836985103242231,
+      "workerSecondsPerParent": 15.977586232674382,
+      "orphanSecondsPerParent": 0.6517052301733618,
+      "orphanShare": 0.04091972872017803,
+      "maxQueue": 58.454166666666666
+    },
+    {
+      "scenario": "steady",
+      "policy": "cooperative_250ms",
+      "repeats": 240,
+      "parents": 450.7083333333333,
+      "successRate": 0.5609842079437245,
+      "latencyP95": 5.833278375775699,
+      "workerSecondsPerParent": 15.727945947578005,
+      "orphanSecondsPerParent": 0.1721791597313345,
+      "orphanShare": 0.01097935332404567,
+      "maxQueue": 55.30833333333333
+    },
+    {
+      "scenario": "bursty",
+      "policy": "no_cancel",
+      "repeats": 240,
+      "parents": 376.76666666666665,
+      "successRate": 0.3761799426248316,
+      "latencyP95": 5.824063988144219,
+      "workerSecondsPerParent": 16.764543610159226,
+      "orphanSecondsPerParent": 5.448616144109757,
+      "orphanShare": 0.3248002483283071,
+      "maxQueue": 116.85416666666667
+    },
+    {
+      "scenario": "bursty",
+      "policy": "queued_only",
+      "repeats": 240,
+      "parents": 376.76666666666665,
+      "successRate": 0.4206990113642014,
+      "latencyP95": 5.81496558120867,
+      "workerSecondsPerParent": 15.588476806881829,
+      "orphanSecondsPerParent": 3.0638360430030764,
+      "orphanShare": 0.19720065011342217,
+      "maxQueue": 107.75416666666666
+    },
+    {
+      "scenario": "bursty",
+      "policy": "cooperative_1000ms",
+      "repeats": 240,
+      "parents": 376.76666666666665,
+      "successRate": 0.44780906048888264,
+      "latencyP95": 5.818275581903506,
+      "workerSecondsPerParent": 14.826678992041822,
+      "orphanSecondsPerParent": 1.3148931426990205,
+      "orphanShare": 0.08918137231609033,
+      "maxQueue": 101.19583333333334
+    },
+    {
+      "scenario": "bursty",
+      "policy": "cooperative_250ms",
+      "repeats": 240,
+      "parents": 376.76666666666665,
+      "successRate": 0.4621971282625778,
+      "latencyP95": 5.817531458629147,
+      "workerSecondsPerParent": 14.523412801820639,
+      "orphanSecondsPerParent": 0.3477791812791596,
+      "orphanShare": 0.02409213304579203,
+      "maxQueue": 94.8
+    },
+    {
+      "scenario": "no_timeout_control",
+      "policy": "no_cancel",
+      "repeats": 240,
+      "parents": 449.3,
+      "successRate": 1,
+      "latencyP95": 12.526769362471816,
+      "workerSecondsPerParent": 16.76100812505073,
+      "orphanSecondsPerParent": 0,
+      "orphanShare": 0,
+      "maxQueue": 75.20416666666667
+    },
+    {
+      "scenario": "no_timeout_control",
+      "policy": "queued_only",
+      "repeats": 240,
+      "parents": 449.3,
+      "successRate": 1,
+      "latencyP95": 12.526769362471816,
+      "workerSecondsPerParent": 16.76100812505073,
+      "orphanSecondsPerParent": 0,
+      "orphanShare": 0,
+      "maxQueue": 75.20416666666667
+    },
+    {
+      "scenario": "no_timeout_control",
+      "policy": "cooperative_1000ms",
+      "repeats": 240,
+      "parents": 449.3,
+      "successRate": 1,
+      "latencyP95": 12.526769362471816,
+      "workerSecondsPerParent": 16.76100812505073,
+      "orphanSecondsPerParent": 0,
+      "orphanShare": 0,
+      "maxQueue": 75.20416666666667
+    },
+    {
+      "scenario": "no_timeout_control",
+      "policy": "cooperative_250ms",
+      "repeats": 240,
+      "parents": 449.3,
+      "successRate": 1,
+      "latencyP95": 12.526769362471816,
+      "workerSecondsPerParent": 16.76100812505073,
+      "orphanSecondsPerParent": 0,
+      "orphanShare": 0,
+      "maxQueue": 75.20416666666667
+    }
+  ]
+}

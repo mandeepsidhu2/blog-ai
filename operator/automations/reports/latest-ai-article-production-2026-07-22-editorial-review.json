@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "cancel-orphaned-agent-fanout-work",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 5,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "Cancelling nearly complete children can discard reusable work, defeat request deduplication, reduce cache population, or interrupt effects whose correct recovery costs more than letting them finish.",
+      "unsupportedClaimRisk": "The weakest initial implication was that every child whose parent expires becomes orphaned; the revision separates sole-consumer work from shared work that retains another live subscriber and value.",
+      "reproductionBarrier": "Production traces usually omit remote post-cancellation computation and parent-child lifetime joins, so workload fitting requires new telemetry for local release, remote acknowledgement, and billed post-deadline units.",
+      "revisions": [
+        "Added separate liveness and retained-value ledgers so shared deduplicated children are not misclassified as orphan work.",
+        "Separated local worker release, remote cancellation acknowledgement, and provider-billed post-deadline computation rather than claiming socket closure stops remote work.",
+        "Kept the flat survivor p95 as a negative result and made the joint completion-capacity gate the actual decision surface."
+      ]
+    },
+    {
+      "slug": "pilot-moondream-3-1-by-vision-task",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "A task-specific internal benchmark can overfit a small product dataset and miss the broader distribution coverage represented by the provider's multi-benchmark release suite.",
+      "unsupportedClaimRisk": "The weakest initial implication was that benchmark differences are attributable to weights; the revision labels them provider-reported system results pending exact preprocessing, threshold, suppression, and evaluator replay.",
+      "reproductionBarrier": "A decision-grade reproduction needs licensed representative images, blinded adjudication, exact release harness settings, model and runtime revisions, multiple hardware cells, and repeated local-versus-cloud parity runs.",
+      "revisions": [
+        "Added a joint intersection gate measuring correctness, schema validity, and latency on the same examples instead of approving separate dashboards.",
+        "Narrowed attribution from model performance to provider-reported system results until preprocessing, thresholds, suppression, and evaluator revisions are replayable.",
+        "Made the custom license boundary a first-class architecture constraint rather than treating distribution as conventional open source."
+      ]
+    },
+    {
+      "slug": "adopt-litert-js-by-browser-backend-cell",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "Browser-local inference replaces a controlled server fleet with a fragmented hardware, driver, browser, thermal, storage, and policy matrix whose qualification cost can exceed the privacy and latency benefit.",
+      "unsupportedClaimRisk": "The weakest possible claim was that the reported 5-to-60-times range generalizes; the article confines it to Google's tested accelerator-versus-CPU cells on an M4 and refuses cross-runtime ranking.",
+      "reproductionBarrier": "Representative browser AI evaluation needs physical device coverage, sustained battery and thermal measurement, pinned converted artifacts, cold and warm cache states, browser policies, and reproducible backend selection.",
+      "revisions": [
+        "Made silent CPU fallback a degraded event that must be labeled and rechecked against the latency budget before acceptance.",
+        "Added a privacy-minimal coarse capability token and explicit invalidation after browser, runtime, or driver changes.",
+        "Separated model-tester graph smoke checks from numeric parity and task-quality evidence on real inputs."
+      ]
+    }
+  ]
+}

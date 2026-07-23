@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "hypothesis": "Under bursty six-way agent fan-out, propagating a parent deadline to queued tasks and cooperatively cancelling running tasks within 250 milliseconds will reduce orphan worker time and queue depth relative to allowing child work to finish, while increasing parent completion before the same deadline; the policy difference should disappear when parent deadlines are removed.",
+  "claimBoundary": "The study establishes cancellation-policy behavior only under the declared synthetic arrival, service-time, capacity, fan-out, and deadline model. It does not estimate any provider's workload, prove that 250 milliseconds is a universal propagation target, model side-effect compensation, or show that every child operation is safely cancellable.",
+  "design": {
+    "baselines": [
+      "no-cancel policy that lets queued and running child tasks finish after the parent deadline",
+      "queued-only cancellation policy that removes unstarted work but cannot interrupt running tasks"
+    ],
+    "controls": [
+      "60-second no-timeout control in which every policy is behaviorally identical",
+      "one-second cooperative-cancellation delay to test sensitivity to propagation speed",
+      "matched arrivals and child service durations shared by all policies within every repeat",
+      "steady and periodic-burst arrival scenarios"
+    ],
+    "repeats": 240
+  },
+  "reproduction": {
+    "commands": [
+      "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node run-experiment.mjs",
+      "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node render-figure.mjs"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run-experiment.mjs",
+    "repeat-results.csv",
+    "aggregate-results.json",
+    "statistical-analysis.json",
+    "focal-summary.txt",
+    "agent-fanout-cancellation.svg"
+  ]
+}

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded"><title>LiteRT.js browser backend decision surface</title><desc>Comparison matrix for CPU, WebGPU, and WebNN showing readiness, acceleration claims, and required production gates.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g><style>.t{font:700 28px ui-monospace,monospace;fill:#f5f8fc}.s{font:14px ui-monospace,monospace;fill:#aac0d7}.h{font:700 16px ui-monospace,monospace;fill:#ecf3fa}.v{font:700 18px ui-monospace,monospace;fill:#07121f}.c1{fill:#71d5c7}.c2{fill:#55a7ff}.c3{fill:#ffd166}.line{stroke:#35506b}</style><text x="52" y="58" class="t">LiteRT.js is three backend decisions</text><text x="52" y="88" class="s">Release signal · compatibility boundary · gate before adoption</text><text x="54" y="145" class="h">Cell</text><text x="215" y="145" class="h">CPU / XNNPACK</text><text x="455" y="145" class="h">WebGPU</text><text x="695" y="145" class="h">WebNN</text><line x1="50" y1="160" x2="910" y2="160" class="line"/><text x="54" y="207" class="h">Readiness</text><rect x="205" y="176" width="190" height="52" rx="8" class="c1"/><rect x="445" y="176" width="190" height="52" rx="8" class="c2"/><rect x="685" y="176" width="190" height="52" rx="8" class="c3"/><text x="300" y="208" text-anchor="middle" class="v">broad fallback</text><text x="540" y="208" text-anchor="middle" class="v">pilot target</text><text x="780" y="208" text-anchor="middle" class="v">experimental</text><text x="54" y="280" class="h">Release signal</text><text x="205" y="280" class="s">part of up-to-3×</text><text x="445" y="280" class="s">3× runtime claim;</text><text x="445" y="304" class="s">accelerator range</text><text x="685" y="280" class="s">5–60× range on</text><text x="685" y="304" class="s">tested M4 cells</text><line x1="50" y1="330" x2="910" y2="330" class="line"/><text x="54" y="380" class="h">Gate</text><text x="205" y="380" class="s">threads · SIMD</text><text x="205" y="407" class="s">latency · battery</text><text x="445" y="380" class="s">ops · memory</text><text x="445" y="407" class="s">compile · thermals</text><text x="685" y="380" class="s">flags · JSPI</text><text x="685" y="407" class="s">driver · NPU path</text><rect x="52" y="460" width="858" height="46" rx="8" fill="#102a43"/><text x="481" y="489" text-anchor="middle" class="h">Approve model × browser × OS × device × backend — never “the web”</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

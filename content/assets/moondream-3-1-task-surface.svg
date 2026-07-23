@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded"><title>Moondream 3.1 task comparison surface</title><desc>Matrix of vendor-reported Moondream 3.1 benchmark margins versus Qwen3.5 across detection, referring, and counting tasks.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g><style>.t{font:700 28px ui-monospace,monospace;fill:#f5f8fc}.s{font:15px ui-monospace,monospace;fill:#aac0d7}.h{font:700 15px ui-monospace,monospace;fill:#eaf1f8}.v{font:700 17px ui-monospace,monospace;fill:#07121f}.p{fill:#65d6c5}.n{fill:#ff8a65}.z{fill:#ffd166}</style><text x="54" y="58" class="t">One VLM release, several different decisions</text><text x="54" y="88" class="s">Moondream 3.1 margin vs Qwen3.5 9B · vendor-reported · same release harness</text><text x="245" y="135" class="h">COCO</text><text x="365" y="135" class="h">LVIS</text><text x="485" y="135" class="h">HumanRef</text><text x="625" y="135" class="h">CountBench</text><text x="770" y="135" class="h">TallyQA</text><text x="58" y="205" class="h">Margin</text><rect x="220" y="160" width="100" height="80" rx="8" class="p"/><rect x="340" y="160" width="100" height="80" rx="8" class="n"/><rect x="480" y="160" width="100" height="80" rx="8" class="n"/><rect x="620" y="160" width="100" height="80" rx="8" class="n"/><rect x="760" y="160" width="100" height="80" rx="8" class="p"/><text x="270" y="207" text-anchor="middle" class="v">+5.88</text><text x="390" y="207" text-anchor="middle" class="v">−3.71</text><text x="530" y="207" text-anchor="middle" class="v">−14.51</text><text x="670" y="207" text-anchor="middle" class="v">−4.31</text><text x="810" y="207" text-anchor="middle" class="v">+2.64</text><line x1="55" y1="285" x2="905" y2="285" stroke="#35506b"/><text x="58" y="330" class="h">What changes?</text><text x="220" y="330" class="s">common objects</text><text x="220" y="362" class="s">long-tail labels</text><text x="220" y="394" class="s">reference style</text><text x="220" y="426" class="s">counting dataset</text><text x="500" y="330" class="h">What stays fixed in your canary?</text><text x="500" y="362" class="s">images · prompts · precision · thresholds</text><text x="500" y="394" class="s">runtime · hardware · concurrency · repeats</text><text x="500" y="426" class="s">license version · schema · rollback path</text><rect x="55" y="465" width="850" height="42" rx="8" fill="#102a43"/><text x="480" y="492" text-anchor="middle" class="h">Decision: approve task cells, never an average of incompatible rows</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

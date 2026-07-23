@@ -1,0 +1,10 @@
+Agent fan-out cancellation experiment
+repeats=240 workers=24 fanout=6 deadline=6s
+no_cancel: success=37.62% p95=5.824s work=16.765s orphan=5.449s orphan_share=32.48% max_queue=116.9
+queued_only: success=42.07% p95=5.815s work=15.588s orphan=3.064s orphan_share=19.72% max_queue=107.8
+cooperative_1000ms: success=44.78% p95=5.818s work=14.827s orphan=1.315s orphan_share=8.92% max_queue=101.2
+cooperative_250ms: success=46.22% p95=5.818s work=14.523s orphan=0.348s orphan_share=2.41% max_queue=94.8
+success_delta=8.60pp 95%CI[8.27,8.95]
+orphan_delta=-5.101s 95%CI[-5.271,-4.938]
+work_delta=-2.241s 95%CI[-2.301,-2.183]
+queue_delta=-22.1 95%CI[-23.7,-20.4]

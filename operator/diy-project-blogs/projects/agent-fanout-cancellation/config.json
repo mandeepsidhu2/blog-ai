@@ -1,0 +1,22 @@
+{
+  "seed": 20260722,
+  "repeats": 240,
+  "bootstrapSamples": 5000,
+  "durationSeconds": 360,
+  "workers": 24,
+  "fanout": 6,
+  "deadlineSeconds": 6,
+  "serviceMedianSeconds": 2.4,
+  "serviceSigma": 0.55,
+  "scenarios": {
+    "steady": {"arrivalRate": 1.25, "burstPeriodSeconds": 0, "burstMultiplier": 1},
+    "bursty": {"arrivalRate": 1.05, "burstPeriodSeconds": 60, "burstMultiplier": 2.1},
+    "no_timeout_control": {"arrivalRate": 1.25, "burstPeriodSeconds": 0, "burstMultiplier": 1, "deadlineSeconds": 60}
+  },
+  "policies": {
+    "no_cancel": {"cancelQueued": false, "runningCancelDelaySeconds": null},
+    "queued_only": {"cancelQueued": true, "runningCancelDelaySeconds": null},
+    "cooperative_1000ms": {"cancelQueued": true, "runningCancelDelaySeconds": 1},
+    "cooperative_250ms": {"cancelQueued": true, "runningCancelDelaySeconds": 0.25}
+  }
+}

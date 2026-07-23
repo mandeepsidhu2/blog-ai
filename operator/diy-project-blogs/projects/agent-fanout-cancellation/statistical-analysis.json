@@ -1,0 +1,101 @@
+{
+  "comparison": "cooperative_250ms minus no_cancel",
+  "comparisons": {
+    "steady": {
+      "successRate": {
+        "mean": 0.11944310625779876,
+        "ciLow": 0.1119856985891942,
+        "ciHigh": 0.1273583047718496
+      },
+      "latencyP95": {
+        "mean": -0.016207300376637215,
+        "ciLow": -0.022819657451191203,
+        "ciHigh": -0.009497453123548497
+      },
+      "workerSecondsPerParent": {
+        "mean": -1.045316314577266,
+        "ciLow": -1.0758835515948282,
+        "ciHigh": -1.01459899297057
+      },
+      "orphanSecondsPerParent": {
+        "mean": -3.178044009420179,
+        "ciLow": -3.428732128733796,
+        "ciHigh": -2.940773675806962
+      },
+      "orphanShare": {
+        "mean": -0.18843413893233302,
+        "ciLow": -0.20319441856747206,
+        "ciHigh": -0.1744012279030656
+      },
+      "maxQueue": {
+        "mean": -22.25,
+        "ciLow": -24.970833333333335,
+        "ciHigh": -19.6875
+      }
+    },
+    "bursty": {
+      "successRate": {
+        "mean": 0.08601718563774638,
+        "ciLow": 0.08266008987567931,
+        "ciHigh": 0.08945776190978959
+      },
+      "latencyP95": {
+        "mean": -0.00653252951507081,
+        "ciLow": -0.013440934328905847,
+        "ciHigh": 0.00048512664225335657
+      },
+      "workerSecondsPerParent": {
+        "mean": -2.2411308083385872,
+        "ciLow": -2.3009500564063976,
+        "ciHigh": -2.18305801033171
+      },
+      "orphanSecondsPerParent": {
+        "mean": -5.100836962830598,
+        "ciLow": -5.271347991801895,
+        "ciHigh": -4.938378457671492
+      },
+      "orphanShare": {
+        "mean": -0.3007081152825153,
+        "ciLow": -0.3102145138541103,
+        "ciHigh": -0.291098250546941
+      },
+      "maxQueue": {
+        "mean": -22.054166666666667,
+        "ciLow": -23.695833333333333,
+        "ciHigh": -20.3625
+      }
+    },
+    "no_timeout_control": {
+      "successRate": {
+        "mean": 0,
+        "ciLow": 0,
+        "ciHigh": 0
+      },
+      "latencyP95": {
+        "mean": 0,
+        "ciLow": 0,
+        "ciHigh": 0
+      },
+      "workerSecondsPerParent": {
+        "mean": 0,
+        "ciLow": 0,
+        "ciHigh": 0
+      },
+      "orphanSecondsPerParent": {
+        "mean": 0,
+        "ciLow": 0,
+        "ciHigh": 0
+      },
+      "orphanShare": {
+        "mean": 0,
+        "ciLow": 0,
+        "ciHigh": 0
+      },
+      "maxQueue": {
+        "mean": 0,
+        "ciLow": 0,
+        "ciHigh": 0
+      }
+    }
+  }
+}
