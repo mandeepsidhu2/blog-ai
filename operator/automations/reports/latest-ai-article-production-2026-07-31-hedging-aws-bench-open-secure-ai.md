@@ -147,6 +147,9 @@ command ran.
 
 ## Publication
 
-Publication commit: pending this atomic commit.
+Publication commit: `11256a2` (`Publish request hedging and current AI analysis
+batch`).
 
-Push result: pending.
+Push result: successful to `origin/main`. The sandboxed push could not resolve
+GitHub, so the authorized retry used narrow outside-sandbox network access. No
+S3 fallback was used.
