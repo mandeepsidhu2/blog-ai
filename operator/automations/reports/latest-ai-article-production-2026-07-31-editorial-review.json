@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "hedge-inference-requests-by-tail-diversity",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "The queueing generator gives copies short cancellation lag and join-shortest-queue placement, so its large moderate-load benefit may disappear in continuously batched inference where a canceled stream keeps consuming accelerator work.",
+      "unsupportedClaimRisk": "The weakest claim was that copy diversity itself explains the work reduction; the revision now requires a placement-by-cancellation screen and acknowledges that a second copy may merely receive a better queue position.",
+      "reproductionBarrier": "A production replication needs server-side losing-copy compute and billing, destination failure-domain identity, route-stratified traces, and safe injected delays; client latency and cancellation acknowledgements alone cannot reproduce the mechanism.",
+      "revisions": [
+        "Preserved the falsified correlated-tail reversal hypothesis and reorganized the conclusion around the supported no-tail boundary instead of implying the predicted near-capacity reversal occurred.",
+        "Added a 2x2 placement-by-cancellation experiment that separates genuine tail diversity from queue-position effects and requires server-side work evidence.",
+        "Separated always-on adoption from incident-only hedging when gains appear only under injected copy-specific delays."
+      ]
+    },
+    {
+      "slug": "evaluate-aws-bench-with-blast-radius-controls",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "aws-bench already provisions disposable accounts, scopes agent credentials, resets scenarios, and supplies an oracle, so an additional isolation protocol could make results harder to compare with the reference workflow without materially reducing risk.",
+      "unsupportedClaimRisk": "The weakest inference was that a single aggregate reward would necessarily be misleading; the revision permits a predeclared local utility weighting but requires unweighted introspection and mutation results beside it.",
+      "reproductionBarrier": "The preview requires organization-level AWS permissions, live resource quotas, provider credentials, Docker tooling, and cloud spend, while no frozen reference-results paper yet defines attempts, exclusions, judge calibration, or result uncertainty.",
+      "revisions": [
+        "Separated harness acceptance from agent comparison so oracle, reset, cleanup, and verifier failures cannot be credited to the evaluated agent.",
+        "Added a per-attempt evidence schema covering commits, role-policy digest, action order, state digests, costs, prohibited actions, and cleanup residue.",
+        "Added task-family and scenario-clustered reporting with explicit local weighting rather than endorsing one portable 125-task score."
+      ]
+    },
+    {
+      "slug": "turn-open-secure-ai-alliance-into-controls",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "A four-day-old coalition should be judged first by its ability to coordinate contributors and incidents, not by conformance artifacts that would be premature and could duplicate mature OpenSSF, MITRE, OWASP, and Linux Foundation work.",
+      "unsupportedClaimRisk": "The weakest claim was that missing launch-day conformance implied technical immaturity across all related work; the revision scores the coalition announcement separately from narrower Akrites and OpenSSF projects that already ship operational artifacts.",
+      "reproductionBarrier": "The launch sources share one founding narrative, partner product practices are heterogeneous, and no public alliance repository, normative profile, test suite, or independent implementation record yet permits reproducible product-level comparison.",
+      "revisions": [
+        "Added a five-level evidence-maturity ladder that distinguishes coalition intent from versioned controls, conformance fixtures, and independent adoption.",
+        "Separated alliance-level assurance from the narrower, more mature Akrites disclosure and OpenSSF signing or SAFE-MCP artifacts.",
+        "Applied identical evidence requirements to members and nonmembers so membership cannot substitute for signed artifacts, inventory, threat tests, or disclosure operations."
+      ]
+    }
+  ]
+}

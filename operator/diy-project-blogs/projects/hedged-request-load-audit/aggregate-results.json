@@ -1,0 +1,283 @@
+{
+  "config": {
+    "seed": 20260731,
+    "repeats": 320,
+    "requestsPerRepeat": 1600,
+    "workers": 8,
+    "tickSeconds": 0.01,
+    "bootstrapSamples": 5000,
+    "deadlineSeconds": 8,
+    "policies": {
+      "no_hedge": {
+        "delaySeconds": null,
+        "queueCap": null
+      },
+      "fixed_250ms": {
+        "delaySeconds": 0.25,
+        "queueCap": null
+      },
+      "fixed_500ms": {
+        "delaySeconds": 0.5,
+        "queueCap": null
+      },
+      "queue_capped_250ms": {
+        "delaySeconds": 0.25,
+        "queueCap": 2
+      }
+    },
+    "scenarios": {
+      "moderate_independent": {
+        "arrivalRate": 12,
+        "tailProbability": 0.05,
+        "sharedTailProbability": 0
+      },
+      "near_capacity_independent": {
+        "arrivalRate": 22,
+        "tailProbability": 0.05,
+        "sharedTailProbability": 0
+      },
+      "near_capacity_correlated": {
+        "arrivalRate": 18,
+        "tailProbability": 0.05,
+        "sharedTailProbability": 0.8
+      },
+      "no_tail_control": {
+        "arrivalRate": 35,
+        "tailProbability": 0,
+        "sharedTailProbability": 0
+      }
+    },
+    "service": {
+      "bodyMedianSeconds": 0.18,
+      "bodySigma": 0.45,
+      "tailMedianSeconds": 2.4,
+      "tailSigma": 0.4
+    }
+  },
+  "aggregates": [
+    {
+      "scenario": "moderate_independent",
+      "policy": "no_hedge",
+      "repeats": 320,
+      "completionRate": 0.9998847656249996,
+      "p50Latency": 0.19410633783707953,
+      "p95Latency": 1.4643713587640985,
+      "p99Latency": 3.4744061549179377,
+      "workSecondsPerRequest": 0.3204602087107513,
+      "hedgeRate": 0,
+      "hedgeWinRate": 0,
+      "maxQueueDepth": 2.234375,
+      "canceledQueuedPerRequest": 0
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_250ms",
+      "repeats": 320,
+      "completionRate": 1,
+      "p50Latency": 0.19183049848079223,
+      "p95Latency": 0.42227576120351384,
+      "p99Latency": 0.5669624225576487,
+      "workSecondsPerRequest": 0.24390423028324104,
+      "hedgeRate": 0.2783613281250005,
+      "hedgeWinRate": 0.28811177171296953,
+      "maxQueueDepth": 2.090625,
+      "canceledQueuedPerRequest": 0.2781542968750004
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_500ms",
+      "repeats": 320,
+      "completionRate": 1,
+      "p50Latency": 0.19155194960709357,
+      "p95Latency": 0.6017116764276693,
+      "p99Latency": 0.7995121855552332,
+      "workSecondsPerRequest": 0.24311782105142732,
+      "hedgeRate": 0.064205078125,
+      "hedgeWinRate": 0.8051883139014473,
+      "maxQueueDepth": 2.059375,
+      "canceledQueuedPerRequest": 0.06409179687500002
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "queue_capped_250ms",
+      "repeats": 320,
+      "completionRate": 1,
+      "p50Latency": 0.19182122198116996,
+      "p95Latency": 0.4221640686246705,
+      "p99Latency": 0.5663068663683904,
+      "workSecondsPerRequest": 0.24391146271652558,
+      "hedgeRate": 0.2781132812500004,
+      "hedgeWinRate": 0.2882382096719353,
+      "maxQueueDepth": 2.05,
+      "canceledQueuedPerRequest": 0.2779062500000003
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "no_hedge",
+      "repeats": 320,
+      "completionRate": 0.9985742187499979,
+      "p50Latency": 0.408362261673902,
+      "p95Latency": 3.188997852570716,
+      "p99Latency": 5.074100556905083,
+      "workSecondsPerRequest": 0.31874326071516507,
+      "hedgeRate": 0,
+      "hedgeWinRate": 0,
+      "maxQueueDepth": 6.91875,
+      "canceledQueuedPerRequest": 0
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_250ms",
+      "repeats": 320,
+      "completionRate": 1,
+      "p50Latency": 0.2176841611003384,
+      "p95Latency": 0.5557240487468534,
+      "p99Latency": 0.8502971601011214,
+      "workSecondsPerRequest": 0.2481127882007308,
+      "hedgeRate": 0.38642187500000014,
+      "hedgeWinRate": 0.266226380923415,
+      "maxQueueDepth": 4.565625,
+      "canceledQueuedPerRequest": 0.3860859375000002
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_500ms",
+      "repeats": 320,
+      "completionRate": 1,
+      "p50Latency": 0.21556104464860532,
+      "p95Latency": 0.720251688529689,
+      "p99Latency": 1.0671357377042665,
+      "workSecondsPerRequest": 0.24611878917975258,
+      "hedgeRate": 0.11404296875000006,
+      "hedgeWinRate": 0.5699537401167925,
+      "maxQueueDepth": 4.2625,
+      "canceledQueuedPerRequest": 0.1138808593750001
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "queue_capped_250ms",
+      "repeats": 320,
+      "completionRate": 0.9998730468749997,
+      "p50Latency": 0.22632804297172365,
+      "p95Latency": 0.6744978561809332,
+      "p99Latency": 1.4705801581260667,
+      "workSecondsPerRequest": 0.25273935142419257,
+      "hedgeRate": 0.34379882812500007,
+      "hedgeWinRate": 0.27438609687610044,
+      "maxQueueDepth": 3.6875,
+      "canceledQueuedPerRequest": 0.343509765625
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "no_hedge",
+      "repeats": 320,
+      "completionRate": 0.9872539062499976,
+      "p50Latency": 0.8276007821061929,
+      "p95Latency": 4.883266447789721,
+      "p99Latency": 6.734002858066698,
+      "workSecondsPerRequest": 0.41036185804755937,
+      "hedgeRate": 0,
+      "hedgeWinRate": 0,
+      "maxQueueDepth": 9.11875,
+      "canceledQueuedPerRequest": 0
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_250ms",
+      "repeats": 320,
+      "completionRate": 0.9949238281249991,
+      "p50Latency": 1.1190556029378924,
+      "p95Latency": 3.6949302721205726,
+      "p99Latency": 4.833495239032517,
+      "workSecondsPerRequest": 0.4079116593446739,
+      "hedgeRate": 0.7887656249999997,
+      "hedgeWinRate": 0.3616654145673258,
+      "maxQueueDepth": 17.8125,
+      "canceledQueuedPerRequest": 0.7872089843750005
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_500ms",
+      "repeats": 320,
+      "completionRate": 0.9962421874999994,
+      "p50Latency": 1.1288443484598925,
+      "p95Latency": 3.7294048283134407,
+      "p99Latency": 4.892728707694788,
+      "workSecondsPerRequest": 0.40512408561017954,
+      "hedgeRate": 0.6204843750000003,
+      "hedgeWinRate": 0.36173082048050403,
+      "maxQueueDepth": 17.296875,
+      "canceledQueuedPerRequest": 0.6191250000000001
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "queue_capped_250ms",
+      "repeats": 320,
+      "completionRate": 0.9891054687499979,
+      "p50Latency": 0.7530084118596871,
+      "p95Latency": 4.538687650509925,
+      "p99Latency": 6.45385082879578,
+      "workSecondsPerRequest": 0.4072374700724871,
+      "hedgeRate": 0.22722070312499992,
+      "hedgeWinRate": 0.3463989347230911,
+      "maxQueueDepth": 8.8125,
+      "canceledQueuedPerRequest": 0.22697070312499984
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "no_hedge",
+      "repeats": 320,
+      "completionRate": 1,
+      "p50Latency": 0.2880120286640248,
+      "p95Latency": 0.6896328665919429,
+      "p99Latency": 0.8996123584705327,
+      "workSecondsPerRequest": 0.19917847666678465,
+      "hedgeRate": 0,
+      "hedgeWinRate": 0,
+      "maxQueueDepth": 4.275,
+      "canceledQueuedPerRequest": 0
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_250ms",
+      "repeats": 320,
+      "completionRate": 1,
+      "p50Latency": 0.8827717372710229,
+      "p95Latency": 1.7211346188622578,
+      "p99Latency": 1.936692900288109,
+      "workSecondsPerRequest": 0.22454942223552865,
+      "hedgeRate": 0.8747070312499996,
+      "hedgeWinRate": 0.15759673950197364,
+      "maxQueueDepth": 15.728125,
+      "canceledQueuedPerRequest": 0.8737753906249999
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_500ms",
+      "repeats": 320,
+      "completionRate": 1,
+      "p50Latency": 0.3273640697765532,
+      "p95Latency": 0.7931735625033746,
+      "p99Latency": 0.995347675783591,
+      "workSecondsPerRequest": 0.20315118295419543,
+      "hedgeRate": 0.22097265624999976,
+      "hedgeWinRate": 0.07056827811257169,
+      "maxQueueDepth": 6.203125,
+      "canceledQueuedPerRequest": 0.22055664062499977
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "queue_capped_250ms",
+      "repeats": 320,
+      "completionRate": 1,
+      "p50Latency": 0.3681822481975411,
+      "p95Latency": 0.7841279325431436,
+      "p99Latency": 1.0021433702640814,
+      "workSecondsPerRequest": 0.2127270558951817,
+      "hedgeRate": 0.3105390625000002,
+      "hedgeWinRate": 0.17304563135520518,
+      "maxQueueDepth": 4.734375,
+      "canceledQueuedPerRequest": 0.31022656250000014
+    }
+  ]
+}

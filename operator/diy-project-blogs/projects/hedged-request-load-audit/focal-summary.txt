@@ -1,0 +1,14 @@
+Hedged request load audit
+repeats=320 requests_per_repeat=1600 workers=8
+moderate_independent/no_hedge: completion=99.99% p95=1.464s p99=3.474s work=0.320s hedge=0.0% max_queue=2.2
+moderate_independent/fixed_250ms: completion=100.00% p95=0.422s p99=0.567s work=0.244s hedge=27.8% max_queue=2.1
+moderate_independent/fixed_500ms: completion=100.00% p95=0.602s p99=0.800s work=0.243s hedge=6.4% max_queue=2.1
+moderate_independent/queue_capped_250ms: completion=100.00% p95=0.422s p99=0.566s work=0.244s hedge=27.8% max_queue=2.0
+near_capacity_correlated/no_hedge: completion=98.73% p95=4.883s p99=6.734s work=0.410s hedge=0.0% max_queue=9.1
+near_capacity_correlated/fixed_250ms: completion=99.49% p95=3.695s p99=4.833s work=0.408s hedge=78.9% max_queue=17.8
+near_capacity_correlated/fixed_500ms: completion=99.62% p95=3.729s p99=4.893s work=0.405s hedge=62.0% max_queue=17.3
+near_capacity_correlated/queue_capped_250ms: completion=98.91% p95=4.539s p99=6.454s work=0.407s hedge=22.7% max_queue=8.8
+no_tail_control/no_hedge: completion=100.00% p95=0.690s p99=0.900s work=0.199s hedge=0.0% max_queue=4.3
+no_tail_control/fixed_250ms: completion=100.00% p95=1.721s p99=1.937s work=0.225s hedge=87.5% max_queue=15.7
+no_tail_control/fixed_500ms: completion=100.00% p95=0.793s p99=0.995s work=0.203s hedge=22.1% max_queue=6.2
+no_tail_control/queue_capped_250ms: completion=100.00% p95=0.784s p99=1.002s work=0.213s hedge=31.1% max_queue=4.7

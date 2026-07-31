@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2"><title id="title">Open Secure AI control evidence map</title><desc id="desc">Four vertical evidence lanes connect the new alliance signal to threat catalogs, provenance, operational containment, and vulnerability repair artifacts.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g><style>text{font-family:Georgia,serif;fill:#17364a}.title{font-size:30px;font-weight:700}.sub{font-size:16px;fill:#566b78}.lane{font-size:18px;font-weight:700}.label{font-size:14px}.big{font-size:27px;font-weight:700}.line{stroke:#9fb2bb;stroke-width:2}.dash{stroke:#c96b42;stroke-width:2;stroke-dasharray:7 6}.teal{fill:#2b857f}.gold{fill:#d6a33f}.rust{fill:#c96b42}.navy{fill:#365f7b}.paper{fill:#fffdf7;stroke:#b7c6cc}</style><text x="65" y="52" class="title">A coalition signal is not yet a control</text><text x="65" y="78" class="sub">Map July 27 commitments to versioned evidence before release approval</text><rect x="65" y="112" width="1070" height="82" class="paper"/><text x="90" y="148" class="lane">Open Secure AI Alliance</text><text x="90" y="174" class="label">37 inaugural organizations · shared intent · no published conformance profile at launch</text><line x1="205" y1="194" x2="205" y2="250" class="dash"/><line x1="470" y1="194" x2="470" y2="250" class="dash"/><line x1="735" y1="194" x2="735" y2="250" class="dash"/><line x1="1000" y1="194" x2="1000" y2="250" class="dash"/><rect x="75" y="250" width="250" height="280" class="paper"/><rect x="340" y="250" width="250" height="280" class="paper"/><rect x="605" y="250" width="250" height="280" class="paper"/><rect x="870" y="250" width="250" height="280" class="paper"/><rect x="75" y="250" width="250" height="9" class="navy"/><rect x="340" y="250" width="250" height="9" class="teal"/><rect x="605" y="250" width="250" height="9" class="gold"/><rect x="870" y="250" width="250" height="9" class="rust"/><text x="95" y="295" class="lane">Threat coverage</text><text x="95" y="340" class="big">173</text><text x="165" y="340" class="label">ATLAS techniques</text><text x="95" y="375" class="big">80+</text><text x="165" y="375" class="label">SAFE-MCP techniques</text><text x="95" y="420" class="label">Need: required profile,</text><text x="95" y="444" class="label">test fixtures, pass rules</text><text x="360" y="295" class="lane">Provenance</text><text x="360" y="340" class="big">1.1</text><text x="425" y="340" class="label">model signing</text><text x="360" y="375" class="label">CycloneDX ML-BOM</text><text x="360" y="420" class="label">Need: trust roots, hub</text><text x="360" y="444" class="label">adoption, revocation</text><text x="625" y="295" class="lane">Containment</text><text x="625" y="340" class="label">Identity · tools · egress</text><text x="625" y="375" class="label">Trace · approval · rollback</text><text x="625" y="420" class="label">Need: reference policy</text><text x="625" y="444" class="label">and conformance tests</text><text x="890" y="295" class="lane">Repair</text><text x="890" y="340" class="label">Akrites SIRT + CVD</text><text x="890" y="375" class="label">Maintainer coordination</text><text x="890" y="420" class="label">Need: alliance scope,</text><text x="890" y="444" class="label">response SLA, advisories</text><line x1="95" y1="566" x2="1100" y2="566" class="line"/><text x="65" y="610" class="sub">Release gate: exact artifact + applicable threat IDs + verified signature + bounded authority + repair owner</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <style>.lane,.label,.big{fill:#17364a!important}</style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

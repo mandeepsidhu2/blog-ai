@@ -1,0 +1,484 @@
+{
+  "comparisons": [
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_250ms",
+      "metric": "completionRate",
+      "mean": 0.00011523437499999754,
+      "ciLow": 0.00008203124999999826,
+      "ciHigh": 0.0001503906249999968
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_250ms",
+      "metric": "p95Latency",
+      "mean": -1.0420955975605835,
+      "ciLow": -1.083270061693068,
+      "ciHigh": -1.0003120838303121
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_250ms",
+      "metric": "p99Latency",
+      "mean": -2.9074437323602913,
+      "ciLow": -2.939766819422103,
+      "ciHigh": -2.8748048791124603
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_250ms",
+      "metric": "workSecondsPerRequest",
+      "mean": -0.07655597842751026,
+      "ciLow": -0.07797486700287706,
+      "ciHigh": -0.07517016772155181
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_250ms",
+      "metric": "maxQueueDepth",
+      "mean": -0.14375,
+      "ciLow": -0.19375,
+      "ciHigh": -0.09375
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_500ms",
+      "metric": "completionRate",
+      "mean": 0.00011523437499999754,
+      "ciLow": 0.0000839843749999982,
+      "ciHigh": 0.0001503906249999968
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_500ms",
+      "metric": "p95Latency",
+      "mean": -0.8626596823364288,
+      "ciLow": -0.9028327995626407,
+      "ciHigh": -0.8226125038023084
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_500ms",
+      "metric": "p99Latency",
+      "mean": -2.6748939693627087,
+      "ciLow": -2.706480643281019,
+      "ciHigh": -2.644085014418172
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_500ms",
+      "metric": "workSecondsPerRequest",
+      "mean": -0.07734238765932396,
+      "ciLow": -0.07860439332707025,
+      "ciHigh": -0.07611845718560177
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "fixed_500ms",
+      "metric": "maxQueueDepth",
+      "mean": -0.175,
+      "ciLow": -0.225,
+      "ciHigh": -0.125
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "queue_capped_250ms",
+      "metric": "completionRate",
+      "mean": 0.00011523437499999754,
+      "ciLow": 0.00008203124999999826,
+      "ciHigh": 0.0001503906249999968
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "queue_capped_250ms",
+      "metric": "p95Latency",
+      "mean": -1.0422072901394268,
+      "ciLow": -1.0825187248058796,
+      "ciHigh": -0.9996086682525739
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "queue_capped_250ms",
+      "metric": "p99Latency",
+      "mean": -2.9080992885495496,
+      "ciLow": -2.9394444494559306,
+      "ciHigh": -2.8763045125105418
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "queue_capped_250ms",
+      "metric": "workSecondsPerRequest",
+      "mean": -0.0765487459942257,
+      "ciLow": -0.07796003754388421,
+      "ciHigh": -0.07511809365026335
+    },
+    {
+      "scenario": "moderate_independent",
+      "policy": "queue_capped_250ms",
+      "metric": "maxQueueDepth",
+      "mean": -0.184375,
+      "ciLow": -0.234375,
+      "ciHigh": -0.1375
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_250ms",
+      "metric": "completionRate",
+      "mean": 0.0014257812499999928,
+      "ciLow": 0.001113281249999993,
+      "ciHigh": 0.001769531249999993
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_250ms",
+      "metric": "p95Latency",
+      "mean": -2.633273803823859,
+      "ciLow": -2.72468486919946,
+      "ciHigh": -2.545388022620042
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_250ms",
+      "metric": "p99Latency",
+      "mean": -4.2238033968039606,
+      "ciLow": -4.338868290151135,
+      "ciHigh": -4.113280996358281
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_250ms",
+      "metric": "workSecondsPerRequest",
+      "mean": -0.07063047251443447,
+      "ciLow": -0.07198841539317273,
+      "ciHigh": -0.06929394567027866
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_250ms",
+      "metric": "maxQueueDepth",
+      "mean": -2.353125,
+      "ciLow": -2.615625,
+      "ciHigh": -2.090625
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_500ms",
+      "metric": "completionRate",
+      "mean": 0.0014257812499999928,
+      "ciLow": 0.0011132812499999932,
+      "ciHigh": 0.0017910156249999923
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_500ms",
+      "metric": "p95Latency",
+      "mean": -2.4687461640410278,
+      "ciLow": -2.5601331692123073,
+      "ciHigh": -2.381387023590035
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_500ms",
+      "metric": "p99Latency",
+      "mean": -4.006964819200818,
+      "ciLow": -4.118795305267506,
+      "ciHigh": -3.8985067507515367
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_500ms",
+      "metric": "workSecondsPerRequest",
+      "mean": -0.07262447153541243,
+      "ciLow": -0.07384025976158462,
+      "ciHigh": -0.07139666709809382
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "fixed_500ms",
+      "metric": "maxQueueDepth",
+      "mean": -2.65625,
+      "ciLow": -2.925,
+      "ciHigh": -2.4
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "queue_capped_250ms",
+      "metric": "completionRate",
+      "mean": 0.0012988281249999942,
+      "ciLow": 0.0010332031249999933,
+      "ciHigh": 0.001607421874999995
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "queue_capped_250ms",
+      "metric": "p95Latency",
+      "mean": -2.514499996389782,
+      "ciLow": -2.5963993928833293,
+      "ciHigh": -2.435183445592427
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "queue_capped_250ms",
+      "metric": "p99Latency",
+      "mean": -3.6035203987790196,
+      "ciLow": -3.7456046059898007,
+      "ciHigh": -3.466094405196343
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "queue_capped_250ms",
+      "metric": "workSecondsPerRequest",
+      "mean": -0.06600390929097236,
+      "ciLow": -0.06744796211925831,
+      "ciHigh": -0.06454222313553751
+    },
+    {
+      "scenario": "near_capacity_independent",
+      "policy": "queue_capped_250ms",
+      "metric": "maxQueueDepth",
+      "mean": -3.23125,
+      "ciLow": -3.46875,
+      "ciHigh": -3.00625
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_250ms",
+      "metric": "completionRate",
+      "mean": 0.007669921874999995,
+      "ciLow": 0.004736328125,
+      "ciHigh": 0.010289062499999998
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_250ms",
+      "metric": "p95Latency",
+      "mean": -1.188336175669151,
+      "ciLow": -1.3243286097064377,
+      "ciHigh": -1.0547060882312969
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_250ms",
+      "metric": "p99Latency",
+      "mean": -1.9005076190341836,
+      "ciLow": -2.034945016603594,
+      "ciHigh": -1.768841542461434
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_250ms",
+      "metric": "workSecondsPerRequest",
+      "mean": -0.0024501987028852455,
+      "ciLow": -0.004229137989430106,
+      "ciHigh": -0.0006960210730514681
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_250ms",
+      "metric": "maxQueueDepth",
+      "mean": 8.69375,
+      "ciLow": 8.071875,
+      "ciHigh": 9.321875
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_500ms",
+      "metric": "completionRate",
+      "mean": 0.008988281249999997,
+      "ciLow": 0.006599609374999997,
+      "ciHigh": 0.011406249999999996
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_500ms",
+      "metric": "p95Latency",
+      "mean": -1.1538616194762832,
+      "ciLow": -1.280423541650593,
+      "ciHigh": -1.0273213772974796
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_500ms",
+      "metric": "p99Latency",
+      "mean": -1.8412741503719108,
+      "ciLow": -1.9695255022016613,
+      "ciHigh": -1.7179128150781282
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_500ms",
+      "metric": "workSecondsPerRequest",
+      "mean": -0.0052377724373794095,
+      "ciLow": -0.006909281978976707,
+      "ciHigh": -0.003581206997711564
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "fixed_500ms",
+      "metric": "maxQueueDepth",
+      "mean": 8.178125,
+      "ciLow": 7.575,
+      "ciHigh": 8.821875
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "queue_capped_250ms",
+      "metric": "completionRate",
+      "mean": 0.001851562500000003,
+      "ciLow": 0.0008964843750000048,
+      "ciHigh": 0.002888671875000006
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "queue_capped_250ms",
+      "metric": "p95Latency",
+      "mean": -0.344578797279803,
+      "ciLow": -0.4197843748506422,
+      "ciHigh": -0.2694627409808958
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "queue_capped_250ms",
+      "metric": "p99Latency",
+      "mean": -0.2801520292709191,
+      "ciLow": -0.3705815000091219,
+      "ciHigh": -0.18856429145431028
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "queue_capped_250ms",
+      "metric": "workSecondsPerRequest",
+      "mean": -0.0031243879750722627,
+      "ciLow": -0.004317676840127029,
+      "ciHigh": -0.0019438322428683575
+    },
+    {
+      "scenario": "near_capacity_correlated",
+      "policy": "queue_capped_250ms",
+      "metric": "maxQueueDepth",
+      "mean": -0.30625,
+      "ciLow": -0.484375,
+      "ciHigh": -0.121875
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_250ms",
+      "metric": "completionRate",
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_250ms",
+      "metric": "p95Latency",
+      "mean": 1.031501752270315,
+      "ciLow": 0.9632716994107504,
+      "ciHigh": 1.1012806469238836
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_250ms",
+      "metric": "p99Latency",
+      "mean": 1.0370805418175737,
+      "ciLow": 0.9677369314646377,
+      "ciHigh": 1.1099129752720978
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_250ms",
+      "metric": "workSecondsPerRequest",
+      "mean": 0.025370945568743825,
+      "ciLow": 0.02511739683890198,
+      "ciHigh": 0.025623666576711345
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_250ms",
+      "metric": "maxQueueDepth",
+      "mean": 11.453125,
+      "ciLow": 10.809375,
+      "ciHigh": 12.090625
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_500ms",
+      "metric": "completionRate",
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_500ms",
+      "metric": "p95Latency",
+      "mean": 0.10354069591143092,
+      "ciLow": 0.08985154466173405,
+      "ciHigh": 0.11824848953352614
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_500ms",
+      "metric": "p99Latency",
+      "mean": 0.0957353173130582,
+      "ciLow": 0.08100088676333686,
+      "ciHigh": 0.11236200970589505
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_500ms",
+      "metric": "workSecondsPerRequest",
+      "mean": 0.003972706287410669,
+      "ciLow": 0.003809385151245925,
+      "ciHigh": 0.004136499221746457
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "fixed_500ms",
+      "metric": "maxQueueDepth",
+      "mean": 1.928125,
+      "ciLow": 1.74375,
+      "ciHigh": 2.121875
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "queue_capped_250ms",
+      "metric": "completionRate",
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "queue_capped_250ms",
+      "metric": "p95Latency",
+      "mean": 0.09449506595120086,
+      "ciLow": 0.09035298665955728,
+      "ciHigh": 0.09888545613911741
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "queue_capped_250ms",
+      "metric": "p99Latency",
+      "mean": 0.10253101179354922,
+      "ciLow": 0.09650299758262172,
+      "ciHigh": 0.10849432578048765
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "queue_capped_250ms",
+      "metric": "workSecondsPerRequest",
+      "mean": 0.013548579228396926,
+      "ciLow": 0.013282165180019076,
+      "ciHigh": 0.013802451202131891
+    },
+    {
+      "scenario": "no_tail_control",
+      "policy": "queue_capped_250ms",
+      "metric": "maxQueueDepth",
+      "mean": 0.459375,
+      "ciLow": 0.403125,
+      "ciHigh": 0.515625
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "seed": 20260731,
+  "repeats": 320,
+  "requestsPerRepeat": 1600,
+  "workers": 8,
+  "tickSeconds": 0.01,
+  "bootstrapSamples": 5000,
+  "deadlineSeconds": 8,
+  "policies": {
+    "no_hedge": {"delaySeconds": null, "queueCap": null},
+    "fixed_250ms": {"delaySeconds": 0.25, "queueCap": null},
+    "fixed_500ms": {"delaySeconds": 0.5, "queueCap": null},
+    "queue_capped_250ms": {"delaySeconds": 0.25, "queueCap": 2}
+  },
+  "scenarios": {
+    "moderate_independent": {"arrivalRate": 12, "tailProbability": 0.05, "sharedTailProbability": 0},
+    "near_capacity_independent": {"arrivalRate": 22, "tailProbability": 0.05, "sharedTailProbability": 0},
+    "near_capacity_correlated": {"arrivalRate": 18, "tailProbability": 0.05, "sharedTailProbability": 0.8},
+    "no_tail_control": {"arrivalRate": 35, "tailProbability": 0, "sharedTailProbability": 0}
+  },
+  "service": {
+    "bodyMedianSeconds": 0.18,
+    "bodySigma": 0.45,
+    "tailMedianSeconds": 2.4,
+    "tailSigma": 0.4
+  }
+}

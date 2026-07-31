@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hypothesis": "A fixed 250 millisecond duplicate request will reduce p95 latency under moderate independent service tails but increase work and reverse the latency benefit near capacity, especially when replica slowdowns are correlated; a queue-capped hedge should retain less benefit while limiting amplification.",
+  "claimBoundary": "The experiment isolates hedging and queue-load mechanisms under declared synthetic arrivals, service distributions, worker count, cancellation behavior, and deadlines. It does not estimate any named provider, select a universal hedge delay, or model token streaming, accelerator batching, provider billing, or network partitions.",
+  "design": {
+    "baselines": ["no-hedge policy on the identical request trace", "500 millisecond fixed-delay hedge"],
+    "controls": ["no-tail negative control matched to approximately seven worker-seconds of offered service per wall second", "independent-tail and 80-percent shared-tail correlation cells with scenario-specific load matching", "queue-capped 250 millisecond admission ablation", "matched arrivals and service draws across all policies within a repeat"],
+    "repeats": 320
+  },
+  "reproduction": {
+    "commands": [
+      "node operator/diy-project-blogs/projects/hedged-request-load-audit/run-experiment.mjs",
+      "node operator/diy-project-blogs/projects/hedged-request-load-audit/render-figure.mjs"
+    ]
+  },
+  "artifacts": ["config.json", "run-experiment.mjs", "repeat-results.csv", "aggregate-results.json", "statistical-analysis.json", "focal-summary.txt", "hedged-request-load-boundary.svg"]
+}
