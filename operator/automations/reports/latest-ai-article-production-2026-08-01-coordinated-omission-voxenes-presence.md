@@ -1,6 +1,7 @@
 # Latest AI Article Production — Coordinated Omission, VoxENES, and Presence
 
-Run started: 2026-08-01 23:56 EDT. Publication completed: pending commit and push.
+Run started: 2026-08-01 23:56 EDT. Publication completed: 2026-08-02
+00:20 EDT.
 
 ## Outcome
 
@@ -142,6 +143,9 @@ was stopped after QA.
 
 ## Publication Record
 
-Atomic publication commit: pending.
+Atomic publication commit: `ba48a73` (`Publish coordinated omission and current
+AI analyses`).
 
-Push result: pending.
+Push result: successful. `origin/main` advanced from `794d7b6` to `ba48a73`.
+The sandboxed push could not resolve GitHub, so the authorized retry used narrow
+outside-sandbox network access. No alternate publication path was used.
