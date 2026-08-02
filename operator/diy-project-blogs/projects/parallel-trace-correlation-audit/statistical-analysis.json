@@ -1,0 +1,388 @@
+{
+  "comparisons": [
+    {
+      "scenario": "shared_incident",
+      "replay": "column_shuffled",
+      "metric": "criticalPathP50",
+      "mean": 0.04748697000821865,
+      "ciLow": 0.04711339745044694,
+      "ciHigh": 0.0478483535983784
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "column_shuffled",
+      "metric": "criticalPathP95",
+      "mean": 0.2494415582422919,
+      "ciLow": 0.24595531071879814,
+      "ciHigh": 0.2530301846248986
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "column_shuffled",
+      "metric": "criticalPathP99",
+      "mean": 0.05352449560518701,
+      "ciLow": 0.04965245605334762,
+      "ciHigh": 0.05745824243384327
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "column_shuffled",
+      "metric": "deadlineMissRate",
+      "mean": 0.018051999999999995,
+      "ciLow": 0.017847000000000012,
+      "ciHigh": 0.01826500000000001
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "column_shuffled",
+      "metric": "toolSecondsP50",
+      "mean": 0.07875229890118236,
+      "ciLow": 0.07813421389614778,
+      "ciHigh": 0.07938163181626103
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "column_shuffled",
+      "metric": "toolSecondsP95",
+      "mean": -1.1429962557252726,
+      "ciLow": -1.1514218740969608,
+      "ciHigh": -1.1347483525765254
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "column_shuffled",
+      "metric": "toolSecondsP99",
+      "mean": -2.4331342725149754,
+      "ciLow": -2.4467990733668468,
+      "ciHigh": -2.4188704061596846
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "column_shuffled",
+      "metric": "meanPairwiseCorrelation",
+      "mean": -0.7077610764382304,
+      "ciLow": -0.7088977423747003,
+      "ciHigh": -0.7065892583411688
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "incident_stratified",
+      "metric": "criticalPathP50",
+      "mean": 0.00007067745163954072,
+      "ciLow": -0.00005202103606819747,
+      "ciHigh": 0.00018963921675790613
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "incident_stratified",
+      "metric": "criticalPathP95",
+      "mean": 0.09962095063894084,
+      "ciLow": 0.09661504835051428,
+      "ciHigh": 0.10270718592510195
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "incident_stratified",
+      "metric": "criticalPathP99",
+      "mean": 0.03724290111599264,
+      "ciLow": 0.03354076591006817,
+      "ciHigh": 0.040972325001515646
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "incident_stratified",
+      "metric": "deadlineMissRate",
+      "mean": 0.0050520000000000035,
+      "ciLow": 0.004909500000000007,
+      "ciHigh": 0.005196500000000005
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "incident_stratified",
+      "metric": "toolSecondsP50",
+      "mean": 0.00012054388584303216,
+      "ciLow": -0.00018608690294114104,
+      "ciHigh": 0.0004321700358928984
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "incident_stratified",
+      "metric": "toolSecondsP95",
+      "mean": 0.19304766476059956,
+      "ciLow": 0.18694401384562412,
+      "ciHigh": 0.19947444867611083
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "incident_stratified",
+      "metric": "toolSecondsP99",
+      "mean": -0.4247422876724173,
+      "ciLow": -0.43759234219179866,
+      "ciHigh": -0.41137537708552535
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "incident_stratified",
+      "metric": "meanPairwiseCorrelation",
+      "mean": -0.08818062614008108,
+      "ciLow": -0.08943151282982377,
+      "ciHigh": -0.08700373928008372
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "column_shuffled",
+      "metric": "criticalPathP50",
+      "mean": 0.000018423014214119376,
+      "ciLow": -0.00021023920959895774,
+      "ciHigh": 0.0002549091207500678
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "column_shuffled",
+      "metric": "criticalPathP95",
+      "mean": -0.00013021909916782314,
+      "ciLow": -0.0009653883477603131,
+      "ciHigh": 0.0006794230363579345
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "column_shuffled",
+      "metric": "criticalPathP99",
+      "mean": -0.00039798175836811445,
+      "ciLow": -0.0013051466598289518,
+      "ciHigh": 0.0005427750151394927
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "column_shuffled",
+      "metric": "deadlineMissRate",
+      "mean": -0.00005949999999999999,
+      "ciLow": -0.00012550000000000034,
+      "ciHigh": 0.000007499999999999868
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "column_shuffled",
+      "metric": "toolSecondsP50",
+      "mean": -0.00005630600011118897,
+      "ciLow": -0.0005498999409627394,
+      "ciHigh": 0.00042660740265308776
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "column_shuffled",
+      "metric": "toolSecondsP95",
+      "mean": 0.0010777574920143428,
+      "ciLow": -0.0019536552605945836,
+      "ciHigh": 0.0041692793161263505
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "column_shuffled",
+      "metric": "toolSecondsP99",
+      "mean": -0.003295535650254373,
+      "ciLow": -0.011927420342306634,
+      "ciHigh": 0.005999449020311663
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "column_shuffled",
+      "metric": "meanPairwiseCorrelation",
+      "mean": 0.00022459980192448346,
+      "ciLow": -0.0005829364193356745,
+      "ciHigh": 0.0010470668718272822
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "incident_stratified",
+      "metric": "criticalPathP50",
+      "mean": 0.000018423014214119376,
+      "ciLow": -0.00021401894443311907,
+      "ciHigh": 0.0002552275722234959
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "incident_stratified",
+      "metric": "criticalPathP95",
+      "mean": -0.00013021909916782314,
+      "ciLow": -0.0009662314286016959,
+      "ciHigh": 0.0007058501306904258
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "incident_stratified",
+      "metric": "criticalPathP99",
+      "mean": -0.00039798175836811445,
+      "ciLow": -0.0013212190568953808,
+      "ciHigh": 0.0005479092643675676
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "incident_stratified",
+      "metric": "deadlineMissRate",
+      "mean": -0.00005949999999999999,
+      "ciLow": -0.00012800000000000005,
+      "ciHigh": 0.000008999999999999599
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "incident_stratified",
+      "metric": "toolSecondsP50",
+      "mean": -0.00005630600011118897,
+      "ciLow": -0.0005362532945591469,
+      "ciHigh": 0.00041915769572298397
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "incident_stratified",
+      "metric": "toolSecondsP95",
+      "mean": 0.0010777574920143428,
+      "ciLow": -0.0019563227899378286,
+      "ciHigh": 0.004085815273700005
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "incident_stratified",
+      "metric": "toolSecondsP99",
+      "mean": -0.003295535650254373,
+      "ciLow": -0.012290586166447105,
+      "ciHigh": 0.00579978819908093
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "incident_stratified",
+      "metric": "meanPairwiseCorrelation",
+      "mean": 0.00022459980192448346,
+      "ciLow": -0.000588695387057705,
+      "ciHigh": 0.0010247669965175589
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "column_shuffled",
+      "metric": "criticalPathP50",
+      "mean": -0.00004004289229367658,
+      "ciLow": -0.00016807654507235162,
+      "ciHigh": 0.00008487072596300896
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "column_shuffled",
+      "metric": "criticalPathP95",
+      "mean": 0.00006316898912417101,
+      "ciLow": -0.00002658142248715689,
+      "ciHigh": 0.00015719908751083615
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "column_shuffled",
+      "metric": "criticalPathP99",
+      "mean": 0.000039329736654139526,
+      "ciLow": -0.000004902117801463823,
+      "ciHigh": 0.00009490908375128699
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "column_shuffled",
+      "metric": "deadlineMissRate",
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "column_shuffled",
+      "metric": "toolSecondsP50",
+      "mean": -0.00014113402713715917,
+      "ciLow": -0.00044540405340832425,
+      "ciHigh": 0.00015904649804385272
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "column_shuffled",
+      "metric": "toolSecondsP95",
+      "mean": -0.00021373997650816657,
+      "ciLow": -0.001106301886616054,
+      "ciHigh": 0.0006622320610201248
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "column_shuffled",
+      "metric": "toolSecondsP99",
+      "mean": -0.0001970570779794456,
+      "ciLow": -0.0023185045143006857,
+      "ciHigh": 0.001855990056651672
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "column_shuffled",
+      "metric": "meanPairwiseCorrelation",
+      "mean": 0.000408400677214786,
+      "ciLow": -0.0004055841214202624,
+      "ciHigh": 0.001236295660832469
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "incident_stratified",
+      "metric": "criticalPathP50",
+      "mean": -0.00004004289229367658,
+      "ciLow": -0.0001707101980845631,
+      "ciHigh": 0.00008932968373115566
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "incident_stratified",
+      "metric": "criticalPathP95",
+      "mean": 0.00006316898912417101,
+      "ciLow": -0.000026469837095448033,
+      "ciHigh": 0.00015794302849849313
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "incident_stratified",
+      "metric": "criticalPathP99",
+      "mean": 0.000039329736654139526,
+      "ciLow": -0.000004592831493916427,
+      "ciHigh": 0.00009393240595002823
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "incident_stratified",
+      "metric": "deadlineMissRate",
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "incident_stratified",
+      "metric": "toolSecondsP50",
+      "mean": -0.00014113402713715917,
+      "ciLow": -0.00044609477027903274,
+      "ciHigh": 0.00016045038146113606
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "incident_stratified",
+      "metric": "toolSecondsP95",
+      "mean": -0.00021373997650816657,
+      "ciLow": -0.001123493997611289,
+      "ciHigh": 0.0007021026244874196
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "incident_stratified",
+      "metric": "toolSecondsP99",
+      "mean": -0.0001970570779794456,
+      "ciLow": -0.0022956129972757757,
+      "ciHigh": 0.0019579186207885823
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "incident_stratified",
+      "metric": "meanPairwiseCorrelation",
+      "mean": 0.000408400677214786,
+      "ciLow": -0.00038819651830929126,
+      "ciHigh": 0.0012205924625145676
+    }
+  ]
+}

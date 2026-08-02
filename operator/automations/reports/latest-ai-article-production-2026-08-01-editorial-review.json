@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "preserve-parallel-tool-trace-correlation",
+      "verdict": "publish-ready",
+      "scores": {"questionValue": 5, "technicalDepth": 5, "evidenceTraceability": 5, "methodologicalRigor": 4, "decisionUsefulness": 5, "clarityDensity": 4, "visualEvidence": 5},
+      "strongestCounterargument": "The shared multiplier manufactures the dependence later recovered by row preservation, while real positive correlation may come from request size, routing, queue feedback, or censoring and can change the bias direction.",
+      "unsupportedClaimRisk": "The weakest claim was that shared incidents explain the production failure; the revision confines the result to estimator behavior and adds request heterogeneity as an alternative cause requiring within-stratum analysis.",
+      "reproductionBarrier": "A production reproduction needs complete child spans, correct workflow boundaries, unfinished-call censoring, request-size and route fields, and held-out normal plus degradation windows; marginal latency exports cannot reproduce the claim.",
+      "revisions": ["Added a sensitivity and external-validation protocol with two held-out windows, preregistered dependence models, and sign-stability requirements instead of presenting one simulated percentage as a forecast.", "Added build-breaking invariants for marginal multiset identity, repeat pairing, and aggregate regeneration, plus an explicit request-heterogeneity alternative explanation.", "Narrowed the conclusion from incident diagnosis to preservation of the joint evaluation unit and retained the failed incident-stratified ablation as a negative result."]
+    },
+    {
+      "slug": "evaluate-mlperf-edge-agentic-by-system-cell",
+      "verdict": "publish-ready",
+      "scores": {"questionValue": 5, "technicalDepth": 4, "evidenceTraceability": 5, "methodologicalRigor": 4, "decisionUsefulness": 5, "clarityDensity": 5, "visualEvidence": 4},
+      "strongestCounterargument": "MLCommons validation already constrains scenarios, accuracy, implementations, and disclosures, so an additional local tuple could burden procurement without improving the comparability of conforming submissions.",
+      "unsupportedClaimRisk": "The weakest claim was that validated v6.1 results were ready to interpret on August 1; the article now explicitly treats the call as pre-result evidence and keeps all unpublished values unknown.",
+      "reproductionBarrier": "The call defines a direction but final validated submissions, exact result cells, approved revision, audit status, power boundaries, and local task fit must exist before any hardware or model rank can be reproduced.",
+      "revisions": ["Reframed the piece as a pre-result interpretation contract and explicitly prohibited speculation about winners or filling missing result fields from marketing material.", "Added separate conformance and local-fitness ledgers so MLCommons validity is preserved without being misrepresented as product authorization.", "Separated edge single-stream evidence from datacenter concurrency and legacy summarization or QA rows instead of normalizing incompatible metrics."]
+    },
+    {
+      "slug": "pilot-gemini-managed-agents-with-forked-environments",
+      "verdict": "publish-ready",
+      "scores": {"questionValue": 5, "technicalDepth": 4, "evidenceTraceability": 5, "methodologicalRigor": 4, "decisionUsefulness": 5, "clarityDensity": 5, "visualEvidence": 4},
+      "strongestCounterargument": "Google already provides sandbox isolation, clean environment forks, network allowlists, credential transforms, and observable steps, so the proposed external release contract may duplicate managed controls and slow a useful preview pilot.",
+      "unsupportedClaimRisk": "The weakest inference was that a hosted sandbox's undocumented isolation properties were insufficient; the revision avoids judging unreported internals and limits the claim to effective egress, authority, state, cost, and rollback controls.",
+      "reproductionBarrier": "Completed-task evaluation requires provider access, token and tool telemetry, frozen source snapshots, negative security fixtures, organization-specific credential proxies, and matched current-workflow results; documentation alone cannot establish safety or economics.",
+      "revisions": ["Clarified that the pilot should validate and compose Google's native primitives rather than rebuild them, with denied-destination, expired-token, scope, and budget probes on every canary.", "Added an explicit boundary against inferring kernel, tenant-isolation, deletion, or forensic guarantees from a functional preview test.", "Separated the GA Interactions API from the Public Preview managed runtime and tied release decisions to the component that holds execution authority."]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "seed": 20260801,
+  "repeats": 400,
+  "workflowsPerRepeat": 5000,
+  "tools": [
+    {"name": "search", "medianSeconds": 0.18, "sigma": 0.42},
+    {"name": "retrieval", "medianSeconds": 0.24, "sigma": 0.38},
+    {"name": "policy", "medianSeconds": 0.12, "sigma": 0.32},
+    {"name": "database", "medianSeconds": 0.31, "sigma": 0.45}
+  ],
+  "incidentProbability": 0.08,
+  "incidentMultiplierMedian": 4.5,
+  "incidentMultiplierSigma": 0.28,
+  "deadlineSeconds": 1.5,
+  "bootstrapSamples": 5000,
+  "scenarios": ["shared_incident", "independent_incidents", "no_incident_control"],
+  "replays": ["row_preserved", "column_shuffled", "incident_stratified"]
+}

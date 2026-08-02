@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title id="title">MLPerf Edge Agentic system-cell decision surface</title>
+  <desc id="desc">A matrix shows the evidence required across model quality, latency, context, memory and power before an edge agent benchmark result supports adoption.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+  <style>.bg{fill:#071b26}.ink{fill:#f3efdc}.muted{fill:#a9c3ca}.line{stroke:#315767;stroke-width:1}.head{font:700 25px ui-serif,Georgia,serif}.sub{font:14px ui-sans-serif,system-ui,sans-serif}.label{font:700 14px ui-sans-serif,system-ui,sans-serif}.small{font:12px ui-sans-serif,system-ui,sans-serif}.mono{font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace}.good{fill:#159d8e}.warn{fill:#d7a72b}.risk{fill:#df6848}.cell{fill:#0d2a36;stroke:#315767;stroke-width:1}</style>
+
+  <text x="46" y="52" class="ink head">Compare the whole system cell</text>
+  <text x="46" y="78" class="muted sub">MLPerf Edge Agentic v6.1 · evidence fields that must stay attached to every result</text>
+  <rect x="46" y="112" width="868" height="330" rx="8" class="cell"/>
+  <line x1="46" y1="170" x2="914" y2="170" class="line"/><line x1="46" y1="238" x2="914" y2="238" class="line"/><line x1="46" y1="306" x2="914" y2="306" class="line"/><line x1="46" y1="374" x2="914" y2="374" class="line"/>
+  <line x1="242" y1="112" x2="242" y2="442" class="line"/><line x1="466" y1="112" x2="466" y2="442" class="line"/><line x1="690" y1="112" x2="690" y2="442" class="line"/>
+  <text x="66" y="146" class="ink label">Decision layer</text><text x="266" y="146" class="ink label">Comparable key</text><text x="490" y="146" class="ink label">Measured signal</text><text x="714" y="146" class="ink label">Stop condition</text>
+  <circle cx="72" cy="204" r="9" class="good"/><text x="92" y="209" class="ink label">Quality gate</text><text x="266" y="198" class="muted small">model · weights · quantization</text><text x="266" y="216" class="muted small">task set · accuracy target</text><text x="490" y="209" class="ink mono">joint task accuracy</text><text x="714" y="198" class="muted small" textLength="188" lengthAdjust="spacingAndGlyphs">schema or task score below</text><text x="714" y="216" class="muted small" textLength="188" lengthAdjust="spacingAndGlyphs">the preregistered floor</text>
+  <circle cx="72" cy="272" r="9" class="warn"/><text x="92" y="277" class="ink label">Interaction</text><text x="266" y="266" class="muted small">single stream · session length</text><text x="266" y="284" class="muted small">context and truncation policy</text><text x="490" y="277" class="ink mono">p95 session latency</text><text x="714" y="266" class="muted small" textLength="188" lengthAdjust="spacingAndGlyphs">different scenario or context:</text><text x="714" y="284" class="risk small" textLength="188" lengthAdjust="spacingAndGlyphs">not directly comparable</text>
+  <circle cx="72" cy="340" r="9" class="warn"/><text x="92" y="345" class="ink label">Capacity</text><text x="266" y="334" class="muted small">runtime · compiler · memory</text><text x="266" y="352" class="muted small">power mode · thermal state</text><text x="490" y="345" class="ink mono">GiB · joules/session</text><text x="714" y="334" class="muted small" textLength="188" lengthAdjust="spacingAndGlyphs">unknown boundary or less than</text><text x="714" y="352" class="muted small">20% measured headroom</text>
+  <circle cx="72" cy="408" r="9" class="risk"/><text x="92" y="413" class="ink label">Procurement</text><text x="266" y="402" class="muted small">Available · Preview · RDI</text><text x="266" y="420" class="muted small">submission and publication IDs</text><text x="490" y="413" class="ink mono">validated result class</text><text x="714" y="402" class="muted small" textLength="188" lengthAdjust="spacingAndGlyphs">experimental system used as</text><text x="714" y="420" class="muted small" textLength="188" lengthAdjust="spacingAndGlyphs">available-product evidence</text>
+  <rect x="46" y="466" width="868" height="44" rx="6" fill="#112f3b" stroke="#315767"/><text x="480" y="493" text-anchor="middle" class="ink label">A rank is valid only inside one workload × model × accuracy × hardware × scenario cell.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

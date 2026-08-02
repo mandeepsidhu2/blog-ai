@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+<title id="title">Replay correlation changes latency and capacity estimates in opposite directions</title>
+<desc id="desc">Two grouped bar charts show that column shuffling raises parallel workflow critical-path p95 but lowers total tool occupancy p95 relative to preserving trace rows in a shared-incident simulation.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+<style>
+  .bg{fill:#071b26}.panel{fill:#0d2935;stroke:#2d5361;stroke-width:1}.grid{stroke:#31515d;stroke-width:1;opacity:.6}.axis{fill:#93acb5;font:12px ui-monospace,SFMono-Regular,Menlo,monospace}.heading{fill:#f4f0df;font:700 25px ui-serif,Georgia,serif}.sub{fill:#bad0d6;font:14px ui-sans-serif,system-ui,sans-serif}.panel-title{fill:#f4f0df;font:700 16px ui-sans-serif,system-ui,sans-serif}.value{fill:#fff7db;font:700 13px ui-monospace,SFMono-Regular,Menlo,monospace}.legend{fill:#d9e5e7;font:13px ui-sans-serif,system-ui,sans-serif}.note{fill:#a9c2c8;font:12px ui-sans-serif,system-ui,sans-serif}
+</style>
+
+<text x="48" y="52" class="heading">Destroyed correlation moves two decisions apart</text>
+<text x="48" y="78" class="sub">Shared-incident cell · mean across 400 matched repeats · 5,000 four-tool workflows each</text>
+<rect x="44" y="108" width="418" height="342" rx="8" class="panel"/><rect x="498" y="108" width="418" height="342" rx="8" class="panel"/>
+<text x="66" y="140" class="panel-title">Critical-path p95 (seconds)</text><text x="520" y="140" class="panel-title">Total occupancy p95 (tool-seconds)</text>
+<line x1="76" y1="402" x2="430" y2="402" class="grid"/><line x1="530" y1="402" x2="884" y2="402" class="grid"/>
+<line x1="76" y1="282" x2="430" y2="282" class="grid"/><line x1="530" y1="282" x2="884" y2="282" class="grid"/>
+<line x1="76" y1="162" x2="430" y2="162" class="grid"/><line x1="530" y1="162" x2="884" y2="162" class="grid"/>
+<text x="58" y="407" text-anchor="end" class="axis">0</text><text x="58" y="287" text-anchor="end" class="axis">0.9</text><text x="58" y="167" text-anchor="end" class="axis">1.8</text>
+<text x="512" y="407" text-anchor="end" class="axis">0</text><text x="512" y="287" text-anchor="end" class="axis">2.1</text><text x="512" y="167" text-anchor="end" class="axis">4.2</text>
+<rect x="108" y="213.87564846806023" width="72" height="188.12435153193977" rx="5" fill="#16a394"/>
+<text x="144" y="203.87564846806023" text-anchor="middle" class="value">1.411</text>
+<rect x="214" y="180.6167740357549" width="72" height="221.3832259642451" rx="5" fill="#e36a47"/>
+<text x="250" y="170.6167740357549" text-anchor="middle" class="value">1.660</text>
+<rect x="320" y="200.59285504953493" width="72" height="201.40714495046507" rx="5" fill="#d4a62a"/>
+<text x="356" y="190.59285504953493" text-anchor="middle" class="value">1.511</text>
+<rect x="562" y="196.11156907048863" width="72" height="205.88843092951137" rx="5" fill="#16a394"/>
+<text x="598" y="186.11156907048863" text-anchor="middle" class="value">3.603</text>
+<rect x="668" y="261.42564082621846" width="72" height="140.57435917378152" rx="5" fill="#e36a47"/>
+<text x="704" y="251.42564082621846" text-anchor="middle" class="value">2.460</text>
+<rect x="774" y="185.08027394131148" width="72" height="216.91972605868852" rx="5" fill="#d4a62a"/>
+<text x="810" y="175.08027394131148" text-anchor="middle" class="value">3.796</text>
+<text x="253" y="433" text-anchor="middle" class="note">shuffle: +0.250 s (+17.7%)</text>
+<text x="707" y="433" text-anchor="middle" class="note">shuffle: -1.143 tool-s (-31.7%)</text>
+<rect x="170" y="482" width="14" height="14" rx="3" fill="#16a394"/><text x="192" y="494" class="legend">Rows preserved</text>
+<rect x="390" y="482" width="14" height="14" rx="3" fill="#e36a47"/><text x="412" y="494" class="legend">Columns shuffled</text>
+<rect x="610" y="482" width="14" height="14" rx="3" fill="#d4a62a"/><text x="632" y="494" class="legend">Incident-stratified</text>
+<text x="480" y="522" text-anchor="middle" class="note" textLength="452" lengthAdjust="spacingAndGlyphs">Independent-incident and no-incident controls changed by less than 0.002 s on either p95 metric.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

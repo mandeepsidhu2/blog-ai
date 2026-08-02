@@ -1,0 +1,11 @@
+Parallel trace correlation audit
+repeats=400 workflows_per_repeat=5000 tools=4
+shared_incident/row_preserved: latency_p95=1.4109s work_p95=3.6030s miss=4.56% corr=0.707
+shared_incident/column_shuffled: latency_p95=1.6604s work_p95=2.4601s miss=6.37% corr=-0.000
+shared_incident/incident_stratified: latency_p95=1.5106s work_p95=3.7961s miss=5.07% corr=0.619
+independent_incidents/row_preserved: latency_p95=1.6610s work_p95=2.4598s miss=6.37% corr=-0.000
+independent_incidents/column_shuffled: latency_p95=1.6609s work_p95=2.4609s miss=6.37% corr=0.000
+independent_incidents/incident_stratified: latency_p95=1.6609s work_p95=2.4609s miss=6.37% corr=0.000
+no_incident_control/row_preserved: latency_p95=0.6629s work_p95=1.3137s miss=0.02% corr=-0.000
+no_incident_control/column_shuffled: latency_p95=0.6630s work_p95=1.3135s miss=0.02% corr=0.000
+no_incident_control/incident_stratified: latency_p95=0.6630s work_p95=1.3135s miss=0.02% corr=0.000

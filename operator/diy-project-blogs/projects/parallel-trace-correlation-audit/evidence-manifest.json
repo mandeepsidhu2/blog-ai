@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "hypothesis": "Column-wise resampling of parallel tool traces will destroy shared-incident dependence, understate p95 total tool occupancy, and can move critical-path latency in the opposite direction from capacity risk.",
+  "claimBoundary": "The study identifies estimator behavior under declared stochastic tool-latency distributions and matched replay policies. It does not estimate a named provider, prove a universal bias direction, or model retries, queueing, token generation, serial tool dependencies, or causal production incidents.",
+  "design": {
+    "baselines": ["row-preserved replay of the identical generated workflow trace"],
+    "controls": ["independent per-tool incidents with the same marginal incident probability", "no-incident negative control", "incident-stratified shuffle ablation that retains the observed shared incident label"],
+    "repeats": 400
+  },
+  "reproduction": {
+    "commands": ["node operator/diy-project-blogs/projects/parallel-trace-correlation-audit/run-experiment.mjs", "node operator/diy-project-blogs/projects/parallel-trace-correlation-audit/render-figure.mjs"]
+  },
+  "artifacts": ["config.json", "run-experiment.mjs", "repeat-results.csv", "aggregate-results.json", "statistical-analysis.json", "focal-summary.txt", "parallel-trace-correlation.svg"]
+}

@@ -1,0 +1,163 @@
+{
+  "config": {
+    "seed": 20260801,
+    "repeats": 400,
+    "workflowsPerRepeat": 5000,
+    "tools": [
+      {
+        "name": "search",
+        "medianSeconds": 0.18,
+        "sigma": 0.42
+      },
+      {
+        "name": "retrieval",
+        "medianSeconds": 0.24,
+        "sigma": 0.38
+      },
+      {
+        "name": "policy",
+        "medianSeconds": 0.12,
+        "sigma": 0.32
+      },
+      {
+        "name": "database",
+        "medianSeconds": 0.31,
+        "sigma": 0.45
+      }
+    ],
+    "incidentProbability": 0.08,
+    "incidentMultiplierMedian": 4.5,
+    "incidentMultiplierSigma": 0.28,
+    "deadlineSeconds": 1.5,
+    "bootstrapSamples": 5000,
+    "scenarios": [
+      "shared_incident",
+      "independent_incidents",
+      "no_incident_control"
+    ],
+    "replays": [
+      "row_preserved",
+      "column_shuffled",
+      "incident_stratified"
+    ]
+  },
+  "aggregates": [
+    {
+      "scenario": "shared_incident",
+      "replay": "row_preserved",
+      "repeats": 400,
+      "criticalPathP50": 0.3694838690112316,
+      "criticalPathP95": 1.4109326364895483,
+      "criticalPathP99": 2.7314763034952425,
+      "deadlineMissRate": 0.04562849999999999,
+      "toolSecondsP50": 0.9184540488010466,
+      "toolSecondsP95": 3.603047541266449,
+      "toolSecondsP99": 6.1227797208762444,
+      "meanPairwiseCorrelation": 0.7074860882584821
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "column_shuffled",
+      "repeats": 400,
+      "criticalPathP50": 0.41697083901945037,
+      "criticalPathP95": 1.6603741947318382,
+      "criticalPathP99": 2.785000799100429,
+      "deadlineMissRate": 0.06368049999999999,
+      "toolSecondsP50": 0.9972063477022297,
+      "toolSecondsP95": 2.460051285541177,
+      "toolSecondsP99": 3.689645448361266,
+      "meanPairwiseCorrelation": -0.0002749881797483691
+    },
+    {
+      "scenario": "shared_incident",
+      "replay": "incident_stratified",
+      "repeats": 400,
+      "criticalPathP50": 0.3695545464628709,
+      "criticalPathP95": 1.510553587128488,
+      "criticalPathP99": 2.768719204611236,
+      "deadlineMissRate": 0.05068050000000001,
+      "toolSecondsP50": 0.9185745926868905,
+      "toolSecondsP95": 3.7960952060270494,
+      "toolSecondsP99": 5.6980374332038295,
+      "meanPairwiseCorrelation": 0.6193054621184004
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "row_preserved",
+      "repeats": 400,
+      "criticalPathP50": 0.41667479982501887,
+      "criticalPathP95": 1.661025989786972,
+      "criticalPathP99": 2.782451198813886,
+      "deadlineMissRate": 0.06372149999999997,
+      "toolSecondsP50": 0.9968955109249248,
+      "toolSecondsP95": 2.459780445492223,
+      "toolSecondsP99": 3.6831980818117773,
+      "meanPairwiseCorrelation": -0.00007480896580744733
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "column_shuffled",
+      "repeats": 400,
+      "criticalPathP50": 0.41669322283923277,
+      "criticalPathP95": 1.6608957706878025,
+      "criticalPathP99": 2.782053217055518,
+      "deadlineMissRate": 0.06366199999999993,
+      "toolSecondsP50": 0.9968392049248125,
+      "toolSecondsP95": 2.4608582029842347,
+      "toolSecondsP99": 3.6799025461615207,
+      "meanPairwiseCorrelation": 0.00014979083611703624
+    },
+    {
+      "scenario": "independent_incidents",
+      "replay": "incident_stratified",
+      "repeats": 400,
+      "criticalPathP50": 0.41669322283923277,
+      "criticalPathP95": 1.6608957706878025,
+      "criticalPathP99": 2.782053217055518,
+      "deadlineMissRate": 0.06366199999999993,
+      "toolSecondsP50": 0.9968392049248125,
+      "toolSecondsP95": 2.4608582029842347,
+      "toolSecondsP99": 3.6799025461615207,
+      "meanPairwiseCorrelation": 0.00014979083611703624
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "row_preserved",
+      "repeats": 400,
+      "criticalPathP50": 0.35601113740557255,
+      "criticalPathP95": 0.662902586211835,
+      "criticalPathP99": 0.8877208205140167,
+      "deadlineMissRate": 0.0002150000000000003,
+      "toolSecondsP50": 0.8966250258229843,
+      "toolSecondsP95": 1.3136967677725824,
+      "toolSecondsP99": 1.55824953021005,
+      "meanPairwiseCorrelation": -0.00039354600016566326
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "column_shuffled",
+      "repeats": 400,
+      "criticalPathP50": 0.3559710945132785,
+      "criticalPathP95": 0.662965755200959,
+      "criticalPathP99": 0.8877601502506707,
+      "deadlineMissRate": 0.0002150000000000003,
+      "toolSecondsP50": 0.8964838917958461,
+      "toolSecondsP95": 1.3134830277960734,
+      "toolSecondsP99": 1.5580524731320695,
+      "meanPairwiseCorrelation": 0.000014854677049122433
+    },
+    {
+      "scenario": "no_incident_control",
+      "replay": "incident_stratified",
+      "repeats": 400,
+      "criticalPathP50": 0.3559710945132785,
+      "criticalPathP95": 0.662965755200959,
+      "criticalPathP99": 0.8877601502506707,
+      "deadlineMissRate": 0.0002150000000000003,
+      "toolSecondsP50": 0.8964838917958461,
+      "toolSecondsP95": 1.3134830277960734,
+      "toolSecondsP99": 1.5580524731320695,
+      "meanPairwiseCorrelation": 0.000014854677049122433
+    }
+  ]
+}

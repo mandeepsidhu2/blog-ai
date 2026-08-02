@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title id="title">Gemini Managed Agent fork control matrix</title>
+  <desc id="desc">A control matrix maps preview runtime properties including unrestricted default egress, token ranges, environment expiry and missing native versioning to enforceable pilot gates.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+  <style>.bg{fill:#071b26}.ink{fill:#f4f0df}.muted{fill:#a9c3ca}.panel{fill:#0d2a36;stroke:#315767;stroke-width:1}.line{stroke:#315767;stroke-width:1}.head{font:700 25px ui-serif,Georgia,serif}.sub{font:14px ui-sans-serif,system-ui,sans-serif}.label{font:700 14px ui-sans-serif,system-ui,sans-serif}.small{font:12px ui-sans-serif,system-ui,sans-serif}.mono{font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace}.teal{fill:#159d8e}.amber{fill:#d7a72b}.coral{fill:#df6848}</style>
+  <text x="46" y="52" class="ink head">A saved agent is a recipe, not a release</text><text x="46" y="78" class="muted sub">Public-preview properties mapped to controls enforced outside the prompt</text>
+  <rect x="46" y="112" width="868" height="340" rx="8" class="panel"/>
+  <line x1="334" y1="112" x2="334" y2="452" class="line"/><line x1="624" y1="112" x2="624" y2="452" class="line"/>
+  <line x1="46" y1="168" x2="914" y2="168" class="line"/><line x1="46" y1="239" x2="914" y2="239" class="line"/><line x1="46" y1="310" x2="914" y2="310" class="line"/><line x1="46" y1="381" x2="914" y2="381" class="line"/>
+  <text x="68" y="145" class="ink label">Preview property</text><text x="356" y="145" class="ink label">Risk if treated as a bot</text><text x="646" y="145" class="ink label">Fork contract</text>
+  <circle cx="72" cy="203" r="8" class="coral"/><text x="92" y="199" class="ink label">Egress unrestricted by default</text><text x="92" y="217" class="muted mono">network surface</text><text x="356" y="199" class="muted small">private source or injected content</text><text x="356" y="217" class="muted small">can choose an outbound destination</text><text x="646" y="199" class="ink small" textLength="256" lengthAdjust="spacingAndGlyphs">deny by default · destination allowlist</text><text x="646" y="217" class="ink small" textLength="256" lengthAdjust="spacingAndGlyphs">short-lived scoped credential transform</text>
+  <circle cx="72" cy="274" r="8" class="amber"/><text x="92" y="270" class="ink label">100k–3M tokens typical</text><text x="92" y="288" class="muted mono">per interaction</text><text x="356" y="270" class="muted small">request quota hides reasoning-loop</text><text x="356" y="288" class="muted small">variance and abandoned-run cost</text><text x="646" y="270" class="ink small" textLength="256" lengthAdjust="spacingAndGlyphs">token · tool · wall-clock budgets</text><text x="646" y="288" class="ink small">cost per accepted task</text>
+  <circle cx="72" cy="345" r="8" class="amber"/><text x="92" y="341" class="ink label">7-day inactive expiry</text><text x="92" y="359" class="muted mono">environment state</text><text x="356" y="341" class="muted small">workspace retention mistaken for</text><text x="356" y="359" class="muted small">durable evidence or product memory</text><text x="646" y="341" class="ink small" textLength="256" lengthAdjust="spacingAndGlyphs">export artifacts · external state</text><text x="646" y="359" class="ink small">source and output digests</text>
+  <circle cx="72" cy="416" r="8" class="coral"/><text x="92" y="412" class="ink label">No native version rollback</text><text x="92" y="430" class="muted mono">saved definition</text><text x="356" y="412" class="muted small">name stays stable while authority,</text><text x="356" y="430" class="muted small">tools, or instructions drift</text><text x="646" y="412" class="ink small">append-only external release</text><text x="646" y="430" class="ink small" textLength="256" lengthAdjust="spacingAndGlyphs">signed digest · prior-route pointer</text>
+  <rect x="46" y="474" width="868" height="38" rx="6" fill="#12313d" stroke="#315767"/><text x="480" y="498" text-anchor="middle" class="ink label">Clean fork → constrained execution → exported evidence → explicit disposition</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>
