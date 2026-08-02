@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "hypothesis": "With arrival pacing matched in the no-pause control, a fixed-worker closed-loop load generator will understate p99 latency by at least twofold and falsely pass a 100 ms SLO in at least 75% of repeats when rare global service pauses suppress scheduled arrivals, while an interval-corrected histogram will move toward the open-loop estimate.",
+  "claimBoundary": "The evidence supports a measurement-bias claim for the declared single-server FCFS simulation with scheduled pauses. It cannot establish a universal correction, production model-server capacity, continuous-batching behavior, or the performance of any named load generator.",
+  "design": {
+    "baselines": [
+      "Open-loop Poisson arrivals at the declared target request rate",
+      "Naive fixed-worker closed-loop load generation at the same nominal rate"
+    ],
+    "controls": [
+      "No-pause negative control at 80 requests per second",
+      "Rare 400 ms pause ablation at 80 requests per second",
+      "Bursty 800 ms pause cells at 80 and 100 requests per second",
+      "Expected-interval histogram correction as a diagnostic rather than an oracle"
+    ],
+    "repeats": 320
+  },
+  "reproduction": {
+    "commands": [
+      "cd operator/diy-project-blogs/projects/coordinated-omission-inference-audit && node run-experiment.mjs"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run-experiment.mjs",
+    "research-log.md",
+    "artifacts/repeat-metrics.csv",
+    "artifacts/aggregate-results.json",
+    "artifacts/claim-table.csv",
+    "artifacts/coordinated-omission-p99.svg",
+    "artifacts/sha256.json"
+  ]
+}

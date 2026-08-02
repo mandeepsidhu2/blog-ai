@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "measure-inference-load-tests-without-coordinated-omission",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "A single-lane synthetic queue with scheduled global pauses may exaggerate a mechanism that continuous batching, multi-worker routing, admission control, and real client abandonment substantially change in production inference systems.",
+      "unsupportedClaimRisk": "The weakest original claim was that at least 75 percent of bursty-pause repeats would falsely pass the p99 SLO; the observed 57.5 percent falsified it, so the article now preserves the negative result and limits the claim to the measured decision reversal.",
+      "reproductionBarrier": "The dependency-free simulation is easy to rerun, but reproducing the effect on a real service requires intended-arrival timestamps, server-side queue events, and a safe way to inject stalls without contaminating production traffic.",
+      "revisions": [
+        "Preserved the failed exploratory Poisson design and replaced it with a paced-arrival confirmatory control so ordinary arrival burstiness could not explain the focal result.",
+        "Retained the falsified 75 percent prediction, added repeat-level false-pass rates, and narrowed the public claim to a median decision reversal rather than a universal frequency.",
+        "Added achieved-load, generator-lag, token-phase, and server-timestamp requirements so interval correction is not presented as a complete production fix."
+      ]
+    },
+    {
+      "slug": "evaluate-audio-spoof-detectors-on-generator-drift",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "VoxENES uses four-second standardized clips, only English and Spanish, a synthetic-heavy class mix, and isolated transforms, so poor EER does not directly estimate detector performance or attack prevalence on a real telephony stack.",
+      "unsupportedClaimRisk": "The weakest wording repeated the paper's claim that five detectors were at or below a stochastic baseline, while the rendered overall EER table directly shows only three above 50 percent; the article now reports the table's narrower, auditable count.",
+      "reproductionBarrier": "A credible adoption replay needs lawful access to representative bona-fide calls, current spoof generators, speaker-disjoint partitions, and the complete production codec and signal-processing chain, which many organizations cannot freely redistribute.",
+      "revisions": [
+        "Replaced the broad five-detector stochastic-baseline statement with the directly supported facts that three exceed 50 percent EER and only one is below 30 percent.",
+        "Separated EER, deployment false-accept costs, class prevalence, and positive predictive value so the benchmark cannot be used as a production threshold.",
+        "Added generator- and speaker-clustered inference, a full channel replay requirement, and an advisory-only boundary when local lawful data is unavailable."
+      ]
+    },
+    {
+      "slug": "pilot-openai-presence-at-human-handoff-boundary",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 5,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "The article compares a deployed OpenAI product claim with protocol documentation from other vendors, not controlled head-to-head outcomes, so its cross-platform matrix cannot establish relative quality or cost.",
+      "unsupportedClaimRisk": "The weakest public claim is portability of OpenAI's 75 percent resolution and 15-point handoff reduction because eligibility, baseline, case mix, abandonment, repeat-contact window, and action audit are undisclosed; the article treats both as provider-reported pilot signals only.",
+      "reproductionBarrier": "Presence is limited general availability, is delivered through forward-deployed teams, and has no public handoff payload or retention schema, so an external team cannot independently reproduce OpenAI's deployment from documentation alone.",
+      "revisions": [
+        "Reframed resolution as durable completion without recovery debt and added reopen, repeat-contact, abandonment, reversal, and post-transfer handle-time denominators.",
+        "Separated vendor outcome claims from documented protocol capabilities and labeled public Presence payload, retention, and retry semantics as unknown rather than inferred.",
+        "Added a versioned handoff envelope, action-state machine, independent source-system reconciliation, and full-tuple rollback requirement."
+      ]
+    }
+  ]
+}

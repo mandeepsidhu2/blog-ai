@@ -1,0 +1,18 @@
+{
+  "study": "coordinated-omission-inference-audit",
+  "version": 1,
+  "repeats": 320,
+  "durationSeconds": 60,
+  "warmupSeconds": 10,
+  "workers": 16,
+  "baseServiceMeanMs": 9,
+  "baseServiceLogSigma": 0.35,
+  "sloP99Ms": 100,
+  "bootstrapSamples": 5000,
+  "scenarios": [
+    {"id": "no-pause-80", "targetRps": 80, "pauseEveryMs": 0, "pauseDurationMs": 0},
+    {"id": "rare-pause-80", "targetRps": 80, "pauseEveryMs": 20000, "pauseDurationMs": 400},
+    {"id": "bursty-pause-80", "targetRps": 80, "pauseEveryMs": 20000, "pauseDurationMs": 800},
+    {"id": "bursty-pause-100", "targetRps": 100, "pauseEveryMs": 20000, "pauseDurationMs": 800}
+  ]
+}

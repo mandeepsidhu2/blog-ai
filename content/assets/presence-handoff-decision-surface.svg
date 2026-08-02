@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" data-text-fit="bounded" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title id="title">Enterprise agent handoff evidence surface</title>
+  <desc id="desc">A four-column decision matrix shows state transfer, authority continuity, routing and fallback, and recovery evidence needed before an enterprise agent handoff is trusted.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+  <style>.bg{fill:#0b1020}.title{font:700 25px Georgia,serif;fill:#101720}.sub{font:14px Georgia,serif;fill:#aebdd3}.head{font:700 15px Georgia,serif;fill:#0b1020}.label{font:700 14px Georgia,serif;fill:#dbe5f3}.body{font:13px Georgia,serif;fill:#c4d0e3}.cell{fill:#151e33;stroke:#33415f;stroke-width:1}.h1{fill:#4ecdc4}.h2{fill:#a78bfa}.h3{fill:#ffb454}.h4{fill:#ff7a5c}</style>
+
+  <text x="42" y="48" class="title">A handoff succeeds only when evidence crosses with the customer</text>
+  <text x="42" y="75" class="sub" textLength="150" lengthAdjust="spacingAndGlyphs">Acceptance surface derived from Presence, Microsoft, Google, Salesforce, and NIST documentation</text>
+  <g transform="translate(42 104)"><rect width="204" height="46" rx="6" class="h1"/><text x="102" y="29" text-anchor="middle" class="head">STATE TRANSFER</text><rect y="56" width="204" height="310" rx="6" class="cell"/><text x="16" y="88" class="label">Must include</text><text x="16" y="116" class="body">• verified identity state</text><text x="16" y="142" class="body">• request and facts</text><text x="16" y="168" class="body">• attempted actions</text><text x="16" y="194" class="body">• policy version</text><text x="16" y="220" class="body">• escalation reason</text><text x="16" y="264" class="label">Failure signal</text><text x="16" y="292" class="body">customer repeats facts</text><text x="16" y="318" class="body">or action state is lost</text></g>
+  <g transform="translate(266 104)"><rect width="204" height="46" rx="6" class="h2"/><text x="102" y="29" text-anchor="middle" class="head">AUTHORITY</text><rect y="56" width="204" height="310" rx="6" class="cell"/><text x="16" y="88" class="label">Must include</text><text x="16" y="116" class="body">• proposed vs committed</text><text x="16" y="142" class="body">• approval receipt</text><text x="16" y="168" class="body">• idempotency key</text><text x="16" y="194" class="body">• human recheck rule</text><text x="16" y="220" class="body">• reversible boundary</text><text x="16" y="264" class="label">Failure signal</text><text x="16" y="292" class="body">duplicate or unapproved</text><text x="16" y="318" class="body">system mutation</text></g>
+  <g transform="translate(490 104)"><rect width="204" height="46" rx="6" class="h3"/><text x="102" y="29" text-anchor="middle" class="head">ROUTING</text><rect y="56" width="204" height="310" rx="6" class="cell"/><text x="16" y="88" class="label">Must include</text><text x="16" y="116" class="body">• trigger and urgency</text><text x="16" y="142" class="body">• destination skill</text><text x="16" y="168" class="body">• queue fallback</text><text x="16" y="194" class="body">• language/channel</text><text x="16" y="220" class="body">• connection outcome</text><text x="16" y="264" class="label">Failure signal</text><text x="16" y="292" class="body">connected event without</text><text x="16" y="318" class="body">the right human</text></g>
+  <g transform="translate(714 104)"><rect width="204" height="46" rx="6" class="h4"/><text x="102" y="29" text-anchor="middle" class="head">RECOVERY</text><rect y="56" width="204" height="310" rx="6" class="cell"/><text x="16" y="88" class="label">Must include</text><text x="16" y="116" class="body">• reconnect token</text><text x="16" y="142" class="body">• callback consent</text><text x="16" y="168" class="body">• action reconciliation</text><text x="16" y="194" class="body">• owner and expiry</text><text x="16" y="220" class="body">• rollback tuple</text><text x="16" y="264" class="label">Failure signal</text><text x="16" y="292" class="body">dropped transfer leaves</text><text x="16" y="318" class="body">orphaned customer state</text></g>
+  <rect x="42" y="490" width="876" height="2" fill="#33415f"/><text x="42" y="520" class="sub">Decision rule: durable resolution must improve without increasing recovery debt.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

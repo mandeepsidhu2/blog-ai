@@ -1,0 +1,150 @@
+{
+  "config": {
+    "study": "coordinated-omission-inference-audit",
+    "version": 1,
+    "repeats": 320,
+    "durationSeconds": 60,
+    "warmupSeconds": 10,
+    "workers": 16,
+    "baseServiceMeanMs": 9,
+    "baseServiceLogSigma": 0.35,
+    "sloP99Ms": 100,
+    "bootstrapSamples": 5000,
+    "scenarios": [
+      {
+        "id": "no-pause-80",
+        "targetRps": 80,
+        "pauseEveryMs": 0,
+        "pauseDurationMs": 0
+      },
+      {
+        "id": "rare-pause-80",
+        "targetRps": 80,
+        "pauseEveryMs": 20000,
+        "pauseDurationMs": 400
+      },
+      {
+        "id": "bursty-pause-80",
+        "targetRps": 80,
+        "pauseEveryMs": 20000,
+        "pauseDurationMs": 800
+      },
+      {
+        "id": "bursty-pause-100",
+        "targetRps": 100,
+        "pauseEveryMs": 20000,
+        "pauseDurationMs": 800
+      }
+    ]
+  },
+  "aggregates": [
+    {
+      "scenario": "no-pause-80",
+      "repeats": 320,
+      "open_loop": {
+        "median_achieved_rps": 80,
+        "median_p95_ms": 16.52849724159205,
+        "median_p99_ms": 21.450676543776353,
+        "slo_pass_rate": 1
+      },
+      "closed_loop": {
+        "median_achieved_rps": 79.1,
+        "median_p95_ms": 21.302363009905093,
+        "median_p99_ms": 28.38860422462494,
+        "median_corrected_p99_ms": 28.485857452629716,
+        "slo_pass_rate": 1
+      },
+      "paired_closed_minus_open_p99_ms": {
+        "mean": 6.889268080038676,
+        "low": 6.716946970400437,
+        "high": 7.058947365559959
+      },
+      "paired_corrected_minus_open_p99_ms": {
+        "mean": 7.030311785483429,
+        "low": 6.8444099210052,
+        "high": 7.215449522123623
+      }
+    },
+    {
+      "scenario": "rare-pause-80",
+      "repeats": 320,
+      "open_loop": {
+        "median_achieved_rps": 80,
+        "median_p95_ms": 87.28224709352435,
+        "median_p99_ms": 353.21457713502605,
+        "slo_pass_rate": 0
+      },
+      "closed_loop": {
+        "median_achieved_rps": 77.82,
+        "median_p95_ms": 22.624012177839177,
+        "median_p99_ms": 42.87988696459797,
+        "median_corrected_p99_ms": 376.660385370742,
+        "slo_pass_rate": 0.534375
+      },
+      "paired_closed_minus_open_p99_ms": {
+        "mean": -163.03270997171626,
+        "low": -179.90715404262022,
+        "high": -146.1770614295612
+      },
+      "paired_corrected_minus_open_p99_ms": {
+        "mean": 24.195689887024617,
+        "low": 22.66844350080057,
+        "high": 25.744505474395872
+      }
+    },
+    {
+      "scenario": "bursty-pause-80",
+      "repeats": 320,
+      "open_loop": {
+        "median_achieved_rps": 80,
+        "median_p95_ms": 478.3932638389233,
+        "median_p99_ms": 751.5541704460702,
+        "slo_pass_rate": 0
+      },
+      "closed_loop": {
+        "median_achieved_rps": 76.56,
+        "median_p95_ms": 22.661491817962087,
+        "median_p99_ms": 41.329593926366215,
+        "median_corrected_p99_ms": 772.1772111003556,
+        "slo_pass_rate": 0.575
+      },
+      "paired_closed_minus_open_p99_ms": {
+        "mean": -404.3986017413996,
+        "low": -442.69260576136423,
+        "high": -366.95926531318753
+      },
+      "paired_corrected_minus_open_p99_ms": {
+        "mean": 20.549645494967272,
+        "low": 18.895580652729688,
+        "high": 22.1929376171395
+      }
+    },
+    {
+      "scenario": "bursty-pause-100",
+      "repeats": 320,
+      "open_loop": {
+        "median_achieved_rps": 100,
+        "median_p95_ms": 702.5699529467747,
+        "median_p99_ms": 795.4835690120017,
+        "slo_pass_rate": 0
+      },
+      "closed_loop": {
+        "median_achieved_rps": 93.66,
+        "median_p95_ms": 29.464067385415547,
+        "median_p99_ms": 47.37373289059178,
+        "median_corrected_p99_ms": 787.1285833339934,
+        "slo_pass_rate": 0.58125
+      },
+      "paired_closed_minus_open_p99_ms": {
+        "mean": -441.67215666893355,
+        "low": -480.86405465203717,
+        "high": -402.7335666683342
+      },
+      "paired_corrected_minus_open_p99_ms": {
+        "mean": -8.068478046881182,
+        "low": -9.541356626079425,
+        "high": -6.598521229063033
+      }
+    }
+  ]
+}

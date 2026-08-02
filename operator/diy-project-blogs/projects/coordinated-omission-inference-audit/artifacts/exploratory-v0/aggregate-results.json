@@ -1,0 +1,150 @@
+{
+  "config": {
+    "study": "coordinated-omission-inference-audit",
+    "version": 1,
+    "repeats": 320,
+    "durationSeconds": 60,
+    "warmupSeconds": 10,
+    "workers": 16,
+    "baseServiceMeanMs": 9,
+    "baseServiceLogSigma": 0.35,
+    "sloP99Ms": 100,
+    "bootstrapSamples": 5000,
+    "scenarios": [
+      {
+        "id": "no-pause-80",
+        "targetRps": 80,
+        "pauseEveryMs": 0,
+        "pauseDurationMs": 0
+      },
+      {
+        "id": "sparse-pause-80",
+        "targetRps": 80,
+        "pauseEveryMs": 5000,
+        "pauseDurationMs": 250
+      },
+      {
+        "id": "bursty-pause-80",
+        "targetRps": 80,
+        "pauseEveryMs": 8000,
+        "pauseDurationMs": 800
+      },
+      {
+        "id": "bursty-pause-100",
+        "targetRps": 100,
+        "pauseEveryMs": 8000,
+        "pauseDurationMs": 800
+      }
+    ]
+  },
+  "aggregates": [
+    {
+      "scenario": "no-pause-80",
+      "repeats": 320,
+      "open_loop": {
+        "median_achieved_rps": 80.04,
+        "median_p95_ms": 54.723135103871755,
+        "median_p99_ms": 79.52086631895509,
+        "slo_pass_rate": 0.9375
+      },
+      "closed_loop": {
+        "median_achieved_rps": 79.1,
+        "median_p95_ms": 21.302363009905093,
+        "median_p99_ms": 28.38860422462494,
+        "median_corrected_p99_ms": 28.485857452629716,
+        "slo_pass_rate": 1
+      },
+      "paired_closed_minus_open_p99_ms": {
+        "mean": -53.00354216939162,
+        "low": -54.16625382629233,
+        "high": -51.826211288751914
+      },
+      "paired_corrected_minus_open_p99_ms": {
+        "mean": -52.862498463946864,
+        "low": -54.07735049571509,
+        "high": -51.6961655443708
+      }
+    },
+    {
+      "scenario": "sparse-pause-80",
+      "repeats": 320,
+      "open_loop": {
+        "median_achieved_rps": 80.04,
+        "median_p95_ms": 219.39796942147223,
+        "median_p99_ms": 277.4787234386022,
+        "slo_pass_rate": 0
+      },
+      "closed_loop": {
+        "median_achieved_rps": 75.4,
+        "median_p95_ms": 32.625634631207504,
+        "median_p99_ms": 251.9340453124969,
+        "median_corrected_p99_ms": 247.52372537920746,
+        "slo_pass_rate": 0
+      },
+      "paired_closed_minus_open_p99_ms": {
+        "mean": -27.360561402650166,
+        "low": -29.176930212148637,
+        "high": -25.617800367129234
+      },
+      "paired_corrected_minus_open_p99_ms": {
+        "mean": -31.505145076341883,
+        "low": -33.3158494273128,
+        "high": -29.71160829899053
+      }
+    },
+    {
+      "scenario": "bursty-pause-80",
+      "repeats": 320,
+      "open_loop": {
+        "median_achieved_rps": 80.04,
+        "median_p95_ms": 721.722006396747,
+        "median_p99_ms": 813.5640350564572,
+        "slo_pass_rate": 0
+      },
+      "closed_loop": {
+        "median_achieved_rps": 71.66,
+        "median_p95_ms": 26.13794313613471,
+        "median_p99_ms": 793.2636003473744,
+        "median_corrected_p99_ms": 783.3755629244188,
+        "slo_pass_rate": 0
+      },
+      "paired_closed_minus_open_p99_ms": {
+        "mean": -22.147401422432875,
+        "low": -24.334141660057963,
+        "high": -19.997891510639555
+      },
+      "paired_corrected_minus_open_p99_ms": {
+        "mean": -32.06143345557257,
+        "low": -34.31470533218853,
+        "high": -29.903420593988777
+      }
+    },
+    {
+      "scenario": "bursty-pause-100",
+      "repeats": 320,
+      "open_loop": {
+        "median_achieved_rps": 99.82,
+        "median_p95_ms": 1220.267157657836,
+        "median_p99_ms": 1351.4071535553521,
+        "slo_pass_rate": 0
+      },
+      "closed_loop": {
+        "median_achieved_rps": 87.66,
+        "median_p95_ms": 31.83942626595308,
+        "median_p99_ms": 806.5808986626071,
+        "median_corrected_p99_ms": 797.0446811908769,
+        "slo_pass_rate": 0
+      },
+      "paired_closed_minus_open_p99_ms": {
+        "mean": -616.4314611859097,
+        "low": -659.3751435218688,
+        "high": -574.579644632408
+      },
+      "paired_corrected_minus_open_p99_ms": {
+        "mean": -625.8075459468612,
+        "low": -669.1283519347044,
+        "high": -582.3633817218594
+      }
+    }
+  ]
+}
