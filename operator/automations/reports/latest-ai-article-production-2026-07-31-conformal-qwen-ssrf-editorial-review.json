@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "audit-conformal-coverage-by-slice",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 5,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The result is unsurprising once the two Gaussian slice variances are declared, and perfect slice labels plus hundreds of critical calibration cases make the remedy much easier than it will be in a dependent, delayed-label deployment.",
+      "unsupportedClaimRisk": "The weakest initial claim could be read as recommending slice calibration generally; it was narrowed to a known-label, sufficiently represented group contract and now distinguishes marginal, group-conditional, and impossible-in-general pointwise guarantees.",
+      "reproductionBarrier": "A real rare slice may require weeks to collect 200 independent labeled calibration cases, while user or site clustering reduces effective sample size and prospective slice labels may be noisy or unavailable.",
+      "revisions": [
+        "Added an estimand section tying marginal, group, and pointwise coverage to the actual decision unit, width budget, and delayed-label monitoring contract.",
+        "Made label error and the 200-case slice-calibration requirement explicit, with abstention or shadow operation when production evidence is insufficient."
+      ]
+    },
+    {
+      "slug": "pilot-qwen-3-7-flash-by-workload-cell",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 5,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "Without exact-endpoint benchmark results or a local API run, the article cannot establish that Qwen3.7 Flash is competitive on any workload; a specification matrix may merely restate an attractive rate card.",
+      "unsupportedClaimRisk": "The weakest claim was the apparent price advantage because public token rates omit retries, image accounting, tools, cache eligibility, and completion rate; the article now treats arithmetic as a hypothesis and requires invoice reconciliation.",
+      "reproductionBarrier": "A defensible replay needs paid access to four provider endpoints, stable dated versions, a sealed multimodal task corpus, equivalent tool scaffolds, and invoice-level usage data that may not be exposed uniformly.",
+      "revisions": [
+        "Added a 100-request-per-cell invoice reconciliation step and prohibited durable savings claims until usage estimates match billed line items.",
+        "Added a four-cell tool ablation so provider search or code execution is not misattributed to model quality and tool rounds remain in completed-task cost."
+      ]
+    },
+    {
+      "slug": "repair-agent-studio-api-proxy-ssrf",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 5,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "Google explicitly says regenerated code has strict domain validation, so prescribing DNS, redirect, IP, identity, and egress controls may overstate the advisory or imply an unproven bypass in the repaired implementation.",
+      "unsupportedClaimRisk": "The riskiest wording implied hostname-suffix validation itself was flawed; the revision now says no bypass is demonstrated and frames suffix confusion as a local merge or reimplementation regression to test.",
+      "reproductionBarrier": "Teams need source lineage for every generated app, a safe redirect and DNS-rebinding harness, visibility into actual outbound connections, and permission to test network policy without probing real internal services.",
+      "revisions": [
+        "Separated Google’s documented fix from general verification duties and explicitly rejected any inference that the regenerated handler has a demonstrated suffix bypass.",
+        "Expanded the contract beyond destinations to methods, headers, bodies, response bounds, least-privilege identity, and retrospective incident evidence without claiming compromise."
+      ]
+    }
+  ]
+}

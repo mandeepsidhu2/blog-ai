@@ -1,0 +1,15 @@
+{
+  "seed": 20260731,
+  "repeats": 800,
+  "calibrationCases": 4000,
+  "testCases": 12000,
+  "targetCoverage": 0.9,
+  "bootstrapSamples": 5000,
+  "scenarios": {
+    "exchangeable_rare_noisy": {"calibrationCriticalShare": 0.05, "testCriticalShare": 0.05, "routineSigma": 1, "criticalSigma": 3},
+    "shifted_critical_share": {"calibrationCriticalShare": 0.05, "testCriticalShare": 0.2, "routineSigma": 1, "criticalSigma": 3},
+    "balanced_heteroscedastic": {"calibrationCriticalShare": 0.5, "testCriticalShare": 0.5, "routineSigma": 1, "criticalSigma": 3},
+    "equal_noise_control": {"calibrationCriticalShare": 0.05, "testCriticalShare": 0.2, "routineSigma": 1, "criticalSigma": 1}
+  },
+  "policies": ["pooled", "pooled_95", "mondrian", "max_slice", "oracle_normalized"]
+}

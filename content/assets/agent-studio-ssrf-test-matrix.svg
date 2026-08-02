@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" data-text-fit="bounded" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title id="title">Agent Studio API proxy SSRF verification matrix</title>
+  <desc id="desc">A layered matrix maps source provenance, URL parsing, hostname authorization, redirects, DNS, identity, and network egress to blocking security tests.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="1200" height="675" fill="#080c12"/>
+    <rect width="1200" height="675" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+  <style>text{font-family:Georgia,serif;fill:#173249}.title{font-size:30px;font-weight:700}.sub{font-size:16px;fill:#53697a}.head{font-size:17px;font-weight:700}.body{font-size:14px}.count{font-size:22px;font-weight:700;fill:#fff}.grid{stroke:#cbd7dd}.pass{fill:#237f78}.risk{fill:#c45f3c}.amber{fill:#b58a2b}</style>
+
+  <text x="62" y="52" class="title">Regenerate, then prove every outbound boundary</text>
+  <text x="62" y="78" class="sub">Agent Studio applications generated before July 1, 2026 require replacement and negative SSRF tests</text>
+  <text x="70" y="130" class="head">Boundary</text><text x="300" y="130" class="head">Positive contract</text><text x="700" y="130" class="head">Blocking evidence</text><text x="1060" y="130" class="head">Cases</text>
+  <g class="grid"><line x1="60" y1="148" x2="1140" y2="148"/><line x1="60" y1="218" x2="1140" y2="218"/><line x1="60" y1="288" x2="1140" y2="288"/><line x1="60" y1="358" x2="1140" y2="358"/><line x1="60" y1="428" x2="1140" y2="428"/><line x1="60" y1="498" x2="1140" y2="498"/><line x1="60" y1="568" x2="1140" y2="568"/></g>
+  <text x="70" y="190" class="head">Provenance</text><text x="300" y="182" class="body"><tspan x="300">generated ≥ 2026-07-01</tspan><tspan x="300" dy="19">reviewed handler hash</tspan></text><text x="700" y="190" class="body">100% deployed revision mapping</text><circle cx="1080" cy="183" r="24" class="pass"/><text x="1080" y="191" text-anchor="middle" class="count">all</text>
+  <text x="70" y="260" class="head">URL parser</text><text x="300" y="252" class="body"><tspan x="300">HTTPS · port 443</tspan><tspan x="300" dy="19">no userinfo</tspan></text><text x="700" y="260" class="body">encoded and alternate-form rejection</text><circle cx="1080" cy="253" r="24" class="risk"/><text x="1080" y="261" text-anchor="middle" class="count">25</text>
+  <text x="70" y="330" class="head">Hostname</text><text x="300" y="322" class="body"><tspan x="300">exact or dot-boundary</tspan><tspan x="300" dy="19">normalized allowlist</tspan></text><text x="700" y="330" class="body">prefix · sibling · Unicode · trailing dot</text><circle cx="1080" cy="323" r="24" class="risk"/><text x="1080" y="331" text-anchor="middle" class="count">20</text>
+  <text x="70" y="400" class="head">Redirects</text><text x="300" y="400" class="body">zero automatic hops</text><text x="700" y="400" class="body">private and disallowed 3xx targets blocked</text><circle cx="1080" cy="393" r="24" class="amber"/><text x="1080" y="401" text-anchor="middle" class="count">10</text>
+  <text x="70" y="470" class="head">DNS + IP</text><text x="300" y="462" class="body"><tspan x="300">all A/AAAA public</tspan><tspan x="300" dy="19">validated connect address</tspan></text><text x="700" y="470" class="body">rebinding · mixed answer · IPv6 mapped</text><circle cx="1080" cy="463" r="24" class="amber"/><text x="1080" y="471" text-anchor="middle" class="count">10</text>
+  <text x="70" y="540" class="head">Egress + identity</text><text x="300" y="532" class="body"><tspan x="300">least privilege</tspan><tspan x="300" dy="19">approved destinations only</tspan></text><text x="700" y="540" class="body">loopback · private · metadata denied</text><circle cx="1080" cy="533" r="24" class="pass"/><text x="1080" y="541" text-anchor="middle" class="count">0</text>
+  <text x="62" y="614" class="sub">Release only with zero accepted negative cases, zero unvalidated redirects, and 100% source provenance.</text>
+  <text x="62" y="642" class="body">Application checks and network containment are independent controls; neither substitutes for the other.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 13px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="1176" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="1199" height="674" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+Conformal slice coverage audit
+repeats=800 calibration=4000 test=12000 target=0.9
+exchangeable_rare_noisy/pooled: global=90.01% routine=92.40% critical=44.62% mean_width=1.776 critical_width=1.776
+exchangeable_rare_noisy/pooled_95: global=95.01% routine=97.19% critical=53.72% mean_width=2.200 critical_width=2.200
+exchangeable_rare_noisy/mondrian: global=90.03% routine=90.02% critical=90.21% mean_width=1.814 critical_width=4.975
+exchangeable_rare_noisy/max_slice: global=99.51% routine=100.00% critical=90.21% mean_width=4.975 critical_width=4.975
+exchangeable_rare_noisy/oracle_normalized: global=90.01% routine=90.01% critical=90.12% mean_width=1.811 critical_width=4.939
+shifted_critical_share/pooled: global=82.82% routine=92.38% critical=44.60% mean_width=1.774 critical_width=1.774
+shifted_critical_share/pooled_95: global=88.46% routine=97.17% critical=53.61% mean_width=2.196 critical_width=2.196
+shifted_critical_share/mondrian: global=90.07% routine=90.02% critical=90.28% mean_width=2.317 critical_width=4.999
+shifted_critical_share/max_slice: global=98.05% routine=100.00% critical=90.28% mean_width=4.999 critical_width=4.999
+shifted_critical_share/oracle_normalized: global=90.01% routine=90.00% critical=90.02% mean_width=2.304 critical_width=4.936
+equal_noise_control/pooled: global=89.98% routine=89.98% critical=89.97% mean_width=1.645 critical_width=1.645
+equal_noise_control/pooled_95: global=94.98% routine=94.98% critical=94.97% mean_width=1.960 critical_width=1.960
+equal_noise_control/mondrian: global=90.04% routine=89.99% critical=90.23% mean_width=1.650 critical_width=1.666
+equal_noise_control/max_slice: global=91.01% routine=91.01% critical=91.00% mean_width=1.701 critical_width=1.701
+equal_noise_control/oracle_normalized: global=89.98% routine=89.98% critical=89.97% mean_width=1.645 critical_width=1.645

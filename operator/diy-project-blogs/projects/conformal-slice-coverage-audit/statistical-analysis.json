@@ -1,0 +1,772 @@
+{
+  "comparisons": [
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "pooled_95",
+      "metric": "allCoverage",
+      "mean": 0.050005937499999965,
+      "ciLow": 0.04972104166666665,
+      "ciHigh": 0.05029281250000004
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "pooled_95",
+      "metric": "routineCoverage",
+      "mean": 0.047842677194518485,
+      "ciLow": 0.04757399791333983,
+      "ciHigh": 0.048118440108931175
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "pooled_95",
+      "metric": "criticalCoverage",
+      "mean": 0.09102137770222996,
+      "ciLow": 0.0901311725167352,
+      "ciHigh": 0.0919540002291647
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "pooled_95",
+      "metric": "allMeanWidth",
+      "mean": 0.4234363362962318,
+      "ciLow": 0.42115471034843766,
+      "ciHigh": 0.4256834312857076
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "pooled_95",
+      "metric": "criticalMeanWidth",
+      "mean": 0.42343633629624866,
+      "ciLow": 0.4211592807662422,
+      "ciHigh": 0.42567232533503585
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "pooled_95",
+      "metric": "coverageGap",
+      "mean": -0.043178700507711484,
+      "ciLow": -0.04402444663598073,
+      "ciHigh": -0.0422799820302588
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "mondrian",
+      "metric": "allCoverage",
+      "mean": 0.0002564583333333362,
+      "ciLow": 0.000005729166666667423,
+      "ciHigh": 0.0005163541666666692
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "mondrian",
+      "metric": "routineCoverage",
+      "mean": -0.023784465400738197,
+      "ciLow": -0.024023459517517057,
+      "ciHigh": -0.023545726478451576
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "mondrian",
+      "metric": "criticalCoverage",
+      "mean": 0.45586164504201604,
+      "ciLow": 0.4538651615476396,
+      "ciHigh": 0.45788863110092365
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "mondrian",
+      "metric": "allMeanWidth",
+      "mean": 0.03804046176521991,
+      "ciLow": 0.0364213930761843,
+      "ciHigh": 0.039692683849130855
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "mondrian",
+      "metric": "criticalMeanWidth",
+      "mean": 3.199320184978345,
+      "ciLow": 3.177594574489415,
+      "ciHigh": 3.22124040161289
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "mondrian",
+      "metric": "coverageGap",
+      "mean": -0.47964611044275435,
+      "ciLow": -0.4817030389164308,
+      "ciHigh": -0.4776076487514896
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "max_slice",
+      "metric": "allCoverage",
+      "mean": 0.09501125000000007,
+      "ciLow": 0.09461322916666658,
+      "ciHigh": 0.09541781250000003
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "max_slice",
+      "metric": "routineCoverage",
+      "mean": 0.07596998975637295,
+      "ciLow": 0.07559046927718602,
+      "ciHigh": 0.07634728788545428
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "max_slice",
+      "metric": "criticalCoverage",
+      "mean": 0.45586164504201604,
+      "ciLow": 0.4538245147544616,
+      "ciHigh": 0.4578824890813572
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "max_slice",
+      "metric": "allMeanWidth",
+      "mean": 3.199320184978332,
+      "ciLow": 3.1778773234290854,
+      "ciHigh": 3.2218948467025985
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "max_slice",
+      "metric": "criticalMeanWidth",
+      "mean": 3.199320184978345,
+      "ciLow": 3.177816350213602,
+      "ciHigh": 3.2213494728030008
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "max_slice",
+      "metric": "coverageGap",
+      "mean": -0.3798916552856435,
+      "ciLow": -0.3818537504076215,
+      "ciHigh": -0.377912731405521
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "oracle_normalized",
+      "metric": "allCoverage",
+      "mean": 0.000040520833333335393,
+      "ciLow": -0.0002127083333333314,
+      "ciHigh": 0.0002926041666666683
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "oracle_normalized",
+      "metric": "routineCoverage",
+      "mean": -0.023967620169430232,
+      "ciLow": -0.024202445403134164,
+      "ciHigh": -0.02372601198088799
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "oracle_normalized",
+      "metric": "criticalCoverage",
+      "mean": 0.4550457148908135,
+      "ciLow": 0.45360942246056374,
+      "ciHigh": 0.4564751124357139
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "oracle_normalized",
+      "metric": "allMeanWidth",
+      "mean": 0.03533380528781989,
+      "ciLow": 0.03401949342459169,
+      "ciHigh": 0.03668518959799607
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "oracle_normalized",
+      "metric": "criticalMeanWidth",
+      "mean": 3.1631302327434465,
+      "ciLow": 3.159696321959645,
+      "ciHigh": 3.166620047151724
+    },
+    {
+      "scenario": "exchangeable_rare_noisy",
+      "policy": "oracle_normalized",
+      "metric": "coverageGap",
+      "mean": -0.47901333506024385,
+      "ciLow": -0.4804000824956152,
+      "ciHigh": -0.4776543390874016
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "pooled_95",
+      "metric": "allCoverage",
+      "mean": 0.05638458333333338,
+      "ciLow": 0.05609666666666671,
+      "ciHigh": 0.05666906250000006
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "pooled_95",
+      "metric": "routineCoverage",
+      "mean": 0.04794903921517121,
+      "ciLow": 0.047684259615182974,
+      "ciHigh": 0.04821857753883796
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "pooled_95",
+      "metric": "criticalCoverage",
+      "mean": 0.09010397653091562,
+      "ciLow": 0.0895065222874342,
+      "ciHigh": 0.09071251347492869
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "pooled_95",
+      "metric": "allMeanWidth",
+      "mean": 0.4222349061215402,
+      "ciLow": 0.42012296014228895,
+      "ciHigh": 0.42444242914341374
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "pooled_95",
+      "metric": "criticalMeanWidth",
+      "mean": 0.4222349061215618,
+      "ciLow": 0.4200646553363767,
+      "ciHigh": 0.4243957816178722
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "pooled_95",
+      "metric": "coverageGap",
+      "mean": -0.04215493731574452,
+      "ciLow": -0.04269451546333394,
+      "ciHigh": -0.04162143042999422
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "mondrian",
+      "metric": "allCoverage",
+      "mean": 0.07248802083333337,
+      "ciLow": 0.0720776041666667,
+      "ciHigh": 0.07290041666666673
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "mondrian",
+      "metric": "routineCoverage",
+      "mean": -0.02363235025897836,
+      "ciLow": -0.023887518826833584,
+      "ciHigh": -0.023375211233950196
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "mondrian",
+      "metric": "criticalCoverage",
+      "mean": 0.4567839854888531,
+      "ciLow": 0.45519341827599985,
+      "ciHigh": 0.458450597245172
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "mondrian",
+      "metric": "allMeanWidth",
+      "mean": 0.5432664215469227,
+      "ciLow": 0.5389229836607747,
+      "ciHigh": 0.5477225349895692
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "mondrian",
+      "metric": "criticalMeanWidth",
+      "mean": 3.2256615893550755,
+      "ciLow": 3.2050034626768276,
+      "ciHigh": 3.2471923273563936
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "mondrian",
+      "metric": "coverageGap",
+      "mean": -0.48041633574783155,
+      "ciLow": -0.4820704458642238,
+      "ciHigh": -0.47876745021509043
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "max_slice",
+      "metric": "allCoverage",
+      "mean": 0.1523599999999999,
+      "ciLow": 0.1518673958333333,
+      "ciHigh": 0.15283593749999988
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "max_slice",
+      "metric": "routineCoverage",
+      "mean": 0.07621544112011291,
+      "ciLow": 0.07585172008729928,
+      "ciHigh": 0.07657953644835473
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "max_slice",
+      "metric": "criticalCoverage",
+      "mean": 0.4567839854888531,
+      "ciLow": 0.4552094361729053,
+      "ciHigh": 0.4583828339491043
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "max_slice",
+      "metric": "allMeanWidth",
+      "mean": 3.2256615893551417,
+      "ciLow": 3.204489037637722,
+      "ciHigh": 3.2458201834253755
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "max_slice",
+      "metric": "criticalMeanWidth",
+      "mean": 3.2256615893550755,
+      "ciLow": 3.2043370664260276,
+      "ciHigh": 3.247015935979578
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "max_slice",
+      "metric": "coverageGap",
+      "mean": -0.38056854436874055,
+      "ciLow": -0.3821852693963904,
+      "ciHigh": -0.3789427535162151
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "oracle_normalized",
+      "metric": "allCoverage",
+      "mean": 0.07189760416666674,
+      "ciLow": 0.07157947916666677,
+      "ciHigh": 0.07222208333333328
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "oracle_normalized",
+      "metric": "routineCoverage",
+      "mean": -0.023734959710692394,
+      "ciLow": -0.02398177803199668,
+      "ciHigh": -0.023487681669785338
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "oracle_normalized",
+      "metric": "criticalCoverage",
+      "mean": 0.45425228604689066,
+      "ciLow": 0.453462120683044,
+      "ciHigh": 0.4550306996907971
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "oracle_normalized",
+      "metric": "allMeanWidth",
+      "mean": 0.5302443345529668,
+      "ciLow": 0.5285872154076181,
+      "ciHigh": 0.5319311097329734
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "oracle_normalized",
+      "metric": "criticalMeanWidth",
+      "mean": 3.162605990696649,
+      "ciLow": 3.1591440419986956,
+      "ciHigh": 3.1660590989645545
+    },
+    {
+      "scenario": "shifted_critical_share",
+      "policy": "oracle_normalized",
+      "metric": "coverageGap",
+      "mean": -0.4779872457575838,
+      "ciLow": -0.47872852195952675,
+      "ciHigh": -0.4772319273969666
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "pooled_95",
+      "metric": "allCoverage",
+      "mean": 0.05007385416666661,
+      "ciLow": 0.04979072916666664,
+      "ciHigh": 0.0503476041666667
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "pooled_95",
+      "metric": "routineCoverage",
+      "mean": 0.00012726453624904545,
+      "ciLow": 0.00011727407289651146,
+      "ciHigh": 0.0001378393230970973
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "pooled_95",
+      "metric": "criticalCoverage",
+      "mean": 0.10002912935337417,
+      "ciLow": 0.09948867128661988,
+      "ciHigh": 0.10059875737515497
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "pooled_95",
+      "metric": "allMeanWidth",
+      "mean": 1.0933686134671086,
+      "ciLow": 1.0882519196596092,
+      "ciHigh": 1.0986339929066669
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "pooled_95",
+      "metric": "criticalMeanWidth",
+      "mean": 1.0933686134671186,
+      "ciLow": 1.0880633620459925,
+      "ciHigh": 1.0985386391950656
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "pooled_95",
+      "metric": "coverageGap",
+      "mean": -0.09990186481712515,
+      "ciLow": -0.10044184848230091,
+      "ciHigh": -0.09935026563955163
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "mondrian",
+      "metric": "allCoverage",
+      "mean": 0.00038249999999999965,
+      "ciLow": -0.000018125000000000085,
+      "ciHigh": 0.0007832291666666673
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "mondrian",
+      "metric": "routineCoverage",
+      "mean": -0.09946236553572031,
+      "ciLow": -0.09998184188087801,
+      "ciHigh": -0.0989401171249727
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "mondrian",
+      "metric": "criticalCoverage",
+      "mean": 0.10025006754466517,
+      "ciLow": 0.09966144543107447,
+      "ciHigh": 0.10081199725780772
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "mondrian",
+      "metric": "allMeanWidth",
+      "mean": -0.5507293456778372,
+      "ciLow": -0.555349062090509,
+      "ciHigh": -0.546036461249719
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "mondrian",
+      "metric": "criticalMeanWidth",
+      "mean": 1.0961403008532822,
+      "ciLow": 1.0906589468575,
+      "ciHigh": 1.1015861243862881
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "mondrian",
+      "metric": "coverageGap",
+      "mean": -0.1997124330803853,
+      "ciLow": -0.20049184001772263,
+      "ciHigh": -0.19892447442455258
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "max_slice",
+      "metric": "allCoverage",
+      "mean": 0.05018468750000001,
+      "ciLow": 0.04989593750000006,
+      "ciHigh": 0.050482916666666745
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "max_slice",
+      "metric": "routineCoverage",
+      "mean": 0.00012726453624904545,
+      "ciLow": 0.00011689325080018007,
+      "ciHigh": 0.00013751672777261235
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "max_slice",
+      "metric": "criticalCoverage",
+      "mean": 0.10025006754466517,
+      "ciLow": 0.09969498234342648,
+      "ciHigh": 0.10083182299034232
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "max_slice",
+      "metric": "allMeanWidth",
+      "mean": 1.0961403008532746,
+      "ciLow": 1.090643552156222,
+      "ciHigh": 1.101712355541535
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "max_slice",
+      "metric": "criticalMeanWidth",
+      "mean": 1.0961403008532822,
+      "ciLow": 1.090557721498173,
+      "ciHigh": 1.1017755444650033
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "max_slice",
+      "metric": "coverageGap",
+      "mean": -0.10012280300841608,
+      "ciLow": -0.1006993845895252,
+      "ciHigh": -0.0995486483852034
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "oracle_normalized",
+      "metric": "allCoverage",
+      "mean": 0.00017604166666666408,
+      "ciLow": -0.00022000000000000353,
+      "ciHigh": 0.0005839583333333348
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "oracle_normalized",
+      "metric": "routineCoverage",
+      "mean": -0.09973902959063391,
+      "ciLow": -0.10015865812500076,
+      "ciHigh": -0.09931545558723105
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "oracle_normalized",
+      "metric": "criticalCoverage",
+      "mean": 0.10011342803724294,
+      "ciLow": 0.09947700129324702,
+      "ciHigh": 0.10074932069321291
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "oracle_normalized",
+      "metric": "allMeanWidth",
+      "mean": -0.5530501896333659,
+      "ciLow": -0.558118849855066,
+      "ciHigh": -0.547622384545183
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "oracle_normalized",
+      "metric": "criticalMeanWidth",
+      "mean": 1.093130687087686,
+      "ciLow": 1.0875500649795162,
+      "ciHigh": 1.0986709148361797
+    },
+    {
+      "scenario": "balanced_heteroscedastic",
+      "policy": "oracle_normalized",
+      "metric": "coverageGap",
+      "mean": -0.19985245762787643,
+      "ciLow": -0.2005745527841501,
+      "ciHigh": -0.19910137953642187
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "pooled_95",
+      "metric": "allCoverage",
+      "mean": 0.0499626041666667,
+      "ciLow": 0.04966947916666676,
+      "ciHigh": 0.050256041666666695
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "pooled_95",
+      "metric": "routineCoverage",
+      "mean": 0.04996342261421842,
+      "ciLow": 0.04965766746882893,
+      "ciHigh": 0.05026378954129515
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "pooled_95",
+      "metric": "criticalCoverage",
+      "mean": 0.04995869988555829,
+      "ciLow": 0.049554317699647236,
+      "ciHigh": 0.050365527791476856
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "pooled_95",
+      "metric": "allMeanWidth",
+      "mean": 0.31496478941654366,
+      "ciLow": 0.3133924371048165,
+      "ciHigh": 0.31661047460919783
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "pooled_95",
+      "metric": "criticalMeanWidth",
+      "mean": 0.31496478941655937,
+      "ciLow": 0.31337483632660473,
+      "ciHigh": 0.31655167316996385
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "pooled_95",
+      "metric": "coverageGap",
+      "mean": 0.000004722728660199321,
+      "ciLow": -0.0003412119672474019,
+      "ciHigh": 0.00034922075626810686
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "mondrian",
+      "metric": "allCoverage",
+      "mean": 0.0005812499999999989,
+      "ciLow": 0.00032843749999999686,
+      "ciHigh": 0.0008323958333333357
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "mondrian",
+      "metric": "routineCoverage",
+      "mean": 0.00009081396776078762,
+      "ciLow": 0.0000029252820396427624,
+      "ciHigh": 0.00017953895031775537
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "mondrian",
+      "metric": "criticalCoverage",
+      "mean": 0.002507665922057393,
+      "ciLow": 0.0010210935250381079,
+      "ciHigh": 0.003989350294233729
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "mondrian",
+      "metric": "allMeanWidth",
+      "mean": 0.004651632652292623,
+      "ciLow": 0.003423065556678977,
+      "ciHigh": 0.005853878504081589
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "mondrian",
+      "metric": "criticalMeanWidth",
+      "mean": 0.021160585312742404,
+      "ciLow": 0.013684559810769112,
+      "ciHigh": 0.02858901174890636
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "mondrian",
+      "metric": "coverageGap",
+      "mean": -0.0024168519542966064,
+      "ciLow": -0.003957047511207691,
+      "ciHigh": -0.0008565011695960388
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "max_slice",
+      "metric": "allCoverage",
+      "mean": 0.010272187500000014,
+      "ciLow": 0.00942125000000001,
+      "ciHigh": 0.011139062500000001
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "max_slice",
+      "metric": "routineCoverage",
+      "mean": 0.010275922699015979,
+      "ciLow": 0.009437338185387521,
+      "ciHigh": 0.011135025479489868
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "max_slice",
+      "metric": "criticalCoverage",
+      "mean": 0.010255835373861495,
+      "ciLow": 0.009406598798988955,
+      "ciHigh": 0.011136945274961145
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "max_slice",
+      "metric": "allMeanWidth",
+      "mean": 0.05558067300931395,
+      "ciLow": 0.05078107158989448,
+      "ciHigh": 0.06046800879115638
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "max_slice",
+      "metric": "criticalMeanWidth",
+      "mean": 0.05558067300932274,
+      "ciLow": 0.05083514817925182,
+      "ciHigh": 0.060386932109456566
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "max_slice",
+      "metric": "coverageGap",
+      "mean": 0.000020087325154482945,
+      "ciLow": -0.00015175734350251005,
+      "ciHigh": 0.00018813415930379052
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "oracle_normalized",
+      "metric": "allCoverage",
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "oracle_normalized",
+      "metric": "routineCoverage",
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "oracle_normalized",
+      "metric": "criticalCoverage",
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "oracle_normalized",
+      "metric": "allMeanWidth",
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "oracle_normalized",
+      "metric": "criticalMeanWidth",
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    },
+    {
+      "scenario": "equal_noise_control",
+      "policy": "oracle_normalized",
+      "metric": "coverageGap",
+      "mean": 0,
+      "ciLow": 0,
+      "ciHigh": 0
+    }
+  ]
+}

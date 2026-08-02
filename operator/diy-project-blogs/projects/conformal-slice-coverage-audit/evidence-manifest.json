@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hypothesis": "A pooled split-conformal interval targeting 90 percent marginal coverage will substantially under-cover a rare high-variance critical slice even under exchangeable sampling, and a deployment increase in that slice will also break the marginal target; slice-conditional or correctly normalized calibration should restore the declared slice target.",
+  "claimBoundary": "The experiment isolates finite-sample split-conformal coverage under a declared two-slice Gaussian residual process. It demonstrates the distinction between marginal and slice coverage and the effect of a known case-mix shift; it does not establish distribution-free conditional coverage, validate a named model, or show that production slice labels or variance scales are correct.",
+  "design": {
+    "baselines": ["pooled split-conformal 90 percent interval on the identical calibration and test draws", "pooled 95 percent interval as a global-width sensitivity baseline"],
+    "controls": ["equal-noise negative control with the deployment mixture shift preserved", "balanced heteroscedastic cell separating rarity from variance mismatch", "max-slice conservative interval ablation", "oracle residual-scale normalization boundary", "matched calibration and test draws across all policies within each repeat"],
+    "repeats": 800
+  },
+  "reproduction": {
+    "commands": [
+      "node operator/diy-project-blogs/projects/conformal-slice-coverage-audit/run-experiment.mjs",
+      "node operator/diy-project-blogs/projects/conformal-slice-coverage-audit/render-figure.mjs"
+    ]
+  },
+  "artifacts": ["config.json", "run-experiment.mjs", "repeat-results.csv", "aggregate-results.json", "statistical-analysis.json", "focal-summary.txt", "conformal-slice-coverage.svg"]
+}
