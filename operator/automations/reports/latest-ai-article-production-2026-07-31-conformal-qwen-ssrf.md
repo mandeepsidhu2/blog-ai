@@ -146,4 +146,9 @@ deployment, or cloud-resource command ran.
 
 ## Publication
 
-Publication commit and push result will be recorded after all final gates pass.
+Publication commit: `cabcde9` (`Publish conformal coverage and current AI
+analysis batch`).
+
+Push result: successful to `origin/main`. The sandboxed push could not resolve
+GitHub, so the authorized retry used narrow outside-sandbox network access. No
+S3 fallback was used.
