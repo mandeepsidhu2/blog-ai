@@ -129,4 +129,6 @@ runner was corrected, all artifacts were regenerated with unchanged aggregates,
 the raw artifact was verified as one header plus 3,600 rows, and all relevant
 gates were repeated before commit.
 
-Push status is recorded after the authorized `git push origin main` completes.
+Push succeeded: `origin/main` advanced from `1fa9bdd` to `85b1575`, delivering
+the atomic publication commit and durable outcome update through the normal
+GitHub pipeline path.
