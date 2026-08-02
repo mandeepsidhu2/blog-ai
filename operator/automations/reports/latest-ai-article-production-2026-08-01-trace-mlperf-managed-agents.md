@@ -122,5 +122,11 @@ dimension is at least 4 and every average exceeds 4.3.
 
 ## Publication Record
 
-Publication commit and push status are recorded in the follow-up outcome update
-after the authorized Git operations complete.
+Atomic publication commit: `314f7d2` (`Publish trace replay and current AI
+analyses`). A staged-stat audit before that commit caught and fixed a raw CSV
+serializer error: the first file spread a joined string into characters. The
+runner was corrected, all artifacts were regenerated with unchanged aggregates,
+the raw artifact was verified as one header plus 3,600 rows, and all relevant
+gates were repeated before commit.
+
+Push status is recorded after the authorized `git push origin main` completes.
