@@ -73,12 +73,14 @@ Browser QA used 1440×900 and 390×844 viewports. All article heroes loaded at 9
 
 ## Runtime and safety boundary
 
-The shell did not expose `node`, so the installed ChatGPT-bundled Node runtime was used. The workspace dependency locator hung and was terminated. The sandbox denied the local preview bind, so the authorized narrow outside-sandbox retry was used for visual QA.
+The shell did not expose `node`, so the installed ChatGPT-bundled Node runtime was used. The workspace dependency locator hung and was terminated. The sandbox denied the local preview bind, so the authorized narrow outside-sandbox retry was used for visual QA. The sandboxed Git push could not resolve GitHub, so the authorized narrow network retry was used.
 
 No AWS, Terraform, OpenTofu, S3, deployment helper, cloud-resource mutation, local-model inference, or Torch command ran. Unrelated untracked evidence projects and the prior untracked blocked report were preserved and excluded from publication.
 
 ## Publication record
 
-The atomic batch commit and push result are recorded in the follow-up outcome commit after publication so this report can contain the already-known Git hash.
+Atomic batch commit: `1e7cc7e3c1d796bca23359bcbccd8b0f86263e0d` (`Publish structured output and current AI analyses`). Push succeeded to `origin/main`, advancing it from `c106f48` to `1e7cc7e`.
 
-Run validation completed: 2026-08-04 10:12 EDT.
+This durable outcome update is committed separately so it can record the already-known publication hash and push result. The normal GitHub pipeline now owns rebuilding and publishing the site.
+
+Run completed: 2026-08-04 10:13 EDT.
