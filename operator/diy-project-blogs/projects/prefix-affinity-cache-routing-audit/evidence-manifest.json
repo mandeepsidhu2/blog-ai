@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "hypothesis": "Under a hot-prefix workload, strict prefix-affinity routing will increase cache hit rate but fail a 250 ms p99 latency SLO more often than least-loaded routing, while bounded affinity will retain most of the hit-rate gain without concentrating the hot prefix on one worker.",
+  "claimBoundary": "The evidence supports a routing trade-off in the declared eight-worker discrete-event simulation with worker-local LRU prefix caches. It cannot establish production GPU throughput, continuous-batching behavior, memory consumption, or the performance of any named inference server.",
+  "design": {
+    "baselines": [
+      "Random routing across eight workers",
+      "Least-loaded routing without cache affinity"
+    ],
+    "controls": [
+      "Uniform-prefix 80 requests per second negative control",
+      "Cache-disabled 120 requests per second negative control",
+      "Moderate and extreme hot-prefix workloads",
+      "Bounded-affinity ablation with a 25 ms queue-slack threshold"
+    ],
+    "repeats": 200
+  },
+  "reproduction": {
+    "commands": [
+      "cd operator/diy-project-blogs/projects/prefix-affinity-cache-routing-audit && node run-experiment.mjs"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run-experiment.mjs",
+    "research-log.md",
+    "run-summary.md",
+    "artifacts/repeat-metrics.csv",
+    "artifacts/aggregate-results.json",
+    "artifacts/claim-table.csv",
+    "artifacts/prefix-affinity-routing-results.svg",
+    "artifacts/sha256.json"
+  ]
+}

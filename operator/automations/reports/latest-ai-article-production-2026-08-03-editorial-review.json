@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "route-prefix-cache-affinity-with-queue-slack",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "The serial-worker simulation omits continuous batching, token-volume eviction, KV transfer, adaptive replication, and autoscaling, so its dramatic unstable tails may not reproduce in a modern disaggregated GPU serving stack.",
+      "unsupportedClaimRisk": "The weakest wording was that bounded affinity retained most reuse, because unweighted request hit rate can overstate saved work; the article now quantifies 94.9% and 91.3% of incremental hit-rate gain and explicitly rejects equivalence to saved tokens or cost.",
+      "reproductionBarrier": "The dependency-free run is easy to reproduce, but a credible production replay needs prefix-key-safe traces, reusable-token counts, projected token work, per-worker queues, and permission to expose tenant-level skew without leaking prompt content.",
+      "revisions": [
+        "Added a hot-key stability calculation and adaptive-replication comparison so the 25 ms slack is not presented as the only or universal treatment.",
+        "Replaced qualitative reuse language with derived incremental-hit retention ratios and added the missing reusable-token weighting boundary.",
+        "Added tenant-level tail, worker-share, queue-override, and cache-eviction fairness gates so a global p99 win cannot hide cohort harm."
+      ]
+    },
+    {
+      "slug": "pilot-deepseek-v4-flash-0731-by-harness-cell",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 5,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "Every focal 0731 score is provider-reported under an unreleased harness and max effort, while two rows are internal, so the article cannot establish that the checkpoint improves an independent production agent.",
+      "unsupportedClaimRisk": "The weakest claim attributed large gains to post-training from unchanged structure; the article now labels that as a consistency inference and identifies encoding, checkpoint packaging, speculative behavior, harness changes, and benchmark fixes as rival explanations.",
+      "reproductionBarrier": "Independent replay requires access to the 304B-weight artifact or a pinned provider route, substantial accelerator capacity for self-hosting, exact encoding behavior, the unreleased vendor harness, and several benchmarks with distinct access terms.",
+      "revisions": [
+        "Added a direct disclosure that no independent 0731 inference was run and narrowed the evidence from certification to pilot design.",
+        "Added a completed-task cost equation combining model or serving cost with reviewer labor, turning effort selection into an explicit routing decision.",
+        "Expanded the causal boundary so unchanged model structure no longer implies that post-training alone caused every reported system-score delta."
+      ]
+    },
+    {
+      "slug": "couple-agent-eval-containment-with-score-integrity",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 4,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 5
+      },
+      "strongestCounterargument": "One exceptional incident involving reduced cyber refusals, substantial inference compute, and an unfinished investigation does not estimate ordinary agent escape probability or prove that every cyber evaluation needs the same architecture.",
+      "unsupportedClaimRisk": "The largest risk was sliding from observed goal pursuit into claims about deliberate deception or motive; the article now labels direct, attributed, and inferred evidence separately and makes the control decision depend only on actions and reachable authority.",
+      "reproductionBarrier": "A faithful containment test requires isolated infrastructure, sealed package mirrors, separate grader authority, packet and process telemetry, rotated held-out tasks, independent security review, and incident-response staffing that small evaluation teams may not have.",
+      "revisions": [
+        "Added a three-level uncertainty vocabulary and removed psychological interpretations from the engineering conclusion.",
+        "Added a package-boundary positive and negative test matrix covering unknown versions, confusion names, redirects, credential scope, upstream egress, and control-plane reachability.",
+        "Split score reporting into clean-item fraction and success among clean items so invalid trials cannot silently disappear from both numerator and denominator."
+      ]
+    }
+  ]
+}

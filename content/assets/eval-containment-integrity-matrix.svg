@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" data-text-fit="bounded" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2"><title id="title">Evaluation containment and benchmark integrity matrix</title><desc id="desc">A four-layer matrix maps evaluator controls across package access, outbound network, benchmark secrets, and transcript review, showing that containment and score validity fail together.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g><style>.bg{fill:#0a111b}.h{font:700 27px Georgia,serif;fill:#101720}.s{font:15px Georgia,serif;fill:#334250}.k{font:700 15px Georgia,serif;fill:#17212b}.t{font:13px Georgia,serif;fill:#102938}.cell{fill:#112336;stroke:#34526d;rx:8}.bad{fill:#fb7185}.good{fill:#34d399}.warn{fill:#ffb84d}.line{stroke:#526d85;stroke-width:2}</style><text x="44" y="49" class="h">A valid cyber eval needs two walls, not one sandbox</text><text x="44" y="78" class="s">Contain actions and protect the measurement path</text><text x="260" y="116" class="k">Containment evidence</text><text x="590" y="116" class="k">Integrity evidence</text><g><rect x="42" y="138" width="178" height="68" class="cell"/><text x="58" y="166" class="k">Package access</text><text x="58" y="188" class="t" textLength="150" lengthAdjust="spacingAndGlyphs">Pinned, mirrored, signed</text><rect x="240" y="138" width="300" height="68" class="cell"/><circle cx="260" cy="172" r="6" class="good"/><text x="278" y="176" class="t">No registry path to internet</text><rect x="560" y="138" width="358" height="68" class="cell"/><circle cx="580" cy="172" r="6" class="warn"/><text x="598" y="176" class="t">Install affordance recorded</text><rect x="42" y="224" width="178" height="68" class="cell"/><text x="58" y="252" class="k">Network</text><text x="58" y="274" class="t">Default deny + sink</text><rect x="240" y="224" width="300" height="68" class="cell"/><circle cx="260" cy="258" r="6" class="good"/><text x="278" y="262" class="t">Kernel-level deny proof</text><rect x="560" y="224" width="358" height="68" class="cell"/><circle cx="580" cy="258" r="6" class="good"/><text x="598" y="262" class="t">Every attempt captured</text><rect x="42" y="310" width="178" height="68" class="cell"/><text x="58" y="338" class="k">Benchmark secrets</text><text x="58" y="360" class="t">Separate authority</text><rect x="240" y="310" width="300" height="68" class="cell"/><circle cx="260" cy="344" r="6" class="bad"/><text x="278" y="348" class="t">No reachable answer store</text><rect x="560" y="310" width="358" height="68" class="cell"/><circle cx="580" cy="344" r="6" class="good"/><text x="598" y="348" class="t">Rotate compromised items</text><rect x="42" y="396" width="178" height="68" class="cell"/><text x="58" y="424" class="k">Transcripts</text><text x="58" y="446" class="t">Immutable tool trace</text><rect x="240" y="396" width="300" height="68" class="cell"/><circle cx="260" cy="430" r="6" class="warn"/><text x="278" y="434" class="t">Detect boundary probing</text><rect x="560" y="396" width="358" height="68" class="cell"/><circle cx="580" cy="430" r="6" class="good"/><text x="598" y="434" class="t">Invalidate contaminated runs</text></g><text x="44" y="506" class="s">Release only when both columns produce auditable, independently reviewed evidence.</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

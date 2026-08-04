@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" data-text-fit="bounded" role="img" aria-labelledby="title desc" data-visual-quality="publication" data-visual-system="fieldbook-v2"><title id="title">DeepSeek V4 Flash 0731 benchmark gains and evidence limits</title><desc id="desc">A dot comparison shows reported scores for the July 31 model and its preview across five public agent benchmarks, alongside a decision panel marking harness, effort, and self-hosting boundaries.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g><style>.bg{fill:#08121d}.h{font:700 27px Georgia,serif;fill:#101720}.s{font:15px Georgia,serif;fill:#334250}.l{font:13px Georgia,serif;fill:#102938}.v{font:700 13px ui-monospace,monospace;fill:#101720}.axis{stroke:#475569}.old{fill:#64748b}.new{fill:#22d3ee}.line{stroke:#22d3ee;stroke-width:4}.panel{fill:#102235;stroke:#31506b;rx:8}.warn{fill:#ffb84d}</style><text x="42" y="48" class="h">0731 moves the benchmark dots; your harness decides portability</text><text x="42" y="76" class="s">Provider-reported scores, same named model family; preview → 0731</text><line x1="245" y1="118" x2="690" y2="118" class="axis"/><text x="245" y="105" class="l">0</text><text x="675" y="105" class="l">100</text><g class="l"><text x="42" y="150">Terminal-Bench 2.1</text><text x="42" y="205">NL2Repo</text><text x="42" y="260">CyberGym</text><text x="42" y="315">DeepSWE</text><text x="42" y="370">Toolathlon-Verified</text></g><g><line x1="520" y1="145" x2="613" y2="145" class="line"/><circle cx="520" cy="145" r="7" class="old"/><circle cx="613" cy="145" r="8" class="new"/><text x="625" y="150" class="v">82.7</text><line x1="420" y1="200" x2="486" y2="200" class="line"/><circle cx="420" cy="200" r="7" class="old"/><circle cx="486" cy="200" r="8" class="new"/><text x="498" y="205" class="v">54.2</text><line x1="417" y1="255" x2="586" y2="255" class="line"/><circle cx="417" cy="255" r="7" class="old"/><circle cx="586" cy="255" r="8" class="new"/><text x="598" y="260" class="v">76.7</text><line x1="277" y1="310" x2="487" y2="310" class="line"/><circle cx="277" cy="310" r="7" class="old"/><circle cx="487" cy="310" r="8" class="new"/><text x="499" y="315" class="v">54.4</text><line x1="466" y1="365" x2="558" y2="365" class="line"/><circle cx="466" cy="365" r="7" class="old"/><circle cx="558" cy="365" r="8" class="new"/><text x="570" y="370" class="v">70.3</text></g><rect x="716" y="112" width="208" height="286" class="panel"/><text x="734" y="143" class="s">Adoption boundary</text><circle cx="739" cy="177" r="5" class="warn"/><text x="753" y="181" class="l">Unreleased harness</text><circle cx="739" cy="218" r="5" class="warn"/><text x="753" y="222" class="l">Max effort only</text><circle cx="739" cy="259" r="5" class="warn"/><text x="753" y="263" class="l">Internal DSBench rows</text><circle cx="739" cy="300" r="5" class="warn"/><text x="753" y="304" class="l">4×GB300 recipe</text><circle cx="739" cy="341" r="5" class="warn"/><text x="753" y="345" class="l">384K output cap</text><text x="42" y="438" class="s">Decision: replay your tasks with fixed harness, effort, tool budget, and completed-task cost.</text><text x="42" y="472" class="l">Blue = 0731 • gray = preview • values are not cross-benchmark comparable</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

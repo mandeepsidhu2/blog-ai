@@ -1,0 +1,22 @@
+{
+  "seed": 20260802,
+  "repeats": 200,
+  "bootstrapSamples": 5000,
+  "workers": 8,
+  "cacheEntriesPerWorker": 64,
+  "durationSeconds": 60,
+  "warmupSeconds": 10,
+  "hitPrefillMs": 7,
+  "missPrefillMs": 42,
+  "decodeMeanMs": 10,
+  "serviceLogSigma": 0.22,
+  "boundedAffinitySlackMs": 25,
+  "sloP99Ms": 250,
+  "scenarios": [
+    {"id": "uniform-80", "rps": 80, "prefixes": 256, "hotProbability": 0, "cacheEnabled": true},
+    {"id": "moderate-hot-120", "rps": 120, "prefixes": 256, "hotProbability": 0.45, "cacheEnabled": true},
+    {"id": "extreme-hot-180", "rps": 180, "prefixes": 256, "hotProbability": 0.70, "cacheEnabled": true},
+    {"id": "cache-disabled-120", "rps": 120, "prefixes": 256, "hotProbability": 0.45, "cacheEnabled": false}
+  ],
+  "policies": ["random", "least-loaded", "prefix-affinity", "bounded-affinity"]
+}
