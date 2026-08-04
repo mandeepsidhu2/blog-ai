@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title>Grabette adoption boundaries</title>
+  <desc>Evidence ladder from low-cost handheld capture through synchronization, SLAM, dataset governance, embodiment conversion, and closed-loop robot success.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="64" y="58" fill="#101720" font-family="Georgia,serif" font-size="30" font-weight="700" textLength="756" lengthAdjust="spacingAndGlyphs">A cheap capture is the first proof, not the last</text>
+  <text x="64" y="88" fill="#9fb0ca" font-family="ui-monospace,monospace" font-size="15">Grabette release · 2026-07-21 · specifications and missing adoption evidence</text>
+  <g transform="translate(64 124)">
+    <rect width="832" height="62" rx="8" fill="#123047" stroke="#2dd4bf"/>
+    <text x="18" y="26" fill="#99f6e4" font-family="system-ui,sans-serif" font-size="15" font-weight="750">1 · CAPTURE</text>
+    <text x="178" y="26" fill="#101720" font-family="system-ui,sans-serif" font-size="15">~€490 handheld · 2 cameras · IMU · encoder</text>
+    <text x="178" y="47" fill="#40515f" font-family="system-ui,sans-serif" font-size="13">Proves accessible recording hardware and synchronized source signals</text>
+    <path d="M416 62v16" stroke="#64748b" stroke-width="2"/>
+    <rect y="78" width="832" height="62" rx="8" fill="#121d31" stroke="#38bdf8"/>
+    <text x="18" y="104" fill="#7dd3fc" font-family="system-ui,sans-serif" font-size="15" font-weight="750">2 · TRAJECTORY</text>
+    <text x="178" y="104" fill="#101720" font-family="system-ui,sans-serif" font-size="15">RTAB-Map · camera-local 6-DoF · jump checks</text>
+    <text x="178" y="125" fill="#40515f" font-family="system-ui,sans-serif" font-size="13">Still needs numeric residuals, drift audits, and rejection denominators</text>
+    <path d="M416 140v16" stroke="#64748b" stroke-width="2"/>
+    <rect y="156" width="832" height="62" rx="8" fill="#121d31" stroke="#a78bfa"/>
+    <text x="18" y="182" fill="#c4b5fd" font-family="system-ui,sans-serif" font-size="15" font-weight="750">3 · DATASET</text>
+    <text x="178" y="182" fill="#101720" font-family="system-ui,sans-serif" font-size="15">LeRobot · Parquet/MP4 · Hub visualization</text>
+    <text x="178" y="203" fill="#40515f" font-family="system-ui,sans-serif" font-size="13">Still needs lineage, licenses, privacy, deduplication, and leakage-safe splits</text>
+    <path d="M416 218v16" stroke="#64748b" stroke-width="2"/>
+    <rect y="234" width="832" height="62" rx="8" fill="#121d31" stroke="#ffb84d"/>
+    <text x="18" y="260" fill="#fcd34d" font-family="system-ui,sans-serif" font-size="15" font-weight="750">4 · EMBODIMENT</text>
+    <text x="178" y="260" fill="#101720" font-family="system-ui,sans-serif" font-size="15">~€120 Gripette · IK · calibration · collision limits</text>
+    <text x="178" y="281" fill="#40515f" font-family="system-ui,sans-serif" font-size="13">Camera-local pose is portable data, not guaranteed executable motion</text>
+    <path d="M416 296v16" stroke="#64748b" stroke-width="2"/>
+    <rect y="312" width="832" height="62" rx="8" fill="#24172b" stroke="#f472b6"/>
+    <text x="18" y="338" fill="#fda4af" font-family="system-ui,sans-serif" font-size="15" font-weight="750">5 · CLOSED LOOP</text>
+    <text x="178" y="338" fill="#101720" font-family="system-ui,sans-serif" font-size="15">200-demo example · OpenArm 7-DoF · success rate not reported</text>
+    <text x="178" y="359" fill="#40515f" font-family="system-ui,sans-serif" font-size="13">Release decision needs held-out trials, uncertainty, failures, and baseline</text>
+  </g>
+  <text x="64" y="520" fill="#8091ad" font-family="ui-monospace,monospace" font-size="12">Sources: Hugging Face Grabette release, Grabette repository, RTAB-Map, LeRobot, OpenArm</text>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,134 @@
+[
+  {
+    "scenario": "mixed-correlated",
+    "policy": "field-average",
+    "repeats": 800,
+    "fieldAccuracy": 0.9945283327605017,
+    "wholeAccuracy": 0.949559166666667,
+    "longAccuracy": 0.9087244715263953,
+    "criticalAccuracy": 0.9945758333333339,
+    "approved": 1,
+    "falseApproval": 0.54
+  },
+  {
+    "scenario": "mixed-correlated",
+    "policy": "whole-call",
+    "repeats": 800,
+    "fieldAccuracy": 0.9945283327605017,
+    "wholeAccuracy": 0.949559166666667,
+    "longAccuracy": 0.9087244715263953,
+    "criticalAccuracy": 0.9945758333333339,
+    "approved": 0.46,
+    "falseApproval": 0
+  },
+  {
+    "scenario": "mixed-correlated",
+    "policy": "joint-long-schema",
+    "repeats": 800,
+    "fieldAccuracy": 0.9945283327605017,
+    "wholeAccuracy": 0.949559166666667,
+    "longAccuracy": 0.9087244715263953,
+    "criticalAccuracy": 0.9945758333333339,
+    "approved": 0.45375,
+    "falseApproval": 0
+  },
+  {
+    "scenario": "mixed-independent",
+    "policy": "field-average",
+    "repeats": 800,
+    "fieldAccuracy": 0.9954786426539637,
+    "wholeAccuracy": 0.952058333333334,
+    "longAccuracy": 0.91173112637562,
+    "criticalAccuracy": 0.9954970833333331,
+    "approved": 1,
+    "falseApproval": 0.2725
+  },
+  {
+    "scenario": "mixed-independent",
+    "policy": "whole-call",
+    "repeats": 800,
+    "fieldAccuracy": 0.9954786426539637,
+    "wholeAccuracy": 0.952058333333334,
+    "longAccuracy": 0.91173112637562,
+    "criticalAccuracy": 0.9954970833333331,
+    "approved": 0.7275,
+    "falseApproval": 0
+  },
+  {
+    "scenario": "mixed-independent",
+    "policy": "joint-long-schema",
+    "repeats": 800,
+    "fieldAccuracy": 0.9954786426539637,
+    "wholeAccuracy": 0.952058333333334,
+    "longAccuracy": 0.91173112637562,
+    "criticalAccuracy": 0.9954970833333331,
+    "approved": 0.71375,
+    "falseApproval": 0
+  },
+  {
+    "scenario": "fixed-eight",
+    "policy": "field-average",
+    "repeats": 800,
+    "fieldAccuracy": 0.994558020833333,
+    "wholeAccuracy": 0.9618412499999988,
+    "longAccuracy": 0.9618412499999988,
+    "criticalAccuracy": 0.9945058333333339,
+    "approved": 1,
+    "falseApproval": 0
+  },
+  {
+    "scenario": "fixed-eight",
+    "policy": "whole-call",
+    "repeats": 800,
+    "fieldAccuracy": 0.994558020833333,
+    "wholeAccuracy": 0.9618412499999988,
+    "longAccuracy": 0.9618412499999988,
+    "criticalAccuracy": 0.9945058333333339,
+    "approved": 1,
+    "falseApproval": 0
+  },
+  {
+    "scenario": "fixed-eight",
+    "policy": "joint-long-schema",
+    "repeats": 800,
+    "fieldAccuracy": 0.994558020833333,
+    "wholeAccuracy": 0.9618412499999988,
+    "longAccuracy": 0.9618412499999988,
+    "criticalAccuracy": 0.9945058333333339,
+    "approved": 1,
+    "falseApproval": 0
+  },
+  {
+    "scenario": "one-field-control",
+    "policy": "field-average",
+    "repeats": 800,
+    "fieldAccuracy": 0.9945808333333346,
+    "wholeAccuracy": 0.9945808333333346,
+    "longAccuracy": 0.9945808333333346,
+    "criticalAccuracy": 0.9945808333333346,
+    "approved": 0.995,
+    "falseApproval": 0
+  },
+  {
+    "scenario": "one-field-control",
+    "policy": "whole-call",
+    "repeats": 800,
+    "fieldAccuracy": 0.9945808333333346,
+    "wholeAccuracy": 0.9945808333333346,
+    "longAccuracy": 0.9945808333333346,
+    "criticalAccuracy": 0.9945808333333346,
+    "approved": 1,
+    "falseApproval": 0
+  },
+  {
+    "scenario": "one-field-control",
+    "policy": "joint-long-schema",
+    "repeats": 800,
+    "fieldAccuracy": 0.9945808333333346,
+    "wholeAccuracy": 0.9945808333333346,
+    "longAccuracy": 0.9945808333333346,
+    "criticalAccuracy": 0.9945808333333346,
+    "approved": 1,
+    "falseApproval": 0
+  }
+]

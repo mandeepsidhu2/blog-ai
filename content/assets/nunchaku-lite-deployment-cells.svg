@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" data-text-fit="bounded" data-visual-quality="publication" data-visual-system="fieldbook-v2">
+  <title>Nunchaku Lite deployment cells</title>
+  <desc>Latency and peak memory comparison for four matched ERNIE Image Turbo configurations on an RTX PRO 6000 Blackwell, with hardware and quality boundaries.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="64" y="58" fill="#101720" font-family="Georgia,serif" font-size="30" font-weight="700" textLength="179" lengthAdjust="spacingAndGlyphs">Quantization wins differ by deployment cell</text>
+  <text x="64" y="88" fill="#9fb0ca" font-family="ui-monospace,monospace" font-size="15">RTX PRO 6000 · 1024×1024 · ERNIE-Image-Turbo · source: Hugging Face, 2026-07-23</text>
+  <g transform="translate(64 130)">
+    <text x="0" y="0" fill="#334250" font-family="system-ui,sans-serif" font-size="15" font-weight="650">FULL-PIPELINE LATENCY</text>
+    <line x1="190" y1="24" x2="190" y2="232" stroke="#334155"/>
+    <line x1="430" y1="24" x2="430" y2="232" stroke="#334155"/>
+    <line x1="670" y1="24" x2="670" y2="232" stroke="#334155"/>
+    <text x="184" y="254" fill="#8091ad" font-family="ui-monospace,monospace" font-size="12">1 s</text>
+    <text x="424" y="254" fill="#8091ad" font-family="ui-monospace,monospace" font-size="12">2 s</text>
+    <text x="664" y="254" fill="#8091ad" font-family="ui-monospace,monospace" font-size="12">3 s</text>
+    <text x="0" y="50" fill="#253240" font-family="system-ui,sans-serif" font-size="14">BF16</text>
+    <rect x="122" y="33" width="720" height="22" rx="6" fill="#64748b"/>
+    <text x="852" y="50" fill="#253240" font-family="ui-monospace,monospace" font-size="13" textLength="32" lengthAdjust="spacingAndGlyphs">3.00 s</text>
+    <text x="0" y="102" fill="#253240" font-family="system-ui,sans-serif" font-size="14">NVFP4</text>
+    <rect x="122" y="85" width="545" height="22" rx="6" fill="#2dd4bf"/>
+    <text x="677" y="102" fill="#99f6e4" font-family="ui-monospace,monospace" font-size="13">2.27 s · 20.6 GB</text>
+    <text x="0" y="154" fill="#253240" font-family="system-ui,sans-serif" font-size="14">+ compile</text>
+    <rect x="122" y="137" width="403" height="22" rx="6" fill="#ffb84d"/>
+    <text x="535" y="154" fill="#fcd34d" font-family="ui-monospace,monospace" font-size="13">1.68 s · 20.6 GB</text>
+    <text x="0" y="206" fill="#253240" font-family="system-ui,sans-serif" font-size="14">+ NF4 TE</text>
+    <rect x="122" y="189" width="550" height="22" rx="6" fill="#a78bfa"/>
+    <text x="682" y="206" fill="#ddd6fe" font-family="ui-monospace,monospace" font-size="13">2.29 s · 16.0 GB</text>
+  </g>
+  <g transform="translate(64 430)">
+    <rect width="255" height="74" rx="8" fill="#121d31" stroke="#30415f"/>
+    <text x="16" y="27" fill="#99f6e4" font-family="system-ui,sans-serif" font-size="14" font-weight="700">NVFP4</text>
+    <text x="16" y="51" fill="#334250" font-family="system-ui,sans-serif" font-size="13">Blackwell only in current matrix</text>
+    <rect x="275" width="255" height="74" rx="8" fill="#121d31" stroke="#30415f"/>
+    <text x="291" y="27" fill="#fcd34d" font-family="system-ui,sans-serif" font-size="14" font-weight="700">INT4</text>
+    <text x="291" y="51" fill="#334250" font-family="system-ui,sans-serif" font-size="13">Turing · Ampere · Ada</text>
+    <rect x="550" width="346" height="74" rx="8" fill="#121d31" stroke="#f472b6"/>
+    <text x="566" y="27" fill="#fda4af" font-family="system-ui,sans-serif" font-size="14" font-weight="700">UNMEASURED HERE</text>
+    <text x="566" y="51" fill="#334250" font-family="system-ui,sans-serif" font-size="13" textLength="264" lengthAdjust="spacingAndGlyphs">quality, cold compile, batches, other GPUs</text>
+  </g>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>

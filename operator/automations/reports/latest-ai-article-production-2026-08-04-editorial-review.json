@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "reviews": [
+    {
+      "slug": "gate-structured-outputs-at-whole-call-unit",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 5,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 5,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "Whole-call exact match can penalize harmless canonicalization differences while still accepting a semantically dangerous value, so replacing field accuracy with exact match alone may exchange one misleading scalar for another.",
+      "unsupportedClaimRisk": "The weakest claim was that whole-call exact match directly matches application correctness; it was narrowed to a release unit and supplemented with canonicalized semantic and critical-field validators.",
+      "reproductionBarrier": "The saved study is easy to rerun, but external validity requires teams to construct real versioned schemas, semantic references, repair traces, and consequence-weighted slices from their own application traffic.",
+      "revisions": [
+        "Added a decision tuple separating structural validity, canonicalized semantic exactness, critical-field validity, whole-call acceptance, and repaired acceptance instead of presenting exact match as a complete oracle.",
+        "Added an all-attempt outcome taxonomy and required first-pass and eventual acceptance to retain refusals, timeouts, truncations, and invalid responses in the original denominator.",
+        "Expanded the control interpretation so the one-field and fixed-eight results narrow the mechanism to multi-field accumulation and schema mixture rather than condemning field metrics generally."
+      ]
+    },
+    {
+      "slug": "pilot-nunchaku-lite-by-gpu-and-quality-cell",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "The article does not run Nunchaku Lite locally, and the central latency and memory rows come from one provider-measured Blackwell checkpoint, so it cannot establish independent performance or image-quality equivalence.",
+      "unsupportedClaimRisk": "The weakest claim was that the compiled 1.8x row represents service-level acceleration; it was narrowed to warm execution in one pinned cell and separated from compile amortization, shape churn, failures, and quality rejection.",
+      "reproductionBarrier": "Reproduction requires a supported NVIDIA architecture, exact checkpoint and kernel revisions, large model artifacts, a representative prompt and adapter suite, and blinded product-specific image review.",
+      "revisions": [
+        "Derived memory and latency changes only within the matched RTX PRO 6000 table and explicitly rejected comparisons to the separate RTX 5090 example and original-engine benchmarks.",
+        "Added a compile-amortization equation with requests-per-shape and eviction boundaries so warm latency cannot decide a sparse or highly dynamic workload.",
+        "Added completed-image cost including compilation, failed generations, safety retries, and quality rejection instead of treating denoise latency as the business denominator."
+      ]
+    },
+    {
+      "slug": "adopt-grabette-with-embodiment-and-data-gates",
+      "verdict": "publish-ready",
+      "scores": {
+        "questionValue": 5,
+        "technicalDepth": 4,
+        "evidenceTraceability": 5,
+        "methodologicalRigor": 4,
+        "decisionUsefulness": 5,
+        "clarityDensity": 4,
+        "visualEvidence": 4
+      },
+      "strongestCounterargument": "Grabette's release includes an end-to-end example but no published success rate, baseline, or uncertainty, so a detailed adoption framework could overstate the maturity of evidence available for the new system.",
+      "unsupportedClaimRisk": "The weakest claim was that camera-local 6-DoF data is robot agnostic; it was narrowed to a portable representation goal that still requires versioned calibration, inverse kinematics, collision checks, and cross-arm testing.",
+      "reproductionBarrier": "A credible pilot requires building the hardware, calibrating two camera roles and gripper geometry, operating SLAM and dataset infrastructure, acquiring a target arm, and conducting repeated physical trials with safety oversight.",
+      "revisions": [
+        "Separated raw capture, accepted trajectory, training dataset, embodiment conversion, and closed-loop policy evidence so the low bill of materials cannot stand in for downstream validity.",
+        "Added accepted-demonstrations-per-collector-hour and held-out-successes-per-total-collection-hour ratios while preserving robot-occupied time as a separate scarce-resource metric.",
+        "Added a falsifiable second-arm non-inferiority test and required a failed transfer to narrow the claim rather than trigger evaluation-set retuning."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+Structured-output contract audit
+repeats=800 calls_per_repeat=3000
+field-average: field=99.453% whole=94.956% long=90.872% approve=100.00% false_approve=54.00%
+whole-call: field=99.453% whole=94.956% long=90.872% approve=46.00% false_approve=0.00%
+joint-long-schema: field=99.453% whole=94.956% long=90.872% approve=45.38% false_approve=0.00%
+paired_gap=4.497pp ci95=[4.472,4.522]pp

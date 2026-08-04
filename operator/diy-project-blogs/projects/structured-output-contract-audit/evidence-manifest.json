@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "hypothesis": "A release gate requiring 99 percent marginal field accuracy will falsely approve mixed structured-output workloads whose whole-call exact-match rate remains below a 95 percent application contract, while call-level and long-schema gates will expose the failure.",
+  "claimBoundary": "The study establishes a measurement-unit failure under a declared synthetic generator. It does not estimate any named model or provider, establish universal thresholds, model semantic equivalence or repair loops, or prove that every field error has equal operational cost.",
+  "design": {
+    "baselines": [
+      "marginal field-average release gate",
+      "whole-call exact-match release gate"
+    ],
+    "controls": [
+      "one-field negative control makes field and whole-call units coincide",
+      "fixed-eight-field control removes schema-length mixture",
+      "independent-error control removes call-level correlated shocks",
+      "all policies receive identical calls and error draws within each repeat"
+    ],
+    "repeats": 800
+  },
+  "reproduction": {
+    "commands": [
+      "node operator/diy-project-blogs/projects/structured-output-contract-audit/run-experiment.mjs",
+      "node operator/diy-project-blogs/projects/structured-output-contract-audit/render-figure.mjs"
+    ]
+  },
+  "artifacts": [
+    "config.json",
+    "run-experiment.mjs",
+    "repeat-results.csv",
+    "aggregate-results.json",
+    "statistical-analysis.json",
+    "output.txt",
+    "structured-output-contract-audit.svg"
+  ]
+}

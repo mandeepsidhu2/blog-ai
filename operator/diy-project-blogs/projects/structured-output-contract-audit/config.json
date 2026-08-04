@@ -1,0 +1,21 @@
+{
+  "seed": 20260727,
+  "repeats": 800,
+  "callsPerRepeat": 3000,
+  "bootstrapSamples": 5000,
+  "fieldGate": 0.99,
+  "wholeCallGate": 0.95,
+  "longSchemaGate": 0.90,
+  "schemaMix": [
+    {"fields": 4, "weight": 0.35},
+    {"fields": 8, "weight": 0.30},
+    {"fields": 16, "weight": 0.25},
+    {"fields": 32, "weight": 0.10}
+  ],
+  "scenarios": {
+    "mixed-correlated": {"fieldError": 0.0045, "callShock": 0.0030, "shockFieldError": 0.32},
+    "mixed-independent": {"fieldError": 0.0045, "callShock": 0.0, "shockFieldError": 0.0},
+    "fixed-eight": {"fieldError": 0.0045, "callShock": 0.0030, "shockFieldError": 0.32, "fixedFields": 8},
+    "one-field-control": {"fieldError": 0.0045, "callShock": 0.0030, "shockFieldError": 0.32, "fixedFields": 1}
+  }
+}

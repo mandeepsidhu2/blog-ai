@@ -1,0 +1,36 @@
+{
+  "focalScenario": "mixed-correlated",
+  "pairedGap": {
+    "metric": "fieldAccuracy - wholeAccuracy",
+    "mean": 0.044969166093834806,
+    "confidenceInterval95": [
+      0.044715397954127954,
+      0.04521990784111816
+    ],
+    "repeats": 800,
+    "bootstrapSamples": 5000
+  },
+  "approvalIntervals": {
+    "field-average": {
+      "mean": 1,
+      "confidenceInterval95": [
+        1,
+        1
+      ]
+    },
+    "whole-call": {
+      "mean": 0.46,
+      "confidenceInterval95": [
+        0.42625,
+        0.495
+      ]
+    },
+    "joint-long-schema": {
+      "mean": 0.45375,
+      "confidenceInterval95": [
+        0.42,
+        0.4875
+      ]
+    }
+  }
+}

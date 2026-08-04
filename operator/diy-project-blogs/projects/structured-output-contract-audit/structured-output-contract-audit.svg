@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <title>Structured-output gate results</title>
+  <desc>Comparison of field accuracy, whole-call exact accuracy, and false approvals for three release gates across 800 repeated studies.</desc>
+  <rect width="960" height="540" fill="#08111f"/>
+  <text x="70" y="64" class="title">A 99% field score can hide broken calls</text>
+  <text x="70" y="99" class="subtitle">800 repeats · 3,000 calls each · matched mixed-schema workload</text>
+  <text x="70" y="139" class="note">The unit of release evidence must match the unit the application consumes.</text>
+  
+    <g transform="translate(70 178)">
+      <rect width="246" height="274" rx="10" fill="#121d31" stroke="#30415f"/>
+      <text x="20" y="38" class="label">Field-average gate</text>
+      <text x="20" y="78" class="metric" fill="#2dd4bf">99.45%</text>
+      <text x="20" y="102" class="caption">field accuracy</text>
+      <line x1="20" y1="126" x2="226" y2="126" stroke="#30415f"/>
+      <text x="20" y="166" class="metric" fill="#f8fafc">94.96%</text>
+      <text x="20" y="190" class="caption">whole-call exact</text>
+      <text x="20" y="238" class="risk">54.0% false approvals</text>
+    </g>
+    <g transform="translate(362 178)">
+      <rect width="246" height="274" rx="10" fill="#121d31" stroke="#30415f"/>
+      <text x="20" y="38" class="label">Whole-call gate</text>
+      <text x="20" y="78" class="metric" fill="#f59e0b">99.45%</text>
+      <text x="20" y="102" class="caption">field accuracy</text>
+      <line x1="20" y1="126" x2="226" y2="126" stroke="#30415f"/>
+      <text x="20" y="166" class="metric" fill="#f8fafc">94.96%</text>
+      <text x="20" y="190" class="caption">whole-call exact</text>
+      <text x="20" y="238" class="risk">0.0% false approvals</text>
+    </g>
+    <g transform="translate(654 178)">
+      <rect width="246" height="274" rx="10" fill="#121d31" stroke="#30415f"/>
+      <text x="20" y="38" class="label">Joint + long-schema gate</text>
+      <text x="20" y="78" class="metric" fill="#f472b6">99.45%</text>
+      <text x="20" y="102" class="caption">field accuracy</text>
+      <line x1="20" y1="126" x2="226" y2="126" stroke="#30415f"/>
+      <text x="20" y="166" class="metric" fill="#f8fafc">94.96%</text>
+      <text x="20" y="190" class="caption">whole-call exact</text>
+      <text x="20" y="238" class="risk">0.0% false approvals</text>
+    </g>
+  <text x="70" y="500" class="foot">Synthetic mechanism study; thresholds and effect sizes are not vendor estimates.</text>
+  <style>
+    .title{font:700 30px Georgia,serif;fill:#f8fafc}.subtitle{font:500 16px ui-monospace,monospace;fill:#9fb0ca}
+    .note{font:600 16px system-ui,sans-serif;fill:#cbd5e1}.label{font:700 16px system-ui,sans-serif;fill:#e2e8f0}
+    .metric{font:700 34px Georgia,serif}.caption{font:500 14px system-ui,sans-serif;fill:#94a3b8}
+    .risk{font:700 15px ui-monospace,monospace;fill:#fda4af}.foot{font:500 13px system-ui,sans-serif;fill:#7f91ad}
+  </style>
+</svg>

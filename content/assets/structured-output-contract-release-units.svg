@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" data-visual-quality="publication" data-visual-system="fieldbook-v2" data-text-fit="bounded">
+  <title>Structured-output gate results</title>
+  <desc>Comparison of field accuracy, whole-call exact accuracy, and false approvals for three release gates across 800 repeated studies.</desc>
+  <!-- fieldbook-visual-system:v2 -->
+  <defs id="fieldbook-v2-defs">
+    <pattern id="fieldbook-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#27323d" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g aria-hidden="true" data-fieldbook-frame="background">
+    <rect width="960" height="540" fill="#080c12"/>
+    <rect width="960" height="540" fill="url(#fieldbook-grid)" opacity="0.32"/>
+  </g>
+
+  <text x="70" y="64" class="title" textLength="164" lengthAdjust="spacingAndGlyphs">A 99% field score can hide broken calls</text>
+  <text x="70" y="99" class="subtitle" textLength="164" lengthAdjust="spacingAndGlyphs">800 repeats · 3,000 calls each · matched mixed-schema workload</text>
+  <text x="70" y="139" class="note" textLength="164" lengthAdjust="spacingAndGlyphs">The unit of release evidence must match the unit the application consumes.</text>
+
+    <g transform="translate(70 178)">
+      <rect width="246" height="274" rx="8" fill="#121d31" stroke="#30415f"/>
+      <text x="20" y="38" class="label">Field-average gate</text>
+      <text x="20" y="78" class="metric" fill="#2dd4bf">99.45%</text>
+      <text x="20" y="102" class="caption">field accuracy</text>
+      <line x1="20" y1="126" x2="226" y2="126" stroke="#30415f"/>
+      <text x="20" y="166" class="metric" fill="#101720">94.96%</text>
+      <text x="20" y="190" class="caption">whole-call exact</text>
+      <text x="20" y="238" class="risk">54.0% false approvals</text>
+    </g>
+    <g transform="translate(362 178)">
+      <rect width="246" height="274" rx="8" fill="#121d31" stroke="#30415f"/>
+      <text x="20" y="38" class="label">Whole-call gate</text>
+      <text x="20" y="78" class="metric" fill="#ffb84d">99.45%</text>
+      <text x="20" y="102" class="caption">field accuracy</text>
+      <line x1="20" y1="126" x2="226" y2="126" stroke="#30415f"/>
+      <text x="20" y="166" class="metric" fill="#101720">94.96%</text>
+      <text x="20" y="190" class="caption">whole-call exact</text>
+      <text x="20" y="238" class="risk">0.0% false approvals</text>
+    </g>
+    <g transform="translate(654 178)">
+      <rect width="246" height="274" rx="8" fill="#121d31" stroke="#30415f"/>
+      <text x="20" y="38" class="label">Joint + long-schema gate</text>
+      <text x="20" y="78" class="metric" fill="#f472b6">99.45%</text>
+      <text x="20" y="102" class="caption">field accuracy</text>
+      <line x1="20" y1="126" x2="226" y2="126" stroke="#30415f"/>
+      <text x="20" y="166" class="metric" fill="#101720">94.96%</text>
+      <text x="20" y="190" class="caption">whole-call exact</text>
+      <text x="20" y="238" class="risk">0.0% false approvals</text>
+    </g>
+  <text x="70" y="500" class="foot">Synthetic mechanism study; thresholds and effect sizes are not vendor estimates.</text>
+  <style>
+    .title{font:700 30px Georgia,serif;fill:#101720}.subtitle{font:500 16px ui-monospace,monospace;fill:#9fb0ca}
+    .note{font:600 16px system-ui,sans-serif;fill:#334250}.label{font:700 16px system-ui,sans-serif;fill:#253240}
+    .metric{font:700 34px Georgia,serif}.caption{font:500 14px system-ui,sans-serif;fill:#40515f}
+    .risk{font:700 15px ui-monospace,monospace;fill:#fda4af}.foot{font:500 13px system-ui,sans-serif;fill:#7f91ad}
+  </style>
+  <style id="fieldbook-v2-theme">
+    text { fill: #e4eaed !important; font-family: Inter, system-ui, sans-serif !important; letter-spacing: 0; }
+    .title { fill: #f7faf9 !important; font-weight: 750 !important; }
+    .subtitle, .sub, .note, .axis, .legend, .body, .small { fill: #8d9aa6 !important; }
+    .label, .smallTitle, .metric, .headtext { fill: #e7edef !important; }
+    path, line, polyline { stroke-linecap: round; stroke-linejoin: round; }
+    .fieldbook-kicker { fill: #73818e !important; font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important; font-size: 11px !important; font-weight: 750 !important; }
+  </style>
+  <g aria-hidden="true" data-fieldbook-frame="overlay">
+    <line x1="24" y1="116" x2="936" y2="116" stroke="#2a3641" stroke-width="1"/>
+    <circle cx="28" cy="26" r="4" fill="#b8f56a"/>
+    <circle cx="42" cy="26" r="4" fill="#52dcef"/>
+    <text class="fieldbook-kicker" x="936" y="30" text-anchor="end">AI SYSTEMS FIELDBOOK / SYSTEM ARCHITECTURE</text>
+    <rect x="0.5" y="0.5" width="959" height="539" rx="8" fill="none" stroke="#2b3742" stroke-width="1"/>
+  </g>
+</svg>
